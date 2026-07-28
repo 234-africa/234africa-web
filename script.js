@@ -197,17 +197,17 @@ async function initSanityCMS() {
             const isPast = eventDate < new Date();
             
             const btnHtml = isPast 
-              ? `<button class="btn-primary-pill btn-event past" disabled>PAST EVENT</button>`
-              : `<a href="${ev.ticketLink || '#'}" target="_blank" class="btn-primary-pill btn-event shadow-red">GET TICKETS</a>`;
+              ? `<button class="btn-primary-pill btn-event-row past" disabled>PAST EVENT</button>`
+              : `<a href="${ev.ticketLink || '#'}" target="_blank" class="btn-primary-pill btn-event-row shadow-red">GET TICKETS</a>`;
 
             return `
-              <div class="event-card">
-                <div class="event-flyer">
+              <div class="event-card-horizontal">
+                <div class="event-flyer-left">
                   <img src="${imgUrl}" alt="Event Flyer">
                 </div>
-                <div class="event-info">
-                  <h3 class="event-title">${ev.title || '234AFRICA EXPERIENCE'}</h3>
-                  <div class="event-date">${dateString}</div>
+                <div class="event-info-right">
+                  <h3 class="event-title-bold">${ev.title || '234AFRICA EXPERIENCE'}</h3>
+                  <div class="event-date-bold">${dateString}</div>
                   ${btnHtml}
                 </div>
               </div>
