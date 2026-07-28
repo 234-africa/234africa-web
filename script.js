@@ -165,9 +165,9 @@ async function initSanityCMS() {
       
       // 1. Process Events
       if (events) {
-        // Pad to exactly 5 events for design preview
+        // Pad to exactly 10 events for design preview
         const displayEvents = [...events];
-        while (displayEvents.length < 5) {
+        while (displayEvents.length < 10) {
           displayEvents.push({});
         }
 
