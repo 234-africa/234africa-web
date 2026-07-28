@@ -165,21 +165,50 @@ async function initSanityCMS() {
       
       // 1. Process Events
       if (events && events.length > 0) {
-        const grid = document.getElementById('gallery-grid');
-        if (grid) {
-          grid.innerHTML = events.map((ev, i) => {
+        const carousel = document.getElementById('events-carousel');
+        if (carousel) {
+          carousel.innerHTML = events.map((ev, i) => {
             const defaultImages = [
               "https://images.unsplash.com/photo-1540039155732-6771dcb6f5e7?auto=format&fit=crop&w=800&q=80",
               "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
               "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80"
             ];
-            const imgUrl = defaultImages[i % defaultImages.length];
+            
+            // Try to resolve Sanity image if it exists
+            let imgUrl = defaultImages[i % defaultImages.length];
+            if (ev.image && ev.image.asset && ev.image.asset._ref) {
+              const ref = ev.image.asset._ref;
+              const parts = ref.split('-');
+              if (parts.length === 4) {
+                imgUrl = `https://cdn.sanity.io/images/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
+              }
+            } else if (ev.poster && ev.poster.asset && ev.poster.asset._ref) {
+                const ref = ev.poster.asset._ref;
+                const parts = ref.split('-');
+                if (parts.length === 4) {
+                  imgUrl = `https://cdn.sanity.io/images/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
+                }
+            }
+
+            const eventDate = new Date(ev.date || '2025-01-01');
+            const dateString = eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            
+            // If the event date is before today, it's a past event
+            const isPast = eventDate < new Date();
+            
+            const btnHtml = isPast 
+              ? `<button class="btn-primary-pill btn-event past" disabled>PAST EVENT</button>`
+              : `<a href="${ev.ticketLink || '#'}" target="_blank" class="btn-primary-pill btn-event shadow-red">GET TICKETS</a>`;
+
             return `
-              <div class="gallery-item">
-                <img src="${imgUrl}" alt="Past Event" class="gallery-img" />
-                <div class="gallery-overlay">
-                  <h3 class="gallery-title">${ev.title || '234AFRICA DROP'}</h3>
-                  <div class="gallery-date">${new Date(ev.date).getFullYear() || '2025'}</div>
+              <div class="event-card">
+                <div class="event-flyer">
+                  <img src="${imgUrl}" alt="Event Flyer">
+                </div>
+                <div class="event-info">
+                  <h3 class="event-title">${ev.title || '234AFRICA EXPERIENCE'}</h3>
+                  <div class="event-date">${dateString}</div>
+                  ${btnHtml}
                 </div>
               </div>
             `;

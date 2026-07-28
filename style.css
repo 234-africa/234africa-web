@@ -130,16 +130,20 @@ canvas { display: block; width: 100%; height: 100%; }
   100% { transform: translateX(-50%); }
 }
 
-/* ── PAST EVENTS GALLERY ── */
-.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-.gallery-item { position: relative; border-radius: 16px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.05); aspect-ratio: 4/5; cursor: pointer; transition: transform 0.3s ease; }
-.gallery-item:hover { transform: translateY(-5px); }
-.gallery-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-.gallery-item:hover .gallery-img { transform: scale(1.05); }
-.gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%); display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; opacity: 0; transition: opacity 0.3s ease; }
-.gallery-item:hover .gallery-overlay { opacity: 1; }
-.gallery-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: #FFF; margin-bottom: 4px; }
-.gallery-date { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; color: var(--c-yellow); letter-spacing: 0.1em; text-transform: uppercase; }
+/* ── EVENTS CAROUSEL ── */
+.events-carousel-wrapper { width: 100%; overflow-x: auto; padding: 20px 0 60px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.events-carousel-wrapper::-webkit-scrollbar { display: none; }
+.events-carousel { display: flex; gap: 24px; width: max-content; padding: 0 40px; }
+.event-card { width: 320px; background: #FFF; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.05); display: flex; flex-direction: column; flex-shrink: 0; transition: transform 0.3s ease; }
+.event-card:hover { transform: translateY(-5px); }
+.event-flyer { width: 100%; aspect-ratio: 4/5; background: #E0DDD4; overflow: hidden; }
+.event-flyer img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.event-card:hover .event-flyer img { transform: scale(1.05); }
+.event-info { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+.event-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: #111; margin-bottom: 4px; line-height: 1.2; text-transform: uppercase; }
+.event-date { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; color: var(--c-yellow); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px; }
+.btn-event { margin-top: auto; text-align: center; width: 100%; }
+.btn-event.past { background: #E0DDD4; color: var(--text-muted); box-shadow: none; cursor: default; }
 
 .site-footer { padding: 100px 0 60px; }
 .footer-meta { font-family: var(--font-display); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text-muted); }

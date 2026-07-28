@@ -186,18 +186,42 @@
         </div>
       </section>
 
-      <!-- PAST EVENTS GALLERY (Powered by Sanity) -->
-      <section class="section-content" id="legacy">
-        <div class="container">
-          <div class="text-center mb-8">
-            <div class="badge-tag">OUR LEGACY</div>
-            <h2 class="section-heading">PAST EVENTS</h2>
-            <p class="section-body" style="margin: 0 auto;">A visual archive of the unforgettable moments we've created.</p>
-          </div>
-          
-          <!-- This grid will be populated by script.js pulling from Sanity -->
-          <div class="gallery-grid" id="gallery-grid">
-            <!-- Dynamic Sanity Flyers Load Here -->
+      <!-- EVENTS SECTION (Powered by Sanity) -->
+      <section class="section-content" id="events" style="padding-bottom: 0;">
+        <div class="container text-center mb-8">
+          <div class="badge-tag">EXPERIENCES</div>
+          <h2 class="section-heading">OUR EVENTS</h2>
+          <p class="section-body" style="margin: 0 auto;">Live Festivals. Nightlife. Unforgettable moments.</p>
+        </div>
+        
+        <div class="events-carousel-wrapper">
+          <!-- This carousel will be populated by script.js pulling from Sanity -->
+          <div class="events-carousel" id="events-carousel">
+            
+            <!-- Dummy Card 1 -->
+            <div class="event-card">
+              <div class="event-flyer">
+                <img src="https://images.unsplash.com/photo-1540039155732-6771dcb6f5e7?auto=format&fit=crop&w=800&q=80" alt="Event Flyer">
+              </div>
+              <div class="event-info">
+                <h3 class="event-title">234AFRICA FESTIVAL</h3>
+                <div class="event-date">DEC 12, 2026</div>
+                <a href="#" class="btn-primary-pill btn-event">GET TICKETS</a>
+              </div>
+            </div>
+            
+            <!-- Dummy Card 2 -->
+            <div class="event-card">
+              <div class="event-flyer">
+                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80" alt="Event Flyer">
+              </div>
+              <div class="event-info">
+                <h3 class="event-title">SUMMER BLOCK PARTY</h3>
+                <div class="event-date">AUG 05, 2025</div>
+                <button class="btn-primary-pill btn-event past" disabled>PAST EVENT</button>
+              </div>
+            </div>
+            
           </div>
         </div>
       </section>
