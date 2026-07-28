@@ -12,8 +12,8 @@
   --c-green:         #108C5A;
   --c-yellow:        #F4A218;
 
-  --font-display:    'Arvo', serif;
-  --font-body:       'DM Sans', sans-serif;
+  --font-display:    'Bricolage Grotesque', sans-serif;
+  --font-body:       'Space Grotesk', sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
