@@ -213,15 +213,18 @@ async function initSanityCMS() {
                 <div class="event-flyer-left">
                   <img src="${imgUrl}" alt="Event Flyer">
                 </div>
-                <div class="event-info-right">
-                  <div class="event-details">
-                    <h3 class="event-title-bold">${ev.title || '234AFRICA EXPERIENCE ' + (i+1)}</h3>
-                    <div class="event-date-bold">${dateString}</div>
-                    <div class="event-summary">${summaryText}</div>
-                  </div>
-                  <div class="event-actions">
-                    ${btnHtml}
-                  </div>
+                <div class="event-info-middle">
+                  <h3 class="event-title-bold">${ev.title || '234AFRICA EXPERIENCE ' + (i+1)}</h3>
+                  <div class="event-date-bold">${dateString}</div>
+                  <div class="event-summary">${summaryText}</div>
+                  ${btnHtml}
+                </div>
+                <div class="event-gallery-right">
+                  <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+                  <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+                  <img src="https://images.unsplash.com/photo-1540039155732-6771dcb6f5e7?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+                  <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+                  <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" alt="Gallery">
                 </div>
               </div>
             `;
