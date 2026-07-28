@@ -206,8 +206,10 @@ async function initSanityCMS() {
                   <img src="${imgUrl}" alt="Event Flyer">
                 </div>
                 <div class="event-info-right">
-                  <h3 class="event-title-bold">${ev.title || '234AFRICA EXPERIENCE'}</h3>
-                  <div class="event-date-bold">${dateString}</div>
+                  <div class="event-details">
+                    <h3 class="event-title-bold">${ev.title || '234AFRICA EXPERIENCE'}</h3>
+                    <div class="event-date-bold">${dateString}</div>
+                  </div>
                   ${btnHtml}
                 </div>
               </div>
