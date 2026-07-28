@@ -200,8 +200,10 @@ async function initSanityCMS() {
               ? `<button class="btn-primary-pill btn-event-row past" disabled>PAST EVENT</button>`
               : `<a href="${ev.ticketLink || '#'}" target="_blank" class="btn-primary-pill btn-event-row shadow-red">GET TICKETS</a>`;
 
+            const summaryText = ev.summary || "Join us for an unforgettable experience celebrating culture, music, and the best of African entertainment. Get your tickets now before they sell out!";
+
             return `
-              <div class="event-card-horizontal">
+              <div class="event-row">
                 <div class="event-flyer-left">
                   <img src="${imgUrl}" alt="Event Flyer">
                 </div>
@@ -209,8 +211,17 @@ async function initSanityCMS() {
                   <div class="event-details">
                     <h3 class="event-title-bold">${ev.title || '234AFRICA EXPERIENCE'}</h3>
                     <div class="event-date-bold">${dateString}</div>
+                    <div class="event-summary">${summaryText}</div>
                   </div>
-                  ${btnHtml}
+                  <div class="event-actions">
+                    <div class="photo-stack">
+                      <img src="https://i.pravatar.cc/100?img=${(i*3)+1}" alt="User">
+                      <img src="https://i.pravatar.cc/100?img=${(i*3)+2}" alt="User">
+                      <img src="https://i.pravatar.cc/100?img=${(i*3)+3}" alt="User">
+                      <img src="https://i.pravatar.cc/100?img=${(i*3)+4}" alt="User">
+                    </div>
+                    ${btnHtml}
+                  </div>
                 </div>
               </div>
             `;
