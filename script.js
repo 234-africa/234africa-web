@@ -164,10 +164,16 @@ async function initSanityCMS() {
       const { events, brands } = data.result;
       
       // 1. Process Events
-      if (events && events.length > 0) {
+      if (events) {
+        // Pad to exactly 5 events for design preview
+        const displayEvents = [...events];
+        while (displayEvents.length < 5) {
+          displayEvents.push({});
+        }
+
         const carousel = document.getElementById('events-carousel');
         if (carousel) {
-          carousel.innerHTML = events.map((ev, i) => {
+          carousel.innerHTML = displayEvents.map((ev, i) => {
             const defaultImages = [
               "https://images.unsplash.com/photo-1540039155732-6771dcb6f5e7?auto=format&fit=crop&w=800&q=80",
               "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
@@ -190,7 +196,7 @@ async function initSanityCMS() {
                 }
             }
 
-            const eventDate = new Date(ev.date || '2025-01-01');
+            const eventDate = ev.date ? new Date(ev.date) : new Date(Date.now() + 86400000 * (i+1));
             const dateString = eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
             
             // If the event date is before today, it's a past event
@@ -207,21 +213,18 @@ async function initSanityCMS() {
                 <div class="event-flyer-left">
                   <img src="${imgUrl}" alt="Event Flyer">
                 </div>
-                <div class="event-info-right">
-                  <div class="event-details">
-                    <h3 class="event-title-bold">${ev.title || '234AFRICA EXPERIENCE'}</h3>
-                    <div class="event-date-bold">${dateString}</div>
-                    <div class="event-summary">${summaryText}</div>
-                  </div>
-                  <div class="event-actions">
-                    <div class="photo-stack">
-                      <img src="https://i.pravatar.cc/100?img=${(i*3)+1}" alt="User">
-                      <img src="https://i.pravatar.cc/100?img=${(i*3)+2}" alt="User">
-                      <img src="https://i.pravatar.cc/100?img=${(i*3)+3}" alt="User">
-                      <img src="https://i.pravatar.cc/100?img=${(i*3)+4}" alt="User">
-                    </div>
-                    ${btnHtml}
-                  </div>
+                <div class="event-info-middle">
+                  <h3 class="event-title-bold">${ev.title || '234AFRICA EXPERIENCE ' + (i+1)}</h3>
+                  <div class="event-date-bold">${dateString}</div>
+                  <div class="event-summary">${summaryText}</div>
+                  ${btnHtml}
+                </div>
+                <div class="event-gallery-right">
+                  <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+                  <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+                  <img src="https://images.unsplash.com/photo-1540039155732-6771dcb6f5e7?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+                  <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+                  <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" alt="Gallery">
                 </div>
               </div>
             `;
