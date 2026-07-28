@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>234AFRICA — Where Africa's Culture Ignites</title>
+  
+  <!-- Fonts matching the screenshot (Extended Sans + Clean Sans for body) -->
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- FIXED 3D BACKGROUND (Wireframe Sphere + Colorful Square Confetti) -->
+  <div id="canvas-container">
+    <canvas id="webgl-canvas"></canvas>
+  </div>
+
+  <!-- FIXED HEADER -->
+  <header id="header">
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <span class="c-red">2</span><span class="c-yellow">3</span><span class="c-green">4</span> <span class="text-black">AFRICA</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#who-we-are">CULTURE</a>
+        <a href="https://greyapple.vip">GREY APPLE</a>
+        <a href="#events">FESTIVALS</a>
+        <a href="#brands">IMPACT</a>
+      </nav>
+      <div class="header-right">
+        <button class="btn-audio">
+          <span class="audio-dots">....</span> AUDIO OFF
+        </button>
+        <a href="mailto:234groupinfo@gmail.com" class="btn-primary-pill">JOIN THE MOVEMENT</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SCROLL DOM -->
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+      
+      <!-- HERO SECTION (Matches Screenshot Exactly) -->
+      <section class="section-hero">
+        <div class="container text-center hero-content-wrapper">
+          <div class="hero-locations">
+            <span class="dot-green"></span> LAGOS • ACCRA • NAIROBI • LONDON • EST. 2019
+          </div>
+          
+          <h1 class="hero-title">
+            <div class="text-black">WHERE</div>
+            <div class="text-black">AFRICA'S</div>
+            <div class="c-red title-huge">CULTURE</div>
+            <div class="c-green">& MUSIC</div>
+            <div class="c-yellow title-huge">IGNITES.</div>
+          </h1>
+
+          <p class="hero-desc">
+            Live Festivals. Unforgettable Music. Groundbreaking Ventures.<br>
+            We build the moments that define a generation.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#events" class="btn-primary-pill shadow-red">EXPLORE FESTIVALS ➔</a>
+            <a href="https://greyapple.vip" class="btn-outline-pill">DISCOVER GREY APPLE</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHO WE ARE & WHAT WE DO (PDF Content Integration) -->
+      <section class="section-content" id="who-we-are">
+        <div class="container">
+          <div class="grid-2-col mb-12">
+            <div>
+              <div class="badge-tag">WHO WE ARE</div>
+              <h2 class="section-heading">POWERING<br><span class="c-red">GEN Z</span> EXPERIENCES.</h2>
+              <p class="section-body">
+                234Africa Entertainment is built at the intersection of music, lifestyle, and brand engagement. We create scalable experiences with deep access to highly engaged youth audiences across campuses and nightlife.
+              </p>
+            </div>
+            <div class="stats-box">
+              <div class="stat-row">
+                <h3 class="c-green">30,000+</h3>
+                <p>TOTAL ATTENDEES</p>
+              </div>
+              <div class="stat-row">
+                <h3 class="c-red">12+</h3>
+                <p>MAJOR EVENTS EXECUTED</p>
+              </div>
+              <div class="stat-row">
+                <h3 class="c-yellow">2,700+</h3>
+                <p>LARGEST SINGLE EVENT</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- The Ecosystem Pillars (PDF Content) -->
+          <div class="ecosystem-grid mt-12">
+            <div class="eco-card border-red">
+              <h4 class="c-red">MUSIC & MGT</h4>
+              <ul>
+                <li>Global Distribution</li>
+                <li>State-of-the-art Studios</li>
+                <li>Artist Spotlights on Radio</li>
+                <li>Exclusive Music Camps</li>
+              </ul>
+            </div>
+            <div class="eco-card border-green">
+              <h4 class="c-green">EVENTS</h4>
+              <ul>
+                <li>Integrated with GreyApple</li>
+                <li>Zero Hidden Fees</li>
+                <li>Massive Scale Nightlife</li>
+                <li>Unmatched Energy</li>
+              </ul>
+            </div>
+            <div class="eco-card border-yellow">
+              <h4 class="c-yellow">BRANDS</h4>
+              <ul>
+                <li>On-ground Activations</li>
+                <li>Influencer Amplification</li>
+                <li>Digital Integration</li>
+                <li>Gen Z Connection</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LIVE DROPS (Sanity) -->
+      <section class="section-content" id="events">
+        <div class="container">
+          <div class="text-center mb-8">
+            <div class="badge-tag">LIVE DROPS</div>
+            <h2 class="section-heading">UPCOMING FESTIVALS</h2>
+          </div>
+          <div class="event-grid" id="event-grid">
+            <!-- Dynamic Sanity Events Load Here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- BRANDS (PDF Content) -->
+      <section class="section-content" id="brands">
+        <div class="container text-center">
+          <div class="badge-tag">TRUSTED BY</div>
+          <h2 class="section-heading">BRAND PARTNERS</h2>
+          
+          <div class="brands-cloud mt-8">
+            <span>ACCESS BANK</span>
+            <span class="c-red">•</span>
+            <span>AIRPEACE</span>
+            <span class="c-green">•</span>
+            <span>WEMA BANK</span>
+            <span class="c-yellow">•</span>
+            <span>VITAL PRODUCTS</span>
+            <span class="c-red">•</span>
+            <span>POWER HORSE</span>
+            <span class="c-green">•</span>
+            <span>TRACE AFRICA</span>
+            <span class="c-yellow">•</span>
+            <span>BEAT 99.9 FM</span>
+            <span class="c-red">•</span>
+            <span>BOUNCE RADIO</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="site-footer">
+        <div class="container text-center">
+          <h2 class="section-heading">PARTNER WITH THE CULTURE.</h2>
+          <a href="mailto:234groupinfo@gmail.com" class="btn-primary-pill shadow-red mt-6">CONTACT US</a>
+          <p class="footer-meta mt-12">Lagos, Nigeria • +234 8103236094 • @234.hq</p>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
