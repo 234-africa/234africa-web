@@ -107,22 +107,22 @@ canvas { display: block; width: 100%; height: 100%; }
 .stat-row p { font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 8px; }
 
 .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 32px; }
-.eco-card { background: #FFF; padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.02); border-top: 4px solid #000; display: flex; flex-direction: column; }
+.eco-card { background: #FFF; padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.02); border-top: 4px solid #000; display: flex; flex-direction: column; text-align: left; }
 .eco-card.border-red { border-top-color: var(--c-red); }
 .eco-card.border-green { border-top-color: var(--c-green); }
 .eco-card.border-yellow { border-top-color: var(--c-yellow); }
 .eco-card.border-black { border-top-color: #000; }
 .eco-card h4 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; margin-bottom: 12px; letter-spacing: 0.05em; }
 .eco-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; flex-grow: 1; }
-.eco-card ul { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: auto; }
-.eco-card ul li { font-size: 0.9rem; font-weight: 500; color: #111; display: flex; align-items: baseline; gap: 8px; }
-.eco-card ul li::before { content: '•'; color: var(--c-red); }
+.eco-card ul { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: auto; padding: 0; }
+.eco-card ul li { font-size: 0.9rem; font-weight: 500; color: #111; display: flex; align-items: flex-start; gap: 8px; line-height: 1.4; }
+.eco-card ul li::before { content: '•'; color: var(--c-red); font-weight: bold; }
 
 /* ── BRANDS MARQUEE ── */
-.marquee-container { width: 100vw; max-width: 100%; overflow: hidden; position: relative; margin-top: 48px; padding: 20px 0; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; background: rgba(0,0,0,0.02); }
-.marquee-track { display: flex; width: max-content; animation: marquee 30s linear infinite; }
+.marquee-container { width: 100%; overflow: hidden; background: rgba(0,0,0,0.02); padding: 40px 0; border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05); }
+.marquee-track { display: flex; align-items: center; width: max-content; animation: marquee 30s linear infinite; }
 .marquee-track:hover { animation-play-state: paused; }
-.brand-logo-placeholder { height: 40px; margin: 0 40px; opacity: 0.5; filter: grayscale(100%); transition: opacity 0.3s, filter 0.3s; }
+.brand-logo-placeholder { height: 40px; margin: 0 40px; opacity: 0.5; filter: grayscale(100%); transition: opacity 0.3s, filter 0.3s; flex-shrink: 0; }
 .brand-logo-placeholder:hover { opacity: 1; filter: grayscale(0%); }
 
 @keyframes marquee {
