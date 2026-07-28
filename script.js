@@ -155,13 +155,15 @@ const SANITY_DATASET = "production";
 async function initSanityCMS() {
   if (!SANITY_PROJECT_ID) return;
   try {
-    const groqQuery = encodeURIComponent(`{ "events": *[_type == "event"] | order(date desc) }`);
+    const groqQuery = encodeURIComponent(`{ "events": *[_type == "event"] | order(date desc), "brands": *[_type == "brand"] }`);
     const url = `https://${SANITY_PROJECT_ID.toLowerCase()}.api.sanity.io/v2022-03-07/data/query/${SANITY_DATASET}?query=${groqQuery}`;
     const response = await fetch(url);
     const data = await response.json();
 
     if (data && data.result) {
-      const { events } = data.result;
+      const { events, brands } = data.result;
+      
+      // 1. Process Events
       if (events && events.length > 0) {
         const grid = document.getElementById('gallery-grid');
         if (grid) {
@@ -184,6 +186,27 @@ async function initSanityCMS() {
           }).join('');
         }
         setTimeout(() => ScrollTrigger.refresh(), 500);
+      }
+
+      // 2. Process Brands
+      if (brands && brands.length > 0) {
+        const marquee = document.getElementById('marquee-track');
+        if (marquee) {
+          const brandHtml = brands.map(b => {
+            let imgUrl = "https://placehold.co/200x60/E0DDD4/1A1A1A?text=BRAND&font=montserrat";
+            if (b.logo && b.logo.asset && b.logo.asset._ref) {
+              const ref = b.logo.asset._ref;
+              const parts = ref.split('-');
+              if (parts.length === 4) {
+                imgUrl = `https://cdn.sanity.io/images/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
+              }
+            }
+            return `<img src="${imgUrl}" alt="${b.name || 'Brand'}" class="brand-logo-placeholder" style="filter:none; opacity:1;">`;
+          }).join('');
+          
+          // Duplicate the HTML blocks to ensure the continuous marquee loop has enough content
+          marquee.innerHTML = brandHtml + brandHtml + brandHtml;
+        }
       }
     }
   } catch (error) {
