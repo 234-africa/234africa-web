@@ -163,23 +163,23 @@ async function initSanityCMS() {
     if (data && data.result) {
       const { events } = data.result;
       if (events && events.length > 0) {
-        const grid = document.getElementById('event-grid');
+        const grid = document.getElementById('gallery-grid');
         if (grid) {
           grid.innerHTML = events.map((ev, i) => {
             const defaultImages = [
+              "https://images.unsplash.com/photo-1540039155732-6771dcb6f5e7?auto=format&fit=crop&w=800&q=80",
               "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
               "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80"
             ];
             const imgUrl = defaultImages[i % defaultImages.length];
             return `
-              <article class="event-card">
-                <div class="event-img-wrap"><img src="${imgUrl}" alt="Event" /></div>
-                <div class="event-status">${ev.status || 'AVAILABLE'}</div>
-                <div class="event-info">
-                  <h3 class="event-title">${ev.title || '234AFRICA DROP'}</h3>
-                  <a href="https://greyapple.vip" target="_blank" class="event-link">GET TICKETS ➔</a>
+              <div class="gallery-item">
+                <img src="${imgUrl}" alt="Past Event" class="gallery-img" />
+                <div class="gallery-overlay">
+                  <h3 class="gallery-title">${ev.title || '234AFRICA DROP'}</h3>
+                  <div class="gallery-date">${new Date(ev.date).getFullYear() || '2025'}</div>
                 </div>
-              </article>
+              </div>
             `;
           }).join('');
         }
