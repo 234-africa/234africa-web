@@ -173,23 +173,40 @@ async function initSanityCMS() {
   }
 
   // 1. Process Events
-  // Pad to exactly 10 events for design preview
+  // Pad to exactly 5 events for design preview
   const displayEvents = [...events];
-  while (displayEvents.length < 10) {
+  while (displayEvents.length < 5) {
     displayEvents.push({});
   }
 
   const carousel = document.getElementById('events-carousel');
   if (carousel) {
     carousel.innerHTML = displayEvents.map((ev, i) => {
-      const defaultImages = [
+      // 5 distinct high-quality festival/concert images for the main flyers
+      const defaultFlyers = [
         "https://images.unsplash.com/photo-1540039155732-6771dcb6f5e7?auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80"
+        "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=800&q=80"
+      ];
+      
+      // A pool of unique images for the right-side galleries
+      const galleryPool = [
+        "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1533174000220-e1c964408a61?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1510511459019-5d01a91e5d9c?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1520095972714-909e91b05382?auto=format&fit=crop&w=400&q=80"
       ];
       
       // Try to resolve Sanity image if it exists
-      let imgUrl = defaultImages[i % defaultImages.length];
+      let imgUrl = defaultFlyers[i % defaultFlyers.length];
       if (ev.image && ev.image.asset && ev.image.asset._ref) {
         const ref = ev.image.asset._ref;
         const parts = ref.split('-');
@@ -216,6 +233,12 @@ async function initSanityCMS() {
 
       const summaryText = ev.summary || "Join us for an unforgettable experience celebrating culture, music, and the best of African entertainment. Get your tickets now before they sell out!";
 
+      // Generate 5 unique gallery images for this specific row using an offset
+      const galleryHtml = Array.from({length: 5}).map((_, j) => {
+        const poolIndex = (i * 2 + j) % galleryPool.length;
+        return `<img src="${galleryPool[poolIndex]}" alt="Gallery">`;
+      }).join('');
+
       return `
         <div class="event-row">
           <div class="event-flyer-left">
@@ -228,11 +251,7 @@ async function initSanityCMS() {
             ${btnHtml}
           </div>
           <div class="event-gallery-right">
-            <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=400&q=80" alt="Gallery">
-            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=400&q=80" alt="Gallery">
-            <img src="https://images.unsplash.com/photo-1540039155732-6771dcb6f5e7?auto=format&fit=crop&w=400&q=80" alt="Gallery">
-            <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=400&q=80" alt="Gallery">
-            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+            ${galleryHtml}
           </div>
         </div>
       `;
