@@ -154,6 +154,10 @@ const SANITY_DATASET = "production";
 
 async function initSanityCMS() {
   if (!SANITY_PROJECT_ID) return;
+  
+  let events = [];
+  let brands = [];
+
   try {
     const groqQuery = encodeURIComponent(`{ "events": *[_type == "event"] | order(date desc), "brands": *[_type == "brand"] }`);
     const url = `https://${SANITY_PROJECT_ID.toLowerCase()}.api.sanity.io/v2022-03-07/data/query/${SANITY_DATASET}?query=${groqQuery}`;
@@ -161,101 +165,100 @@ async function initSanityCMS() {
     const data = await response.json();
 
     if (data && data.result) {
-      const { events, brands } = data.result;
-      
-      // 1. Process Events
-      if (events) {
-        // Pad to exactly 10 events for design preview
-        const displayEvents = [...events];
-        while (displayEvents.length < 10) {
-          displayEvents.push({});
-        }
-
-        const carousel = document.getElementById('events-carousel');
-        if (carousel) {
-          carousel.innerHTML = displayEvents.map((ev, i) => {
-            const defaultImages = [
-              "https://images.unsplash.com/photo-1540039155732-6771dcb6f5e7?auto=format&fit=crop&w=800&q=80",
-              "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
-              "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80"
-            ];
-            
-            // Try to resolve Sanity image if it exists
-            let imgUrl = defaultImages[i % defaultImages.length];
-            if (ev.image && ev.image.asset && ev.image.asset._ref) {
-              const ref = ev.image.asset._ref;
-              const parts = ref.split('-');
-              if (parts.length === 4) {
-                imgUrl = `https://cdn.sanity.io/images/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
-              }
-            } else if (ev.poster && ev.poster.asset && ev.poster.asset._ref) {
-                const ref = ev.poster.asset._ref;
-                const parts = ref.split('-');
-                if (parts.length === 4) {
-                  imgUrl = `https://cdn.sanity.io/images/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
-                }
-            }
-
-            const eventDate = ev.date ? new Date(ev.date) : new Date(Date.now() + 86400000 * (i+1));
-            const dateString = eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-            
-            // If the event date is before today, it's a past event
-            const isPast = eventDate < new Date();
-            
-            const btnHtml = isPast 
-              ? `<button class="btn-primary-pill btn-event-row past" disabled>PAST EVENT</button>`
-              : `<a href="${ev.ticketLink || '#'}" target="_blank" class="btn-primary-pill btn-event-row shadow-red">GET TICKETS</a>`;
-
-            const summaryText = ev.summary || "Join us for an unforgettable experience celebrating culture, music, and the best of African entertainment. Get your tickets now before they sell out!";
-
-            return `
-              <div class="event-row">
-                <div class="event-flyer-left">
-                  <img src="${imgUrl}" alt="Event Flyer">
-                </div>
-                <div class="event-info-middle">
-                  <h3 class="event-title-bold">${ev.title || '234AFRICA EXPERIENCE ' + (i+1)}</h3>
-                  <div class="event-date-bold">${dateString}</div>
-                  <div class="event-summary">${summaryText}</div>
-                  ${btnHtml}
-                </div>
-                <div class="event-gallery-right">
-                  <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=400&q=80" alt="Gallery">
-                  <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=400&q=80" alt="Gallery">
-                  <img src="https://images.unsplash.com/photo-1540039155732-6771dcb6f5e7?auto=format&fit=crop&w=400&q=80" alt="Gallery">
-                  <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=400&q=80" alt="Gallery">
-                  <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" alt="Gallery">
-                </div>
-              </div>
-            `;
-          }).join('');
-        }
-        setTimeout(() => ScrollTrigger.refresh(), 500);
-      }
-
-      // 2. Process Brands
-      if (brands && brands.length > 0) {
-        const marquee = document.getElementById('marquee-track');
-        if (marquee) {
-          const brandHtml = brands.map(b => {
-            let imgUrl = "https://placehold.co/200x60/E0DDD4/1A1A1A?text=BRAND&font=montserrat";
-            if (b.logo && b.logo.asset && b.logo.asset._ref) {
-              const ref = b.logo.asset._ref;
-              const parts = ref.split('-');
-              if (parts.length === 4) {
-                imgUrl = `https://cdn.sanity.io/images/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
-              }
-            }
-            return `<img src="${imgUrl}" alt="${b.name || 'Brand'}" class="brand-logo-placeholder" style="filter:none; opacity:1;">`;
-          }).join('');
-          
-          // Duplicate the HTML blocks to ensure the continuous marquee loop has enough content
-          marquee.innerHTML = brandHtml + brandHtml + brandHtml;
-        }
-      }
+      events = data.result.events || [];
+      brands = data.result.brands || [];
     }
   } catch (error) {
-    console.warn("Sanity fetch failed.");
+    console.warn("Sanity fetch failed, falling back to dummy layout preview.");
+  }
+
+  // 1. Process Events
+  // Pad to exactly 10 events for design preview
+  const displayEvents = [...events];
+  while (displayEvents.length < 10) {
+    displayEvents.push({});
+  }
+
+  const carousel = document.getElementById('events-carousel');
+  if (carousel) {
+    carousel.innerHTML = displayEvents.map((ev, i) => {
+      const defaultImages = [
+        "https://images.unsplash.com/photo-1540039155732-6771dcb6f5e7?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80"
+      ];
+      
+      // Try to resolve Sanity image if it exists
+      let imgUrl = defaultImages[i % defaultImages.length];
+      if (ev.image && ev.image.asset && ev.image.asset._ref) {
+        const ref = ev.image.asset._ref;
+        const parts = ref.split('-');
+        if (parts.length === 4) {
+          imgUrl = `https://cdn.sanity.io/images/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
+        }
+      } else if (ev.poster && ev.poster.asset && ev.poster.asset._ref) {
+          const ref = ev.poster.asset._ref;
+          const parts = ref.split('-');
+          if (parts.length === 4) {
+            imgUrl = `https://cdn.sanity.io/images/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
+          }
+      }
+
+      const eventDate = ev.date ? new Date(ev.date) : new Date(Date.now() + 86400000 * (i+1));
+      const dateString = eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      
+      // If the event date is before today, it's a past event
+      const isPast = eventDate < new Date();
+      
+      const btnHtml = isPast 
+        ? `<button class="btn-primary-pill btn-event-row past" disabled>PAST EVENT</button>`
+        : `<a href="${ev.ticketLink || '#'}" target="_blank" class="btn-primary-pill btn-event-row shadow-red">GET TICKETS</a>`;
+
+      const summaryText = ev.summary || "Join us for an unforgettable experience celebrating culture, music, and the best of African entertainment. Get your tickets now before they sell out!";
+
+      return `
+        <div class="event-row">
+          <div class="event-flyer-left">
+            <img src="${imgUrl}" alt="Event Flyer">
+          </div>
+          <div class="event-info-middle">
+            <h3 class="event-title-bold">${ev.title || '234AFRICA EXPERIENCE ' + (i+1)}</h3>
+            <div class="event-date-bold">${dateString}</div>
+            <div class="event-summary">${summaryText}</div>
+            ${btnHtml}
+          </div>
+          <div class="event-gallery-right">
+            <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+            <img src="https://images.unsplash.com/photo-1540039155732-6771dcb6f5e7?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+            <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+  setTimeout(() => ScrollTrigger.refresh(), 500);
+
+  // 2. Process Brands
+  const marquee = document.getElementById('marquee-track');
+  if (marquee) {
+    const defaultBrands = [{}, {}, {}, {}, {}, {}]; // Dummy array if empty
+    const displayBrands = (brands && brands.length > 0) ? brands : defaultBrands;
+
+    const brandHtml = displayBrands.map(b => {
+      let imgUrl = "https://placehold.co/200x60/E0DDD4/1A1A1A?text=BRAND&font=montserrat";
+      if (b.logo && b.logo.asset && b.logo.asset._ref) {
+        const ref = b.logo.asset._ref;
+        const parts = ref.split('-');
+        if (parts.length === 4) {
+          imgUrl = `https://cdn.sanity.io/images/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
+        }
+      }
+      return `<img src="${imgUrl}" alt="${b.name || 'Brand'}" class="brand-logo-placeholder" style="filter:none; opacity:1;">`;
+    }).join('');
+    
+    marquee.innerHTML = brandHtml + brandHtml + brandHtml;
   }
 }
 
