@@ -2,20 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>234AFRICA - The Ecosystem</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800;12..96,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  
   <link rel="stylesheet" href="style.css" />
   
   <style>
-    body {
-      background: #000;
+    :root {
+      --c-red: #E84128;
+      --c-yellow: #F4A218;
+      --c-green: #108C5A;
+      --c-silver: #FFFFFF;
+    }
+    
+    html, body {
       margin: 0; padding: 0;
+      height: 100%;
+      background: #050505;
+      overflow: hidden; /* Hide main body scroll */
       font-family: 'Space Grotesk', sans-serif;
-      overflow: hidden; /* Lock scroll, full screen accordion */
     }
     
     /* 3D WebGL Background Canvas */
@@ -23,222 +33,100 @@
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      z-index: -1;
+      z-index: 1;
       pointer-events: none;
     }
 
-    /* Make header links visible on dark background */
+    /* Make header visible */
     .nav-links, .nav-links a { color: #fff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
-    #header { background: transparent !important; border-bottom: none !important; }
+    #header { background: transparent !important; border-bottom: none !important; z-index: 999; }
 
-    /* The Accordion Container */
-    .accordion-container {
-      display: flex;
+    /* The Snap Scroll Container */
+    #snap-container {
+      height: 100svh;
       width: 100vw;
-      height: 100vh; /* Full viewport height */
-      padding-top: 0; /* REMOVED PADDING - flows under header */
-      box-sizing: border-box;
-    }
-
-    /* Individual Panels (Cyber-Glass Base) */
-    .acc-panel {
-      flex: 1;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
       position: relative;
-      overflow: hidden;
-      transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), background 0.6s ease, box-shadow 0.6s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-right: 1px solid rgba(255,255,255,0.1);
-      cursor: pointer;
-      /* Glassmorphism */
-      background: rgba(10, 10, 10, 0.4);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
+      z-index: 10;
+      /* Hide scrollbars for cleaner look */
+      -ms-overflow-style: none; 
+      scrollbar-width: none; 
     }
-    .acc-panel:last-child {
-      border-right: none;
+    #snap-container::-webkit-scrollbar {
+      display: none; 
     }
 
-    /* Vertical Title (Hollow Outline Base + Glitch) */
-    .acc-title-wrap {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      transition: opacity 0.3s ease;
-      z-index: 10;
-      pointer-events: none;
+    /* Individual Snap Sections */
+    .snap-section {
+      height: 100svh;
+      width: 100vw;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+      /* Glassmorphism over the 3D background */
+      background: rgba(5, 5, 5, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: background-color 0.5s ease;
     }
-    .acc-title {
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      transform: rotate(180deg);
+
+    .content-wrapper {
+      max-width: 900px;
+      z-index: 20;
+    }
+
+    /* Typography */
+    .snap-title {
       font-family: var(--font-display);
-      font-size: clamp(3rem, 6vw, 6rem);
+      font-size: clamp(3rem, 10vw, 8rem);
       font-weight: 900;
       text-transform: uppercase;
       margin: 0;
-      color: transparent; 
-      -webkit-text-stroke: 1px rgba(255,255,255,0.3);
-      white-space: nowrap;
+      line-height: 1;
       letter-spacing: -2px;
-      transition: all 0.3s ease;
-    }
-
-    /* Glitch Animation for Titles */
-    .acc-title {
-      animation: glitch 4s infinite linear alternate-reverse;
-    }
-    @keyframes glitch {
-      0% { transform: rotate(180deg) translate(0); }
-      10% { transform: rotate(180deg) translate(-2px, 2px); }
-      20% { transform: rotate(180deg) translate(-2px, -2px); }
-      30% { transform: rotate(180deg) translate(2px, 2px); }
-      40% { transform: rotate(180deg) translate(2px, -2px); }
-      50% { transform: rotate(180deg) translate(0); }
-      100% { transform: rotate(180deg) translate(0); }
-    }
-
-    /* Hidden Content (Neon Glow Text) */
-    .acc-content {
-      opacity: 0;
+      /* Hollow stroke look initially, filled by GSAP */
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(255,255,255,0.2);
       transform: translateY(50px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      max-width: 800px;
-      padding: 40px;
-      text-align: center;
-      z-index: 20;
-      pointer-events: none;
-      /* Add some margin to push it down so it doesn't overlap header */
-      margin-top: 80px; 
+      opacity: 0;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.8);
     }
-    .acc-content p {
-      font-size: clamp(2rem, 4vw, 4rem);
-      font-family: var(--font-display);
-      font-weight: 800;
-      line-height: 1.1;
+
+    .snap-desc {
+      font-size: clamp(1.2rem, 4vw, 2rem);
+      font-weight: 700;
       color: #fff;
-      margin: 0;
+      margin-top: 30px;
       text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(30px);
       text-shadow: 0 5px 20px rgba(0,0,0,0.8);
     }
-
-    /* HOVER MECHANICS (Desktop) */
-    @media (hover: hover) and (pointer: fine) {
-      .acc-panel:hover {
-        flex: 5;
-      }
-      .acc-panel:hover .acc-title-wrap {
-        opacity: 0; 
-      }
-      .acc-panel:hover .acc-content {
-        opacity: 1; 
-        transform: translateY(0);
-        transition-delay: 0.2s;
-        pointer-events: auto;
-      }
-    }
-
-    /* TAP MECHANICS (Mobile) */
-    .acc-panel.active {
-      flex: 5 !important;
-    }
-    .acc-panel.active .acc-title-wrap {
-      opacity: 0 !important;
-    }
-    .acc-panel.active .acc-content {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
-      transition-delay: 0.2s !important;
-      pointer-events: auto !important;
-    }
-
-    /* PILLAR COLORS (Futuristic Neon Profiles over Glass) */
-    /* Marketing (Red) */
-    .acc-marketing:hover, .acc-marketing.active {
-      background: radial-gradient(circle at center, rgba(232, 65, 40, 0.4) 0%, rgba(10,10,10,0.6) 100%);
-      box-shadow: inset 0 0 50px rgba(232, 65, 40, 0.3);
-      border-color: var(--c-red);
-    }
-    .acc-marketing:hover .acc-title, .acc-marketing.active .acc-title { color: var(--c-red); -webkit-text-stroke: 0; text-shadow: 0 0 20px var(--c-red); }
-    .acc-marketing .acc-content p { text-shadow: 0 0 20px rgba(232, 65, 40, 0.8), 0 5px 20px rgba(0,0,0,0.8); }
-
-    /* Music (Yellow) */
-    .acc-music:hover, .acc-music.active {
-      background: radial-gradient(circle at center, rgba(244, 162, 24, 0.3) 0%, rgba(10,10,10,0.6) 100%);
-      box-shadow: inset 0 0 50px rgba(244, 162, 24, 0.2);
-      border-color: var(--c-yellow);
-    }
-    .acc-music:hover .acc-title, .acc-music.active .acc-title { color: var(--c-yellow); -webkit-text-stroke: 0; text-shadow: 0 0 20px var(--c-yellow); }
-    .acc-music .acc-content p { text-shadow: 0 0 20px rgba(244, 162, 24, 0.8), 0 5px 20px rgba(0,0,0,0.8); }
-
-    /* Events (Green) */
-    .acc-events:hover, .acc-events.active {
-      background: radial-gradient(circle at center, rgba(16, 140, 90, 0.5) 0%, rgba(10,10,10,0.6) 100%);
-      box-shadow: inset 0 0 50px rgba(16, 140, 90, 0.4);
-      border-color: var(--c-green);
-    }
-    .acc-events:hover .acc-title, .acc-events.active .acc-title { color: var(--c-green); -webkit-text-stroke: 0; text-shadow: 0 0 20px var(--c-green); }
-    .acc-events .acc-content p { text-shadow: 0 0 20px rgba(16, 140, 90, 0.8), 0 5px 20px rgba(0,0,0,0.8); }
-
-    /* GreyApple (White) */
-    .acc-greyapple:hover, .acc-greyapple.active {
-      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, rgba(10,10,10,0.6) 100%);
-      box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.15);
-      border-color: #fff;
-    }
-    .acc-greyapple:hover .acc-title, .acc-greyapple.active .acc-title { color: #fff; -webkit-text-stroke: 0; text-shadow: 0 0 20px rgba(255,255,255,0.8); }
-    .acc-greyapple .acc-content p { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 5px 20px rgba(0,0,0,0.8); }
-
-    /* CRT Scanline Overlay */
-    .accordion-container::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
-      background-size: 100% 4px;
-      pointer-events: none;
-      z-index: 999;
-    }
-
-    /* MOBILE LAYOUT */
-    @media (max-width: 992px) {
-      .accordion-container {
-        flex-direction: column; 
-        padding-top: 0; 
-        height: 100svh; 
-      }
-      .acc-panel {
-        border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-      }
-      .acc-panel:last-child {
-        border-bottom: none;
-      }
-      .acc-title {
-        writing-mode: horizontal-tb; 
-        transform: rotate(0deg);
-        font-size: clamp(2.5rem, 8vw, 4rem);
-        animation: glitch-horiz 4s infinite linear alternate-reverse;
-      }
-      .acc-content {
-        margin-top: 40px; /* offset header on mobile */
-      }
-      .acc-content p {
-        font-size: clamp(1.2rem, 5vw, 2rem);
-      }
-      .acc-panel.active { flex: 8 !important; }
-    }
     
-    @keyframes glitch-horiz {
-      0% { transform: rotate(0deg) translate(0); }
-      10% { transform: rotate(0deg) translate(-2px, 2px); }
-      20% { transform: rotate(0deg) translate(-2px, -2px); }
-      30% { transform: rotate(0deg) translate(2px, 2px); }
-      40% { transform: rotate(0deg) translate(2px, -2px); }
-      50% { transform: rotate(0deg) translate(0); }
-      100% { transform: rotate(0deg) translate(0); }
+    /* Mobile scroll prompt */
+    .scroll-prompt {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      opacity: 0.5;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.2; transform: translate(-50%, 0); }
+      50% { opacity: 0.8; transform: translate(-50%, 10px); }
+      100% { opacity: 0.2; transform: translate(-50%, 0); }
     }
   </style>
 </head>
@@ -261,93 +149,151 @@
     </div>
   </header>
 
-  <div class="accordion-container">
+  <!-- KINETIC SNAP SCROLL CONTAINER -->
+  <div id="snap-container">
     
     <!-- MARKETING -->
-    <div class="acc-panel acc-marketing">
-      <div class="acc-title-wrap"><h2 class="acc-title">MARKETING</h2></div>
-      <div class="acc-content">
-        <p>We amplify African voices and brands. Through culture-driven campaigns and strategic storytelling, we connect creators with global audiences.</p>
+    <section class="snap-section" id="sec-marketing" data-color="#E84128" data-shape="storm">
+      <div class="content-wrapper">
+        <h2 class="snap-title" style="--glow: var(--c-red);">MARKETING</h2>
+        <p class="snap-desc">We amplify African voices and brands. Through culture-driven campaigns and strategic storytelling, we connect creators with global audiences.</p>
       </div>
-    </div>
+      <div class="scroll-prompt">SWIPE DOWN</div>
+    </section>
 
     <!-- MUSIC -->
-    <div class="acc-panel acc-music">
-      <div class="acc-title-wrap"><h2 class="acc-title">MUSIC</h2></div>
-      <div class="acc-content">
-        <p>The heartbeat of our culture. We discover, promote, and elevate the next generation of African musical talent to the world stage.</p>
+    <section class="snap-section" id="sec-music" data-color="#F4A218" data-shape="waveform">
+      <div class="content-wrapper">
+        <h2 class="snap-title" style="--glow: var(--c-yellow);">MUSIC</h2>
+        <p class="snap-desc">The heartbeat of our culture. We discover, promote, and elevate the next generation of African musical talent to the world stage.</p>
       </div>
-    </div>
+    </section>
 
     <!-- EVENTS -->
-    <div class="acc-panel acc-events">
-      <div class="acc-title-wrap"><h2 class="acc-title">EVENTS</h2></div>
-      <div class="acc-content">
-        <p>Curating unforgettable live experiences. From intimate showcases to massive festivals, we bring the energy of Africa to life.</p>
+    <section class="snap-section" id="sec-events" data-color="#108C5A" data-shape="sphere">
+      <div class="content-wrapper">
+        <h2 class="snap-title" style="--glow: var(--c-green);">EVENTS</h2>
+        <p class="snap-desc">Curating unforgettable live experiences. From intimate showcases to massive festivals, we bring the energy of Africa to life.</p>
       </div>
-    </div>
+    </section>
 
     <!-- GREYAPPLE -->
-    <div class="acc-panel acc-greyapple">
-      <div class="acc-title-wrap"><h2 class="acc-title">GREYAPPLE</h2></div>
-      <div class="acc-content">
-        <p>The innovation engine powering our operations. GreyApple provides the infrastructure, data, and strategy that drives the entire 234AFRICA ecosystem.</p>
+    <section class="snap-section" id="sec-greyapple" data-color="#FFFFFF" data-shape="network">
+      <div class="content-wrapper">
+        <h2 class="snap-title" style="--glow: var(--c-silver);">GREYAPPLE</h2>
+        <p class="snap-desc">The innovation engine powering our operations. GreyApple provides the infrastructure, data, and strategy that drives the entire 234AFRICA ecosystem.</p>
       </div>
-    </div>
+    </section>
 
   </div>
 
   <script>
-    // --- THREE.JS CYBER GRID BACKGROUND ---
+    // --- THREE.JS DYNAMIC PARTICLE SYSTEM ---
     const canvas = document.getElementById('webgl-bg');
     const scene = new THREE.Scene();
-    
-    // Add subtle fog to fade out the grid in the distance
-    scene.fog = new THREE.FogExp2(0x000000, 0.0015);
+    scene.fog = new THREE.FogExp2(0x050505, 0.002);
 
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.y = 50;
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 100;
-    camera.rotation.x = -Math.PI / 8;
 
     const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Create a moving wireframe terrain
-    const geometry = new THREE.PlaneGeometry(2000, 2000, 40, 40);
-    
-    // Displace vertices to create terrain
-    const vertices = geometry.attributes.position.array;
-    for ( let i = 0; i < vertices.length; i += 3 ) {
-        // Displace Z (which is Y in world space once rotated)
-        vertices[ i + 2 ] = Math.random() * 60 - 30; 
-    }
-    geometry.computeVertexNormals();
+    // Create massive particle system
+    const particleCount = window.innerWidth < 768 ? 2000 : 5000; // Less particles on mobile for performance
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const targetPositions = new Float32Array(particleCount * 3);
 
-    const material = new THREE.MeshBasicMaterial({
-      color: 0x444444, // Subtle grey grid
-      wireframe: true,
-      transparent: true,
-      opacity: 0.6
+    // Initial random positions
+    for(let i=0; i<particleCount*3; i++) {
+        positions[i] = (Math.random() - 0.5) * 500;
+        targetPositions[i] = positions[i];
+    }
+    
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    
+    const material = new THREE.PointsMaterial({
+        size: 2,
+        color: new THREE.Color('#E84128'),
+        transparent: true,
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending
     });
 
-    const plane = new THREE.Mesh(geometry, material);
-    plane.rotation.x = -Math.PI / 2; // Lay flat
-    scene.add(plane);
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
 
+    // Variables for morphing logic
+    let targetColor = new THREE.Color('#E84128');
+    let currentShape = 'storm';
+    let time = 0;
+
+    // The Animation Loop
     function animate() {
-      requestAnimationFrame(animate);
-      
-      // Move terrain forward to simulate flying
-      plane.position.z += 1;
-      
-      // Reset position to loop seamlessly (magic number based on geometry size)
-      if(plane.position.z > 50) {
-          plane.position.z = 0;
-      }
-      
-      renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+        time += 0.01;
+        
+        // Smoothly interpolate color
+        material.color.lerp(targetColor, 0.05);
+        
+        // Get positions array
+        const posAttribute = particles.geometry.attributes.position;
+        const pos = posAttribute.array;
+
+        // Shape shifting logic applied continuously
+        for(let i=0; i<particleCount; i++) {
+            const ix = i * 3;
+            const iy = i * 3 + 1;
+            const iz = i * 3 + 2;
+
+            if (currentShape === 'storm') {
+                // Swirling vortex
+                const angle = time + (i * 0.01);
+                const radius = (i % 200) + 10;
+                targetPositions[ix] = Math.cos(angle) * radius;
+                targetPositions[iy] = (i % 300) - 150;
+                targetPositions[iz] = Math.sin(angle) * radius;
+            } 
+            else if (currentShape === 'waveform') {
+                // Audio visualizer bars
+                const x = (i % 100) * 4 - 200;
+                const waveHeight = Math.sin(time * 5 + x * 0.05) * 50 + Math.cos(time * 3 + (i%50)*0.1) * 30;
+                targetPositions[ix] = x;
+                targetPositions[iy] = (Math.random() - 0.5) * Math.abs(waveHeight);
+                targetPositions[iz] = (Math.random() - 0.5) * 100;
+            }
+            else if (currentShape === 'sphere') {
+                // Exploding sphere
+                const phi = Math.acos(-1 + (2 * i) / particleCount);
+                const theta = Math.sqrt(particleCount * Math.PI) * phi;
+                const radius = 60 + Math.sin(time * 3 + i) * 10; // Pulsating
+                targetPositions[ix] = radius * Math.cos(theta) * Math.sin(phi);
+                targetPositions[iy] = radius * Math.sin(theta) * Math.sin(phi);
+                targetPositions[iz] = radius * Math.cos(phi);
+            }
+            else if (currentShape === 'network') {
+                // Grid/Neural net
+                const spacing = 20;
+                targetPositions[ix] = ((i % 20) * spacing) - 200;
+                targetPositions[iy] = ((Math.floor(i / 20) % 20) * spacing) - 200;
+                targetPositions[iz] = (Math.sin(time + i*0.1) * 50);
+            }
+
+            // Lerp towards target position for smooth shape morphing
+            pos[ix] += (targetPositions[ix] - pos[ix]) * 0.05;
+            pos[iy] += (targetPositions[iy] - pos[iy]) * 0.05;
+            pos[iz] += (targetPositions[iz] - pos[iz]) * 0.05;
+        }
+        
+        posAttribute.needsUpdate = true;
+        
+        // Rotate the entire system slowly
+        particles.rotation.y += 0.002;
+        particles.rotation.x = Math.sin(time * 0.5) * 0.1;
+
+        renderer.render(scene, camera);
     }
     animate();
 
@@ -357,18 +303,72 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // --- ACCORDION LOGIC ---
-    const panels = document.querySelectorAll('.acc-panel');
-    
-    panels.forEach(panel => {
-      panel.addEventListener('click', () => {
-        panels.forEach(p => p.classList.remove('active'));
-        panel.classList.add('active');
-      });
-    });
+    // --- INTERSECTION OBSERVER FOR SCROLL SNAP & GSAP ANIMATIONS ---
+    const sections = document.querySelectorAll('.snap-section');
+    const container = document.getElementById('snap-container');
 
-    if(window.innerWidth <= 992) {
-      panels[0].classList.add('active');
+    const observerOptions = {
+      root: container,
+      threshold: 0.5 // Trigger when 50% of the section is visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const section = entry.target;
+        const title = section.querySelector('.snap-title');
+        const desc = section.querySelector('.snap-desc');
+        
+        if (entry.isIntersecting) {
+            // 1. Update 3D Background State
+            const colorHex = section.getAttribute('data-color');
+            targetColor.set(colorHex);
+            currentShape = section.getAttribute('data-shape');
+
+            // 2. Add subtle background tint to the glass
+            section.style.backgroundColor = `rgba(${hexToRgb(colorHex)}, 0.15)`;
+
+            // 3. GSAP Smash Animation
+            gsap.to(title, { 
+                y: 0, 
+                opacity: 1, 
+                color: colorHex, 
+                webkitTextStroke: "0px",
+                textShadow: `0 0 40px ${colorHex}`,
+                duration: 0.8, 
+                ease: "back.out(1.7)" 
+            });
+            gsap.to(desc, { 
+                y: 0, 
+                opacity: 1, 
+                duration: 0.8, 
+                delay: 0.2, 
+                ease: "power3.out" 
+            });
+
+        } else {
+            // Reset state when scrolled out of view
+            section.style.backgroundColor = `rgba(5, 5, 5, 0.4)`;
+            gsap.to(title, { 
+                y: 50, 
+                opacity: 0, 
+                color: "transparent", 
+                webkitTextStroke: "2px rgba(255,255,255,0.2)",
+                textShadow: "none",
+                duration: 0.3 
+            });
+            gsap.to(desc, { y: 30, opacity: 0, duration: 0.3 });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(sec => observer.observe(sec));
+
+    // Helper to convert hex to rgb for rgba strings
+    function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? 
+            `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` 
+            : '5,5,5';
     }
   </script>
 </body>
