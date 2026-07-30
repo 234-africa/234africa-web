@@ -290,6 +290,210 @@
     </p>
   </section>
 
+  <!-- PURPOSE & OBJECTIVES SECTION -->
+  <section class="cr-objectives">
+    <div class="cr-objectives-inner">
+      <div class="cr-section-label">PURPOSE &amp; OBJECTIVES</div>
+      <h2 class="cr-section-title text-reveal">What We<br><span style="color: var(--brand-red);">Set Out</span><br>To Do.</h2>
+
+      <div class="cr-obj-grid">
+        <div class="cr-obj-item text-reveal hoverable">
+          <div class="cr-obj-num">01</div>
+          <h3>Lagos as Africa's Creative HQ</h3>
+          <p>Positioning Lagos not just as a city, but as the undisputed creative capital of the continent — the place where culture is made, exported, and celebrated.</p>
+        </div>
+        <div class="cr-obj-item text-reveal hoverable">
+          <div class="cr-obj-num">02</div>
+          <h3>Diaspora Meets Mainland</h3>
+          <p>Bridging the gap between Nigerian creatives at home and those building globally — creating one unified conversation about what the culture can become.</p>
+        </div>
+        <div class="cr-obj-item text-reveal hoverable">
+          <div class="cr-obj-num">03</div>
+          <h3>Real Talk from Real Players</h3>
+          <p>Bringing in panelists who have actually built something — industry insiders sharing unfiltered perspectives on media, music, business, and technology.</p>
+        </div>
+        <div class="cr-obj-item text-reveal hoverable">
+          <div class="cr-obj-num">04</div>
+          <h3>Creatives Building for Creatives</h3>
+          <p>This isn't a corporate programme handed down from above. The Cruise Room is designed from within the creative community, for the creative community.</p>
+        </div>
+        <div class="cr-obj-item text-reveal hoverable">
+          <div class="cr-obj-num">05</div>
+          <h3>Attracting the Right Capital</h3>
+          <p>Opening doors to strategic investors who understand the creative economy — people looking to back the next wave of African talent with real resources.</p>
+        </div>
+        <div class="cr-obj-item cr-obj-item--wide text-reveal hoverable">
+          <div class="cr-obj-num">06</div>
+          <h3>Access, Mentorship, Visibility</h3>
+          <p>Giving creatives what they need most: a room in the right building, connections to the right people, and the exposure to make their talent impossible to ignore.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY IT MATTERS SECTION -->
+  <section class="cr-impact">
+    <div class="cr-impact-inner">
+      <div class="cr-section-label">WHY IT MATTERS</div>
+
+      <div class="cr-impact-list">
+        <div class="cr-impact-item text-reveal">
+          <div class="cr-impact-arrow">→</div>
+          <div class="cr-impact-content">
+            <h3>Building the Infrastructure</h3>
+            <p>Nigeria's creative industry is world-class in talent but still lacking in the structures that sustain it. The Cruise Room proves the demand and viability for a permanent creative HQ in Lagos — one that elevates how the entire industry operates.</p>
+          </div>
+        </div>
+        <div class="cr-impact-item text-reveal">
+          <div class="cr-impact-arrow">→</div>
+          <div class="cr-impact-content">
+            <h3>Investing in the Next Generation</h3>
+            <p>Talent alone has never been the problem. Opportunity, mentorship, and visibility are. We're closing that gap — making sure the next generation of Nigerian creatives has a genuine path from raw ability to a sustainable, thriving career.</p>
+          </div>
+        </div>
+        <div class="cr-impact-item text-reveal">
+          <div class="cr-impact-arrow">→</div>
+          <div class="cr-impact-content">
+            <h3>Real Economic Impact</h3>
+            <p>Culture creates commerce. Every event we produce generates direct economic value — local vendors, production crews, hospitality partners, and sponsors. The Cruise Room isn't just a cultural moment; it's an engine for Lagos' creative economy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* ── Objectives Section ── */
+    .cr-objectives {
+      padding: 120px 5vw;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 5;
+    }
+    .cr-section-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      color: var(--brand-yellow);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .cr-section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+    .cr-section-title {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 900;
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: -3px;
+      color: #fff;
+      margin-bottom: 80px;
+    }
+
+    .cr-obj-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .cr-obj-item {
+      padding: 40px 36px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+      transition: background 0.3s, border-color 0.3s;
+      cursor: default;
+    }
+    .cr-obj-item:hover {
+      background: rgba(228,66,48,0.06);
+      border-color: rgba(228,66,48,0.25);
+    }
+    .cr-obj-item--wide {
+      grid-column: span 3;
+    }
+    .cr-obj-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--brand-red);
+      margin-bottom: 18px;
+    }
+    .cr-obj-item h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .cr-obj-item p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── Impact Section ── */
+    .cr-impact {
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 120px 5vw;
+      position: relative;
+      z-index: 5;
+    }
+    .cr-impact-inner { max-width: 1400px; margin: 0 auto; }
+    .cr-impact-list { margin-top: 60px; display: flex; flex-direction: column; gap: 0; }
+    .cr-impact-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 40px;
+      align-items: flex-start;
+      padding: 50px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .cr-impact-item:last-child { border-bottom: none; }
+    .cr-impact-arrow {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--brand-yellow);
+      font-family: 'Outfit', sans-serif;
+      padding-top: 4px;
+    }
+    .cr-impact-content h3 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      letter-spacing: -1px;
+      margin-bottom: 14px;
+    }
+    .cr-impact-content p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.75;
+      font-weight: 300;
+      max-width: 680px;
+    }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .cr-obj-grid { grid-template-columns: 1fr; }
+      .cr-obj-item--wide { grid-column: span 1; }
+      .cr-section-title { letter-spacing: -2px; }
+      .cr-impact-item { grid-template-columns: 40px 1fr; gap: 20px; }
+      .cr-impact-arrow { font-size: 1.4rem; }
+    }
+  </style>
+
   <!-- IMMERSIVE GALLERY -->
   <section class="gallery-container">
     <h2 class="gallery-title hoverable">THE ARCHIVE</h2>
