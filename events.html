@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>234AFRICA - Events (Brutalist Tunnel)</title>
+  <title>234AFRICA - Events (Neon Grid)</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   
@@ -14,119 +14,132 @@
     body {
       background: #050505;
       margin: 0; padding: 0;
-      overflow-x: hidden;
       font-family: 'Space Grotesk', sans-serif;
-      cursor: auto;
     }
     
-    /* BACKGROUND IMAGE REVEAL */
-    .bg-reveal-container {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    .bg-reveal-img {
-      width: 100%; height: 100%; object-fit: cover;
-      filter: grayscale(100%) contrast(150%);
-      mix-blend-mode: luminosity;
-    }
-    .bg-reveal-color {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      mix-blend-mode: color;
-    }
-
     /* Force header links to be white on this dark page */
     .nav-links, .nav-links a { color: #fff !important; }
 
-    .brutalist-list {
-      margin-top: 150px;
+    .events-header {
+      padding: 180px 40px 60px;
+      text-align: center;
+    }
+    .events-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      color: #fff;
+      text-transform: uppercase;
+      margin: 0;
+      line-height: 1;
+    }
+    .events-subtitle {
+      color: #aaa;
+      font-size: 1.2rem;
+      margin-top: 15px;
+      letter-spacing: 2px;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 40px;
+      padding: 0 40px 100px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .event-card {
+      background: #111;
+      border: 2px solid #333;
+      border-radius: 12px;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      z-index: 10;
-      position: relative;
+      text-decoration: none;
+      transition: border-color 0.3s ease;
+      transform-style: preserve-3d;
+      perspective: 1000px;
     }
 
-    .brutalist-item {
-      padding: 40px 5vw;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      cursor: crosshair;
-      position: relative;
-      transition: background 0.3s ease;
-      display: block;
+    .event-img-wrap {
+      width: 100%;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      border-bottom: 2px solid #333;
     }
-    .brutalist-item:first-child { border-top: 1px solid rgba(255,255,255,0.1); }
-    
-    .item-title {
-      font-family: var(--font-display);
-      font-size: clamp(4rem, 10vw, 10rem);
-      font-weight: 900;
-      line-height: 0.85;
-      text-transform: uppercase;
-      color: transparent;
-      -webkit-text-stroke: 2px rgba(255,255,255,0.3);
-      transition: all 0.3s ease;
-      margin: 0;
+    .event-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
     }
 
-    .item-meta {
+    .event-details {
+      padding: 24px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 20px;
-      opacity: 0.6;
-      transition: opacity 0.3s ease;
+      flex-direction: column;
+      flex: 1;
     }
-    .item-date-loc { font-size: 1.5rem; font-weight: 700; color: #fff; text-transform: uppercase; }
-    .item-btn { display: none; background: #fff; color: #000; padding: 10px 30px; font-weight: 800; text-decoration: none; border-radius: 100px; text-transform: uppercase; }
-
-    /* HOVER STATES */
-    .brutalist-item:hover .item-title { -webkit-text-stroke: 0px; transform: translateX(2vw); }
-    .brutalist-item:hover .item-meta { opacity: 1; transform: translateX(2vw); }
-    
-    .color-red:hover .item-title { color: var(--c-red); }
-    .color-green:hover .item-title { color: var(--c-green); }
-    .color-yellow:hover .item-title { color: var(--c-yellow); }
-
-    /* CUSTOM CURSOR */
-    .cursor-btn {
-      position: fixed; width: 120px; height: 120px; background: #fff; color: #000; 
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-display); font-weight: 900; font-size: 1.2rem; text-align: center;
-      pointer-events: none; z-index: 9999; transform: translate(-50%, -50%) scale(0);
-      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    .event-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 10px 0;
+      text-transform: uppercase;
+    }
+    .event-meta {
+      font-size: 1rem;
+      color: #aaa;
+      margin-bottom: 20px;
+      font-weight: 600;
     }
     
-    /* MOBILE TWEAKS */
+    .event-btn {
+      margin-top: auto;
+      padding: 12px 24px;
+      background: #222;
+      color: #fff;
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* NEON BRAND COLORS */
+    .event-card.c-red:hover { border-color: var(--c-red); box-shadow: 0 10px 40px rgba(232, 65, 40, 0.4); }
+    .event-card.c-red:hover .event-btn { background: var(--c-red); color: #fff; }
+    .event-card.c-red .event-img-wrap { border-bottom-color: var(--c-red); }
+
+    .event-card.c-green:hover { border-color: var(--c-green); box-shadow: 0 10px 40px rgba(16, 140, 90, 0.4); }
+    .event-card.c-green:hover .event-btn { background: var(--c-green); color: #000; }
+    .event-card.c-green .event-img-wrap { border-bottom-color: var(--c-green); }
+
+    .event-card.c-yellow:hover { border-color: var(--c-yellow); box-shadow: 0 10px 40px rgba(244, 162, 24, 0.4); }
+    .event-card.c-yellow:hover .event-btn { background: var(--c-yellow); color: #000; }
+    .event-card.c-yellow .event-img-wrap { border-bottom-color: var(--c-yellow); }
+
+    .event-card:hover .event-img { transform: scale(1.05); }
+
     @media (max-width: 768px) {
-      .item-title { -webkit-text-stroke: 1px rgba(255,255,255,0.5); font-size: 3.5rem; }
-      .brutalist-item .item-title { color: #fff; -webkit-text-stroke: 0; }
-      .color-red .item-title { color: var(--c-red); }
-      .color-green .item-title { color: var(--c-green); }
-      .color-yellow .item-title { color: var(--c-yellow); }
-      .item-meta { flex-direction: column; align-items: flex-start; gap: 15px; opacity: 1; }
-      .item-btn { display: inline-block; }
-      .bg-reveal-container { display: none; }
-
-      .brutalist-item:hover .item-title, .brutalist-item:hover .item-meta { transform: none; }
-      /* Give mobile cards a background image natively */
-      .brutalist-item { background-size: cover; background-position: center; background-blend-mode: overlay; border-bottom: 2px solid #333; }
+      .events-header { padding: 120px 20px 40px; }
+      .events-grid { padding: 0 20px 60px; grid-template-columns: 1fr; gap: 30px; }
+      .event-img-wrap { aspect-ratio: 1/1; }
+      .event-card { transform: none !important; box-shadow: none !important; }
+      
+      /* Keep borders active on mobile since there is no hover */
+      .event-card.c-red { border-color: var(--c-red); }
+      .event-card.c-green { border-color: var(--c-green); }
+      .event-card.c-yellow { border-color: var(--c-yellow); }
     }
   </style>
 </head>
 <body>
-
-  <!-- Custom Cursor -->
-  <div class="cursor-btn" id="cursor">GET<br>TICKETS</div>
-
-  <!-- Global BG Reveal -->
-  <div class="bg-reveal-container" id="bg-reveal">
-    <div class="bg-reveal-color" id="bg-color"></div>
-    <img src="" class="bg-reveal-img" id="bg-img">
-  </div>
 
   <header id="header">
     <div class="header-inner">
@@ -134,77 +147,85 @@
         <img src="assets/234logo-transparent.png" alt="234AFRICA Logo" style="height: 40px; width: auto; object-fit: contain;">
       </a>
       <nav class="nav-links">
-        <a href="ecosystem.html" style="color: #fff;">THE ECOSYSTEM</a>
-        <a href="events.html" style="color: var(--c-yellow); text-decoration: underline;">EVENTS</a>
-        <a href="https://greyapple.vip" target="_blank" style="color: #fff;">GREYAPPLE</a>
-        <a href="cruiseroom.html" style="color: #fff;">THE CRUISE ROOM</a>
+        <a href="ecosystem.html">THE ECOSYSTEM</a>
+        <a href="events.html" style="color: var(--c-yellow) !important; text-decoration: underline;">EVENTS</a>
+        <a href="https://greyapple.vip" target="_blank">GREYAPPLE</a>
+        <a href="cruiseroom.html">THE CRUISE ROOM</a>
       </nav>
-
     </div>
   </header>
 
-  <div class="brutalist-list" id="event-list">
+  <section class="events-header">
+    <h1 class="events-title">Upcoming <span style="color: var(--c-red);">Events</span></h1>
+    <p class="events-subtitle">Secure your tickets before they sell out.</p>
+  </section>
+
+  <section class="events-grid" id="events-grid">
     <!-- Populated by JS -->
-  </div>
+  </section>
 
   <script>
     const events = [
-      { title: "ON THE BEACH", date: "Dec 27 • Lagos", img: "assets/events-posters/poster-1.jpg", colorClass: "color-red", hex: "#E84128", link: "https://greyapple.vip" },
-      { title: "INDEPENDENCE", date: "Oct 4 • Landmark", img: "assets/events-posters/poster-2.jpg", colorClass: "color-green", hex: "#108C5A", link: "https://greyapple.vip" },
-      { title: "ON THE ROOF", date: "Dec 17 • Rooftop VI", img: "assets/events-posters/poster-3.png", colorClass: "color-yellow", hex: "#F4A218", link: "https://greyapple.vip" },
-      { title: "SUNDOWN", date: "Aug 8 • Lagos", img: "assets/events-posters/poster-4.jpg", colorClass: "color-red", hex: "#E84128", link: "https://greyapple.vip" },
-      { title: "CRUISE ROOM", date: "Dec 18 • Hub", img: "assets/events-posters/poster-5.png", colorClass: "color-green", hex: "#108C5A", link: "cruiseroom.html" }
+      { title: "ON THE BEACH", date: "Dec 27, 2026 • Lagos", img: "assets/events-posters/poster-1.jpg", colorClass: "c-red", link: "https://greyapple.vip" },
+      { title: "INDEPENDENCE", date: "Oct 4, 2026 • Landmark", img: "assets/events-posters/poster-2.jpg", colorClass: "c-green", link: "https://greyapple.vip" },
+      { title: "ON THE ROOF", date: "Dec 17, 2026 • Rooftop VI", img: "assets/events-posters/poster-3.png", colorClass: "c-yellow", link: "https://greyapple.vip" },
+      { title: "SUNDOWN", date: "Aug 8, 2026 • Lagos", img: "assets/events-posters/poster-4.jpg", colorClass: "c-red", link: "https://greyapple.vip" },
+      { title: "CRUISE ROOM", date: "Dec 18, 2026 • The Hub", img: "assets/events-posters/poster-5.png", colorClass: "c-green", link: "cruiseroom.html" }
     ];
 
-    const listContainer = document.getElementById('event-list');
-    const bgReveal = document.getElementById('bg-reveal');
-    const bgImg = document.getElementById('bg-img');
-    const bgColor = document.getElementById('bg-color');
-    const cursor = document.getElementById('cursor');
+    const grid = document.getElementById('events-grid');
 
     events.forEach(ev => {
-      const item = document.createElement('a');
-      item.href = ev.link;
-      item.className = `brutalist-item ${ev.colorClass}`;
-      item.style.textDecoration = 'none';
-      
-      // On mobile, apply the image directly as a background so it's not boring flat black
-      if (window.innerWidth <= 768) {
-        item.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('${ev.img}')`;
-      }
-
-      item.innerHTML = `
-        <h2 class="item-title">${ev.title}</h2>
-        <div class="item-meta">
-          <div class="item-date-loc">${ev.date}</div>
-          <div class="item-btn">GET TICKETS</div>
+      const card = document.createElement('a');
+      card.href = ev.link;
+      card.className = `event-card ${ev.colorClass}`;
+      card.innerHTML = `
+        <div class="event-img-wrap">
+          <img src="${ev.img}" alt="${ev.title}" class="event-img">
+        </div>
+        <div class="event-details">
+          <h2 class="event-title">${ev.title}</h2>
+          <div class="event-meta">${ev.date}</div>
+          <div class="event-btn">GET TICKETS</div>
         </div>
       `;
-
-      if (window.innerWidth > 768) {
-        item.addEventListener('mouseenter', () => {
-          bgImg.src = ev.img;
-          bgColor.style.background = ev.hex;
-          bgReveal.style.opacity = '0.8';
-          cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-        });
-        
-        item.addEventListener('mouseleave', () => {
-          bgReveal.style.opacity = '0';
-          cursor.style.transform = 'translate(-50%, -50%) scale(0)';
-        });
-      }
-
-      listContainer.appendChild(item);
+      grid.appendChild(card);
     });
 
+    // GSAP 3D Tilt Effect on Desktop
     if (window.innerWidth > 768) {
-      document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
+      const cards = document.querySelectorAll('.event-card');
+      
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = ((y - centerY) / centerY) * -10;
+          const rotateY = ((x - centerX) / centerX) * 10;
+          
+          gsap.to(card, {
+            rotationX: rotateX,
+            rotationY: rotateY,
+            transformPerspective: 1000,
+            ease: 'power2.out',
+            duration: 0.5
+          });
+        });
+
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            rotationX: 0,
+            rotationY: 0,
+            ease: 'elastic.out(1, 0.3)',
+            duration: 1
+          });
+        });
       });
-      // Hide cursor element default
-      document.body.style.cursor = 'crosshair';
     }
   </script>
 </body>
