@@ -15,20 +15,33 @@
 
   <link rel="stylesheet" href="style.css" />
   <style>
-    .swiper-wrapper {
-      transition-timing-function: linear !important; 
+    /* INFINITE CAROUSEL (Pure CSS) */
+    .infinite-carousel {
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 60px 0;
     }
-    .carousel-img {
+    .carousel-track {
+      display: inline-block;
+      animation: scrollCarousel 30s linear infinite;
+    }
+    .carousel-track:hover {
+      animation-play-state: paused;
+    }
+    .carousel-track img {
       height: clamp(300px, 40vw, 500px);
       width: auto;
       border-radius: 16px;
       object-fit: cover;
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
       border: 1px solid #333;
-      display: block;
-    }
-    .swiper-slide {
+      display: inline-block;
       margin-right: 24px;
+    }
+    @keyframes scrollCarousel {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
   </style>
 </head>
@@ -119,20 +132,6 @@
           </div>
       </section>
 
-      <!-- EVENTS CAROUSEL (Never Ending Loop) -->
-      <section style="padding: 0 0 60px 0;">
-        <div class="swiper mySwiper" style="width: 100%;">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" style="width: auto;"><img src="assets/events/event-1.jpg" alt="Event Moment" class="carousel-img"></div>
-            <div class="swiper-slide" style="width: auto;"><img src="assets/events/event-2.jpg" alt="Event Moment" class="carousel-img"></div>
-            <div class="swiper-slide" style="width: auto;"><img src="assets/events/event-3.png" alt="Event Moment" class="carousel-img"></div>
-            <div class="swiper-slide" style="width: auto;"><img src="assets/events/event-5.jpg" alt="Event Moment" class="carousel-img"></div>
-            <div class="swiper-slide" style="width: auto;"><img src="assets/events/event-6.jpg" alt="Event Moment" class="carousel-img"></div>
-            <div class="swiper-slide" style="width: auto;"><img src="assets/events/event-9.jpg" alt="Event Moment" class="carousel-img"></div>
-          </div>
-        </div>
-      </section>
-
       <!-- GREYAPPLE TICKETING BANNER -->
       <section class="section-content" style="padding: 80px 0; background: #000; border-top: 4px solid #FF69B4; border-bottom: 4px solid #FF69B4;">
         <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;">
@@ -149,6 +148,26 @@
           <div style="flex: 0 0 auto; text-align: center; width: 100%; max-width: 300px; margin: 0 auto;">
             <img src="assets/greyapple-logo.png" alt="Greyapple Logo" style="width: 100%; max-width: 250px; height: auto; border-radius: 50%; box-shadow: 0 0 40px rgba(255, 105, 180, 0.3);">
           </div>
+        </div>
+      </section>
+
+      <!-- EVENTS CAROUSEL (Pure CSS Infinite Loop) -->
+      <section class="infinite-carousel">
+        <div class="carousel-track">
+          <!-- Set 1 -->
+          <img src="assets/events/event-1.jpg" alt="Event Moment">
+          <img src="assets/events/event-2.jpg" alt="Event Moment">
+          <img src="assets/events/event-3.png" alt="Event Moment">
+          <img src="assets/events/event-5.jpg" alt="Event Moment">
+          <img src="assets/events/event-6.jpg" alt="Event Moment">
+          <img src="assets/events/event-9.jpg" alt="Event Moment">
+          <!-- Set 2 (Exact Duplicate for Loop) -->
+          <img src="assets/events/event-1.jpg" alt="Event Moment">
+          <img src="assets/events/event-2.jpg" alt="Event Moment">
+          <img src="assets/events/event-3.png" alt="Event Moment">
+          <img src="assets/events/event-5.jpg" alt="Event Moment">
+          <img src="assets/events/event-6.jpg" alt="Event Moment">
+          <img src="assets/events/event-9.jpg" alt="Event Moment">
         </div>
       </section>
 
@@ -230,22 +249,7 @@
     </div>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      new Swiper(".mySwiper", {
-        spaceBetween: 24,
-        slidesPerView: "auto",
-        centeredSlides: true,
-        loop: true,
-        speed: 5000,
-        autoplay: {
-          delay: 0,
-          disableOnInteraction: false,
-        },
-        allowTouchMove: true,
-      });
-    });
-  </script>
+
   <script src="script.js"></script>
 </body>
 </html>
