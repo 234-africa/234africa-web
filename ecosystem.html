@@ -2,139 +2,134 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- Maximum scale 1.0 prevents zoom on double tap on iOS -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>234AFRICA - The Ecosystem</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800;12..96,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- Swiper.js for native mobile swipe physics -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   
   <link rel="stylesheet" href="style.css" />
   
   <style>
-    :root {
-      --c-red: #E84128;
-      --c-yellow: #F4A218;
-      --c-green: #108C5A;
-      --c-silver: #FFFFFF;
-    }
-    
-    html, body {
+    body {
       margin: 0; padding: 0;
-      height: 100%;
       background: #050505;
-      overflow: hidden; /* Hide main body scroll */
+      color: #fff;
       font-family: 'Space Grotesk', sans-serif;
+      /* Disable body scroll completely for the swipe UI */
+      overflow: hidden; 
     }
-    
-    /* 3D WebGL Background Canvas */
-    #webgl-bg {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
+
+    #header { background: transparent !important; border-bottom: none !important; z-index: 999; }
+    .nav-links, .nav-links a { color: #fff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+
+    /* Dynamic ambient gradient background */
+    #ambient-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
       z-index: 1;
+      background: radial-gradient(circle at center, rgba(232, 65, 40, 0.2) 0%, rgba(5,5,5,1) 70%);
+      transition: background 0.8s ease;
+    }
+
+    /* Swipe Hint */
+    .swipe-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.5);
+      animation: pulse 2s infinite;
       pointer-events: none;
     }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; transform: translate(-50%, 0); }
+      50% { opacity: 1; transform: translate(-50%, -5px); }
+    }
 
-    /* Make header visible */
-    .nav-links, .nav-links a { color: #fff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
-    #header { background: transparent !important; border-bottom: none !important; z-index: 999; }
-
-    /* The Snap Scroll Container */
-    #snap-container {
-      height: 100svh;
+    /* SWIPER CONTAINER */
+    .swiper {
       width: 100vw;
-      overflow-y: scroll;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
-      position: relative;
+      /* 100svh accounts for iOS Safari address bar expanding/contracting */
+      height: 100svh;
+      padding-top: 15vh;
       z-index: 10;
-      /* Hide scrollbars for cleaner look */
-      -ms-overflow-style: none; 
-      scrollbar-width: none; 
-    }
-    #snap-container::-webkit-scrollbar {
-      display: none; 
     }
 
-    /* Individual Snap Sections */
-    .snap-section {
-      height: 100svh;
-      width: 100vw;
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
+    /* THE CARDS */
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      /* Perfectly sized for mobile, max-width caps it on desktop */
+      width: 85vw;
+      max-width: 400px;
+      height: 65vh;
+      max-height: 600px;
+      
+      background: rgba(20, 20, 20, 0.6);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 20px;
+      padding: 30px;
       box-sizing: border-box;
-      /* Glassmorphism over the 3D background */
-      background: rgba(5, 5, 5, 0.4);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: background-color 0.5s ease;
+      
+      /* Glassmorphism */
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
 
-    .content-wrapper {
-      max-width: 900px;
-      z-index: 20;
+    /* Active Slide Glow */
+    .swiper-slide-active {
+      border: 1px solid rgba(255,255,255,0.3);
     }
 
-    /* Typography */
-    .snap-title {
+    .pillar-title {
       font-family: var(--font-display);
-      font-size: clamp(3rem, 10vw, 8rem);
+      font-size: clamp(3rem, 12vw, 5rem);
       font-weight: 900;
+      margin: 0 0 20px 0;
+      line-height: 0.9;
       text-transform: uppercase;
-      margin: 0;
-      line-height: 1;
       letter-spacing: -2px;
-      /* Hollow stroke look initially, filled by GSAP */
-      color: transparent;
-      -webkit-text-stroke: 2px rgba(255,255,255,0.2);
-      transform: translateY(50px);
-      opacity: 0;
-      text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      text-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    .snap-desc {
-      font-size: clamp(1.2rem, 4vw, 2rem);
-      font-weight: 700;
-      color: #fff;
-      margin-top: 30px;
-      text-transform: uppercase;
-      opacity: 0;
-      transform: translateY(30px);
-      text-shadow: 0 5px 20px rgba(0,0,0,0.8);
+    .pillar-desc {
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.5;
+      margin: 0;
     }
-    
-    /* Mobile scroll prompt */
-    .scroll-prompt {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #fff;
-      font-size: 0.9rem;
-      letter-spacing: 2px;
-      opacity: 0.5;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0% { opacity: 0.2; transform: translate(-50%, 0); }
-      50% { opacity: 0.8; transform: translate(-50%, 10px); }
-      100% { opacity: 0.2; transform: translate(-50%, 0); }
-    }
+
+    /* Data attributes for colors */
+    [data-color="#E84128"] .pillar-title { color: #E84128; }
+    [data-color="#F4A218"] .pillar-title { color: #F4A218; }
+    [data-color="#108C5A"] .pillar-title { color: #108C5A; }
+    [data-color="#FFFFFF"] .pillar-title { color: #FFFFFF; }
+
   </style>
 </head>
 <body>
 
-  <!-- 3D WEBGL BACKGROUND -->
-  <canvas id="webgl-bg"></canvas>
+  <!-- Ambient Glow -->
+  <div id="ambient-bg"></div>
 
+  <!-- Header -->
   <header id="header">
     <div class="header-inner">
       <a href="index.html" class="logo" style="display: flex; align-items: center; z-index: 999;">
@@ -149,226 +144,84 @@
     </div>
   </header>
 
-  <!-- KINETIC SNAP SCROLL CONTAINER -->
-  <div id="snap-container">
-    
-    <!-- MARKETING -->
-    <section class="snap-section" id="sec-marketing" data-color="#E84128" data-shape="storm">
-      <div class="content-wrapper">
-        <h2 class="snap-title" style="--glow: var(--c-red);">MARKETING</h2>
-        <p class="snap-desc">We amplify African voices and brands. Through culture-driven campaigns and strategic storytelling, we connect creators with global audiences.</p>
-      </div>
-      <div class="scroll-prompt">SWIPE DOWN</div>
-    </section>
+  <div class="swipe-hint">SWIPE TO EXPLORE</div>
 
-    <!-- MUSIC -->
-    <section class="snap-section" id="sec-music" data-color="#F4A218" data-shape="waveform">
-      <div class="content-wrapper">
-        <h2 class="snap-title" style="--glow: var(--c-yellow);">MUSIC</h2>
-        <p class="snap-desc">The heartbeat of our culture. We discover, promote, and elevate the next generation of African musical talent to the world stage.</p>
+  <!-- Swiper -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      
+      <!-- MARKETING -->
+      <div class="swiper-slide" data-color="#E84128">
+        <h2 class="pillar-title">MARKETING</h2>
+        <p class="pillar-desc">We amplify African voices and brands. Through culture-driven campaigns and strategic storytelling, we connect creators with global audiences.</p>
       </div>
-    </section>
-
-    <!-- EVENTS -->
-    <section class="snap-section" id="sec-events" data-color="#108C5A" data-shape="sphere">
-      <div class="content-wrapper">
-        <h2 class="snap-title" style="--glow: var(--c-green);">EVENTS</h2>
-        <p class="snap-desc">Curating unforgettable live experiences. From intimate showcases to massive festivals, we bring the energy of Africa to life.</p>
+      
+      <!-- MUSIC -->
+      <div class="swiper-slide" data-color="#F4A218">
+        <h2 class="pillar-title">MUSIC</h2>
+        <p class="pillar-desc">The heartbeat of our culture. We discover, promote, and elevate the next generation of African musical talent to the world stage.</p>
       </div>
-    </section>
-
-    <!-- GREYAPPLE -->
-    <section class="snap-section" id="sec-greyapple" data-color="#FFFFFF" data-shape="network">
-      <div class="content-wrapper">
-        <h2 class="snap-title" style="--glow: var(--c-silver);">GREYAPPLE</h2>
-        <p class="snap-desc">The innovation engine powering our operations. GreyApple provides the infrastructure, data, and strategy that drives the entire 234AFRICA ecosystem.</p>
+      
+      <!-- EVENTS -->
+      <div class="swiper-slide" data-color="#108C5A">
+        <h2 class="pillar-title">EVENTS</h2>
+        <p class="pillar-desc">Curating unforgettable live experiences. From intimate showcases to massive festivals, we bring the energy of Africa to life.</p>
       </div>
-    </section>
+      
+      <!-- GREYAPPLE -->
+      <div class="swiper-slide" data-color="#FFFFFF">
+        <h2 class="pillar-title">GREYAPPLE</h2>
+        <p class="pillar-desc">The innovation engine powering our operations. GreyApple provides the infrastructure, data, and strategy that drives the entire 234AFRICA ecosystem.</p>
+      </div>
 
+    </div>
   </div>
 
   <script>
-    // --- THREE.JS DYNAMIC PARTICLE SYSTEM ---
-    const canvas = document.getElementById('webgl-bg');
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x050505, 0.002);
-
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 100;
-
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    // Create massive particle system
-    const particleCount = window.innerWidth < 768 ? 2000 : 5000; // Less particles on mobile for performance
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const targetPositions = new Float32Array(particleCount * 3);
-
-    // Initial random positions
-    for(let i=0; i<particleCount*3; i++) {
-        positions[i] = (Math.random() - 0.5) * 500;
-        targetPositions[i] = positions[i];
-    }
+    // Initialize Swiper with 3D Coverflow Effect
+    const bg = document.getElementById('ambient-bg');
     
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    
-    const material = new THREE.PointsMaterial({
-        size: 2,
-        color: new THREE.Color('#E84128'),
-        transparent: true,
-        opacity: 0.8,
-        blending: THREE.AdditiveBlending
+    var swiper = new Swiper(".mySwiper", {
+      effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: "auto",
+      loop: true, // Infinite loop for better UX
+      coverflowEffect: {
+        rotate: 30, // Angle of the cards
+        stretch: 0,
+        depth: 200, // Deep 3D perspective
+        modifier: 1,
+        slideShadows: true,
+      },
+      on: {
+        // Triggered when the active slide changes
+        slideChange: function () {
+          // Wait for DOM update to get the active slide
+          setTimeout(() => {
+            const activeSlide = document.querySelector('.swiper-slide-active');
+            if (activeSlide) {
+              const color = activeSlide.getAttribute('data-color');
+              // Update the ambient background glow to match the brand color
+              bg.style.background = `radial-gradient(circle at center, ${hexToRgbA(color, 0.2)} 0%, rgba(5,5,5,1) 70%)`;
+            }
+          }, 10);
+        }
+      }
     });
 
-    const particles = new THREE.Points(geometry, material);
-    scene.add(particles);
-
-    // Variables for morphing logic
-    let targetColor = new THREE.Color('#E84128');
-    let currentShape = 'storm';
-    let time = 0;
-
-    // The Animation Loop
-    function animate() {
-        requestAnimationFrame(animate);
-        time += 0.01;
-        
-        // Smoothly interpolate color
-        material.color.lerp(targetColor, 0.05);
-        
-        // Get positions array
-        const posAttribute = particles.geometry.attributes.position;
-        const pos = posAttribute.array;
-
-        // Shape shifting logic applied continuously
-        for(let i=0; i<particleCount; i++) {
-            const ix = i * 3;
-            const iy = i * 3 + 1;
-            const iz = i * 3 + 2;
-
-            if (currentShape === 'storm') {
-                // Swirling vortex
-                const angle = time + (i * 0.01);
-                const radius = (i % 200) + 10;
-                targetPositions[ix] = Math.cos(angle) * radius;
-                targetPositions[iy] = (i % 300) - 150;
-                targetPositions[iz] = Math.sin(angle) * radius;
-            } 
-            else if (currentShape === 'waveform') {
-                // Audio visualizer bars
-                const x = (i % 100) * 4 - 200;
-                const waveHeight = Math.sin(time * 5 + x * 0.05) * 50 + Math.cos(time * 3 + (i%50)*0.1) * 30;
-                targetPositions[ix] = x;
-                targetPositions[iy] = (Math.random() - 0.5) * Math.abs(waveHeight);
-                targetPositions[iz] = (Math.random() - 0.5) * 100;
-            }
-            else if (currentShape === 'sphere') {
-                // Exploding sphere
-                const phi = Math.acos(-1 + (2 * i) / particleCount);
-                const theta = Math.sqrt(particleCount * Math.PI) * phi;
-                const radius = 60 + Math.sin(time * 3 + i) * 10; // Pulsating
-                targetPositions[ix] = radius * Math.cos(theta) * Math.sin(phi);
-                targetPositions[iy] = radius * Math.sin(theta) * Math.sin(phi);
-                targetPositions[iz] = radius * Math.cos(phi);
-            }
-            else if (currentShape === 'network') {
-                // Grid/Neural net
-                const spacing = 20;
-                targetPositions[ix] = ((i % 20) * spacing) - 200;
-                targetPositions[iy] = ((Math.floor(i / 20) % 20) * spacing) - 200;
-                targetPositions[iz] = (Math.sin(time + i*0.1) * 50);
-            }
-
-            // Lerp towards target position for smooth shape morphing
-            pos[ix] += (targetPositions[ix] - pos[ix]) * 0.05;
-            pos[iy] += (targetPositions[iy] - pos[iy]) * 0.05;
-            pos[iz] += (targetPositions[iz] - pos[iz]) * 0.05;
-        }
-        
-        posAttribute.needsUpdate = true;
-        
-        // Rotate the entire system slowly
-        particles.rotation.y += 0.002;
-        particles.rotation.x = Math.sin(time * 0.5) * 0.1;
-
-        renderer.render(scene, camera);
-    }
-    animate();
-
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // --- INTERSECTION OBSERVER FOR SCROLL SNAP & GSAP ANIMATIONS ---
-    const sections = document.querySelectorAll('.snap-section');
-    const container = document.getElementById('snap-container');
-
-    const observerOptions = {
-      root: container,
-      threshold: 0.5 // Trigger when 50% of the section is visible
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const section = entry.target;
-        const title = section.querySelector('.snap-title');
-        const desc = section.querySelector('.snap-desc');
-        
-        if (entry.isIntersecting) {
-            // 1. Update 3D Background State
-            const colorHex = section.getAttribute('data-color');
-            targetColor.set(colorHex);
-            currentShape = section.getAttribute('data-shape');
-
-            // 2. Add subtle background tint to the glass
-            section.style.backgroundColor = `rgba(${hexToRgb(colorHex)}, 0.15)`;
-
-            // 3. GSAP Smash Animation
-            gsap.to(title, { 
-                y: 0, 
-                opacity: 1, 
-                color: colorHex, 
-                webkitTextStroke: "0px",
-                textShadow: `0 0 40px ${colorHex}`,
-                duration: 0.8, 
-                ease: "back.out(1.7)" 
-            });
-            gsap.to(desc, { 
-                y: 0, 
-                opacity: 1, 
-                duration: 0.8, 
-                delay: 0.2, 
-                ease: "power3.out" 
-            });
-
-        } else {
-            // Reset state when scrolled out of view
-            section.style.backgroundColor = `rgba(5, 5, 5, 0.4)`;
-            gsap.to(title, { 
-                y: 50, 
-                opacity: 0, 
-                color: "transparent", 
-                webkitTextStroke: "2px rgba(255,255,255,0.2)",
-                textShadow: "none",
-                duration: 0.3 
-            });
-            gsap.to(desc, { y: 30, opacity: 0, duration: 0.3 });
-        }
-      });
-    }, observerOptions);
-
-    sections.forEach(sec => observer.observe(sec));
-
-    // Helper to convert hex to rgb for rgba strings
-    function hexToRgb(hex) {
-        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? 
-            `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` 
-            : '5,5,5';
+    // Helper to convert hex to rgba
+    function hexToRgbA(hex, alpha){
+      let c;
+      if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+          c= hex.substring(1).split('');
+          if(c.length== 3){
+              c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+          }
+          c= '0x'+c.join('');
+          return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+','+alpha+')';
+      }
+      return `rgba(255,255,255,${alpha})`;
     }
   </script>
 </body>

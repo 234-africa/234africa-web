@@ -2,198 +2,132 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>234AFRICA - Events (3D Kinetic Vortex)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>234AFRICA - Events</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800;12..96,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
   <link rel="stylesheet" href="style.css" />
   
   <style>
     body {
       background: #000;
-      margin: 0; padding: 0;
+      color: #fff;
       font-family: 'Space Grotesk', sans-serif;
       overflow-x: hidden;
-      color: #fff;
+      margin: 0; padding: 0;
+      /* Dynamic background container */
+      transition: background 0.5s ease;
     }
     
-    /* Force header links to be white on this dark page */
-    .nav-links, .nav-links a { color: #fff !important; }
-    #header { background: transparent !important; }
-
-    /* The glowing background ambiance */
+    /* Dynamic ambient glow */
     .ambient-glow {
       position: fixed;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 100vw; height: 100vw;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(232, 65, 40, 0.15) 0%, rgba(0,0,0,0) 60%);
-      z-index: 0;
+      width: 150vw; height: 150vh;
+      background: radial-gradient(circle at center, rgba(232, 65, 40, 0.15) 0%, rgba(0,0,0,0) 60%);
+      z-index: -1;
       pointer-events: none;
-      filter: blur(80px);
+      filter: blur(100px);
       transition: background 0.5s ease;
     }
 
-    /* SCROLL SETUP */
-    /* This creates the scrollable space. E.g. 5 events = 600vh */
-    .scroll-space {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 600vh;
-      z-index: 1;
+    #header { background: transparent !important; border-bottom: none !important; z-index: 999; }
+    .nav-links, .nav-links a { color: #fff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      text-align: center;
+      padding: 120px 20px 40px;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: -2px;
     }
 
-    /* 3D SCENE (FIXED VIEWPORT) */
-    .scene {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      height: 100svh; /* Better mobile support */
-      perspective: 800px;
-      -webkit-perspective: 800px;
-      z-index: 2;
-      pointer-events: none; /* Let clicks pass through unless on a card */
-    }
-
-    .tunnel {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      transform-style: preserve-3d;
-      -webkit-transform-style: preserve-3d;
-      will-change: transform;
-    }
-
-    /* THE EVENT CARDS */
-    .event-card {
-      position: absolute;
-      top: 50%; left: 50%;
-      /* initial placement centered, we'll shift them in JS */
-      transform: translate(-50%, -50%);
-      width: clamp(280px, 80vw, 900px);
-      display: flex;
-      flex-direction: row;
-      gap: 30px;
-      align-items: center;
-      background: rgba(10,10,10,0.8);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 50px rgba(0,0,0,0.8);
-      pointer-events: auto;
-      transform-origin: center center;
-      /* Default hidden */
-      opacity: 0;
-      will-change: transform, opacity;
-    }
-
-    .event-poster {
-      width: 40%;
-      max-width: 350px;
-      aspect-ratio: 4/5;
-      object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    }
-
-    .event-info {
-      flex: 1;
+    /* THE STACKING DECK */
+    .deck-container {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      padding-bottom: 200px;
+      position: relative;
     }
 
-    .event-title {
+    .event-card {
+      position: sticky;
+      /* Center it on screen: top offset = (100vh - card height) / 2 */
+      top: 15vh; 
+      width: 90vw;
+      max-width: 450px;
+      height: 70vh;
+      margin-bottom: 100vh; /* Massive margin forces scrolling to reach next card */
+      perspective: 1000px;
+      will-change: transform;
+    }
+    .event-card:last-child {
+      margin-bottom: 20vh;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+      transform-origin: top center;
+      /* Border matches dynamic color */
+      border: 1px solid rgba(255,255,255,0.1);
+      background: #111;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(110%) saturate(120%);
+    }
+
+    .card-info {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 60%, transparent 100%);
+      padding: 40px 30px 30px;
+      box-sizing: border-box;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .card-title {
       font-family: var(--font-display);
-      font-size: clamp(2.5rem, 5vw, 5rem);
+      font-size: clamp(2rem, 6vw, 3rem);
       font-weight: 900;
-      line-height: 0.9;
-      text-transform: uppercase;
       margin: 0 0 10px 0;
-      text-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    }
-
-    .event-meta {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #aaa;
-      margin-bottom: 30px;
+      line-height: 1;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      text-shadow: 0 0 15px currentColor;
     }
 
-    .event-btn {
-      display: inline-block;
-      padding: 12px 30px;
-      background: #fff;
-      color: #000;
-      font-family: var(--font-display);
-      font-weight: 900;
+    .card-date {
       font-size: 1rem;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-radius: 100px;
-      width: fit-content;
-      transition: all 0.3s ease;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.7);
+      margin: 0;
     }
 
-    /* NEON ACCENTS */
-    .c-red { border-color: rgba(232, 65, 40, 0.4); box-shadow: 0 0 40px rgba(232, 65, 40, 0.2); }
-    .c-red .event-title { color: #fff; text-shadow: 0 0 20px rgba(232, 65, 40, 0.8); }
-    .c-red .event-btn:hover { background: var(--c-red); color: #fff; box-shadow: 0 0 20px var(--c-red); }
-
-    .c-green { border-color: rgba(16, 140, 90, 0.4); box-shadow: 0 0 40px rgba(16, 140, 90, 0.2); }
-    .c-green .event-title { color: #fff; text-shadow: 0 0 20px rgba(16, 140, 90, 0.8); }
-    .c-green .event-btn:hover { background: var(--c-green); color: #000; box-shadow: 0 0 20px var(--c-green); }
-
-    .c-yellow { border-color: rgba(244, 162, 24, 0.4); box-shadow: 0 0 40px rgba(244, 162, 24, 0.2); }
-    .c-yellow .event-title { color: #fff; text-shadow: 0 0 20px rgba(244, 162, 24, 0.8); }
-    .c-yellow .event-btn:hover { background: var(--c-yellow); color: #000; box-shadow: 0 0 20px var(--c-yellow); }
-
-    .instructions {
-      position: fixed;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.9rem;
-      color: #fff;
-      opacity: 0.5;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      z-index: 100;
-      animation: pulse 2s infinite alternate;
-      pointer-events: none;
-    }
-    @keyframes pulse { 0% { opacity: 0.2; transform: translateX(-50%) translateY(0); } 100% { opacity: 0.8; transform: translateX(-50%) translateY(5px); } }
-
-    /* MOBILE LAYOUT TWEAKS (Stack the card contents, but KEEP 3D tunnel) */
-    @media (max-width: 768px) {
-      .event-card {
-        flex-direction: column;
-        padding: 20px;
-        gap: 15px;
-        width: 85vw;
-      }
-      .event-poster {
-        width: 100%;
-        max-width: none;
-        height: 35vh;
-        object-fit: contain; /* Prevent cropping completely */
-        background: transparent;
-        box-shadow: none;
-      }
-      .event-title { font-size: 2.5rem; text-align: center; }
-      .event-meta { font-size: 1rem; text-align: center; margin-bottom: 15px; }
-      .event-btn { margin: 0 auto; }
-      .event-info { width: 100%; align-items: center; }
-    }
   </style>
 </head>
 <body>
+
+  <div class="ambient-glow" id="ambient-glow"></div>
 
   <header id="header">
     <div class="header-inner">
@@ -202,145 +136,102 @@
       </a>
       <nav class="nav-links">
         <a href="ecosystem.html">THE ECOSYSTEM</a>
-        <a href="events.html" style="color: var(--c-yellow) !important; text-decoration: underline;">EVENTS</a>
+        <a href="events.html" style="color: var(--c-red) !important; text-decoration: underline;">EVENTS</a>
         <a href="https://greyapple.vip" target="_blank">GREYAPPLE</a>
         <a href="cruiseroom.html">THE CRUISE ROOM</a>
       </nav>
     </div>
   </header>
 
-  <div class="ambient-glow" id="ambientGlow"></div>
+  <h1 class="page-title">THE ARCHIVE</h1>
 
-  <!-- Dummy scroll space -->
-  <div class="scroll-space"></div>
-
-  <!-- The 3D Scene fixed to viewport -->
-  <div class="scene">
-    <div class="tunnel" id="tunnel">
-      <!-- Cards generated by JS -->
-    </div>
+  <div class="deck-container" id="deck">
+    <!-- Cards will be injected via JS -->
   </div>
-
-  <div class="instructions">Scroll to Fly</div>
 
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
     const events = [
-      { title: "ON THE BEACH", date: "Dec 27, 2026 • Lagos", img: "assets/events-posters/poster-1.jpg", colorClass: "c-red", rgb: "232, 65, 40", link: "https://greyapple.vip" },
-      { title: "INDEPENDENCE", date: "Oct 4, 2026 • Landmark", img: "assets/events-posters/poster-2.jpg", colorClass: "c-green", rgb: "16, 140, 90", link: "https://greyapple.vip" },
-      { title: "ON THE ROOF", date: "Dec 17, 2026 • Rooftop VI", img: "assets/events-posters/poster-3.png", colorClass: "c-yellow", rgb: "244, 162, 24", link: "https://greyapple.vip" },
-      { title: "SUNDOWN", date: "Aug 8, 2026 • Lagos", img: "assets/events-posters/poster-4.jpg", colorClass: "c-red", rgb: "232, 65, 40", link: "https://greyapple.vip" },
-      { title: "CRUISE ROOM", date: "Dec 18, 2026 • The Hub", img: "assets/events-posters/poster-5.png", colorClass: "c-green", rgb: "16, 140, 90", link: "cruiseroom.html" }
+      { id: 1, title: 'GENZ FEST 2023', date: 'LAGOS - DEC 2023', img: 'assets/events/event-1.jpg', color: '#E84128' },
+      { id: 2, title: 'THE SOUNDCLASH', date: 'ACCRA - NOV 2023', img: 'assets/events/event-2.jpg', color: '#F4A218' },
+      { id: 3, title: 'CULTURE RAVE', date: 'ABUJA - OCT 2023', img: 'assets/events/event-3.png', color: '#108C5A' },
+      { id: 4, title: 'MIDNIGHT CRUISE', date: 'LAGOS - SEPT 2023', img: 'assets/events/event-5.jpg', color: '#E84128' },
+      { id: 5, title: 'BLOCK PARTY', date: 'LONDON - AUG 2023', img: 'assets/events/event-6.jpg', color: '#F4A218' },
+      { id: 6, title: 'VIBES ON VIBES', date: 'PARIS - JULY 2023', img: 'assets/events/event-9.jpg', color: '#108C5A' }
     ];
 
-    const tunnel = document.getElementById('tunnel');
-    const glow = document.getElementById('ambientGlow');
-    
-    // Z-spacing between cards in the 3D tunnel (shorter on mobile to prevent iOS clipping)
-    const zSpacing = window.innerWidth < 768 ? 800 : 1500; 
+    const deck = document.getElementById('deck');
+    const glow = document.getElementById('ambient-glow');
 
-    // Build cards
-    events.forEach((ev, i) => {
+    // Build the DOM
+    events.forEach((ev, index) => {
       const card = document.createElement('div');
-      card.className = `event-card ${ev.colorClass}`;
-      card.setAttribute('data-rgb', ev.rgb);
-      
-      // Position them deep in the Z-axis (negative Z goes into the screen)
-      const initialZ = -(i * zSpacing);
+      card.className = 'event-card';
+      card.dataset.color = ev.color;
       
       card.innerHTML = `
-        <img src="${ev.img}" alt="${ev.title}" class="event-poster">
-        <div class="event-info">
-          <h2 class="event-title">${ev.title}</h2>
-          <div class="event-meta">${ev.date}</div>
-          <a href="${ev.link}" class="event-btn">GET TICKETS</a>
+        <div class="card-inner">
+          <img src="${ev.img}" class="card-img" alt="${ev.title}">
+          <div class="card-info">
+            <h2 class="card-title" style="color: ${ev.color}">${ev.title}</h2>
+            <p class="card-date">${ev.date}</p>
+          </div>
         </div>
       `;
-      tunnel.appendChild(card);
-      
-      // Set initial transform
-      gsap.set(card, {
-        z: initialZ,
-        rotationY: (i % 2 === 0 ? -10 : 10), // alternate slight rotation for depth
-        rotationX: 5
-      });
+      deck.appendChild(card);
     });
 
-    const cards = gsap.utils.toArray('.event-card');
-    
-    // The master timeline tied to the scroll
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".scroll-space",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1, // Smooth scrubbing
-        onUpdate: (self) => {
-          // Calculate which card is closest to camera (z = 0)
-          const totalZ = (events.length - 1) * zSpacing;
-          const currentZ = self.progress * totalZ;
-          
-          let closestIndex = Math.round(currentZ / zSpacing);
-          closestIndex = Math.max(0, Math.min(closestIndex, events.length - 1));
-          
-          // Update ambient glow color to match the closest active card
-          const rgb = events[closestIndex].rgb;
-          glow.style.background = `radial-gradient(circle, rgba(${rgb}, 0.25) 0%, rgba(0,0,0,0) 70%)`;
-        }
-      }
-    });
+    // GSAP ScrollTrigger Logic
+    const cards = document.querySelectorAll('.event-card');
 
-    // 1. Move the entire tunnel FORWARD on Z axis as you scroll down
-    tl.to(tunnel, {
-      z: (events.length - 1) * zSpacing,
-      ease: "none"
-    }, 0);
-
-    // 2. Animate each card's opacity & rotation individually as it passes the camera
     cards.forEach((card, i) => {
-      const cardZ = i * zSpacing;
-      const totalZ = (events.length - 1) * zSpacing;
-      
-      // Normalize timeline position for this card
-      const centerTime = cardZ / totalZ;
-      const startTime = Math.max(0, centerTime - 0.3); // When it starts fading in from the dark
-      const endTime = Math.min(1, centerTime + 0.1);   // When it flies past the camera and disappears
-      
-      // Fade in and straighten out as it approaches the camera (Z=0)
-      tl.to(card, {
-        opacity: 1,
-        rotationY: 0,
-        rotationX: 0,
-        ease: "power2.inOut",
-        duration: centerTime - startTime
-      }, startTime * tl.duration() || 0);
-      
-      // Fade out and fly past (scale up drastically) as it goes behind camera
-      if(centerTime < 1) {
-        tl.to(card, {
-          opacity: 0,
-          scale: 2,
-          rotationY: (i % 2 === 0 ? 20 : -20),
-          ease: "power2.in",
-          duration: endTime - centerTime
-        }, centerTime * tl.duration());
-      }
-    });
-    
-    // Mouse Parallax for Desktop (creates the floating atmosphere)
-    if(window.innerWidth > 768) {
-      document.addEventListener('mousemove', (e) => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 20; // -10 to 10 deg
-        const y = (e.clientY / window.innerHeight - 0.5) * 20;
-        
-        gsap.to('.scene', {
-          rotationY: x,
-          rotationX: -y,
-          ease: "power2.out",
-          duration: 1
+      const inner = card.querySelector('.card-inner');
+      const color = card.dataset.color;
+
+      // 1. Scale down and fade card when the *next* card scrolls up over it
+      if (i < cards.length - 1) {
+        gsap.to(inner, {
+          scale: 0.85,
+          opacity: 0.3,
+          ease: "none",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 15%", // When it reaches its sticky point
+            end: "bottom 15%", // Over the duration of its massive margin-bottom
+            scrub: true
+          }
         });
+      }
+
+      // 2. Change global background glow when this card hits the sticky point
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top 40%", // Trigger color change slightly before it hits sticky
+        end: "bottom 40%",
+        onEnter: () => {
+          glow.style.background = `radial-gradient(circle at center, ${hexToRgbA(color, 0.2)} 0%, rgba(0,0,0,0) 70%)`;
+          document.body.style.boxShadow = `inset 0 0 100px ${hexToRgbA(color, 0.1)}`;
+        },
+        onEnterBack: () => {
+          glow.style.background = `radial-gradient(circle at center, ${hexToRgbA(color, 0.2)} 0%, rgba(0,0,0,0) 70%)`;
+          document.body.style.boxShadow = `inset 0 0 100px ${hexToRgbA(color, 0.1)}`;
+        }
       });
+    });
+
+    // Helper for Hex to RGBA
+    function hexToRgbA(hex, alpha){
+      let c;
+      if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+          c= hex.substring(1).split('');
+          if(c.length== 3){
+              c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+          }
+          c= '0x'+c.join('');
+          return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+','+alpha+')';
+      }
+      return `rgba(255,255,255,${alpha})`;
     }
   </script>
 </body>
