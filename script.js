@@ -145,6 +145,26 @@ sections.forEach((sec) => {
   });
 });
 
+// Cruise Room Interactive Scatter Effect
+ScrollTrigger.create({
+  trigger: "#cruise-feature",
+  start: "top 60%",
+  onEnter: () => {
+    gsap.to(".cruise-huge-text", { color: "#fff", textShadow: "0 0 30px #108C5A, 0 0 60px #108C5A", "-webkit-text-stroke": "0px", duration: 1, ease: "power2.out" });
+    gsap.to(".cruise-feature-section", { background: "radial-gradient(circle at center, rgba(16, 140, 90, 0.3), #000 60%)", duration: 1 });
+    
+    gsap.to(".img-1", { top: "10%", left: "10%", xPercent: -50, yPercent: -50, scale: 1, opacity: 0.8, rotation: -15, duration: 1.5, ease: "elastic.out(1, 0.5)" });
+    gsap.to(".img-2", { top: "15%", left: "90%", xPercent: -50, yPercent: -50, scale: 1, opacity: 0.8, rotation: 10, duration: 1.5, ease: "elastic.out(1, 0.5)", delay: 0.1 });
+    gsap.to(".img-3", { top: "90%", left: "15%", xPercent: -50, yPercent: -50, scale: 1, opacity: 0.8, rotation: 20, duration: 1.5, ease: "elastic.out(1, 0.5)", delay: 0.2 });
+    gsap.to(".img-4", { top: "85%", left: "85%", xPercent: -50, yPercent: -50, scale: 1, opacity: 0.8, rotation: -10, duration: 1.5, ease: "elastic.out(1, 0.5)", delay: 0.3 });
+  },
+  onLeaveBack: () => {
+    gsap.to(".cruise-huge-text", { color: "transparent", textShadow: "none", "-webkit-text-stroke": "2px rgba(255,255,255,0.2)", duration: 0.5 });
+    gsap.to(".cruise-feature-section", { background: "#000", duration: 0.5 });
+    gsap.to(".cruise-float-img", { top: "50%", left: "50%", scale: 0, opacity: 0, rotation: 0, duration: 0.5, ease: "power2.in" });
+  }
+});
+
 
 /* ══════════════════════════════════════════════════════════
    3. SANITY.IO LIVE CMS INTEGRATION (Event Grid Integration)
