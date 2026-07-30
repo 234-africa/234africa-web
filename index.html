@@ -240,9 +240,10 @@
       </script>
 
 
-      <!-- WHO WE ARE -->
+      <!-- WHO WE ARE & WHY WE WIN -->
       <section class="section-content" id="who-we-are">
         <div class="container text-center">
+          <!-- Who We Are Core -->
           <div class="badge-tag">ABOUT US</div>
           <h2 class="section-heading">WHO WE <span class="c-yellow">ARE.</span></h2>
           <div class="section-body mt-6 mx-auto" style="max-width: 800px; text-align: left;">
@@ -258,7 +259,140 @@
               </li>
             </ul>
           </div>
+
+          <!-- WHY WE WIN STRATEGIC ADVANTAGE DECK -->
+          <div class="why-we-win-wrapper" style="margin-top: 88px; padding-top: 72px; border-top: 1px solid rgba(255, 255, 255, 0.12); position: relative;">
+            <div class="badge-tag" style="background: rgba(16, 140, 90, 0.15); color: #108C5A; border: 1px solid rgba(16, 140, 90, 0.4); display: inline-block; padding: 6px 18px; border-radius: 100px; font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; font-weight: 700; margin-bottom: 12px;">
+              [ STRATEGIC EDGE ]
+            </div>
+            <h3 style="font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(3rem, 7vw, 5.2rem); font-weight: 900; text-transform: uppercase; color: #FFF; line-height: 1; margin-bottom: 48px; letter-spacing: -2px;">
+              Why We <span style="color: #108C5A; filter: drop-shadow(0 0 16px rgba(16, 140, 90, 0.4));">Win.</span>
+            </h3>
+
+            <div class="www-grid">
+              <!-- Pillar 1 -->
+              <div class="www-card www-card--red">
+                <div class="www-card-header">
+                  <span class="www-tag">[ 01 // AUDIENCE REACH ]</span>
+                  <span class="www-dot www-dot--red"></span>
+                </div>
+                <h4 class="www-title">Deep access to Gen Z</h4>
+                <p class="www-desc">
+                  Direct reach to highly engaged youth audiences across campuses, nightlife, and digital communities where trends are shaped.
+                </p>
+              </div>
+
+              <!-- Pillar 2 -->
+              <div class="www-card www-card--yellow">
+                <div class="www-card-header">
+                  <span class="www-tag">[ 02 // EXECUTION POWER ]</span>
+                  <span class="www-dot www-dot--yellow"></span>
+                </div>
+                <h4 class="www-title">Proven ability to execute</h4>
+                <p class="www-desc">
+                  Demonstrated track record of delivering high-impact events and campaigns across cities, consistently attracting large youth audiences.
+                </p>
+              </div>
+
+              <!-- Pillar 3 -->
+              <div class="www-card www-card--green">
+                <div class="www-card-header">
+                  <span class="www-tag">[ 03 // AUTHENTICITY ]</span>
+                  <span class="www-dot www-dot--green"></span>
+                </div>
+                <h4 class="www-title">Culture-first positioning</h4>
+                <p class="www-desc">
+                  Built from within music, nightlife, and youth culture, ensuring authentic relevance and strong connection with the audience.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <style>
+          .www-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 28px;
+            text-align: left;
+            margin-top: 16px;
+          }
+          .www-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 22px;
+            padding: 40px 32px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(12px);
+          }
+          .www-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            opacity: 0.85;
+            transition: opacity 0.35s, height 0.35s;
+          }
+          .www-card--red::before { background: #E84128; box-shadow: 0 0 15px #E84128; }
+          .www-card--yellow::before { background: #F4A218; box-shadow: 0 0 15px #F4A218; }
+          .www-card--green::before { background: #108C5A; box-shadow: 0 0 15px #108C5A; }
+          
+          .www-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.25);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+          }
+          .www-card--red:hover { box-shadow: 0 20px 40px rgba(232, 65, 40, 0.15); }
+          .www-card--yellow:hover { box-shadow: 0 20px 40px rgba(244, 162, 24, 0.15); }
+          .www-card--green:hover { box-shadow: 0 20px 40px rgba(16, 140, 90, 0.15); }
+
+          .www-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+          }
+          .www-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+          }
+          .www-card--red .www-tag { color: #E84128; }
+          .www-card--yellow .www-tag { color: #F4A218; }
+          .www-card--green .www-tag { color: #108C5A; }
+
+          .www-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+          }
+          .www-dot--red { background: #E84128; box-shadow: 0 0 8px #E84128; }
+          .www-dot--yellow { background: #F4A218; box-shadow: 0 0 8px #F4A218; }
+          .www-dot--green { background: #108C5A; box-shadow: 0 0 8px #108C5A; }
+
+          .www-title {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #FFF;
+            margin-bottom: 14px;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+          }
+          .www-desc {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin: 0;
+          }
+          @media (max-width: 768px) {
+            .www-grid { grid-template-columns: 1fr; gap: 20px; }
+            .www-card { padding: 28px 24px; }
+          }
+        </style>
       </section>
 
 
