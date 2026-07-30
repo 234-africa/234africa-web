@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>234AFRICA - Events (Neon Grid)</title>
+  <title>234AFRICA - Events (The Filmstrip)</title>
   
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800;12..96,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <link rel="stylesheet" href="style.css" />
   
   <style>
@@ -15,127 +16,154 @@
       background: #050505;
       margin: 0; padding: 0;
       font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+      transition: background-color 0.8s ease;
     }
     
     /* Force header links to be white on this dark page */
     .nav-links, .nav-links a { color: #fff !important; }
 
-    .events-header {
-      padding: 180px 40px 60px;
-      text-align: center;
+    /* The pinning container */
+    .pin-container {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
     }
-    .events-title {
+
+    /* The horizontal moving track */
+    .scroll-track {
+      display: flex;
+      width: max-content;
+      height: 100%;
+      padding-top: 80px; /* offset for header */
+    }
+
+    .event-panel {
+      width: 100vw;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5vw;
+      position: relative;
+    }
+
+    .panel-content {
+      display: flex;
+      width: 100%;
+      max-width: 1400px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    /* LEFT: Crazy Typography */
+    .panel-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .event-title {
       font-family: var(--font-display);
-      font-size: clamp(3rem, 8vw, 6rem);
+      font-size: clamp(4rem, 10vw, 12rem);
       font-weight: 900;
-      color: #fff;
+      line-height: 0.85;
       text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 2px #fff;
       margin: 0;
-      line-height: 1;
+      position: relative;
     }
-    .events-subtitle {
-      color: #aaa;
-      font-size: 1.2rem;
-      margin-top: 15px;
+    .event-title::before {
+      content: attr(data-text);
+      position: absolute;
+      left: 0; top: 0;
+      width: 0%;
+      color: #fff;
+      -webkit-text-stroke: 0px;
+      overflow: hidden;
+      transition: width 0.5s ease;
+      white-space: nowrap;
+    }
+    .event-panel:hover .event-title::before {
+      width: 100%;
+    }
+
+    .event-meta {
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
       letter-spacing: 2px;
     }
 
-    .events-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 40px;
-      padding: 0 40px 100px;
-      max-width: 1400px;
-      margin: 0 auto;
+    .event-btn {
+      margin-top: 40px;
+      display: inline-block;
+      padding: 15px 40px;
+      background: #fff;
+      color: #000;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.2rem;
+      border-radius: 100px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform 0.3s ease;
+      width: fit-content;
+    }
+    .event-btn:hover {
+      transform: scale(1.05);
     }
 
-    .event-card {
-      background: #111;
-      border: 2px solid #333;
-      border-radius: 12px;
-      overflow: hidden;
+    /* RIGHT: Clear Uncropped Poster */
+    .panel-right {
+      flex: 1;
       display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      transition: border-color 0.3s ease;
-      transform-style: preserve-3d;
+      justify-content: flex-end;
+      align-items: center;
       perspective: 1000px;
     }
-
-    .event-img-wrap {
+    
+    .poster-wrap {
       width: 100%;
-      aspect-ratio: 4/5;
+      max-width: 500px;
+      height: 70vh;
+      border-radius: 20px;
       overflow: hidden;
-      border-bottom: 2px solid #333;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+      border: 4px solid #fff;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
     }
+    
     .event-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
+      background: #000;
     }
 
-    .event-details {
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-    .event-title {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 800;
-      color: #fff;
-      margin: 0 0 10px 0;
-      text-transform: uppercase;
-    }
-    .event-meta {
-      font-size: 1rem;
-      color: #aaa;
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-    
-    .event-btn {
-      margin-top: auto;
-      padding: 12px 24px;
-      background: #222;
-      color: #fff;
-      text-align: center;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 0.9rem;
-      border-radius: 100px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: background 0.3s ease, color 0.3s ease;
+    .event-panel:hover .poster-wrap {
+      transform: rotateY(-10deg) rotateX(5deg) scale(1.02);
     }
 
-    /* NEON BRAND COLORS */
-    .event-card.c-red:hover { border-color: var(--c-red); box-shadow: 0 10px 40px rgba(232, 65, 40, 0.4); }
-    .event-card.c-red:hover .event-btn { background: var(--c-red); color: #fff; }
-    .event-card.c-red .event-img-wrap { border-bottom-color: var(--c-red); }
-
-    .event-card.c-green:hover { border-color: var(--c-green); box-shadow: 0 10px 40px rgba(16, 140, 90, 0.4); }
-    .event-card.c-green:hover .event-btn { background: var(--c-green); color: #000; }
-    .event-card.c-green .event-img-wrap { border-bottom-color: var(--c-green); }
-
-    .event-card.c-yellow:hover { border-color: var(--c-yellow); box-shadow: 0 10px 40px rgba(244, 162, 24, 0.4); }
-    .event-card.c-yellow:hover .event-btn { background: var(--c-yellow); color: #000; }
-    .event-card.c-yellow .event-img-wrap { border-bottom-color: var(--c-yellow); }
-
-    .event-card:hover .event-img { transform: scale(1.05); }
-
-    @media (max-width: 768px) {
-      .events-header { padding: 120px 20px 40px; }
-      .events-grid { padding: 0 20px 60px; grid-template-columns: 1fr; gap: 30px; }
-      .event-img-wrap { aspect-ratio: 1/1; }
-      .event-card { transform: none !important; box-shadow: none !important; }
-      
-      /* Keep borders active on mobile since there is no hover */
-      .event-card.c-red { border-color: var(--c-red); }
-      .event-card.c-green { border-color: var(--c-green); }
-      .event-card.c-yellow { border-color: var(--c-yellow); }
+    /* BRAND COLORS DYNAMIC INJECTION VIA JS */
+    /* Mobile Fallback: Vertical Snap */
+    @media (max-width: 992px) {
+      .pin-container { height: auto; overflow: visible; }
+      .scroll-track { flex-direction: column; width: 100%; padding-top: 0; }
+      .event-panel { height: 100vh; flex-direction: column; padding: 100px 20px 20px; scroll-snap-align: start; }
+      .panel-content { flex-direction: column; gap: 20px; text-align: center; }
+      .panel-left { align-items: center; }
+      .event-title { -webkit-text-stroke: 1px #fff; font-size: 4rem; }
+      .panel-right { justify-content: center; width: 100%; }
+      .poster-wrap { height: 50vh; border-width: 2px; }
+      html { scroll-snap-type: y mandatory; }
+      .event-title::before { width: 100%; }
     }
   </style>
 </head>
@@ -155,77 +183,91 @@
     </div>
   </header>
 
-  <section class="events-header">
-    <h1 class="events-title">Upcoming <span style="color: var(--c-red);">Events</span></h1>
-    <p class="events-subtitle">Secure your tickets before they sell out.</p>
-  </section>
-
-  <section class="events-grid" id="events-grid">
-    <!-- Populated by JS -->
-  </section>
+  <div class="pin-container" id="pinMaster">
+    <div class="scroll-track" id="scrollTrack">
+      <!-- Populated by JS -->
+    </div>
+  </div>
 
   <script>
+    gsap.registerPlugin(ScrollTrigger);
+
     const events = [
-      { title: "ON THE BEACH", date: "Dec 27, 2026 • Lagos", img: "assets/events-posters/poster-1.jpg", colorClass: "c-red", link: "https://greyapple.vip" },
-      { title: "INDEPENDENCE", date: "Oct 4, 2026 • Landmark", img: "assets/events-posters/poster-2.jpg", colorClass: "c-green", link: "https://greyapple.vip" },
-      { title: "ON THE ROOF", date: "Dec 17, 2026 • Rooftop VI", img: "assets/events-posters/poster-3.png", colorClass: "c-yellow", link: "https://greyapple.vip" },
-      { title: "SUNDOWN", date: "Aug 8, 2026 • Lagos", img: "assets/events-posters/poster-4.jpg", colorClass: "c-red", link: "https://greyapple.vip" },
-      { title: "CRUISE ROOM", date: "Dec 18, 2026 • The Hub", img: "assets/events-posters/poster-5.png", colorClass: "c-green", link: "cruiseroom.html" }
+      { title: "ON THE BEACH", date: "Dec 27, 2026 • Lagos", img: "assets/events-posters/poster-1.jpg", bgColor: "#E84128", link: "https://greyapple.vip" },
+      { title: "INDEPENDENCE", date: "Oct 4, 2026 • Landmark", img: "assets/events-posters/poster-2.jpg", bgColor: "#108C5A", link: "https://greyapple.vip" },
+      { title: "ON THE ROOF", date: "Dec 17, 2026 • Rooftop VI", img: "assets/events-posters/poster-3.png", bgColor: "#F4A218", link: "https://greyapple.vip" },
+      { title: "SUNDOWN", date: "Aug 8, 2026 • Lagos", img: "assets/events-posters/poster-4.jpg", bgColor: "#E84128", link: "https://greyapple.vip" },
+      { title: "CRUISE ROOM", date: "Dec 18, 2026 • The Hub", img: "assets/events-posters/poster-5.png", bgColor: "#108C5A", link: "cruiseroom.html" }
     ];
 
-    const grid = document.getElementById('events-grid');
+    const track = document.getElementById('scrollTrack');
 
-    events.forEach(ev => {
-      const card = document.createElement('a');
-      card.href = ev.link;
-      card.className = `event-card ${ev.colorClass}`;
-      card.innerHTML = `
-        <div class="event-img-wrap">
-          <img src="${ev.img}" alt="${ev.title}" class="event-img">
-        </div>
-        <div class="event-details">
-          <h2 class="event-title">${ev.title}</h2>
-          <div class="event-meta">${ev.date}</div>
-          <div class="event-btn">GET TICKETS</div>
+    events.forEach((ev, i) => {
+      const panel = document.createElement('div');
+      panel.className = 'event-panel';
+      panel.setAttribute('data-color', ev.bgColor);
+      
+      panel.innerHTML = `
+        <div class="panel-content">
+          <div class="panel-left">
+            <h2 class="event-title" data-text="${ev.title}">${ev.title}</h2>
+            <div class="event-meta">${ev.date}</div>
+            <a href="${ev.link}" class="event-btn">GET TICKETS</a>
+          </div>
+          <div class="panel-right">
+            <div class="poster-wrap">
+              <img src="${ev.img}" alt="${ev.title}" class="event-img">
+            </div>
+          </div>
         </div>
       `;
-      grid.appendChild(card);
+      track.appendChild(panel);
     });
 
-    // GSAP 3D Tilt Effect on Desktop
-    if (window.innerWidth > 768) {
-      const cards = document.querySelectorAll('.event-card');
-      
-      cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          
-          const rotateX = ((y - centerY) / centerY) * -10;
-          const rotateY = ((x - centerX) / centerX) * 10;
-          
-          gsap.to(card, {
-            rotationX: rotateX,
-            rotationY: rotateY,
-            transformPerspective: 1000,
-            ease: 'power2.out',
-            duration: 0.5
-          });
-        });
+    const panels = gsap.utils.toArray('.event-panel');
 
-        card.addEventListener('mouseleave', () => {
-          gsap.to(card, {
-            rotationX: 0,
-            rotationY: 0,
-            ease: 'elastic.out(1, 0.3)',
-            duration: 1
-          });
+    // Desktop Horizontal Scroll
+    if (window.innerWidth > 992) {
+      let scrollTween = gsap.to(panels, {
+        xPercent: -100 * (panels.length - 1),
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#pinMaster",
+          pin: true,
+          scrub: 1,
+          snap: 1 / (panels.length - 1),
+          end: () => "+=" + track.offsetWidth
+        }
+      });
+
+      // Background color change logic for desktop
+      panels.forEach((panel, i) => {
+        ScrollTrigger.create({
+          trigger: panel,
+          containerAnimation: scrollTween,
+          start: "left center",
+          end: "right center",
+          onEnter: () => gsap.to('body', { backgroundColor: panel.getAttribute('data-color'), duration: 0.5 }),
+          onEnterBack: () => gsap.to('body', { backgroundColor: panel.getAttribute('data-color'), duration: 0.5 })
         });
       });
+      
+      // Initial color
+      gsap.set('body', { backgroundColor: events[0].bgColor });
+
+    } else {
+      // Mobile Vertical Scroll Background morphing
+      panels.forEach((panel, i) => {
+        ScrollTrigger.create({
+          trigger: panel,
+          start: "top center",
+          end: "bottom center",
+          onEnter: () => gsap.to('body', { backgroundColor: panel.getAttribute('data-color'), duration: 0.5 }),
+          onEnterBack: () => gsap.to('body', { backgroundColor: panel.getAttribute('data-color'), duration: 0.5 })
+        });
+      });
+      // Initial color
+      gsap.set('body', { backgroundColor: events[0].bgColor });
     }
   </script>
 </body>
