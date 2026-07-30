@@ -149,22 +149,6 @@
           </div>
         </div>
       </section>
-
-      <!-- CRUISE ROOM CREATIVE BANNER -->
-      <section class="cruise-feature-section" id="cruise-feature">
-        <div class="cruise-feature-inner">
-          <h2 class="cruise-huge-text">THE CRUISE ROOM</h2>
-          <div class="cruise-subtext">AN AGGRESSIVELY CREATIVE WORKSHOP. BREAK THE RULES.</div>
-          <a href="cruiseroom.html" class="cruise-explore-btn">ENTER THE LAB ➔</a>
-          
-          <!-- Floating images hidden by default, scatter on hover/scroll -->
-          <img src="assets/cruiseroom/cruise-1.png" class="cruise-float-img img-1">
-          <img src="assets/cruiseroom/cruise-2.png" class="cruise-float-img img-2">
-          <img src="assets/cruiseroom/cruise-3.png" class="cruise-float-img img-3">
-          <img src="assets/cruiseroom/cruise-4.png" class="cruise-float-img img-4">
-        </div>
-      </section>
-
       <!-- EVENTS CAROUSEL (Pure CSS Infinite Loop) -->
       <section class="infinite-carousel">
         <div class="carousel-track">
@@ -184,6 +168,72 @@
           <img src="assets/events/event-9.jpg" alt="Event Moment">
         </div>
       </section>
+
+      <!-- CRUISE ROOM CREATIVE BANNER: SPOTLIGHT DARK ROOM -->
+      <section class="cruise-darkroom" id="cruise-darkroom">
+        <!-- The spotlight overlay that hides everything except a radius -->
+        <div class="spotlight-overlay" id="spotlight-overlay"></div>
+        
+        <div class="darkroom-content">
+          <h2 class="darkroom-title">THE CRUISE ROOM</h2>
+          <div class="darkroom-subtitle">ENTER THE LAB</div>
+          <a href="cruiseroom.html" class="darkroom-btn">BREAK THE RULES</a>
+        </div>
+        
+        <!-- Scattered Polaroids -->
+        <img src="assets/cruiseroom/cruise-1.png" class="darkroom-polaroid p-1">
+        <img src="assets/cruiseroom/cruise-2.png" class="darkroom-polaroid p-2">
+        <img src="assets/cruiseroom/cruise-3.png" class="darkroom-polaroid p-3">
+        <img src="assets/cruiseroom/cruise-4.png" class="darkroom-polaroid p-4">
+      </section>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const darkroom = document.getElementById('cruise-darkroom');
+          const overlay = document.getElementById('spotlight-overlay');
+          
+          if (!darkroom || !overlay) return;
+
+          let isMobile = window.innerWidth <= 768;
+
+          // Mouse move for desktop
+          darkroom.addEventListener('mousemove', (e) => {
+            if (isMobile) return;
+            const rect = darkroom.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            overlay.style.background = `radial-gradient(circle 250px at ${x}px ${y}px, transparent 0%, #000 100%)`;
+          });
+          
+          // Reset when leaving
+          darkroom.addEventListener('mouseleave', () => {
+            if (isMobile) return;
+            overlay.style.background = '#000'; // completely dark when left
+          });
+
+          // Mobile fallback animation (auto spotlight)
+          if (isMobile) {
+            let angle = 0;
+            function autoSpotlight() {
+              const width = darkroom.offsetWidth;
+              const height = darkroom.offsetHeight;
+              const cx = width / 2;
+              const cy = height / 2;
+              const radius = Math.min(width, height) * 0.4;
+              
+              const x = cx + Math.cos(angle) * radius;
+              const y = cy + Math.sin(angle) * radius;
+              
+              // Slightly larger spotlight on mobile
+              overlay.style.background = `radial-gradient(circle 200px at ${x}px ${y}px, transparent 0%, rgba(0,0,0,0.9) 100%)`;
+              angle += 0.03;
+              requestAnimationFrame(autoSpotlight);
+            }
+            autoSpotlight();
+          }
+        });
+      </script>
 
 
       <!-- WHO WE ARE -->
