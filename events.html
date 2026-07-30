@@ -39,19 +39,8 @@
       mix-blend-mode: color;
     }
 
-    #header {
-      background: transparent;
-      z-index: 999;
-      border: none;
-      position: fixed; top: 0; left: 0; width: 100%;
-      padding: 32px 40px;
-    }
-    .header-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
-    .nav-links { display: flex; gap: 32px; font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; color: #fff; }
-    .btn-primary-pill {
-      background: var(--c-red); color: #FFF; font-family: var(--font-display); font-size: 0.85rem; font-weight: 700;
-      padding: 14px 32px; border-radius: 100px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
-    }
+    /* Force header links to be white on this dark page */
+    .nav-links, .nav-links a { color: #fff !important; }
 
     .brutalist-list {
       margin-top: 150px;
@@ -121,8 +110,7 @@
       .item-meta { flex-direction: column; align-items: flex-start; gap: 15px; opacity: 1; }
       .item-btn { display: inline-block; }
       .bg-reveal-container { display: none; }
-      #header { padding: 20px; }
-      .nav-links { display: none; }
+
       .brutalist-item:hover .item-title, .brutalist-item:hover .item-meta { transform: none; }
       /* Give mobile cards a background image natively */
       .brutalist-item { background-size: cover; background-position: center; background-blend-mode: overlay; border-bottom: 2px solid #333; }
