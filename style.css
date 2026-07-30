@@ -175,9 +175,8 @@ canvas { display: block; width: 100%; height: 100%; }
 
 /* ── MOBILE RESPONSIVENESS ── */
 @media (max-width: 992px) {
-  .header-inner { flex-wrap: nowrap; justify-content: flex-start; gap: 20px; overflow-x: auto; padding-bottom: 5px; align-items: center; }
-  .header-inner::-webkit-scrollbar { display: none; }
-  .nav-links { display: flex; width: auto; justify-content: flex-start; gap: 15px; font-size: 0.7rem; margin-top: 0; flex-wrap: nowrap; white-space: nowrap; flex-shrink: 0; }
+  .header-inner { flex-wrap: nowrap; justify-content: space-between; gap: 10px; align-items: center; overflow: hidden; }
+  .nav-links { display: flex; width: 100%; justify-content: flex-end; gap: 10px; font-size: 0.65rem; margin-top: 0; flex-wrap: nowrap; white-space: nowrap; }
   .header-right { display: none; } /* Hide heavy CTA button on mobile to save space */
   .grid-2-col { grid-template-columns: 1fr; gap: 40px; }
   .hero-title { font-size: 10vw; }
@@ -185,6 +184,9 @@ canvas { display: block; width: 100%; height: 100%; }
 }
 
 @media (max-width: 768px) {
+  .header-inner { padding: 15px 10px; }
+  .logo img { height: 30px !important; }
+  .nav-links { gap: 6px; font-size: 0.5rem; justify-content: space-between; }
   /* Layout & Containers */
   .container { padding: 0 20px; }
   .section-content { padding: 60px 0; }
