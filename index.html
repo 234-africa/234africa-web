@@ -191,47 +191,48 @@
         document.addEventListener('DOMContentLoaded', () => {
           const darkroom = document.getElementById('cruise-darkroom');
           const overlay = document.getElementById('spotlight-overlay');
-          
+
           if (!darkroom || !overlay) return;
 
           let isMobile = window.innerWidth <= 768;
+          let mouseInside = false;
+          let animFrame;
+          let angle = 0;
 
-          // Mouse move for desktop
+          // Auto-spotlight animation — runs on BOTH mobile and desktop
+          function autoSpotlight() {
+            if (mouseInside) { animFrame = requestAnimationFrame(autoSpotlight); return; }
+            const width  = darkroom.offsetWidth;
+            const height = darkroom.offsetHeight;
+            const cx = width / 2;
+            const cy = height / 2;
+            const radius = Math.min(width, height) * 0.38;
+            const x = cx + Math.cos(angle) * radius;
+            const y = cy + Math.sin(angle) * radius;
+            overlay.style.background = `radial-gradient(circle 220px at ${x}px ${y}px, transparent 0%, rgba(0,0,0,0.92) 100%)`;
+            angle += 0.022;
+            animFrame = requestAnimationFrame(autoSpotlight);
+          }
+          autoSpotlight();
+
+          // On desktop: mouse takes over the spotlight while inside the card
+          darkroom.addEventListener('mouseenter', () => {
+            if (isMobile) return;
+            mouseInside = true;
+          });
+
           darkroom.addEventListener('mousemove', (e) => {
             if (isMobile) return;
             const rect = darkroom.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
-            overlay.style.background = `radial-gradient(circle 250px at ${x}px ${y}px, transparent 0%, #000 100%)`;
-          });
-          
-          // Reset when leaving
-          darkroom.addEventListener('mouseleave', () => {
-            if (isMobile) return;
-            overlay.style.background = '#000'; // completely dark when left
+            overlay.style.background = `radial-gradient(circle 260px at ${x}px ${y}px, transparent 0%, rgba(0,0,0,0.92) 100%)`;
           });
 
-          // Mobile fallback animation (auto spotlight)
-          if (isMobile) {
-            let angle = 0;
-            function autoSpotlight() {
-              const width = darkroom.offsetWidth;
-              const height = darkroom.offsetHeight;
-              const cx = width / 2;
-              const cy = height / 2;
-              const radius = Math.min(width, height) * 0.4;
-              
-              const x = cx + Math.cos(angle) * radius;
-              const y = cy + Math.sin(angle) * radius;
-              
-              // Slightly larger spotlight on mobile
-              overlay.style.background = `radial-gradient(circle 200px at ${x}px ${y}px, transparent 0%, rgba(0,0,0,0.9) 100%)`;
-              angle += 0.03;
-              requestAnimationFrame(autoSpotlight);
-            }
-            autoSpotlight();
-          }
+          darkroom.addEventListener('mouseleave', () => {
+            if (isMobile) return;
+            mouseInside = false; // auto-animation resumes
+          });
         });
       </script>
 
