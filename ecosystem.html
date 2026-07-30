@@ -30,23 +30,24 @@
       box-sizing: border-box;
     }
 
-    /* Individual Panels */
+    /* Individual Panels (Futuristic Base) */
     .acc-panel {
       flex: 1;
       position: relative;
       overflow: hidden;
-      transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), background 0.6s ease, box-shadow 0.6s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-right: 2px solid #000;
+      border-right: 1px solid rgba(255,255,255,0.1);
       cursor: pointer;
+      background: #050505;
     }
     .acc-panel:last-child {
       border-right: none;
     }
 
-    /* Vertical Title */
+    /* Vertical Title (Hollow Outline Base) */
     .acc-title-wrap {
       position: absolute;
       top: 50%; left: 50%;
@@ -64,12 +65,14 @@
       font-weight: 900;
       text-transform: uppercase;
       margin: 0;
-      color: #000; 
+      color: transparent; 
+      -webkit-text-stroke: 1px rgba(255,255,255,0.3);
       white-space: nowrap;
       letter-spacing: -2px;
+      transition: all 0.3s ease;
     }
 
-    /* Hidden Content */
+    /* Hidden Content (Neon Glow Text) */
     .acc-content {
       opacity: 0;
       transform: translateY(50px);
@@ -85,7 +88,7 @@
       font-family: var(--font-display);
       font-weight: 800;
       line-height: 1.1;
-      color: #000;
+      color: #fff;
       margin: 0;
       text-transform: uppercase;
     }
@@ -93,20 +96,20 @@
     /* HOVER MECHANICS (Desktop) */
     @media (hover: hover) and (pointer: fine) {
       .acc-panel:hover {
-        flex: 5; /* Expand panel massively */
+        flex: 5;
       }
       .acc-panel:hover .acc-title-wrap {
-        opacity: 0; /* Hide vertical title */
+        opacity: 0; 
       }
       .acc-panel:hover .acc-content {
-        opacity: 1; /* Show content */
+        opacity: 1; 
         transform: translateY(0);
         transition-delay: 0.2s;
         pointer-events: auto;
       }
     }
 
-    /* TAP MECHANICS (For touch screens added via JS below) */
+    /* TAP MECHANICS (Mobile) */
     .acc-panel.active {
       flex: 5 !important;
     }
@@ -120,14 +123,54 @@
       pointer-events: auto !important;
     }
 
-    /* PILLAR COLORS */
-    .acc-marketing { background: var(--c-red); }
-    .acc-music { background: var(--c-yellow); }
-    .acc-events { background: var(--c-green); }
-    
-    .acc-greyapple { background: #111; }
-    .acc-greyapple .acc-title { color: #fff; }
-    .acc-greyapple .acc-content p { color: #fff; }
+    /* PILLAR COLORS (Futuristic Neon Profiles) */
+    /* Marketing (Red) */
+    .acc-marketing:hover, .acc-marketing.active {
+      background: radial-gradient(circle at center, rgba(232, 65, 40, 0.2) 0%, #050505 100%);
+      box-shadow: inset 0 0 50px rgba(232, 65, 40, 0.3);
+      border-color: var(--c-red);
+    }
+    .acc-marketing:hover .acc-title, .acc-marketing.active .acc-title { color: var(--c-red); -webkit-text-stroke: 0; text-shadow: 0 0 20px var(--c-red); }
+    .acc-marketing .acc-content p { text-shadow: 0 0 20px rgba(232, 65, 40, 0.8); }
+
+    /* Music (Yellow) */
+    .acc-music:hover, .acc-music.active {
+      background: radial-gradient(circle at center, rgba(244, 162, 24, 0.15) 0%, #050505 100%);
+      box-shadow: inset 0 0 50px rgba(244, 162, 24, 0.2);
+      border-color: var(--c-yellow);
+    }
+    .acc-music:hover .acc-title, .acc-music.active .acc-title { color: var(--c-yellow); -webkit-text-stroke: 0; text-shadow: 0 0 20px var(--c-yellow); }
+    .acc-music .acc-content p { text-shadow: 0 0 20px rgba(244, 162, 24, 0.8); }
+
+    /* Events (Green) */
+    .acc-events:hover, .acc-events.active {
+      background: radial-gradient(circle at center, rgba(16, 140, 90, 0.25) 0%, #050505 100%);
+      box-shadow: inset 0 0 50px rgba(16, 140, 90, 0.4);
+      border-color: var(--c-green);
+    }
+    .acc-events:hover .acc-title, .acc-events.active .acc-title { color: var(--c-green); -webkit-text-stroke: 0; text-shadow: 0 0 20px var(--c-green); }
+    .acc-events .acc-content p { text-shadow: 0 0 20px rgba(16, 140, 90, 0.8); }
+
+    /* GreyApple (White) */
+    .acc-greyapple:hover, .acc-greyapple.active {
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, #050505 100%);
+      box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.15);
+      border-color: #fff;
+    }
+    .acc-greyapple:hover .acc-title, .acc-greyapple.active .acc-title { color: #fff; -webkit-text-stroke: 0; text-shadow: 0 0 20px rgba(255,255,255,0.8); }
+    .acc-greyapple .acc-content p { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+
+    /* CRT Scanline Overlay */
+    .accordion-container::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 999;
+    }
 
     /* MOBILE LAYOUT (Stack horizontally into vertical slices) */
     @media (max-width: 992px) {
