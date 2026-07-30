@@ -19,8 +19,9 @@
   <style>
     :root {
       --bg-color: #030005;
-      --neon-purple: #B026FF;
-      --bright-pink: #FF00FF;
+      --brand-red: #E44230;
+      --brand-green: #148C57;
+      --brand-yellow: #F4A61E;
     }
 
     body { 
@@ -35,32 +36,32 @@
     /* CUSTOM NEON CURSOR */
     .cursor {
       width: 30px; height: 30px; 
-      border: 2px solid var(--neon-purple); 
+      border: 2px solid var(--brand-red); 
       border-radius: 50%; 
       position: fixed; 
       pointer-events: none; 
       z-index: 9999; 
       transform: translate(-50%, -50%); 
       transition: width 0.2s, height 0.2s; 
-      box-shadow: 0 0 20px var(--neon-purple), inset 0 0 10px var(--neon-purple);
+      box-shadow: 0 0 20px var(--brand-red), inset 0 0 10px var(--brand-red);
       mix-blend-mode: screen;
     }
     .cursor.active {
       width: 60px; height: 60px;
-      background: rgba(176, 38, 255, 0.2);
+      background: rgba(228, 66, 48, 0.2);
     }
 
     /* CYBER GRID BACKGROUND */
     .cyber-grid {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       perspective: 1000px; z-index: -2; overflow: hidden;
-      background: radial-gradient(circle at center, #110022 0%, var(--bg-color) 70%);
+      background: radial-gradient(circle at center, #110005 0%, var(--bg-color) 70%);
     }
     .cyber-grid::after {
       content: ''; position: absolute; bottom: 0; left: -50%; width: 200%; height: 120%;
       background-image: 
-        linear-gradient(rgba(176, 38, 255, 0.3) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(176, 38, 255, 0.3) 1px, transparent 1px);
+        linear-gradient(rgba(20, 140, 87, 0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(20, 140, 87, 0.3) 1px, transparent 1px);
       background-size: 80px 80px;
       transform: rotateX(75deg);
       transform-origin: bottom center;
@@ -75,7 +76,7 @@
     /* AMBIENT GLOW ORBS */
     .purple-glow {
       position: fixed; width: 80vw; height: 80vw; border-radius: 50%;
-      background: radial-gradient(circle, rgba(176,38,255,0.15) 0%, rgba(0,0,0,0) 60%);
+      background: radial-gradient(circle, rgba(244, 166, 30, 0.15) 0%, rgba(0,0,0,0) 60%);
       top: 50%; left: 50%; transform: translate(-50%, -50%);
       z-index: -1; filter: blur(80px);
       animation: pulseGlow 8s ease-in-out infinite alternate;
@@ -92,7 +93,7 @@
       mix-blend-mode: difference;
     }
     .nav-links a { color: #fff !important; font-family: 'Outfit', sans-serif; font-weight: 700; text-transform: lowercase; }
-    .nav-links a.active { color: var(--neon-purple) !important; text-shadow: 0 0 10px var(--neon-purple); }
+    .nav-links a.active { color: var(--brand-red) !important; text-shadow: 0 0 10px var(--brand-red); }
 
     /* HERO SECTION */
     .hero-lab {
@@ -115,7 +116,7 @@
       margin: 0;
       position: relative;
       color: transparent;
-      -webkit-text-stroke: 2px rgba(176,38,255,0.5);
+      -webkit-text-stroke: 2px rgba(228,66,48,0.5);
       letter-spacing: -4px;
     }
 
@@ -125,7 +126,7 @@
       top: 0; left: 0; width: 100%; height: 100%;
       color: #fff;
       -webkit-text-stroke: 0px;
-      text-shadow: 0 0 40px var(--neon-purple), 0 0 80px var(--bright-pink);
+      text-shadow: 0 0 40px var(--brand-red), 0 0 80px var(--brand-yellow);
       clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
     }
 
@@ -146,15 +147,15 @@
     .highlight-brand {
       color: #fff;
       font-weight: 700;
-      text-shadow: 0 0 15px var(--neon-purple);
+      text-shadow: 0 0 15px var(--brand-green);
       position: relative;
       display: inline-block;
     }
     .highlight-brand::after {
       content: '';
       position: absolute; bottom: 0; left: 0; width: 100%; height: 4px;
-      background: var(--neon-purple);
-      box-shadow: 0 0 10px var(--neon-purple);
+      background: var(--brand-green);
+      box-shadow: 0 0 10px var(--brand-green);
       transform: scaleX(0);
       transform-origin: right;
       transition: transform 0.5s ease;
@@ -178,7 +179,7 @@
       color: #fff;
       text-align: center;
       margin-bottom: 80px;
-      text-shadow: 0 0 20px var(--neon-purple);
+      text-shadow: 0 0 20px var(--brand-red);
     }
     
     .gallery-grid {
@@ -189,8 +190,8 @@
 
     /* NEON 3D CARDS */
     .cyber-card {
-      background: rgba(10, 0, 20, 0.6);
-      border: 1px solid rgba(176,38,255,0.2);
+      background: rgba(20, 5, 5, 0.6);
+      border: 1px solid rgba(228,66,48,0.2);
       border-radius: 16px;
       padding: 16px;
       position: relative;
@@ -203,7 +204,7 @@
     /* Glowing Border effect on hover */
     .cyber-card::before {
       content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
-      background: linear-gradient(45deg, var(--neon-purple), transparent, var(--bright-pink));
+      background: linear-gradient(45deg, var(--brand-red), var(--brand-yellow), var(--brand-green));
       z-index: -1; border-radius: 18px; opacity: 0; transition: opacity 0.4s;
       filter: blur(10px);
     }
@@ -221,7 +222,7 @@
     .cyber-card:hover img {
       filter: grayscale(0%) contrast(110%) saturate(130%);
       transform: translateZ(60px) scale(1.05);
-      box-shadow: 0 30px 60px rgba(176,38,255,0.4);
+      box-shadow: 0 30px 60px rgba(228,66,48,0.4);
     }
 
     .card-footer {
@@ -234,7 +235,7 @@
       margin-bottom: 10px;
       color: #fff;
       text-transform: uppercase;
-      text-shadow: 0 0 10px var(--neon-purple);
+      text-shadow: 0 0 10px var(--brand-red);
     }
     .card-footer p {
       font-size: 1.1rem;
@@ -287,7 +288,7 @@
     <p class="glitch-text text-reveal">
       It wasn't just a session; it was a high-voltage collision of ideas, practical skill hacking, and real-world execution for top-tier creatives.
     </p>
-    <p class="glitch-text text-reveal" style="color: #fff; font-weight: 500; font-size: clamp(1.8rem, 4vw, 3rem); text-shadow: 0 0 20px var(--neon-purple); margin-top: 80px;">
+    <p class="glitch-text text-reveal" style="color: #fff; font-weight: 500; font-size: clamp(1.8rem, 4vw, 3rem); text-shadow: 0 0 20px var(--brand-red); margin-top: 80px;">
       THE FUTURE IS LOUD.
     </p>
   </section>
