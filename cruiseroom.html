@@ -5,62 +5,94 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>234AFRICA - The Cruise Room</title>
   
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- GREYAPPLE FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
 
+  <!-- GSAP & ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <!-- VANILLA TILT FOR 3D HOVER EFFECTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 
   <link rel="stylesheet" href="style.css" />
   <style>
+    :root {
+      --bg-color: #030005;
+      --neon-purple: #B026FF;
+      --bright-pink: #FF00FF;
+    }
+
     body { 
-      background: #000; 
+      background: var(--bg-color); 
       color: #fff; 
       overflow-x: hidden; 
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Outfit', sans-serif;
       margin: 0; padding: 0;
+      cursor: none; /* Custom cursor */
     }
 
-    /* VIBRANT HOLOGRAPHIC BACKGROUND */
-    .holo-bg {
-      position: fixed;
-      top: -50%; left: -50%; width: 200%; height: 200%;
-      background: linear-gradient(
-        45deg,
-        #ff007f,
-        #00f0ff,
-        #7000ff,
-        #ffea00,
-        #ff007f
-      );
-      background-size: 400% 400%;
-      animation: holoFlow 15s ease infinite, rotateHolo 30s linear infinite;
-      filter: blur(120px) saturate(150%);
-      z-index: -2;
+    /* CUSTOM NEON CURSOR */
+    .cursor {
+      width: 30px; height: 30px; 
+      border: 2px solid var(--neon-purple); 
+      border-radius: 50%; 
+      position: fixed; 
+      pointer-events: none; 
+      z-index: 9999; 
+      transform: translate(-50%, -50%); 
+      transition: width 0.2s, height 0.2s; 
+      box-shadow: 0 0 20px var(--neon-purple), inset 0 0 10px var(--neon-purple);
+      mix-blend-mode: screen;
     }
-    @keyframes holoFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    @keyframes rotateHolo {
-      100% { transform: rotate(360deg); }
+    .cursor.active {
+      width: 60px; height: 60px;
+      background: rgba(176, 38, 255, 0.2);
     }
 
-    /* GLASS ORBS */
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      z-index: -1;
-      opacity: 0.8;
-      animation: floatOrb 10s ease-in-out infinite alternate;
+    /* CYBER GRID BACKGROUND */
+    .cyber-grid {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      perspective: 1000px; z-index: -2; overflow: hidden;
+      background: radial-gradient(circle at center, #110022 0%, var(--bg-color) 70%);
     }
-    .orb-1 { width: 40vw; height: 40vw; background: #ff007f; top: 10%; left: 10%; }
-    .orb-2 { width: 50vw; height: 50vw; background: #00f0ff; top: 50%; right: 5%; animation-delay: -3s; }
-    
-    @keyframes floatOrb {
-      100% { transform: translateY(100px) scale(1.1); }
+    .cyber-grid::after {
+      content: ''; position: absolute; bottom: 0; left: -50%; width: 200%; height: 120%;
+      background-image: 
+        linear-gradient(rgba(176, 38, 255, 0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(176, 38, 255, 0.3) 1px, transparent 1px);
+      background-size: 80px 80px;
+      transform: rotateX(75deg);
+      transform-origin: bottom center;
+      animation: gridMove 3s linear infinite;
+      box-shadow: inset 0 100px 150px var(--bg-color);
     }
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 80px; }
+    }
+
+    /* AMBIENT GLOW ORBS */
+    .purple-glow {
+      position: fixed; width: 80vw; height: 80vw; border-radius: 50%;
+      background: radial-gradient(circle, rgba(176,38,255,0.15) 0%, rgba(0,0,0,0) 60%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      z-index: -1; filter: blur(80px);
+      animation: pulseGlow 8s ease-in-out infinite alternate;
+    }
+    @keyframes pulseGlow { 
+      0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; } 
+      100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; } 
+    }
+
+    /* HEADER OVERRIDE */
+    #header {
+      background: transparent !important;
+      border: none !important;
+      mix-blend-mode: difference;
+    }
+    .nav-links a { color: #fff !important; font-family: 'Outfit', sans-serif; font-weight: 700; text-transform: lowercase; }
+    .nav-links a.active { color: var(--neon-purple) !important; text-shadow: 0 0 10px var(--neon-purple); }
 
     /* HERO SECTION */
     .hero-lab {
@@ -74,181 +106,152 @@
       z-index: 10;
     }
     
-    .holo-title {
-      font-family: var(--font-display);
-      font-size: clamp(4rem, 10vw, 8rem);
+    .huge-title {
+      font-size: clamp(4rem, 15vw, 12rem);
       font-weight: 900;
-      color: #fff;
+      line-height: 0.8;
       text-transform: uppercase;
       text-align: center;
-      line-height: 0.9;
+      margin: 0;
+      position: relative;
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(176,38,255,0.5);
+      letter-spacing: -4px;
+    }
+
+    /* Liquid fill effect */
+    .huge-title .fill-layer {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      color: #fff;
+      -webkit-text-stroke: 0px;
+      text-shadow: 0 0 40px var(--neon-purple), 0 0 80px var(--bright-pink);
+      clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    }
+
+    /* WORKSHOP INFO / TEXT REVEAL */
+    .info-section {
+      max-width: 900px;
+      margin: 100px auto;
+      padding: 0 5vw;
+      text-align: center;
+    }
+    .glitch-text {
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 300;
+      line-height: 1.5;
+      color: #ccc;
       margin-bottom: 40px;
-      text-shadow: 0 10px 40px rgba(0,0,0,0.5);
-      mix-blend-mode: overlay; 
     }
-
-    .holo-title span {
-      background: linear-gradient(90deg, #fff, #ffffffaa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      mix-blend-mode: normal;
-    }
-
-    /* PREMIUM GLASSMORPHISM CONTENT BOX */
-    .glass-box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-top: 1px solid rgba(255, 255, 255, 0.4);
-      border-left: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3), inset 0 0 40px rgba(255, 255, 255, 0.05);
-      border-radius: 24px;
-      padding: clamp(30px, 5vw, 60px);
-      max-width: 1000px;
-      width: 100%;
-      backdrop-filter: blur(40px);
-      -webkit-backdrop-filter: blur(40px);
-      transform: translateY(50px);
-      opacity: 0;
-    }
-    
-    .glass-text {
-      font-size: clamp(1.1rem, 2vw, 1.4rem);
-      line-height: 1.8;
+    .highlight-brand {
       color: #fff;
-      font-weight: 500;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    }
-
-    /* SPONSOR PILLS */
-    .hud-sponsors {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      justify-content: flex-start;
-      margin-top: 40px;
-      flex-wrap: wrap;
-    }
-    .sponsor-pill {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.3);
-      padding: 12px 28px;
-      color: #fff;
-      font-size: 0.9rem;
       font-weight: 700;
-      letter-spacing: 1.5px;
-      border-radius: 30px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      transition: transform 0.3s, background 0.3s;
+      text-shadow: 0 0 15px var(--neon-purple);
+      position: relative;
+      display: inline-block;
     }
-    .sponsor-pill:hover {
-      transform: translateY(-5px);
-      background: rgba(255,255,255,0.25);
+    .highlight-brand::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; width: 100%; height: 4px;
+      background: var(--neon-purple);
+      box-shadow: 0 0 10px var(--neon-purple);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s ease;
+    }
+    .highlight-brand.in-view::after {
+      transform: scaleX(1);
+      transform-origin: left;
     }
 
-    /* GALLERY OF MEMORIES */
-    .panels-gallery {
+    /* GALLERY */
+    .gallery-container {
       padding: 100px 5vw;
+      max-width: 1600px;
+      margin: 0 auto;
       position: relative;
       z-index: 5;
     }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 6vw, 5rem);
-      text-align: center;
+    .gallery-title {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
       color: #fff;
+      text-align: center;
       margin-bottom: 80px;
-      text-transform: uppercase;
-      letter-spacing: -1px;
-      text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 40px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    /* PHOTO CARDS */
-    .photo-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-top: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 24px;
-      padding: 15px;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(50px);
+      text-shadow: 0 0 20px var(--neon-purple);
     }
     
-    .photo-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(45deg, rgba(255,0,127,0.3), rgba(0,240,255,0.3));
-      z-index: -1;
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 60px;
+    }
+
+    /* NEON 3D CARDS */
+    .cyber-card {
+      background: rgba(10, 0, 20, 0.6);
+      border: 1px solid rgba(176,38,255,0.2);
+      border-radius: 16px;
+      padding: 16px;
+      position: relative;
+      transform-style: preserve-3d;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
       opacity: 0;
-      transition: opacity 0.4s;
+      transform: translateY(100px) rotateX(15deg);
     }
-
-    .photo-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      border-color: rgba(255,255,255,0.5);
-      box-shadow: 0 30px 60px rgba(255,0,127,0.3);
+    
+    /* Glowing Border effect on hover */
+    .cyber-card::before {
+      content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
+      background: linear-gradient(45deg, var(--neon-purple), transparent, var(--bright-pink));
+      z-index: -1; border-radius: 18px; opacity: 0; transition: opacity 0.4s;
+      filter: blur(10px);
     }
-    .photo-card:hover::before { opacity: 1; }
+    .cyber-card:hover::before { opacity: 1; }
 
-    .photo-card img {
+    .cyber-card img {
       width: 100%;
-      height: 400px;
+      height: 450px;
       object-fit: cover;
       border-radius: 12px;
-      display: block;
-      transition: filter 0.3s;
+      filter: grayscale(100%) contrast(120%);
+      transition: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      transform: translateZ(30px); /* 3D pop */
     }
-    .photo-card:hover img {
-      filter: contrast(120%) saturate(130%);
+    .cyber-card:hover img {
+      filter: grayscale(0%) contrast(110%) saturate(130%);
+      transform: translateZ(60px) scale(1.05);
+      box-shadow: 0 30px 60px rgba(176,38,255,0.4);
     }
 
     .card-footer {
-      padding: 24px 10px 10px;
+      padding: 30px 10px 10px;
+      transform: translateZ(40px); /* 3D pop */
     }
     .card-footer h3 {
-      font-size: 1.5rem;
-      margin-bottom: 8px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+      color: #fff;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px var(--neon-purple);
     }
     .card-footer p {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.75);
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
     }
 
-    /* FIXED HEADER TWEAK */
-    #header {
-      background: transparent !important;
-      mix-blend-mode: difference;
-      z-index: 999;
-      border: none;
-    }
-    .nav-links a { color: #fff !important; }
-    .nav-links a.active { color: #ff007f !important; text-decoration: underline; }
   </style>
 </head>
 <body>
 
-  <!-- VIBRANT BACKGROUND -->
-  <div class="holo-bg"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor" id="cursor"></div>
+
+  <!-- CYBER BACKGROUND -->
+  <div class="cyber-grid"></div>
+  <div class="purple-glow"></div>
 
   <!-- FIXED HEADER -->
   <header id="header">
@@ -257,102 +260,143 @@
         <span class="c-red">2</span><span class="c-yellow">3</span><span class="c-green">4</span> <span class="text-white">AFRICA</span>
       </a>
       <nav class="nav-links">
-        <a href="ecosystem.html">THE ECOSYSTEM</a>
-        <a href="events.html">EVENTS</a>
-        <a href="https://greyapple.vip" target="_blank">GREYAPPLE</a>
-        <a href="cruiseroom.html" class="active">THE CRUISE ROOM</a>
+        <a href="ecosystem.html" class="hoverable">the ecosystem</a>
+        <a href="events.html" class="hoverable">events</a>
+        <a href="https://greyapple.vip" target="_blank" class="hoverable">greyapple</a>
+        <a href="cruiseroom.html" class="active hoverable">the cruise room</a>
       </nav>
       <div class="header-right">
-        <a href="mailto:234groupinfo@gmail.com" class="btn-primary-pill shadow-red">JOIN THE MOVEMENT</a>
+        <a href="mailto:234groupinfo@gmail.com" class="btn-primary-pill shadow-red hoverable">JOIN THE MOVEMENT</a>
       </div>
     </div>
   </header>
 
-  <!-- HERO LAB (GLASSMORPHISM) -->
+  <!-- HERO SECTION -->
   <section class="hero-lab">
-    <h1 class="holo-title">THE CRUISE<br><span>ROOM</span></h1>
-    
-    <div class="glass-box" id="glass-box">
-      <div class="glass-text">
-        <p style="margin-bottom: 24px;">
-          In collaboration with <strong style="color: #00f0ff;">Access Bank</strong> and <strong style="color: #ff007f;">GreenRoom Lagos</strong>, we held a Creative Workshop which was an interactive, value-driven session for creatives and young professionals.
-        </p>
-        <p style="margin-bottom: 24px;">
-          The programme focused on practical skill development, idea exchange, and real-world insights delivered through guided discussions and facilitator-led sessions.
-        </p>
-        <p>
-          Attendees actively participated through questions, shared experiences, and collaborative conversations, creating an engaging learning environment. The workshop successfully fostered knowledge sharing, creative growth, and meaningful peer interaction among participants.
-        </p>
-      </div>
-      
-      <div class="hud-sponsors">
-        <div class="sponsor-pill">ACCESS BANK</div>
-        <div class="sponsor-pill">GREENROOM LAGOS</div>
-      </div>
-    </div>
+    <h1 class="huge-title">
+      THE CRUISE<br>ROOM
+      <div class="fill-layer" id="title-fill">THE CRUISE<br>ROOM</div>
+    </h1>
   </section>
 
-  <!-- GALLERY -->
-  <section class="panels-gallery">
-    <h2 class="section-title">THE WORKSHOP</h2>
+  <!-- INFO REVEAL SECTION -->
+  <section class="info-section">
+    <p class="glitch-text text-reveal">
+      In collaboration with <span class="highlight-brand">ACCESS BANK</span> and <span class="highlight-brand">GREENROOM LAGOS</span>, we hosted an aggressively creative workshop designed to break the rules.
+    </p>
+    <p class="glitch-text text-reveal">
+      It wasn't just a session; it was a high-voltage collision of ideas, practical skill hacking, and real-world execution for top-tier creatives.
+    </p>
+    <p class="glitch-text text-reveal" style="color: #fff; font-weight: 500; font-size: clamp(1.8rem, 4vw, 3rem); text-shadow: 0 0 20px var(--neon-purple); margin-top: 80px;">
+      THE FUTURE IS LOUD.
+    </p>
+  </section>
+
+  <!-- IMMERSIVE GALLERY -->
+  <section class="gallery-container">
+    <h2 class="gallery-title hoverable">THE ARCHIVE</h2>
     <div class="gallery-grid">
-      <div class="photo-card">
-        <img src="assets/cruiseroom/cruise-1.png" alt="Cruise Room Moment">
-        <div class="card-footer">
-          <h3>Collaborative Growth</h3>
-          <p>Guided discussions & peer interaction</p>
-        </div>
-      </div>
       
-      <div class="photo-card">
-        <img src="assets/cruiseroom/cruise-2.png" alt="Cruise Room Moment">
+      <div class="cyber-card hoverable" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-perspective="1000">
+        <img src="assets/cruiseroom/cruise-1.png" alt="Creative Session">
         <div class="card-footer">
-          <h3>Idea Exchange</h3>
-          <p>Real-world insights for creatives</p>
+          <h3>COLLIDE</h3>
+          <p>Unfiltered idea exchange and networking.</p>
         </div>
       </div>
 
-      <div class="photo-card">
-        <img src="assets/cruiseroom/cruise-3.png" alt="Cruise Room Moment">
+      <div class="cyber-card hoverable" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-perspective="1000">
+        <img src="assets/cruiseroom/cruise-2.png" alt="Creative Session">
         <div class="card-footer">
-          <h3>Skill Development</h3>
-          <p>Interactive, value-driven sessions</p>
+          <h3>HACK</h3>
+          <p>Intense practical skill development.</p>
         </div>
       </div>
 
-      <div class="photo-card">
-        <img src="assets/cruiseroom/cruise-4.png" alt="Cruise Room Moment">
+      <div class="cyber-card hoverable" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-perspective="1000">
+        <img src="assets/cruiseroom/cruise-3.png" alt="Creative Session">
         <div class="card-footer">
-          <h3>The Audience</h3>
-          <p>Engaged young professionals</p>
+          <h3>EXECUTE</h3>
+          <p>Real-world insights from industry leaders.</p>
         </div>
       </div>
+
+      <div class="cyber-card hoverable" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-perspective="1000">
+        <img src="assets/cruiseroom/cruise-4.png" alt="Creative Session">
+        <div class="card-footer">
+          <h3>DOMINATE</h3>
+          <p>Building the next generation of African talent.</p>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <script>
+    // Custom Cursor Logic
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    
+    // Hover effects for cursor
+    document.querySelectorAll('.hoverable').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
-      // Fade in the glass box smoothly
-      gsap.to("#glass-box", {
-        y: 0,
-        opacity: 1,
-        duration: 1.5,
-        ease: "power4.out",
-        delay: 0.2
+      gsap.registerPlugin(ScrollTrigger);
+
+      // 1. Hero Title Liquid Fill Effect on scroll
+      gsap.to("#title-fill", {
+        scrollTrigger: {
+          trigger: ".hero-lab",
+          start: "top top",
+          end: "bottom 20%",
+          scrub: 1,
+          pin: true
+        },
+        clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0 100%)",
+        ease: "none"
       });
 
-      // Stagger fade up the photo cards on scroll
-      gsap.utils.toArray('.photo-card').forEach((card, i) => {
+      // 2. Info Text Staggered Reveal
+      gsap.utils.toArray('.text-reveal').forEach(text => {
+        gsap.from(text, {
+          scrollTrigger: {
+            trigger: text,
+            start: "top 80%",
+          },
+          y: 50,
+          opacity: 0,
+          duration: 1.2,
+          ease: "power4.out"
+        });
+      });
+
+      // 3. Highlight Brands line animation
+      gsap.utils.toArray('.highlight-brand').forEach(brand => {
+        ScrollTrigger.create({
+          trigger: brand,
+          start: "top 80%",
+          onEnter: () => brand.classList.add('in-view')
+        });
+      });
+
+      // 4. Cyber Cards Staggered 3D Reveal
+      gsap.utils.toArray('.cyber-card').forEach((card, i) => {
         gsap.to(card, {
           scrollTrigger: {
             trigger: card,
-            start: "top 85%",
-            toggleActions: "play none none none"
+            start: "top 90%",
           },
           y: 0,
+          rotationX: 0,
           opacity: 1,
-          duration: 1,
-          ease: "back.out(1.5)",
+          duration: 1.5,
+          ease: "expo.out",
           delay: (i % 2) * 0.2
         });
       });
