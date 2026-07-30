@@ -2,132 +2,129 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>234AFRICA - Events</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800;12..96,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   
   <link rel="stylesheet" href="style.css" />
   
   <style>
     body {
-      background: #000;
+      background: #050505;
       color: #fff;
       font-family: 'Space Grotesk', sans-serif;
       overflow-x: hidden;
       margin: 0; padding: 0;
-      /* Dynamic background container */
-      transition: background 0.5s ease;
     }
     
-    /* Dynamic ambient glow */
-    .ambient-glow {
-      position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 150vw; height: 150vh;
-      background: radial-gradient(circle at center, rgba(232, 65, 40, 0.15) 0%, rgba(0,0,0,0) 60%);
-      z-index: -1;
-      pointer-events: none;
-      filter: blur(100px);
-      transition: background 0.5s ease;
+    #header { background: #050505 !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; z-index: 999; }
+    .nav-links, .nav-links a { color: #fff !important; }
+
+    .page-header {
+      padding: 150px 20px 60px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-
-    #header { background: transparent !important; border-bottom: none !important; z-index: 999; }
-    .nav-links, .nav-links a { color: #fff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
-
     .page-title {
       font-family: var(--font-display);
-      font-size: clamp(3rem, 8vw, 6rem);
+      font-size: clamp(3rem, 10vw, 7rem);
       font-weight: 900;
-      text-align: center;
-      padding: 120px 20px 40px;
       margin: 0;
       text-transform: uppercase;
       letter-spacing: -2px;
+      color: var(--c-red);
+    }
+    .page-subtitle {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.6);
+      max-width: 600px;
+      margin: 20px auto 0;
     }
 
-    /* THE STACKING DECK */
-    .deck-container {
+    /* Standard Grid Layout - Highly Reliable */
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      padding: 60px 5vw 120px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .event-card-simple {
+      background: #111;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding-bottom: 200px;
-      position: relative;
+    }
+    .event-card-simple:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(232, 65, 40, 0.2);
+      border-color: var(--c-red);
     }
 
-    .event-card {
-      position: sticky;
-      /* Center it on screen: top offset = (100vh - card height) / 2 */
-      top: 15vh; 
-      width: 90vw;
-      max-width: 450px;
-      height: 70vh;
-      margin-bottom: 100vh; /* Massive margin forces scrolling to reach next card */
-      perspective: 1000px;
-      will-change: transform;
-    }
-    .event-card:last-child {
-      margin-bottom: 20vh;
-    }
-
-    .card-inner {
-      position: relative;
+    .card-img-container {
       width: 100%;
-      height: 100%;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-      transform-origin: top center;
-      /* Border matches dynamic color */
-      border: 1px solid rgba(255,255,255,0.1);
-      background: #111;
+      aspect-ratio: 4/5;
+      background: #222;
+      position: relative;
     }
-
-    .card-img {
+    .card-img-container img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: contrast(110%) saturate(120%);
     }
 
-    .card-info {
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 100%;
-      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 60%, transparent 100%);
-      padding: 40px 30px 30px;
-      box-sizing: border-box;
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+    .card-content {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
     }
 
     .card-title {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 6vw, 3rem);
+      font-size: 2rem;
       font-weight: 900;
       margin: 0 0 10px 0;
-      line-height: 1;
+      line-height: 1.1;
       text-transform: uppercase;
-      text-shadow: 0 0 15px currentColor;
     }
 
     .card-date {
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 700;
       letter-spacing: 2px;
-      color: rgba(255,255,255,0.7);
-      margin: 0;
+      color: var(--c-yellow);
+      margin: 0 0 20px 0;
+    }
+
+    .card-btn {
+      margin-top: auto;
+      padding: 15px 0;
+      text-align: center;
+      background: var(--c-red);
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .card-btn:hover {
+      background: #fff;
+      color: #000;
     }
 
   </style>
 </head>
 <body>
-
-  <div class="ambient-glow" id="ambient-glow"></div>
 
   <header id="header">
     <div class="header-inner">
@@ -143,96 +140,88 @@
     </div>
   </header>
 
-  <h1 class="page-title">THE ARCHIVE</h1>
-
-  <div class="deck-container" id="deck">
-    <!-- Cards will be injected via JS -->
+  <div class="page-header">
+    <h1 class="page-title">THE ARCHIVE</h1>
+    <p class="page-subtitle">A collection of our most iconic live experiences, festivals, and cultural moments across the continent.</p>
   </div>
 
-  <script>
-    gsap.registerPlugin(ScrollTrigger);
+  <!-- RELIABLE, CLEAN GRID -->
+  <div class="events-grid">
+    
+    <!-- EVENT 1 (Using Latest Uploaded Flyer) -->
+    <div class="event-card-simple">
+      <div class="card-img-container">
+        <!-- Assuming the latest images from the user upload are these files -->
+        <img src="assets/events/media__1785388306356.png" alt="Event Flyer">
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">GENZ FEST 2023</h2>
+        <p class="card-date">LAGOS - DEC 2023</p>
+        <a href="#" class="card-btn">VIEW DETAILS</a>
+      </div>
+    </div>
 
-    const events = [
-      { id: 1, title: 'GENZ FEST 2023', date: 'LAGOS - DEC 2023', img: 'assets/events/event-1.jpg', color: '#E84128' },
-      { id: 2, title: 'THE SOUNDCLASH', date: 'ACCRA - NOV 2023', img: 'assets/events/event-2.jpg', color: '#F4A218' },
-      { id: 3, title: 'CULTURE RAVE', date: 'ABUJA - OCT 2023', img: 'assets/events/event-3.png', color: '#108C5A' },
-      { id: 4, title: 'MIDNIGHT CRUISE', date: 'LAGOS - SEPT 2023', img: 'assets/events/event-5.jpg', color: '#E84128' },
-      { id: 5, title: 'BLOCK PARTY', date: 'LONDON - AUG 2023', img: 'assets/events/event-6.jpg', color: '#F4A218' },
-      { id: 6, title: 'VIBES ON VIBES', date: 'PARIS - JULY 2023', img: 'assets/events/event-9.jpg', color: '#108C5A' }
-    ];
+    <!-- EVENT 2 -->
+    <div class="event-card-simple">
+      <div class="card-img-container">
+        <img src="assets/events/media__1785387829910.png" alt="Event Flyer">
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">THE SOUNDCLASH</h2>
+        <p class="card-date">ACCRA - NOV 2023</p>
+        <a href="#" class="card-btn">VIEW DETAILS</a>
+      </div>
+    </div>
 
-    const deck = document.getElementById('deck');
-    const glow = document.getElementById('ambient-glow');
+    <!-- EVENT 3 -->
+    <div class="event-card-simple">
+      <div class="card-img-container">
+        <img src="assets/events/media__1785385202350.jpg" alt="Event Flyer">
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">CULTURE RAVE</h2>
+        <p class="card-date">ABUJA - OCT 2023</p>
+        <a href="#" class="card-btn">VIEW DETAILS</a>
+      </div>
+    </div>
 
-    // Build the DOM
-    events.forEach((ev, index) => {
-      const card = document.createElement('div');
-      card.className = 'event-card';
-      card.dataset.color = ev.color;
-      
-      card.innerHTML = `
-        <div class="card-inner">
-          <img src="${ev.img}" class="card-img" alt="${ev.title}">
-          <div class="card-info">
-            <h2 class="card-title" style="color: ${ev.color}">${ev.title}</h2>
-            <p class="card-date">${ev.date}</p>
-          </div>
-        </div>
-      `;
-      deck.appendChild(card);
-    });
+    <!-- EVENT 4 -->
+    <div class="event-card-simple">
+      <div class="card-img-container">
+        <img src="assets/events/media__1785384707852.png" alt="Event Flyer">
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">MIDNIGHT CRUISE</h2>
+        <p class="card-date">LAGOS - SEPT 2023</p>
+        <a href="#" class="card-btn">VIEW DETAILS</a>
+      </div>
+    </div>
 
-    // GSAP ScrollTrigger Logic
-    const cards = document.querySelectorAll('.event-card');
+    <!-- EVENT 5 -->
+    <div class="event-card-simple">
+      <div class="card-img-container">
+        <img src="assets/events/media__1785384707835.png" alt="Event Flyer">
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">BLOCK PARTY</h2>
+        <p class="card-date">LONDON - AUG 2023</p>
+        <a href="#" class="card-btn">VIEW DETAILS</a>
+      </div>
+    </div>
 
-    cards.forEach((card, i) => {
-      const inner = card.querySelector('.card-inner');
-      const color = card.dataset.color;
+    <!-- EVENT 6 -->
+    <div class="event-card-simple">
+      <div class="card-img-container">
+        <img src="assets/events/media__1785384707828.png" alt="Event Flyer">
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">VIBES ON VIBES</h2>
+        <p class="card-date">PARIS - JULY 2023</p>
+        <a href="#" class="card-btn">VIEW DETAILS</a>
+      </div>
+    </div>
 
-      // 1. Scale down and fade card when the *next* card scrolls up over it
-      if (i < cards.length - 1) {
-        gsap.to(inner, {
-          scale: 0.85,
-          opacity: 0.3,
-          ease: "none",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 15%", // When it reaches its sticky point
-            end: "bottom 15%", // Over the duration of its massive margin-bottom
-            scrub: true
-          }
-        });
-      }
+  </div>
 
-      // 2. Change global background glow when this card hits the sticky point
-      ScrollTrigger.create({
-        trigger: card,
-        start: "top 40%", // Trigger color change slightly before it hits sticky
-        end: "bottom 40%",
-        onEnter: () => {
-          glow.style.background = `radial-gradient(circle at center, ${hexToRgbA(color, 0.2)} 0%, rgba(0,0,0,0) 70%)`;
-          document.body.style.boxShadow = `inset 0 0 100px ${hexToRgbA(color, 0.1)}`;
-        },
-        onEnterBack: () => {
-          glow.style.background = `radial-gradient(circle at center, ${hexToRgbA(color, 0.2)} 0%, rgba(0,0,0,0) 70%)`;
-          document.body.style.boxShadow = `inset 0 0 100px ${hexToRgbA(color, 0.1)}`;
-        }
-      });
-    });
-
-    // Helper for Hex to RGBA
-    function hexToRgbA(hex, alpha){
-      let c;
-      if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
-          c= hex.substring(1).split('');
-          if(c.length== 3){
-              c= [c[0], c[0], c[1], c[1], c[2], c[2]];
-          }
-          c= '0x'+c.join('');
-          return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+','+alpha+')';
-      }
-      return `rgba(255,255,255,${alpha})`;
-    }
-  </script>
 </body>
 </html>
