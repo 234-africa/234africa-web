@@ -3,96 +3,240 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>234AFRICA — Events</title>
+  <title>234AFRICA - Events</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body { background: #0a0a0a; color: #fff; }
+    .hero-events {
+      padding: 180px 0 100px;
+      text-align: center;
+      background: #000;
+      border-bottom: 4px solid var(--c-yellow);
+    }
+    .poster-section {
+      padding: 80px 0;
+      border-bottom: 2px solid #222;
+    }
+    .poster-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .poster-grid.reverse {
+      direction: rtl;
+    }
+    .poster-grid.reverse > * {
+      direction: ltr;
+    }
+    .poster-img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      border: 4px solid #222;
+      transition: transform 0.4s ease;
+    }
+    .poster-img:hover {
+      transform: scale(1.02) rotate(-1deg);
+      border-color: var(--c-yellow);
+    }
+    .poster-details h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+    .poster-details .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-body);
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      color: #ccc;
+    }
+    .meta-icon {
+      font-size: 1.5rem;
+      color: var(--c-yellow);
+    }
+    .event-tag {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 100px;
+      background: #222;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    
+    @media (max-width: 900px) {
+      .poster-grid { grid-template-columns: 1fr; gap: 40px; }
+      .poster-grid.reverse { direction: ltr; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- FIXED 3D BACKGROUND (Wireframe Sphere + Colorful Square Confetti) -->
-  <div id="canvas-container">
-    <canvas id="webgl-canvas"></canvas>
-  </div>
-
   <!-- FIXED HEADER -->
-  <header id="header">
+  <header id="header" style="background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);">
     <div class="header-inner">
       <a href="index.html" class="logo">
-        <span class="c-red">2</span><span class="c-yellow">3</span><span class="c-green">4</span> <span class="text-black">AFRICA</span>
+        <span class="c-red">2</span><span class="c-yellow">3</span><span class="c-green">4</span> <span class="text-white">AFRICA</span>
       </a>
       <nav class="nav-links">
-        <a href="ecosystem.html">THE ECOSYSTEM</a>
-        <a href="events.html">EVENTS</a>
-        <a href="https://greyapple.vip" target="_blank">GREYAPPLE</a>
-        <a href="cruiseroom.html">THE CRUISE ROOM</a>
+        <a href="ecosystem.html" style="color: #fff;">THE ECOSYSTEM</a>
+        <a href="events.html" style="color: var(--c-yellow);">EVENTS</a>
+        <a href="https://greyapple.vip" target="_blank" style="color: #fff;">GREYAPPLE</a>
+        <a href="cruiseroom.html" style="color: #fff;">THE CRUISE ROOM</a>
       </nav>
       <div class="header-right">
-        <button class="btn-audio">
+        <button class="btn-audio" style="color:#fff;">
           <span class="audio-dots">....</span> AUDIO OFF
         </button>
-        <a href="mailto:234groupinfo@gmail.com" class="btn-primary-pill">JOIN THE MOVEMENT</a>
+        <a href="mailto:234groupinfo@gmail.com" class="btn-primary-pill shadow-red">JOIN THE MOVEMENT</a>
       </div>
     </div>
   </header>
 
-  <!-- SCROLL DOM -->
+  <div class="hero-events">
+    <div class="container">
+      <h1 class="hero-title text-white">CULTURAL<br><span class="c-yellow">PHENOMENONS.</span></h1>
+      <p class="section-body mx-auto text-white mt-6" style="max-width: 600px; opacity: 0.8;">
+        We don't just throw parties. We engineer experiences that define the culture. Explore our signature events below.
+      </p>
+    </div>
+  </div>
+
   <div id="smooth-wrapper">
     <div id="smooth-content">
-      
-      <!-- SPACING FOR FIXED HEADER -->
-      <div style="height: 120px;"></div>
 
-      <!-- EVENTS SECTION (Powered by Sanity) -->
-      <section class="section-content" id="events" style="padding-bottom: 0;">
-        <div class="container text-center mb-8">
-          <div class="badge-tag">EXPERIENCES</div>
-          <h2 class="section-heading">OUR EVENTS</h2>
-          <p class="section-body" style="margin: 0 auto;">Live Festivals. Nightlife. Unforgettable moments.</p>
-        </div>
-        
-        <div class="events-list" id="events-carousel">
-            
-            <!-- Dummy Row 1 -->
-            <div class="event-row">
-              <div class="event-flyer-left">
-                <img src="https://images.unsplash.com/photo-1540039155732-6771dcb6f5e7?auto=format&fit=crop&w=800&q=80" alt="Event Flyer">
-              </div>
-              <div class="event-info-middle">
-                <h3 class="event-title-bold">234AFRICA FESTIVAL</h3>
-                <div class="event-date-bold">DEC 12, 2026</div>
-                <div class="event-summary">Join us for an unforgettable experience celebrating culture, music, and the best of African entertainment. Get your tickets now before they sell out!</div>
-                <a href="#" class="btn-primary-pill btn-event-row shadow-red">GET TICKETS</a>
-              </div>
-              <div class="event-gallery-right">
-                <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=400&q=80" alt="Gallery">
-                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=400&q=80" alt="Gallery">
-                <img src="https://images.unsplash.com/photo-1540039155732-6771dcb6f5e7?auto=format&fit=crop&w=400&q=80" alt="Gallery">
-                <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=400&q=80" alt="Gallery">
-                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+      <!-- EVENT 1: On The Beach -->
+      <section class="poster-section">
+        <div class="container">
+          <div class="poster-grid">
+            <div>
+              <img src="assets/events-posters/poster-1.jpg" alt="+234 On The Beach" class="poster-img">
+            </div>
+            <div class="poster-details">
+              <div class="event-tag" style="color: var(--c-red); border: 1px solid var(--c-red);">SIGNATURE EVENT</div>
+              <h2>+234 On The Beach</h2>
+              <div class="meta-item"><span class="meta-icon">📍</span> Villa Eduardo, Ilashe</div>
+              <div class="meta-item"><span class="meta-icon">🗓️</span> 27th December, 2024</div>
+              <div class="meta-item"><span class="meta-icon">⏰</span> Day Shift: 10am - 7pm <br> Night Shift: 7pm - 10am</div>
+              <div class="meta-item"><span class="meta-icon">🎧</span> Hosted by DJ Phil</div>
+              
+              <div class="mt-8">
+                <a href="https://wa.me/2348067621024" class="btn-primary-pill text-black shadow-red" style="background: var(--c-yellow);">RSVP NOW: +234 806 762 1024 ➔</a>
               </div>
             </div>
-            
+          </div>
         </div>
       </section>
 
+      <!-- EVENT 2: Independence Day -->
+      <section class="poster-section" style="background: #111;">
+        <div class="container">
+          <div class="poster-grid reverse">
+            <div>
+              <img src="assets/events-posters/poster-2.jpg" alt="Independence Day Party" class="poster-img">
+            </div>
+            <div class="poster-details">
+              <div class="event-tag" style="color: var(--c-green); border: 1px solid var(--c-green);">SOUNDSYSTEM</div>
+              <h2>Independence Day Party</h2>
+              <div class="meta-item"><span class="meta-icon">📍</span> Clubhouse Landmark</div>
+              <div class="meta-item"><span class="meta-icon">🗓️</span> October 4</div>
+              <div class="meta-item"><span class="meta-icon">⏰</span> 8:00 PM</div>
+              <div class="meta-item"><span class="meta-icon">🎧</span> DJ Phil & Friends</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EVENT 3: Cruise Room -->
+      <section class="poster-section">
+        <div class="container">
+          <div class="poster-grid">
+            <div>
+              <img src="assets/events-posters/poster-5.png" alt="Cruise Room" class="poster-img" style="background: #000;">
+            </div>
+            <div class="poster-details">
+              <div class="event-tag" style="color: #FF5A00; border: 1px solid #FF5A00;">PANELS & CULTURE</div>
+              <h2>CRUISE ROOM <br><span style="font-size: 0.5em; opacity: 0.7;">Cruise Control x Greenroom</span></h2>
+              <div class="meta-item"><span class="meta-icon">📍</span> Bature Brewery, Victoria Island, Lagos</div>
+              <div class="meta-item"><span class="meta-icon">🗓️</span> December 18</div>
+              <p class="section-body mt-4" style="color: #aaa; font-size: 1.1rem; max-width: 90%;">
+                Where Lagos meets the world for creatives, by creatives. Featuring insightful panels on Media, Business & Culture, Music, and Tech & Investment.
+              </p>
+              <div class="mt-8">
+                <a href="#" class="btn-outline-pill" style="color: #FF5A00; border-color: #FF5A00;">LEARN MORE</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EVENT 4: Sundown on Summer -->
+      <section class="poster-section" style="background: #111;">
+        <div class="container">
+          <div class="poster-grid reverse">
+            <div>
+              <img src="assets/events-posters/poster-4.jpg" alt="Sundown on Summer" class="poster-img">
+            </div>
+            <div class="poster-details">
+              <div class="event-tag" style="color: #FFD700; border: 1px solid #FFD700;">SUMMER CLOSING</div>
+              <h2>Sundown On Summer</h2>
+              <div class="meta-item"><span class="meta-icon">📍</span> Engine Room Lagos</div>
+              <div class="meta-item"><span class="meta-icon">🗓️</span> August 8th</div>
+              <div class="meta-item"><span class="meta-icon">⏰</span> 10:00 PM</div>
+              <div class="meta-item"><span class="meta-icon">🎧</span> Music Policy: DJ Phil & Friends</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EVENT 5: On The Roof -->
+      <section class="poster-section">
+        <div class="container">
+          <div class="poster-grid">
+            <div>
+              <img src="assets/events-posters/poster-3.png" alt="On The Roof" class="poster-img">
+            </div>
+            <div class="poster-details">
+              <div class="event-tag" style="color: #9D00FF; border: 1px solid #9D00FF;">NIGHTLIFE</div>
+              <h2>On The Roof</h2>
+              <div class="meta-item"><span class="meta-icon">📍</span> No 5 Bar & Lounge, 5 Ayinde Makinde Street, Lekki Phase 1</div>
+              <div class="meta-item"><span class="meta-icon">🗓️</span> 17th December, 2022</div>
+              <div class="meta-item"><span class="meta-icon">⏰</span> 7:00 PM</div>
+              <div class="meta-item"><span class="meta-icon">👗</span> Dress Code: ALL BLACK</div>
+              <div class="meta-item"><span class="meta-icon">🎶</span> Afrobeats & Amapiano by DJ Phil</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
       <!-- FOOTER -->
-      <footer class="site-footer">
+      <footer class="site-footer" style="background: #050505;">
         <div class="container text-center">
-          <h2 class="section-heading">PARTNER WITH THE CULTURE.</h2>
+          <h2 class="section-heading text-white">PARTNER WITH THE CULTURE.</h2>
           <a href="mailto:234groupinfo@gmail.com" class="btn-primary-pill shadow-red mt-6">CONTACT US</a>
-          <p class="footer-meta mt-12">Lagos, Nigeria • +234 8103236094 • @234.hq</p>
+          <p class="footer-meta mt-12" style="color: #555;">Lagos, Nigeria • +234 8103236094 • @234.hq</p>
         </div>
       </footer>
 
     </div>
   </div>
 
-  <script src="script.js"></script>
 </body>
 </html>
