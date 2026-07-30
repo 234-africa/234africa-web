@@ -311,3 +311,38 @@ async function initSanityCMS() {
 }
 
 document.addEventListener('DOMContentLoaded', initSanityCMS);
+
+// ==========================================
+// CLEAN URLS (AUTOMATIC URL EXTENSION STRIPPER)
+// ==========================================
+(function cleanUrlBar() {
+  try {
+    if (window.location.pathname.endsWith('.html')) {
+      const cleanPath = window.location.pathname.replace(/\.html$/, '');
+      const newUrl = (cleanPath || '/') + window.location.search + window.location.hash;
+      window.history.replaceState(null, '', newUrl);
+    }
+  } catch (e) {
+    // Ignore in local file protocol or restricted contexts
+  }
+})();
+
+// ==========================================
+// REAL-TIME LAGOS DIGITAL HUD CLOCK
+// ==========================================
+function updateLagosClock() {
+  const clockEl = document.getElementById('cf-lagos-clock');
+  if (!clockEl) return;
+  const now = new Date();
+  const lagosTime = now.toLocaleTimeString('en-US', {
+    timeZone: 'Africa/Lagos',
+    hour12: false,
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+  clockEl.textContent = `${lagosTime} WAT // LAGOS, NG`;
+}
+setInterval(updateLagosClock, 1000);
+document.addEventListener('DOMContentLoaded', updateLagosClock);
+
