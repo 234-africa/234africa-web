@@ -53,8 +53,9 @@
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
+      height: 100svh; /* Better mobile support */
       perspective: 800px;
-      overflow: hidden;
+      -webkit-perspective: 800px;
       z-index: 2;
       pointer-events: none; /* Let clicks pass through unless on a card */
     }
@@ -64,6 +65,8 @@
       top: 0; left: 0;
       width: 100%; height: 100%;
       transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      will-change: transform;
     }
 
     /* THE EVENT CARDS */
@@ -234,8 +237,8 @@
     const tunnel = document.getElementById('tunnel');
     const glow = document.getElementById('ambientGlow');
     
-    // Z-spacing between cards in the 3D tunnel
-    const zSpacing = 1500; 
+    // Z-spacing between cards in the 3D tunnel (shorter on mobile to prevent iOS clipping)
+    const zSpacing = window.innerWidth < 768 ? 800 : 1500; 
 
     // Build cards
     events.forEach((ev, i) => {
