@@ -19,16 +19,20 @@
       --display: 'Bricolage Grotesque', sans-serif;
       --mono: 'Space Mono', monospace;
     }
-    html, body {
+    html {
       height: 100%;
-      overflow: hidden; /* Entire experience is one screen */
+      background: #000;
+    }
+    body {
+      height: 100svh;
+      overflow: hidden;
       font-family: var(--display);
       background: #000;
       color: #fff;
       -webkit-font-smoothing: antialiased;
-      touch-action: none; /* Prevent browser swipe-back on mobile */
       user-select: none;
       -webkit-user-select: none;
+      overscroll-behavior: none;
     }
 
     /* ════════════════════════════════════════════════════
