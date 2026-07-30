@@ -262,11 +262,18 @@ async function initSanityCMS() {
   // 2. Process Brands
   const marquee = document.getElementById('marquee-track');
   if (marquee) {
-    const defaultBrands = [{}, {}, {}, {}, {}, {}]; // Dummy array if empty
+    const defaultBrands = [
+      { name: 'Nike', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg' },
+      { name: 'Apple', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg' },
+      { name: 'Spotify', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg' },
+      { name: 'Coca-Cola', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Coca-Cola_logo.svg' },
+      { name: 'Netflix', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg' },
+      { name: 'BMW', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg' }
+    ];
     const displayBrands = (brands && brands.length > 0) ? brands : defaultBrands;
 
     const brandHtml = displayBrands.map(b => {
-      let imgUrl = "https://placehold.co/200x60/E0DDD4/1A1A1A?text=BRAND&font=montserrat";
+      let imgUrl = b.logoUrl || "https://placehold.co/200x60/E0DDD4/1A1A1A?text=BRAND&font=montserrat";
       if (b.logo && b.logo.asset && b.logo.asset._ref) {
         const ref = b.logo.asset._ref;
         const parts = ref.split('-');
