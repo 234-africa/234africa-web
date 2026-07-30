@@ -261,12 +261,12 @@
           </div>
 
           <!-- WHY WE WIN STRATEGIC ADVANTAGE DECK -->
-          <div class="why-we-win-wrapper" style="margin-top: 88px; padding-top: 72px; border-top: 1px solid rgba(255, 255, 255, 0.12); position: relative;">
+          <div class="why-we-win-wrapper" style="margin-top: 88px; padding-top: 72px; border-top: 1px solid rgba(0, 0, 0, 0.12); position: relative;">
             <div class="badge-tag" style="background: rgba(16, 140, 90, 0.15); color: #108C5A; border: 1px solid rgba(16, 140, 90, 0.4); display: inline-block; padding: 6px 18px; border-radius: 100px; font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; font-weight: 700; margin-bottom: 12px;">
               [ STRATEGIC EDGE ]
             </div>
-            <h3 style="font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(3rem, 7vw, 5.2rem); font-weight: 900; text-transform: uppercase; color: #FFF; line-height: 1; margin-bottom: 48px; letter-spacing: -2px;">
-              Why We <span style="color: #108C5A; filter: drop-shadow(0 0 16px rgba(16, 140, 90, 0.4));">Win.</span>
+            <h3 style="font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(3rem, 7vw, 5.2rem); font-weight: 900; text-transform: uppercase; color: #111111; line-height: 1; margin-bottom: 48px; letter-spacing: -2px;">
+              Why We <span style="color: #108C5A;">Win.</span>
             </h3>
 
             <div class="www-grid">
@@ -318,35 +318,32 @@
             margin-top: 16px;
           }
           .www-card {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: #FFFFFF;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.05);
             border-radius: 22px;
             padding: 40px 32px;
             position: relative;
             overflow: hidden;
             transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(12px);
           }
           .www-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
-            height: 3px;
-            opacity: 0.85;
+            height: 4px;
+            opacity: 0.95;
             transition: opacity 0.35s, height 0.35s;
           }
-          .www-card--red::before { background: #E84128; box-shadow: 0 0 15px #E84128; }
-          .www-card--yellow::before { background: #F4A218; box-shadow: 0 0 15px #F4A218; }
-          .www-card--green::before { background: #108C5A; box-shadow: 0 0 15px #108C5A; }
+          .www-card--red::before { background: #E84128; }
+          .www-card--yellow::before { background: #F4A218; }
+          .www-card--green::before { background: #108C5A; }
           
           .www-card:hover {
             transform: translateY(-8px) scale(1.02);
-            border-color: rgba(255, 255, 255, 0.25);
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+            border-color: rgba(0, 0, 0, 0.18);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.09);
           }
-          .www-card--red:hover { box-shadow: 0 20px 40px rgba(232, 65, 40, 0.15); }
-          .www-card--yellow:hover { box-shadow: 0 20px 40px rgba(244, 162, 24, 0.15); }
-          .www-card--green:hover { box-shadow: 0 20px 40px rgba(16, 140, 90, 0.15); }
 
           .www-card-header {
             display: flex;
@@ -368,15 +365,15 @@
             width: 8px; height: 8px;
             border-radius: 50%;
           }
-          .www-dot--red { background: #E84128; box-shadow: 0 0 8px #E84128; }
-          .www-dot--yellow { background: #F4A218; box-shadow: 0 0 8px #F4A218; }
-          .www-dot--green { background: #108C5A; box-shadow: 0 0 8px #108C5A; }
+          .www-dot--red { background: #E84128; }
+          .www-dot--yellow { background: #F4A218; }
+          .www-dot--green { background: #108C5A; }
 
           .www-title {
             font-family: 'Bricolage Grotesque', sans-serif;
             font-size: 1.6rem;
             font-weight: 800;
-            color: #FFF;
+            color: #111111;
             margin-bottom: 14px;
             letter-spacing: -0.5px;
             line-height: 1.2;
@@ -384,7 +381,7 @@
           .www-desc {
             font-family: 'Outfit', sans-serif;
             font-size: 1.05rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: #444444;
             line-height: 1.6;
             margin: 0;
           }
