@@ -2,548 +2,799 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>234AFRICA — The Ecosystem</title>
-  <meta name="description" content="The four pillars powering 234AFRICA — Marketing, Music, Events, and GreyApple." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>234AFRICA — THE ECOSYSTEM CORE</title>
+  <meta name="description" content="The 4 operational pillars powering 234AFRICA: Marketing, Music, Events, and GreyApple." />
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,700;12..96,800;12..96,900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,600;12..96,800;12..96,900&family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
+  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-
-  <link rel="stylesheet" href="style.css" />
 
   <style>
     :root {
-      --red: #E84128;
-      --green: #108C5A;
-      --yellow: #F4A218;
-      --bg: #06070A;
-      --surface: #0D0E12;
-      --border: rgba(255,255,255,0.07);
+      --c-red: #E84128;
+      --c-green: #108C5A;
+      --c-yellow: #F4A218;
+      --c-cyan: #00C8D4;
+      --bg: #050608;
+      --surface: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 255, 255, 0.08);
       --font-display: 'Bricolage Grotesque', sans-serif;
       --font-body: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --active-color: var(--c-red);
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    body {
+    html, body {
+      width: 100%;
+      min-height: 100svh;
       background: var(--bg);
       color: #fff;
       font-family: var(--font-body);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      selection-background-color: var(--c-yellow);
+      selection-color: #000;
+    }
+
+    /* ── CYBER BACKGROUND & SCANLINES ── */
+    .cyber-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .cyber-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.6;
+    }
+    .cyber-glow {
+      position: absolute;
+      width: 80vw;
+      height: 80vh;
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, var(--active-color) 0%, transparent 65%);
+      opacity: 0.12;
+      filter: blur(100px);
+      transition: background 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scanlines {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.35) 50%,
+        rgba(0,0,0,0.35)
+      );
+      background-size: 100% 4px;
+      opacity: 0.4;
     }
 
     /* ── HEADER ── */
-    #header {
-      position: fixed; top: 0; left: 0; right: 0;
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
       z-index: 100;
-      padding: 20px 40px;
-      background: rgba(6,7,10,0.85);
+      padding: 20px 5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(5,6,8,0.8);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
     }
-    .header-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
-    .logo img { height: 36px; width: auto; }
-    .nav-links { display: flex; gap: 24px; font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; }
-    .nav-links a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
-    .nav-links a:hover { color: #fff; }
-    .nav-links a.active { color: var(--yellow); }
+    .logo {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.04em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      padding: 3px 8px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 99px;
+      letter-spacing: 0.1em;
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .nav-link {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: #fff;
+    }
+    .back-home-btn {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 18px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 99px;
+      transition: all 0.3s;
+      background: rgba(255,255,255,0.03);
+    }
+    .back-home-btn:hover {
+      background: #fff;
+      color: #000;
+    }
 
-    /* ── PAGE HERO ── */
-    .page-hero {
-      min-height: 100svh;
+    /* ── MARQUEE TOP TICKER ── */
+    .ticker-bar {
+      position: relative;
+      margin-top: 80px;
+      z-index: 10;
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      padding: 10px 0;
+      white-space: nowrap;
+    }
+    .ticker-track {
+      display: inline-flex;
+      gap: 40px;
+      animation: tickerMove 25s linear infinite;
+    }
+    .ticker-item {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .ticker-item span {
+      color: var(--c-yellow);
+      margin-right: 12px;
+    }
+    @keyframes tickerMove {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+
+    /* ── MAIN HERO TITLE ── */
+    .hero-section {
+      position: relative;
+      z-index: 10;
+      padding: 60px 5vw 40px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .hero-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--active-color);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: color 0.5s;
+    }
+    .hero-kicker::before {
+      content: '';
+      width: 30px;
+      height: 2px;
+      background: currentColor;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 7.5rem);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      max-width: 1100px;
+    }
+    .hero-title .outline-text {
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(255,255,255,0.35);
+      transition: all 0.5s;
+    }
+    .hero-title:hover .outline-text {
+      -webkit-text-stroke: 2px #fff;
+      color: rgba(255,255,255,0.08);
+    }
+
+    /* ── THE 4 PILLARS MONOLITH ACCORDION ── */
+    .pillars-container {
+      position: relative;
+      z-index: 10;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 5vw 120px;
+    }
+
+    .pillars-accordion {
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      padding: 120px 60px 80px;
-      border-bottom: 1px solid var(--border);
+      gap: 20px;
+    }
+
+    .pillar-card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    /* Neon border accent on left side */
+    .pillar-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 6px;
+      background: var(--pillar-color);
+      opacity: 0.4;
+      transition: all 0.5s;
+    }
+
+    .pillar-card:hover {
+      border-color: rgba(255,255,255,0.25);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    }
+    .pillar-card:hover::before, .pillar-card.active::before {
+      opacity: 1;
+      box-shadow: 0 0 25px var(--pillar-color);
+    }
+
+    .pillar-card.active {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--pillar-color);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.8), 0 0 40px rgba(255,255,255,0.03);
+    }
+
+    /* HEADER ROW OF CARD */
+    .pillar-header {
+      padding: 40px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .pillar-num {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--pillar-color);
+      background: rgba(255,255,255,0.05);
+      padding: 8px 16px;
+      border-radius: 99px;
+      letter-spacing: 0.1em;
+    }
+
+    .pillar-title-wrap {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .pillar-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      transition: color 0.4s;
+    }
+
+    .pillar-card:hover .pillar-title, .pillar-card.active .pillar-title {
+      color: var(--pillar-color);
+    }
+
+    .pillar-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    .pillar-indicator {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.4s;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .pillar-card.active .pillar-indicator {
+      transform: rotate(45deg);
+      background: var(--pillar-color);
+      border-color: var(--pillar-color);
+      color: #000;
+      font-weight: 900;
+    }
+
+    /* BODY OF CARD (EXPANDED) */
+    .pillar-body {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s;
+    }
+
+    .pillar-card.active .pillar-body {
+      max-height: 800px;
+      opacity: 1;
+    }
+
+    .pillar-content-inner {
+      padding: 0 40px 50px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 40px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 40px;
+    }
+
+    .pillar-desc {
+      font-size: clamp(1.15rem, 2vw, 1.6rem);
+      line-height: 1.5;
+      color: rgba(255,255,255,0.9);
+      font-weight: 400;
+    }
+
+    .pillar-desc strong {
+      color: #fff;
+      font-weight: 700;
+      border-bottom: 2px solid var(--pillar-color);
+    }
+
+    /* TELEMETRY & SPECS BOX (RIGHT SIDE) */
+    .pillar-telemetry {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       position: relative;
       overflow: hidden;
     }
 
-    /* Animated background mesh */
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 60% at 70% 50%, rgba(232,65,40,0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(16,140,90,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    /* Fine grid overlay — structural feel */
-    .hero-grid-overlay {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 80px 80px;
-      pointer-events: none;
-      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
-    }
-
-    .hero-tag {
-      font-family: var(--font-display);
-      font-size: 0.75rem;
-      font-weight: 700;
+    .telemetry-header {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
       letter-spacing: 0.2em;
-      color: var(--yellow);
+      color: var(--pillar-color);
+      text-transform: uppercase;
+      margin-bottom: 20px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 30px;
-      position: relative;
+      gap: 8px;
     }
-    .hero-tag::before { content: '01 /'; color: rgba(255,255,255,0.2); }
-
-    .hero-heading {
-      font-family: var(--font-display);
-      font-size: clamp(4rem, 9vw, 9rem);
-      font-weight: 900;
-      line-height: 0.88;
-      letter-spacing: -4px;
-      text-transform: uppercase;
-      position: relative;
-      margin-bottom: 40px;
-    }
-    .hero-heading .line-outline {
-      color: transparent;
-      -webkit-text-stroke: 2px rgba(255,255,255,0.2);
-    }
-    .hero-heading .line-color {
-      background: linear-gradient(90deg, var(--red), var(--yellow));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .telemetry-header::before {
+      content: '●';
+      font-size: 0.8rem;
     }
 
-    .hero-desc {
-      font-size: clamp(1rem, 2vw, 1.3rem);
-      color: rgba(255,255,255,0.5);
-      max-width: 500px;
-      line-height: 1.6;
-      position: relative;
-    }
-
-    /* ── STICKY SPLIT PILLARS ── */
-    .pillars-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 100vh;
-    }
-
-    /* LEFT: Sticky index nav */
-    .pillars-nav {
-      position: sticky;
-      top: 80px;
-      height: calc(100svh - 80px);
-      padding: 80px 60px;
+    .telemetry-list {
+      list-style: none;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 40px;
-      border-right: 1px solid var(--border);
+      gap: 14px;
+      margin-bottom: 24px;
     }
 
-    .pillar-nav-item {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      cursor: pointer;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-      transition: padding-left 0.3s;
-    }
-    .pillar-nav-item:last-child { border-bottom: none; }
-    .pillar-nav-item.active { padding-left: 16px; }
-
-    .pillar-num {
-      font-family: var(--font-display);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      color: rgba(255,255,255,0.25);
-      transition: color 0.3s;
-    }
-    .pillar-nav-item.active .pillar-num { color: var(--yellow); }
-
-    .pillar-nav-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.5rem, 3vw, 2.5rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.2);
-      line-height: 1;
-      letter-spacing: -1px;
-      transition: color 0.3s;
-    }
-    .pillar-nav-item.active .pillar-nav-title { color: #fff; }
-
-    /* Active color indicators */
-    .pillar-nav-item[data-pillar="marketing"].active .pillar-nav-title { color: var(--red); }
-    .pillar-nav-item[data-pillar="music"].active .pillar-nav-title { color: var(--yellow); }
-    .pillar-nav-item[data-pillar="events"].active .pillar-nav-title { color: var(--green); }
-    .pillar-nav-item[data-pillar="greyapple"].active .pillar-nav-title { color: #fff; }
-
-    /* RIGHT: Scrollable content */
-    .pillars-content {
-      padding: 80px 60px;
-    }
-
-    .pillar-block {
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 80px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .pillar-block:last-child { border-bottom: none; }
-
-    .pillar-number-large {
-      font-family: var(--font-display);
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      margin-bottom: 30px;
+    .telemetry-item {
       display: flex;
       align-items: center;
       gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.8);
     }
-    .pillar-number-large::after {
-      content: '';
-      flex-grow: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .pillar-title-large {
-      font-family: var(--font-display);
-      font-size: clamp(3.5rem, 7vw, 7rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 0.9;
-      letter-spacing: -3px;
-      margin-bottom: 40px;
-      color: transparent;
-      -webkit-text-stroke: 2px rgba(255,255,255,0.15);
-      transition: all 0.5s;
-    }
-    .pillar-block.in-view .pillar-title-large {
-      -webkit-text-stroke: 0px;
+    .telemetry-item::before {
+      content: '⚡';
+      font-size: 0.75rem;
+      color: var(--pillar-color);
     }
 
-    /* Per-pillar color fills */
-    .pillar-block[data-pillar="marketing"].in-view .pillar-title-large { color: var(--red); text-shadow: 0 0 60px rgba(232,65,40,0.3); }
-    .pillar-block[data-pillar="music"].in-view .pillar-title-large { color: var(--yellow); text-shadow: 0 0 60px rgba(244,162,24,0.3); }
-    .pillar-block[data-pillar="events"].in-view .pillar-title-large { color: var(--green); text-shadow: 0 0 60px rgba(16,140,90,0.3); }
-    .pillar-block[data-pillar="greyapple"].in-view .pillar-title-large { color: #fff; text-shadow: 0 0 60px rgba(255,255,255,0.15); }
-
-    .pillar-body {
-      font-size: clamp(1.1rem, 2vw, 1.4rem);
-      color: rgba(255,255,255,0.5);
-      line-height: 1.7;
-      max-width: 520px;
-      margin-bottom: 40px;
-    }
-
-    .pillar-features {
+    /* KINETIC EQUALIZER / VISUALIZER BAR */
+    .pillar-viz {
       display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 40px;
+      align-items: flex-end;
+      gap: 6px;
+      height: 32px;
     }
-    .pillar-feature {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      font-size: 1rem;
-      color: rgba(255,255,255,0.7);
+    .viz-bar {
+      flex: 1;
+      background: var(--pillar-color);
+      height: 10%;
+      border-radius: 2px;
+      opacity: 0.7;
+      transition: height 0.3s;
     }
-    .feature-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      margin-top: 8px;
-      flex-shrink: 0;
-    }
-    [data-pillar="marketing"] .feature-dot { background: var(--red); }
-    [data-pillar="music"] .feature-dot { background: var(--yellow); }
-    [data-pillar="events"] .feature-dot { background: var(--green); }
-    [data-pillar="greyapple"] .feature-dot { background: #fff; }
+    .pillar-card.active .viz-bar:nth-child(1) { animation: vizPulse 0.9s ease-in-out infinite alternate; }
+    .pillar-card.active .viz-bar:nth-child(2) { animation: vizPulse 1.2s ease-in-out infinite alternate 0.2s; }
+    .pillar-card.active .viz-bar:nth-child(3) { animation: vizPulse 0.7s ease-in-out infinite alternate 0.4s; }
+    .pillar-card.active .viz-bar:nth-child(4) { animation: vizPulse 1.4s ease-in-out infinite alternate 0.1s; }
+    .pillar-card.active .viz-bar:nth-child(5) { animation: vizPulse 1.1s ease-in-out infinite alternate 0.3s; }
 
-    .pillar-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--font-display);
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 14px 28px;
-      border-radius: 100px;
-      border: 1px solid rgba(255,255,255,0.15);
-      color: #fff;
-      transition: background 0.25s, border-color 0.25s;
-      width: fit-content;
+    @keyframes vizPulse {
+      0%   { height: 20%; opacity: 0.4; }
+      100% { height: 100%; opacity: 1; }
     }
-    [data-pillar="marketing"] .pillar-link:hover { background: var(--red); border-color: var(--red); }
-    [data-pillar="music"] .pillar-link:hover { background: var(--yellow); border-color: var(--yellow); color: #000; }
-    [data-pillar="events"] .pillar-link:hover { background: var(--green); border-color: var(--green); }
-    [data-pillar="greyapple"] .pillar-link:hover { background: #fff; border-color: #fff; color: #000; }
 
-    /* ── FOOTER CTA ── */
-    .eco-footer {
-      padding: 120px 60px;
+    /* ── MANIFESTO BANNER AT BOTTOM ── */
+    .manifesto-section {
+      padding: 80px 5vw 120px;
+      max-width: 1400px;
+      margin: 0 auto;
       text-align: center;
-      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 10;
     }
-    .eco-footer h2 {
+    .manifesto-box {
+      background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 70px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .manifesto-title {
       font-family: var(--font-display);
-      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-size: clamp(2rem, 5vw, 4rem);
       font-weight: 900;
+      line-height: 1.05;
       text-transform: uppercase;
-      letter-spacing: -2px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
-    .eco-footer p { color: rgba(255,255,255,0.5); font-size: 1.1rem; margin-bottom: 40px; }
-    .eco-footer a {
+    .manifesto-sub {
+      font-size: clamp(1rem, 1.8vw, 1.3rem);
+      color: rgba(255,255,255,0.6);
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+    .cta-glow-btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 18px 40px;
-      background: var(--red);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 100px;
-      font-family: var(--font-display);
+      gap: 14px;
+      padding: 20px 42px;
+      background: #fff;
+      color: #000;
+      font-family: var(--font-mono);
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      transition: opacity 0.2s;
+      text-decoration: none;
+      border-radius: 99px;
+      transition: all 0.4s;
+      box-shadow: 0 0 35px rgba(255,255,255,0.25);
     }
-    .eco-footer a:hover { opacity: 0.85; }
+    .cta-glow-btn:hover {
+      background: var(--c-yellow);
+      transform: scale(1.05);
+      box-shadow: 0 0 50px var(--c-yellow);
+    }
 
-    /* ── MOBILE: Kill sticky split, go vertical ── */
+    /* ── RESPONSIVE MOBILE ADJUSTMENTS ── */
     @media (max-width: 900px) {
-      #header { padding: 16px 20px; }
-      .nav-links { gap: 10px; font-size: 0.6rem; }
-
-      .page-hero { padding: 100px 24px 60px; }
-      .hero-heading { letter-spacing: -2px; }
-
-      /* Kill 2-col grid on mobile */
-      .pillars-wrapper { grid-template-columns: 1fr; }
-
-      /* Nav becomes a horizontal scrollable strip */
-      .pillars-nav {
-        position: static;
-        height: auto;
-        padding: 30px 24px;
-        flex-direction: row;
-        overflow-x: auto;
-        gap: 0;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+      header {
+        padding: 16px 20px;
       }
-      .pillars-nav::-webkit-scrollbar { display: none; }
-      .pillar-nav-item {
-        flex-shrink: 0;
-        padding: 10px 24px;
-        border-bottom: none;
-        border-right: 1px solid var(--border);
+      .nav-link { display: none; }
+      .hero-section {
+        padding: 40px 20px 20px;
       }
-      .pillar-nav-item:last-child { border-right: none; }
-      .pillar-nav-item.active { padding-left: 24px; border-bottom: 3px solid var(--yellow); }
-      .pillar-nav-title { font-size: 1.2rem; }
-
-      .pillars-content { padding: 40px 24px; }
-      .pillar-block { min-height: auto; padding: 60px 0; }
-      .pillar-title-large { letter-spacing: -2px; }
-
-      .eco-footer { padding: 80px 24px; }
+      .pillars-container {
+        padding: 0 20px 80px;
+      }
+      .pillar-header {
+        padding: 24px 20px;
+        gap: 16px;
+      }
+      .pillar-content-inner {
+        padding: 0 20px 32px;
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .pillar-indicator {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+      }
+      .manifesto-box {
+        padding: 40px 20px;
+      }
     }
   </style>
 </head>
 <body>
 
+  <!-- CYBER CORE BACKGROUND EFFECTS -->
+  <div class="cyber-bg">
+    <div class="cyber-grid"></div>
+    <div class="cyber-glow" id="cyberGlow"></div>
+    <div class="scanlines"></div>
+  </div>
+
   <!-- HEADER -->
-  <header id="header">
-    <div class="header-inner">
-      <a href="index.html" class="logo">
-        <img src="assets/234logo-transparent.png" alt="234AFRICA">
-      </a>
-      <nav class="nav-links">
-        <a href="ecosystem.html" class="active">ECOSYSTEM</a>
-        <a href="events.html">EVENTS</a>
-        <a href="https://greyapple.vip" target="_blank">GREYAPPLE</a>
-        <a href="cruiseroom.html">CRUISE ROOM</a>
-      </nav>
-    </div>
+  <header>
+    <a href="index.html" class="logo">
+      234AFRICA
+      <span class="logo-badge">SYSTEM CORE v2.5</span>
+    </a>
+    <nav class="header-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="events.html" class="nav-link">Events</a>
+      <a href="ecosystem.html" class="nav-link active">Our Pillars</a>
+      <a href="index.html" class="back-home-btn">← BACK TO SITE</a>
+    </nav>
   </header>
 
-  <!-- HERO -->
-  <section class="page-hero">
-    <div class="hero-bg"></div>
-    <div class="hero-grid-overlay"></div>
-    <div class="hero-tag">THE 234AFRICA ECOSYSTEM</div>
-    <h1 class="hero-heading">
-      <span class="line-color">FOUR</span><br>
-      <span class="line-outline">PILLARS.</span><br>
-      ONE<br>
-      VISION.
-    </h1>
-    <p class="hero-desc">We exist at the intersection of music, marketing, live events, and technology. Built in Lagos. Exporting to the world.</p>
-  </section>
-
-  <!-- STICKY SPLIT -->
-  <div class="pillars-wrapper">
-
-    <!-- LEFT NAV (Sticky) -->
-    <nav class="pillars-nav" id="pillars-nav">
-      <div class="pillar-nav-item active" data-pillar="marketing">
-        <span class="pillar-num">01 / PILLAR</span>
-        <span class="pillar-nav-title">Marketing</span>
-      </div>
-      <div class="pillar-nav-item" data-pillar="music">
-        <span class="pillar-num">02 / PILLAR</span>
-        <span class="pillar-nav-title">Music</span>
-      </div>
-      <div class="pillar-nav-item" data-pillar="events">
-        <span class="pillar-num">03 / PILLAR</span>
-        <span class="pillar-nav-title">Events</span>
-      </div>
-      <div class="pillar-nav-item" data-pillar="greyapple">
-        <span class="pillar-num">04 / PILLAR</span>
-        <span class="pillar-nav-title">GreyApple</span>
-      </div>
-    </nav>
-
-    <!-- RIGHT: Scrollable Blocks -->
-    <div class="pillars-content">
-
-      <!-- MARKETING -->
-      <div class="pillar-block in-view" data-pillar="marketing" id="pillar-marketing">
-        <div class="pillar-number-large" style="color: var(--red);">01 / MARKETING</div>
-        <h2 class="pillar-title-large">MARKETING</h2>
-        <p class="pillar-body">We amplify African voices and brands. Through culture-driven campaigns and strategic storytelling, we connect creators with global audiences at scale.</p>
-        <div class="pillar-features">
-          <div class="pillar-feature"><div class="feature-dot"></div><span>Brand strategy & positioning for African creators</span></div>
-          <div class="pillar-feature"><div class="feature-dot"></div><span>Digital campaigns across social, streaming & OOH</span></div>
-          <div class="pillar-feature"><div class="feature-dot"></div><span>Influencer & community activation programmes</span></div>
-        </div>
-        <a href="#" class="pillar-link">Work With Us →</a>
-      </div>
-
-      <!-- MUSIC -->
-      <div class="pillar-block" data-pillar="music" id="pillar-music">
-        <div class="pillar-number-large" style="color: var(--yellow);">02 / MUSIC</div>
-        <h2 class="pillar-title-large">MUSIC</h2>
-        <p class="pillar-body">The heartbeat of everything we do. We discover, promote, and elevate the next generation of African musical talent to the world stage, connecting artistry with opportunity.</p>
-        <div class="pillar-features">
-          <div class="pillar-feature"><div class="feature-dot"></div><span>Artist development & management support</span></div>
-          <div class="pillar-feature"><div class="feature-dot"></div><span>Music industry panels & knowledge sharing</span></div>
-          <div class="pillar-feature"><div class="feature-dot"></div><span>Sync licensing & global distribution strategy</span></div>
-        </div>
-        <a href="events.html" class="pillar-link">See Music Events →</a>
-      </div>
-
-      <!-- EVENTS -->
-      <div class="pillar-block" data-pillar="events" id="pillar-events">
-        <div class="pillar-number-large" style="color: var(--green);">03 / EVENTS</div>
-        <h2 class="pillar-title-large">EVENTS</h2>
-        <p class="pillar-body">Curating unforgettable live experiences. From intimate industry showcases to massive cultural festivals, we bring the raw energy of Africa to life for audiences worldwide.</p>
-        <div class="pillar-features">
-          <div class="pillar-feature"><div class="feature-dot"></div><span>Full-scale event production & logistics</span></div>
-          <div class="pillar-feature"><div class="feature-dot"></div><span>Curated artist lineups & industry panels</span></div>
-          <div class="pillar-feature"><div class="feature-dot"></div><span>Brand activation & sponsorship integration</span></div>
-        </div>
-        <a href="events.html" class="pillar-link">View Events →</a>
-      </div>
-
-      <!-- GREYAPPLE -->
-      <div class="pillar-block" data-pillar="greyapple" id="pillar-greyapple">
-        <div class="pillar-number-large" style="color: rgba(255,255,255,0.5);">04 / PILLAR</div>
-        <h2 class="pillar-title-large">GREYAPPLE</h2>
-        <p class="pillar-body">The innovation engine powering our entire operation. GreyApple provides the infrastructure, data intelligence, and strategic frameworks that fuel the 234AFRICA ecosystem.</p>
-        <div class="pillar-features">
-          <div class="pillar-feature"><div class="feature-dot"></div><span>Data analytics & audience intelligence</span></div>
-          <div class="pillar-feature"><div class="feature-dot"></div><span>Technology infrastructure & digital products</span></div>
-          <div class="pillar-feature"><div class="feature-dot"></div><span>Strategic consulting for creative industries</span></div>
-        </div>
-        <a href="https://greyapple.vip" target="_blank" class="pillar-link">Visit GreyApple →</a>
-      </div>
-
+  <!-- MARQUEE TICKER -->
+  <div class="ticker-bar">
+    <div class="ticker-track">
+      <div class="ticker-item"><span>// 01</span> MARKETING STRATEGY & AMPLIFICATION</div>
+      <div class="ticker-item"><span>// 02</span> MUSIC DISCOVERY & TALENT INCUBATION</div>
+      <div class="ticker-item"><span>// 03</span> LIVE EXPERIENCES & STADIUM FESTIVALS</div>
+      <div class="ticker-item"><span>// 04</span> GREYAPPLE INFRASTRUCTURE & DATA ENGINE</div>
+      <!-- Duplicate for seamless loop -->
+      <div class="ticker-item"><span>// 01</span> MARKETING STRATEGY & AMPLIFICATION</div>
+      <div class="ticker-item"><span>// 02</span> MUSIC DISCOVERY & TALENT INCUBATION</div>
+      <div class="ticker-item"><span>// 03</span> LIVE EXPERIENCES & STADIUM FESTIVALS</div>
+      <div class="ticker-item"><span>// 04</span> GREYAPPLE INFRASTRUCTURE & DATA ENGINE</div>
     </div>
   </div>
 
-  <!-- FOOTER CTA -->
-  <div class="eco-footer">
-    <h2>Ready to<br><span style="color: var(--red)">Connect?</span></h2>
-    <p>Join the 234AFRICA ecosystem. Let's build something extraordinary together.</p>
-    <a href="events.html">Explore Our Events →</a>
-  </div>
+  <!-- HERO TITLE -->
+  <section class="hero-section">
+    <div class="hero-kicker" id="heroKicker">SELECT A PILLAR TO EXPLORE</div>
+    <h1 class="hero-title">
+      THE 4 PILLARS OF <span class="outline-text">OUR CULTURE.</span>
+    </h1>
+  </section>
 
+  <!-- THE 4 INTERACTIVE PILLARS ACCORDION -->
+  <main class="pillars-container">
+    <div class="pillars-accordion" id="accordion">
+
+      <!-- PILLAR 01: MARKETING -->
+      <article class="pillar-card active" data-color="#E84128" data-pillar="MARKETING">
+        <div class="pillar-header">
+          <div class="pillar-num">01 //</div>
+          <div class="pillar-title-wrap">
+            <h2 class="pillar-title">MARKETING</h2>
+            <div class="pillar-tag">CULTURE-DRIVEN CAMPAIGNS · STRATEGIC STORYTELLING</div>
+          </div>
+          <div class="pillar-indicator">+</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-content-inner">
+            <div class="pillar-desc">
+              We amplify African voices and brands. Through <strong>culture-driven campaigns</strong> and authentic youth storytelling, we bridge the gap between global brands and the African consumer. We don't just run ads—we embed brands into the cultural heartbeat of the continent.
+            </div>
+            <div class="pillar-telemetry">
+              <div class="telemetry-header">CORE SPECS</div>
+              <ul class="telemetry-list">
+                <li class="telemetry-item">Gen-Z & Millennial Focus</li>
+                <li class="telemetry-item">Viral Campaign Engineering</li>
+                <li class="telemetry-item">Campus & Nightlife Activation</li>
+                <li class="telemetry-item">Brand-to-Culture Alignment</li>
+              </ul>
+              <div class="pillar-viz">
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PILLAR 02: MUSIC -->
+      <article class="pillar-card" data-color="#108C5A" data-pillar="MUSIC">
+        <div class="pillar-header">
+          <div class="pillar-num">02 //</div>
+          <div class="pillar-title-wrap">
+            <h2 class="pillar-title">MUSIC</h2>
+            <div class="pillar-tag">TALENT DISCOVERY · CULTURE CURATION · GLOBAL STAGE</div>
+          </div>
+          <div class="pillar-indicator">+</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-content-inner">
+            <div class="pillar-desc">
+              The heartbeat of our culture. We discover, promote, and elevate the next generation of African musical talent to the world stage. From grassroots underground creators to headline festival acts, we build sustainable careers and curate sonic revolutions.
+            </div>
+            <div class="pillar-telemetry">
+              <div class="telemetry-header">CORE SPECS</div>
+              <ul class="telemetry-list">
+                <li class="telemetry-item">Emerging Artist Incubator</li>
+                <li class="telemetry-item">Afrobeats & Amapiano Ecosystem</li>
+                <li class="telemetry-item">Playlist & DSP Curation</li>
+                <li class="telemetry-item">Creator Rights & Distribution</li>
+              </ul>
+              <div class="pillar-viz">
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PILLAR 03: EVENTS -->
+      <article class="pillar-card" data-color="#F4A218" data-pillar="EVENTS">
+        <div class="pillar-header">
+          <div class="pillar-num">03 //</div>
+          <div class="pillar-title-wrap">
+            <h2 class="pillar-title">EVENTS</h2>
+            <div class="pillar-tag">STADIUM FESTIVALS · UNDERGROUND RAVES · LIVE RECIPES</div>
+          </div>
+          <div class="pillar-indicator">+</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-content-inner">
+            <div class="pillar-desc">
+              Curating unforgettable live experiences. From intimate creative mixers like <strong>The Cruise Room</strong> to massive stadium festivals, we bring the physical energy of Africa to life. Our events are safe, high-octane cultural landmarks that set the standard for live entertainment.
+            </div>
+            <div class="pillar-telemetry">
+              <div class="telemetry-header">CORE SPECS</div>
+              <ul class="telemetry-list">
+                <li class="telemetry-item">30,000+ Total Attendees</li>
+                <li class="telemetry-item">World-Class Stage & Sound</li>
+                <li class="telemetry-item">Immersive Visual Architecture</li>
+                <li class="telemetry-item">360° Safety & Logistics</li>
+              </ul>
+              <div class="pillar-viz">
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PILLAR 04: GREYAPPLE -->
+      <article class="pillar-card" data-color="#00C8D4" data-pillar="GREYAPPLE">
+        <div class="pillar-header">
+          <div class="pillar-num">04 //</div>
+          <div class="pillar-title-wrap">
+            <h2 class="pillar-title">GREYAPPLE</h2>
+            <div class="pillar-tag">INNOVATION ENGINE · DATA INFRASTRUCTURE · STRATEGY</div>
+          </div>
+          <div class="pillar-indicator">+</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-content-inner">
+            <div class="pillar-desc">
+              The innovation engine powering our operations. <strong>GreyApple</strong> provides the infrastructure, proprietary data, and creative technology that drives the entire 234AFRICA ecosystem—ensuring precision, scalability, and long-term cultural sovereignty.
+            </div>
+            <div class="pillar-telemetry">
+              <div class="telemetry-header">CORE SPECS</div>
+              <ul class="telemetry-list">
+                <li class="telemetry-item">Audience Intelligence & Data</li>
+                <li class="telemetry-item">Technical Production Backbone</li>
+                <li class="telemetry-item">Strategic Brand Consulting</li>
+                <li class="telemetry-item">Ecosystem Architecture</li>
+              </ul>
+              <div class="pillar-viz">
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+                <div class="viz-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- MANIFESTO / CTA BANNER -->
+  <section class="manifesto-section">
+    <div class="manifesto-box">
+      <h2 class="manifesto-title">READY TO ENTER THE <span style="color: var(--c-yellow);">ECOSYSTEM?</span></h2>
+      <p class="manifesto-sub">Whether you are a creator, brand, or investor—our doors are open to build the next decade of African culture.</p>
+      <a href="mailto:234groupinfo@gmail.com" class="cta-glow-btn">CONNECT WITH 234.HQ ↗</a>
+    </div>
+  </section>
+
+  <!-- JS FOR ACCORDION & THEME COLOR SWITCHING -->
   <script>
-    window.addEventListener('load', () => {
-      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-      gsap.registerPlugin(ScrollTrigger);
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.pillar-card');
+      const root = document.documentElement;
+      const kicker = document.getElementById('heroKicker');
 
-      const navItems = document.querySelectorAll('.pillar-nav-item');
-      const blocks = document.querySelectorAll('.pillar-block');
+      // Function to activate a card and shift the entire site theme color
+      function activateCard(card) {
+        cards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
 
-      // Observe each pillar block. When it enters viewport, activate corresponding nav item.
-      blocks.forEach(block => {
-        const pillarName = block.dataset.pillar;
+        const color = card.getAttribute('data-color') || '#E84128';
+        const name = card.getAttribute('data-pillar') || 'MARKETING';
 
-        ScrollTrigger.create({
-          trigger: block,
-          start: 'top 55%',
-          end: 'bottom 55%',
-          onEnter: () => activate(pillarName, block),
-          onEnterBack: () => activate(pillarName, block),
-        });
-      });
+        // Set CSS custom property for glowing colors
+        root.style.setProperty('--active-color', color);
+        root.style.setProperty('--pillar-color', color);
 
-      function activate(pillarName, block) {
-        // Nav
-        navItems.forEach(item => item.classList.remove('active'));
-        const activeNav = document.querySelector(`.pillar-nav-item[data-pillar="${pillarName}"]`);
-        if (activeNav) activeNav.classList.add('active');
-
-        // Block title fill
-        blocks.forEach(b => b.classList.remove('in-view'));
-        block.classList.add('in-view');
+        // Update kicker text
+        if (kicker) {
+          kicker.textContent = `// CURRENT CORE: ${name} SYSTEM`;
+          kicker.style.color = color;
+        }
       }
 
-      // Stagger in blocks on scroll
-      blocks.forEach((block, i) => {
-        const title = block.querySelector('.pillar-title-large');
-        const body = block.querySelector('.pillar-body');
-        const features = block.querySelectorAll('.pillar-feature');
-        const link = block.querySelector('.pillar-link');
+      // Initialize first card color
+      if (cards.length > 0) {
+        cards.forEach(c => {
+          c.style.setProperty('--pillar-color', c.getAttribute('data-color'));
+        });
+        activateCard(cards[0]);
+      }
 
-        gsap.from([body, features, link], {
-          scrollTrigger: { trigger: block, start: 'top 70%' },
-          y: 30,
-          opacity: 0,
-          duration: 0.7,
-          stagger: 0.1,
-          ease: 'power3.out'
+      // Add click listener for accordion
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          activateCard(card);
         });
       });
     });
   </script>
-
 </body>
 </html>
