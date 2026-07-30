@@ -3,225 +3,473 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>234AFRICA - Events</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800;12..96,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+  <title>234AFRICA — Events</title>
+  <meta name="description" content="234AFRICA Events Archive — Live festivals, nightlife, and unforgettable cultural moments across the continent." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800;12..96,900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- GSAP for smooth animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
   <link rel="stylesheet" href="style.css" />
-  
+
   <style>
+    :root {
+      --red: #E84128;
+      --green: #108C5A;
+      --yellow: #F4A218;
+      --bg: #08090A;
+      --surface: #111316;
+      --border: rgba(255,255,255,0.08);
+      --font-display: 'Bricolage Grotesque', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      background: #050505;
+      background: var(--bg);
       color: #fff;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-body);
       overflow-x: hidden;
-      margin: 0; padding: 0;
-    }
-    
-    #header { background: #050505 !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; z-index: 999; }
-    .nav-links, .nav-links a { color: #fff !important; }
-
-    .page-header {
-      padding: 150px 20px 60px;
-      text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    .page-title {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 10vw, 7rem);
-      font-weight: 900;
-      margin: 0;
-      text-transform: uppercase;
-      letter-spacing: -2px;
-      color: var(--c-red);
-    }
-    .page-subtitle {
-      font-size: 1.2rem;
-      color: rgba(255,255,255,0.6);
-      max-width: 600px;
-      margin: 20px auto 0;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Standard Grid Layout - Highly Reliable */
-    .events-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
-      padding: 60px 5vw 120px;
+    /* ── HEADER ── */
+    #header {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      background: rgba(8,9,10,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
+    .logo img { height: 36px; width: auto; }
+    .nav-links { display: flex; gap: 24px; font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; }
+    .nav-links a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-links a.active { color: var(--red); }
+
+    /* ── HERO ── */
+    .page-hero {
+      padding: 140px 40px 60px;
       max-width: 1400px;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .hero-tag {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--red);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 2px;
+      background: var(--red);
+    }
+    .hero-heading {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 10vw, 9rem);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -3px;
+      text-transform: uppercase;
+    }
+    .hero-heading .outline {
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(255,255,255,0.3);
     }
 
-    .event-card-simple {
-      background: #111;
-      border-radius: 16px;
+    /* ── MARQUEE STRIP ── */
+    .marquee-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 14px 0;
+      background: var(--surface);
+    }
+    .marquee-inner {
+      display: flex;
+      width: max-content;
+      animation: marquee 25s linear infinite;
+      gap: 0;
+    }
+    .marquee-item {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.4);
+      padding: 0 40px;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+    .marquee-item span { color: var(--yellow); margin-right: 40px; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── EVENTS GRID ── */
+    .events-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 80px 40px 120px;
+    }
+
+    /* BENTO-STYLE GRID */
+    .events-bento {
+      display: grid;
+      /* 3-col on desktop, collapses cleanly on mobile */
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: auto;
+      gap: 20px;
+    }
+
+    /* Featured card spans 2 columns */
+    .event-card {
+      position: relative;
+      background: var(--surface);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.35s ease, transform 0.35s ease;
       display: flex;
       flex-direction: column;
     }
-    .event-card-simple:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(232, 65, 40, 0.2);
-      border-color: var(--c-red);
+    .event-card:hover {
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-6px);
+    }
+    .event-card.featured {
+      grid-column: span 2;
+      flex-direction: row;
+      align-items: stretch;
     }
 
-    .card-img-container {
+    /* Poster Image */
+    .card-poster {
       width: 100%;
-      aspect-ratio: 4/5;
-      background: #222;
-      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: #111;
+      flex-shrink: 0;
     }
-    .card-img-container img {
+    .event-card.featured .card-poster {
+      width: 50%;
+      aspect-ratio: auto;
+    }
+    .card-poster img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+      filter: grayscale(20%);
+    }
+    .event-card:hover .card-poster img {
+      transform: scale(1.06);
+      filter: grayscale(0%);
     }
 
-    .card-content {
-      padding: 30px;
+    /* Card Info */
+    .card-info {
+      padding: 28px;
       display: flex;
       flex-direction: column;
+      justify-content: flex-end;
       flex-grow: 1;
+      background: var(--surface);
+    }
+    .event-card.featured .card-info {
+      padding: 40px;
+      justify-content: center;
+    }
+
+    .card-tag {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-tag::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--yellow);
     }
 
     .card-title {
       font-family: var(--font-display);
-      font-size: 2rem;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
       font-weight: 900;
-      margin: 0 0 10px 0;
-      line-height: 1.1;
+      line-height: 1;
       text-transform: uppercase;
-    }
-
-    .card-date {
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: var(--c-yellow);
-      margin: 0 0 20px 0;
-    }
-
-    .card-btn {
-      margin-top: auto;
-      padding: 15px 0;
-      text-align: center;
-      background: var(--c-red);
       color: #fff;
-      font-family: var(--font-display);
-      font-weight: 700;
-      border-radius: 8px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      text-decoration: none;
-      transition: background 0.2s;
+      margin-bottom: 16px;
     }
-    .card-btn:hover {
-      background: #fff;
-      color: #000;
+    .event-card.featured .card-title {
+      font-size: clamp(2rem, 4vw, 3.5rem);
     }
 
+    .card-meta {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 24px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 100px;
+      transition: background 0.25s, border-color 0.25s;
+      width: fit-content;
+    }
+    .card-cta:hover {
+      background: var(--red);
+      border-color: var(--red);
+    }
+    .card-cta .arrow { font-size: 1rem; }
+
+    /* Color Accent Stripe on top of featured */
+    .event-card.featured::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--yellow), var(--green));
+      z-index: 2;
+    }
+
+    /* ── BOTTOM CTA ── */
+    .bottom-cta {
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .bottom-cta p {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      #header { padding: 16px 20px; }
+      .nav-links { gap: 12px; font-size: 0.65rem; }
+      .page-hero { padding: 110px 20px 40px; }
+      .hero-heading { letter-spacing: -1px; }
+      .events-section { padding: 40px 20px 80px; }
+
+      /* On mobile, kill bento — everything goes single column */
+      .events-bento { grid-template-columns: 1fr; }
+      .event-card.featured {
+        grid-column: span 1;
+        flex-direction: column;
+      }
+      .event-card.featured .card-poster {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+      }
+      .event-card.featured .card-info { padding: 28px; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { gap: 8px; font-size: 0.6rem; }
+    }
   </style>
 </head>
 <body>
 
+  <!-- HEADER -->
   <header id="header">
     <div class="header-inner">
-      <a href="index.html" class="logo" style="display: flex; align-items: center; z-index: 999;">
-        <img src="assets/234logo-transparent.png" alt="234AFRICA Logo" style="height: 40px; width: auto; object-fit: contain;">
+      <a href="index.html" class="logo">
+        <img src="assets/234logo-transparent.png" alt="234AFRICA">
       </a>
       <nav class="nav-links">
-        <a href="ecosystem.html">THE ECOSYSTEM</a>
-        <a href="events.html" style="color: var(--c-red) !important; text-decoration: underline;">EVENTS</a>
+        <a href="ecosystem.html">ECOSYSTEM</a>
+        <a href="events.html" class="active">EVENTS</a>
         <a href="https://greyapple.vip" target="_blank">GREYAPPLE</a>
-        <a href="cruiseroom.html">THE CRUISE ROOM</a>
+        <a href="cruiseroom.html">CRUISE ROOM</a>
       </nav>
     </div>
   </header>
 
-  <div class="page-header">
-    <h1 class="page-title">THE ARCHIVE</h1>
-    <p class="page-subtitle">A collection of our most iconic live experiences, festivals, and cultural moments across the continent.</p>
+  <!-- HERO -->
+  <div class="page-hero">
+    <div class="hero-tag">234AFRICA Presents</div>
+    <h1 class="hero-heading">
+      THE<br>
+      <span class="outline">ARCHIVE.</span>
+    </h1>
   </div>
 
-  <!-- RELIABLE, CLEAN GRID -->
-  <div class="events-grid">
-    
-    <!-- EVENT 1 (Using Latest Uploaded Flyer) -->
-    <div class="event-card-simple">
-      <div class="card-img-container">
-        <!-- Assuming the latest images from the user upload are these files -->
-        <img src="assets/events/media__1785388306356.png" alt="Event Flyer">
-      </div>
-      <div class="card-content">
-        <h2 class="card-title">GENZ FEST 2023</h2>
-        <p class="card-date">LAGOS - DEC 2023</p>
-        <a href="#" class="card-btn">VIEW DETAILS</a>
-      </div>
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-inner">
+      <div class="marquee-item"><span>✦</span> MUSIC PANEL · DEC 18 · LAGOS</div>
+      <div class="marquee-item"><span>✦</span> BUSINESS, TECH & INVESTMENT PANEL</div>
+      <div class="marquee-item"><span>✦</span> MEDIA, BUSINESS & CULTURE</div>
+      <div class="marquee-item"><span>✦</span> 234TICKETS.LIVE</div>
+      <div class="marquee-item"><span>✦</span> BATURE BREWERY · VICTORIA ISLAND</div>
+      <div class="marquee-item"><span>✦</span> MUSIC PANEL · DEC 18 · LAGOS</div>
+      <div class="marquee-item"><span>✦</span> BUSINESS, TECH & INVESTMENT PANEL</div>
+      <div class="marquee-item"><span>✦</span> MEDIA, BUSINESS & CULTURE</div>
+      <div class="marquee-item"><span>✦</span> 234TICKETS.LIVE</div>
+      <div class="marquee-item"><span>✦</span> BATURE BREWERY · VICTORIA ISLAND</div>
     </div>
-
-    <!-- EVENT 2 -->
-    <div class="event-card-simple">
-      <div class="card-img-container">
-        <img src="assets/events/media__1785387829910.png" alt="Event Flyer">
-      </div>
-      <div class="card-content">
-        <h2 class="card-title">THE SOUNDCLASH</h2>
-        <p class="card-date">ACCRA - NOV 2023</p>
-        <a href="#" class="card-btn">VIEW DETAILS</a>
-      </div>
-    </div>
-
-    <!-- EVENT 3 -->
-    <div class="event-card-simple">
-      <div class="card-img-container">
-        <img src="assets/events/media__1785385202350.jpg" alt="Event Flyer">
-      </div>
-      <div class="card-content">
-        <h2 class="card-title">CULTURE RAVE</h2>
-        <p class="card-date">ABUJA - OCT 2023</p>
-        <a href="#" class="card-btn">VIEW DETAILS</a>
-      </div>
-    </div>
-
-    <!-- EVENT 4 -->
-    <div class="event-card-simple">
-      <div class="card-img-container">
-        <img src="assets/events/media__1785384707852.png" alt="Event Flyer">
-      </div>
-      <div class="card-content">
-        <h2 class="card-title">MIDNIGHT CRUISE</h2>
-        <p class="card-date">LAGOS - SEPT 2023</p>
-        <a href="#" class="card-btn">VIEW DETAILS</a>
-      </div>
-    </div>
-
-    <!-- EVENT 5 -->
-    <div class="event-card-simple">
-      <div class="card-img-container">
-        <img src="assets/events/media__1785384707835.png" alt="Event Flyer">
-      </div>
-      <div class="card-content">
-        <h2 class="card-title">BLOCK PARTY</h2>
-        <p class="card-date">LONDON - AUG 2023</p>
-        <a href="#" class="card-btn">VIEW DETAILS</a>
-      </div>
-    </div>
-
-    <!-- EVENT 6 -->
-    <div class="event-card-simple">
-      <div class="card-img-container">
-        <img src="assets/events/media__1785384707828.png" alt="Event Flyer">
-      </div>
-      <div class="card-content">
-        <h2 class="card-title">VIBES ON VIBES</h2>
-        <p class="card-date">PARIS - JULY 2023</p>
-        <a href="#" class="card-btn">VIEW DETAILS</a>
-      </div>
-    </div>
-
   </div>
+
+  <!-- EVENTS BENTO GRID -->
+  <section class="events-section">
+    <div class="events-bento">
+
+      <!-- FEATURED: MUSIC PANEL -->
+      <div class="event-card featured">
+        <div class="card-poster">
+          <img src="assets/events/event-1.jpg" alt="Music Panel">
+        </div>
+        <div class="card-info">
+          <div class="card-tag">December 18, 2024</div>
+          <h2 class="card-title">Music Panel</h2>
+          <p class="card-meta">
+            The Business of Sound.<br>
+            Bature Brewery, Victoria Island, Lagos.
+          </p>
+          <a href="https://234tickets.live" target="_blank" class="card-cta">
+            Get Tickets <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD: EVENT 2 -->
+      <div class="event-card">
+        <div class="card-poster">
+          <img src="assets/events/event-2.jpg" alt="Business Tech Panel">
+        </div>
+        <div class="card-info">
+          <div class="card-tag">December 18, 2024</div>
+          <h2 class="card-title">Business, Tech & Investment</h2>
+          <p class="card-meta">The Future of the Creative Economy</p>
+          <a href="#" class="card-cta">View Details <span class="arrow">→</span></a>
+        </div>
+      </div>
+
+      <!-- CARD: EVENT 3 -->
+      <div class="event-card">
+        <div class="card-poster">
+          <img src="assets/events/event-3.png" alt="Media Business Panel">
+        </div>
+        <div class="card-info">
+          <div class="card-tag">December 18, 2024</div>
+          <h2 class="card-title">Media, Business & Culture</h2>
+          <p class="card-meta">Where Media, Creativity & Commerce Meet</p>
+          <a href="#" class="card-cta">View Details <span class="arrow">→</span></a>
+        </div>
+      </div>
+
+      <!-- CARD: EVENT 4 -->
+      <div class="event-card">
+        <div class="card-poster">
+          <img src="assets/events/event-4.png" alt="Event 4">
+        </div>
+        <div class="card-info">
+          <div class="card-tag">Coming Soon</div>
+          <h2 class="card-title">The Next Experience</h2>
+          <p class="card-meta">Stay tuned for the next 234AFRICA event.</p>
+          <a href="#" class="card-cta">Notify Me <span class="arrow">→</span></a>
+        </div>
+      </div>
+
+      <!-- CARD: EVENT 5 -->
+      <div class="event-card">
+        <div class="card-poster">
+          <img src="assets/events/event-5.jpg" alt="Event 5">
+        </div>
+        <div class="card-info">
+          <div class="card-tag">Past Event</div>
+          <h2 class="card-title">Sound & Culture</h2>
+          <p class="card-meta">An evening of music and community.</p>
+          <a href="#" class="card-cta">View Recap <span class="arrow">→</span></a>
+        </div>
+      </div>
+
+      <!-- FEATURED: BOTTOM -->
+      <div class="event-card featured">
+        <div class="card-poster">
+          <img src="assets/events/event-6.jpg" alt="Event 6">
+        </div>
+        <div class="card-info">
+          <div class="card-tag">Past Event</div>
+          <h2 class="card-title">The Cruise Room Workshop</h2>
+          <p class="card-meta">
+            In collaboration with Access Bank and Greenroom Lagos, a high-voltage collision of ideas and skill for top-tier creatives.
+          </p>
+          <a href="cruiseroom.html" class="card-cta">See The Archive <span class="arrow">→</span></a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="bottom-cta">
+    <p>More events coming soon. Follow us for updates.</p>
+    <a href="https://234tickets.live" target="_blank" class="card-cta" style="margin: 0 auto;">
+      Visit 234Tickets.live <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.event-card').forEach((card, i) => {
+          gsap.from(card, {
+            scrollTrigger: { trigger: card, start: 'top 88%' },
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            delay: (i % 3) * 0.1,
+            ease: 'power3.out'
+          });
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>

@@ -3,206 +3,547 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>234AFRICA - The Ecosystem</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800;12..96,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+  <title>234AFRICA — The Ecosystem</title>
+  <meta name="description" content="The four pillars powering 234AFRICA — Marketing, Music, Events, and GreyApple." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,700;12..96,800;12..96,900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
   <link rel="stylesheet" href="style.css" />
-  
+
   <style>
+    :root {
+      --red: #E84128;
+      --green: #108C5A;
+      --yellow: #F4A218;
+      --bg: #06070A;
+      --surface: #0D0E12;
+      --border: rgba(255,255,255,0.07);
+      --font-display: 'Bricolage Grotesque', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
     body {
-      background: #050505;
+      background: var(--bg);
       color: #fff;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-body);
       overflow-x: hidden;
-      margin: 0; padding: 0;
+      -webkit-font-smoothing: antialiased;
     }
 
-    #header { background: #050505 !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; z-index: 999; }
-    .nav-links, .nav-links a { color: #fff !important; }
+    /* ── HEADER ── */
+    #header {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      background: rgba(6,7,10,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
+    .logo img { height: 36px; width: auto; }
+    .nav-links { display: flex; gap: 24px; font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; }
+    .nav-links a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a.active { color: var(--yellow); }
 
-    .page-header {
-      padding: 150px 20px 60px;
-      text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    .page-title {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 10vw, 7rem);
-      font-weight: 900;
-      margin: 0;
-      text-transform: uppercase;
-      letter-spacing: -2px;
-      color: var(--c-yellow);
-    }
-    .page-subtitle {
-      font-size: 1.2rem;
-      color: rgba(255,255,255,0.6);
-      max-width: 600px;
-      margin: 20px auto 0;
-    }
-
-    /* Clean 2x2 Grid */
-    .eco-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 40px;
-      padding: 80px 5vw 120px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .eco-card-clean {
-      background: #111;
-      padding: 50px;
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,0.1);
+    /* ── PAGE HERO ── */
+    .page-hero {
+      min-height: 100svh;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-      min-height: 400px;
-    }
-    .eco-card-clean:hover {
-      transform: translateY(-10px);
+      justify-content: flex-end;
+      padding: 120px 60px 80px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
     }
 
-    .card-header h2 {
+    /* Animated background mesh */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 70% 50%, rgba(232,65,40,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(16,140,90,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Fine grid overlay — structural feel */
+    .hero-grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    }
+
+    .hero-tag {
       font-family: var(--font-display);
-      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--yellow);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .hero-tag::before { content: '01 /'; color: rgba(255,255,255,0.2); }
+
+    .hero-heading {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 9vw, 9rem);
       font-weight: 900;
-      margin: 0 0 20px 0;
-      line-height: 1;
+      line-height: 0.88;
+      letter-spacing: -4px;
       text-transform: uppercase;
+      position: relative;
+      margin-bottom: 40px;
+    }
+    .hero-heading .line-outline {
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(255,255,255,0.2);
+    }
+    .hero-heading .line-color {
+      background: linear-gradient(90deg, var(--red), var(--yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    .card-body p {
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.7);
+    .hero-desc {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: rgba(255,255,255,0.5);
+      max-width: 500px;
       line-height: 1.6;
-      margin: 0;
+      position: relative;
     }
 
-    .card-footer {
-      margin-top: 40px;
+    /* ── STICKY SPLIT PILLARS ── */
+    .pillars-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
     }
-    
-    .card-btn {
-      display: inline-block;
-      padding: 12px 30px;
+
+    /* LEFT: Sticky index nav */
+    .pillars-nav {
+      position: sticky;
+      top: 80px;
+      height: calc(100svh - 80px);
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 40px;
+      border-right: 1px solid var(--border);
+    }
+
+    .pillar-nav-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      transition: padding-left 0.3s;
+    }
+    .pillar-nav-item:last-child { border-bottom: none; }
+    .pillar-nav-item.active { padding-left: 16px; }
+
+    .pillar-num {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.25);
+      transition: color 0.3s;
+    }
+    .pillar-nav-item.active .pillar-num { color: var(--yellow); }
+
+    .pillar-nav-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      line-height: 1;
+      letter-spacing: -1px;
+      transition: color 0.3s;
+    }
+    .pillar-nav-item.active .pillar-nav-title { color: #fff; }
+
+    /* Active color indicators */
+    .pillar-nav-item[data-pillar="marketing"].active .pillar-nav-title { color: var(--red); }
+    .pillar-nav-item[data-pillar="music"].active .pillar-nav-title { color: var(--yellow); }
+    .pillar-nav-item[data-pillar="events"].active .pillar-nav-title { color: var(--green); }
+    .pillar-nav-item[data-pillar="greyapple"].active .pillar-nav-title { color: #fff; }
+
+    /* RIGHT: Scrollable content */
+    .pillars-content {
+      padding: 80px 60px;
+    }
+
+    .pillar-block {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pillar-block:last-child { border-bottom: none; }
+
+    .pillar-number-large {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .pillar-number-large::after {
+      content: '';
+      flex-grow: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .pillar-title-large {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 7vw, 7rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 0.9;
+      letter-spacing: -3px;
+      margin-bottom: 40px;
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(255,255,255,0.15);
+      transition: all 0.5s;
+    }
+    .pillar-block.in-view .pillar-title-large {
+      -webkit-text-stroke: 0px;
+    }
+
+    /* Per-pillar color fills */
+    .pillar-block[data-pillar="marketing"].in-view .pillar-title-large { color: var(--red); text-shadow: 0 0 60px rgba(232,65,40,0.3); }
+    .pillar-block[data-pillar="music"].in-view .pillar-title-large { color: var(--yellow); text-shadow: 0 0 60px rgba(244,162,24,0.3); }
+    .pillar-block[data-pillar="events"].in-view .pillar-title-large { color: var(--green); text-shadow: 0 0 60px rgba(16,140,90,0.3); }
+    .pillar-block[data-pillar="greyapple"].in-view .pillar-title-large { color: #fff; text-shadow: 0 0 60px rgba(255,255,255,0.15); }
+
+    .pillar-body {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 40px;
+    }
+
+    .pillar-features {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .pillar-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .feature-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      margin-top: 8px;
+      flex-shrink: 0;
+    }
+    [data-pillar="marketing"] .feature-dot { background: var(--red); }
+    [data-pillar="music"] .feature-dot { background: var(--yellow); }
+    [data-pillar="events"] .feature-dot { background: var(--green); }
+    [data-pillar="greyapple"] .feature-dot { background: #fff; }
+
+    .pillar-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      transition: background 0.25s, border-color 0.25s;
+      width: fit-content;
+    }
+    [data-pillar="marketing"] .pillar-link:hover { background: var(--red); border-color: var(--red); }
+    [data-pillar="music"] .pillar-link:hover { background: var(--yellow); border-color: var(--yellow); color: #000; }
+    [data-pillar="events"] .pillar-link:hover { background: var(--green); border-color: var(--green); }
+    [data-pillar="greyapple"] .pillar-link:hover { background: #fff; border-color: #fff; color: #000; }
+
+    /* ── FOOTER CTA ── */
+    .eco-footer {
+      padding: 120px 60px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .eco-footer h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+    }
+    .eco-footer p { color: rgba(255,255,255,0.5); font-size: 1.1rem; margin-bottom: 40px; }
+    .eco-footer a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 40px;
+      background: var(--red);
+      color: #fff;
+      text-decoration: none;
       border-radius: 100px;
       font-family: var(--font-display);
       font-weight: 700;
       font-size: 0.9rem;
-      text-decoration: none;
-      letter-spacing: 1px;
-      border: 2px solid;
-      transition: background 0.3s, color 0.3s;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: opacity 0.2s;
     }
+    .eco-footer a:hover { opacity: 0.85; }
 
-    /* Color Modifiers */
-    .eco-red { border-top: 4px solid var(--c-red); }
-    .eco-red h2 { color: var(--c-red); }
-    .eco-red .card-btn { border-color: var(--c-red); color: var(--c-red); }
-    .eco-red .card-btn:hover { background: var(--c-red); color: #000; }
+    /* ── MOBILE: Kill sticky split, go vertical ── */
+    @media (max-width: 900px) {
+      #header { padding: 16px 20px; }
+      .nav-links { gap: 10px; font-size: 0.6rem; }
 
-    .eco-yellow { border-top: 4px solid var(--c-yellow); }
-    .eco-yellow h2 { color: var(--c-yellow); }
-    .eco-yellow .card-btn { border-color: var(--c-yellow); color: var(--c-yellow); }
-    .eco-yellow .card-btn:hover { background: var(--c-yellow); color: #000; }
+      .page-hero { padding: 100px 24px 60px; }
+      .hero-heading { letter-spacing: -2px; }
 
-    .eco-green { border-top: 4px solid var(--c-green); }
-    .eco-green h2 { color: var(--c-green); }
-    .eco-green .card-btn { border-color: var(--c-green); color: var(--c-green); }
-    .eco-green .card-btn:hover { background: var(--c-green); color: #000; }
+      /* Kill 2-col grid on mobile */
+      .pillars-wrapper { grid-template-columns: 1fr; }
 
-    .eco-white { border-top: 4px solid #fff; }
-    .eco-white h2 { color: #fff; }
-    .eco-white .card-btn { border-color: #fff; color: #fff; }
-    .eco-white .card-btn:hover { background: #fff; color: #000; }
+      /* Nav becomes a horizontal scrollable strip */
+      .pillars-nav {
+        position: static;
+        height: auto;
+        padding: 30px 24px;
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 0;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .pillars-nav::-webkit-scrollbar { display: none; }
+      .pillar-nav-item {
+        flex-shrink: 0;
+        padding: 10px 24px;
+        border-bottom: none;
+        border-right: 1px solid var(--border);
+      }
+      .pillar-nav-item:last-child { border-right: none; }
+      .pillar-nav-item.active { padding-left: 24px; border-bottom: 3px solid var(--yellow); }
+      .pillar-nav-title { font-size: 1.2rem; }
 
-    @media (max-width: 768px) {
-      .eco-grid { grid-template-columns: 1fr; }
-      .eco-card-clean { min-height: 300px; padding: 30px; }
+      .pillars-content { padding: 40px 24px; }
+      .pillar-block { min-height: auto; padding: 60px 0; }
+      .pillar-title-large { letter-spacing: -2px; }
+
+      .eco-footer { padding: 80px 24px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- HEADER -->
   <header id="header">
     <div class="header-inner">
-      <a href="index.html" class="logo" style="display: flex; align-items: center; z-index: 999;">
-        <img src="assets/234logo-transparent.png" alt="234AFRICA Logo" style="height: 40px; width: auto; object-fit: contain;">
+      <a href="index.html" class="logo">
+        <img src="assets/234logo-transparent.png" alt="234AFRICA">
       </a>
       <nav class="nav-links">
-        <a href="ecosystem.html" style="color: var(--c-yellow) !important; text-decoration: underline;">THE ECOSYSTEM</a>
+        <a href="ecosystem.html" class="active">ECOSYSTEM</a>
         <a href="events.html">EVENTS</a>
         <a href="https://greyapple.vip" target="_blank">GREYAPPLE</a>
-        <a href="cruiseroom.html">THE CRUISE ROOM</a>
+        <a href="cruiseroom.html">CRUISE ROOM</a>
       </nav>
     </div>
   </header>
 
-  <div class="page-header">
-    <h1 class="page-title">THE ECOSYSTEM</h1>
-    <p class="page-subtitle">The four pillars that power 234AFRICA. We exist at the intersection of music, lifestyle, and community.</p>
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-tag">THE 234AFRICA ECOSYSTEM</div>
+    <h1 class="hero-heading">
+      <span class="line-color">FOUR</span><br>
+      <span class="line-outline">PILLARS.</span><br>
+      ONE<br>
+      VISION.
+    </h1>
+    <p class="hero-desc">We exist at the intersection of music, marketing, live events, and technology. Built in Lagos. Exporting to the world.</p>
+  </section>
+
+  <!-- STICKY SPLIT -->
+  <div class="pillars-wrapper">
+
+    <!-- LEFT NAV (Sticky) -->
+    <nav class="pillars-nav" id="pillars-nav">
+      <div class="pillar-nav-item active" data-pillar="marketing">
+        <span class="pillar-num">01 / PILLAR</span>
+        <span class="pillar-nav-title">Marketing</span>
+      </div>
+      <div class="pillar-nav-item" data-pillar="music">
+        <span class="pillar-num">02 / PILLAR</span>
+        <span class="pillar-nav-title">Music</span>
+      </div>
+      <div class="pillar-nav-item" data-pillar="events">
+        <span class="pillar-num">03 / PILLAR</span>
+        <span class="pillar-nav-title">Events</span>
+      </div>
+      <div class="pillar-nav-item" data-pillar="greyapple">
+        <span class="pillar-num">04 / PILLAR</span>
+        <span class="pillar-nav-title">GreyApple</span>
+      </div>
+    </nav>
+
+    <!-- RIGHT: Scrollable Blocks -->
+    <div class="pillars-content">
+
+      <!-- MARKETING -->
+      <div class="pillar-block in-view" data-pillar="marketing" id="pillar-marketing">
+        <div class="pillar-number-large" style="color: var(--red);">01 / MARKETING</div>
+        <h2 class="pillar-title-large">MARKETING</h2>
+        <p class="pillar-body">We amplify African voices and brands. Through culture-driven campaigns and strategic storytelling, we connect creators with global audiences at scale.</p>
+        <div class="pillar-features">
+          <div class="pillar-feature"><div class="feature-dot"></div><span>Brand strategy & positioning for African creators</span></div>
+          <div class="pillar-feature"><div class="feature-dot"></div><span>Digital campaigns across social, streaming & OOH</span></div>
+          <div class="pillar-feature"><div class="feature-dot"></div><span>Influencer & community activation programmes</span></div>
+        </div>
+        <a href="#" class="pillar-link">Work With Us →</a>
+      </div>
+
+      <!-- MUSIC -->
+      <div class="pillar-block" data-pillar="music" id="pillar-music">
+        <div class="pillar-number-large" style="color: var(--yellow);">02 / MUSIC</div>
+        <h2 class="pillar-title-large">MUSIC</h2>
+        <p class="pillar-body">The heartbeat of everything we do. We discover, promote, and elevate the next generation of African musical talent to the world stage, connecting artistry with opportunity.</p>
+        <div class="pillar-features">
+          <div class="pillar-feature"><div class="feature-dot"></div><span>Artist development & management support</span></div>
+          <div class="pillar-feature"><div class="feature-dot"></div><span>Music industry panels & knowledge sharing</span></div>
+          <div class="pillar-feature"><div class="feature-dot"></div><span>Sync licensing & global distribution strategy</span></div>
+        </div>
+        <a href="events.html" class="pillar-link">See Music Events →</a>
+      </div>
+
+      <!-- EVENTS -->
+      <div class="pillar-block" data-pillar="events" id="pillar-events">
+        <div class="pillar-number-large" style="color: var(--green);">03 / EVENTS</div>
+        <h2 class="pillar-title-large">EVENTS</h2>
+        <p class="pillar-body">Curating unforgettable live experiences. From intimate industry showcases to massive cultural festivals, we bring the raw energy of Africa to life for audiences worldwide.</p>
+        <div class="pillar-features">
+          <div class="pillar-feature"><div class="feature-dot"></div><span>Full-scale event production & logistics</span></div>
+          <div class="pillar-feature"><div class="feature-dot"></div><span>Curated artist lineups & industry panels</span></div>
+          <div class="pillar-feature"><div class="feature-dot"></div><span>Brand activation & sponsorship integration</span></div>
+        </div>
+        <a href="events.html" class="pillar-link">View Events →</a>
+      </div>
+
+      <!-- GREYAPPLE -->
+      <div class="pillar-block" data-pillar="greyapple" id="pillar-greyapple">
+        <div class="pillar-number-large" style="color: rgba(255,255,255,0.5);">04 / PILLAR</div>
+        <h2 class="pillar-title-large">GREYAPPLE</h2>
+        <p class="pillar-body">The innovation engine powering our entire operation. GreyApple provides the infrastructure, data intelligence, and strategic frameworks that fuel the 234AFRICA ecosystem.</p>
+        <div class="pillar-features">
+          <div class="pillar-feature"><div class="feature-dot"></div><span>Data analytics & audience intelligence</span></div>
+          <div class="pillar-feature"><div class="feature-dot"></div><span>Technology infrastructure & digital products</span></div>
+          <div class="pillar-feature"><div class="feature-dot"></div><span>Strategic consulting for creative industries</span></div>
+        </div>
+        <a href="https://greyapple.vip" target="_blank" class="pillar-link">Visit GreyApple →</a>
+      </div>
+
+    </div>
   </div>
 
-  <div class="eco-grid">
-    
-    <!-- MARKETING -->
-    <div class="eco-card-clean eco-red">
-      <div class="card-header">
-        <h2>MARKETING</h2>
-      </div>
-      <div class="card-body">
-        <p>We amplify African voices and brands. Through culture-driven campaigns and strategic storytelling, we connect creators with global audiences.</p>
-      </div>
-      <div class="card-footer">
-        <a href="#" class="card-btn">EXPLORE MARKETING</a>
-      </div>
-    </div>
-
-    <!-- MUSIC -->
-    <div class="eco-card-clean eco-yellow">
-      <div class="card-header">
-        <h2>MUSIC</h2>
-      </div>
-      <div class="card-body">
-        <p>The heartbeat of our culture. We discover, promote, and elevate the next generation of African musical talent to the world stage.</p>
-      </div>
-      <div class="card-footer">
-        <a href="#" class="card-btn">DISCOVER MUSIC</a>
-      </div>
-    </div>
-
-    <!-- EVENTS -->
-    <div class="eco-card-clean eco-green">
-      <div class="card-header">
-        <h2>EVENTS</h2>
-      </div>
-      <div class="card-body">
-        <p>Curating unforgettable live experiences. From intimate showcases to massive festivals, we bring the energy of Africa to life.</p>
-      </div>
-      <div class="card-footer">
-        <a href="events.html" class="card-btn">VIEW EXPERIENCES</a>
-      </div>
-    </div>
-
-    <!-- GREYAPPLE -->
-    <div class="eco-card-clean eco-white">
-      <div class="card-header">
-        <h2>GREYAPPLE</h2>
-      </div>
-      <div class="card-body">
-        <p>The innovation engine powering our operations. GreyApple provides the infrastructure, data, and strategy that drives the entire 234AFRICA ecosystem.</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://greyapple.vip" target="_blank" class="card-btn">VISIT GREYAPPLE</a>
-      </div>
-    </div>
-
+  <!-- FOOTER CTA -->
+  <div class="eco-footer">
+    <h2>Ready to<br><span style="color: var(--red)">Connect?</span></h2>
+    <p>Join the 234AFRICA ecosystem. Let's build something extraordinary together.</p>
+    <a href="events.html">Explore Our Events →</a>
   </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      const navItems = document.querySelectorAll('.pillar-nav-item');
+      const blocks = document.querySelectorAll('.pillar-block');
+
+      // Observe each pillar block. When it enters viewport, activate corresponding nav item.
+      blocks.forEach(block => {
+        const pillarName = block.dataset.pillar;
+
+        ScrollTrigger.create({
+          trigger: block,
+          start: 'top 55%',
+          end: 'bottom 55%',
+          onEnter: () => activate(pillarName, block),
+          onEnterBack: () => activate(pillarName, block),
+        });
+      });
+
+      function activate(pillarName, block) {
+        // Nav
+        navItems.forEach(item => item.classList.remove('active'));
+        const activeNav = document.querySelector(`.pillar-nav-item[data-pillar="${pillarName}"]`);
+        if (activeNav) activeNav.classList.add('active');
+
+        // Block title fill
+        blocks.forEach(b => b.classList.remove('in-view'));
+        block.classList.add('in-view');
+      }
+
+      // Stagger in blocks on scroll
+      blocks.forEach((block, i) => {
+        const title = block.querySelector('.pillar-title-large');
+        const body = block.querySelector('.pillar-body');
+        const features = block.querySelectorAll('.pillar-feature');
+        const link = block.querySelector('.pillar-link');
+
+        gsap.from([body, features, link], {
+          scrollTrigger: { trigger: block, start: 'top 70%' },
+          y: 30,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: 'power3.out'
+        });
+      });
+    });
+  </script>
 
 </body>
 </html>
