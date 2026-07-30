@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>234AFRICA - The Cruise Room</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { 
+      background: #050505; 
+      color: #fff; 
+      overflow-x: hidden; 
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* CUSTOM CURSOR */
+    .custom-cursor {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #00ffcc;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, background 0.3s, border-color 0.3s;
+      mix-blend-mode: difference;
+    }
+
+    /* MATRIX GRID BG */
+    .tech-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: 
+        linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -1;
+      transform: perspective(500px) rotateX(60deg) scale(2);
+      transform-origin: top;
+      animation: gridMove 20s linear infinite;
+    }
+    @keyframes gridMove {
+      0% { transform: perspective(500px) rotateX(60deg) scale(2) translateY(0); }
+      100% { transform: perspective(500px) rotateX(60deg) scale(2) translateY(50px); }
+    }
+
+    /* GLITCH TEXT */
+    .hero-lab {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 5vw 40px;
+      position: relative;
+    }
+    
+    .glitch-title {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 10vw, 8rem);
+      font-weight: 900;
+      color: #fff;
+      text-transform: uppercase;
+      position: relative;
+      text-shadow: 0 0 20px rgba(0,255,204,0.5);
+      margin-bottom: 20px;
+      line-height: 0.9;
+      text-align: center;
+    }
+    .glitch-title::before, .glitch-title::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0.8;
+    }
+    .glitch-title::before {
+      color: #00ffcc;
+      z-index: -1;
+      animation: glitch-anim-1 3s infinite linear alternate-reverse;
+    }
+    .glitch-title::after {
+      color: #ff003c;
+      z-index: -2;
+      animation: glitch-anim-2 2s infinite linear alternate-reverse;
+    }
+    @keyframes glitch-anim-1 {
+      0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+      20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+      40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+      60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+      80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+      100% { clip-path: inset(30% 0 50% 0); transform: translate(1px, -1px); }
+    }
+    @keyframes glitch-anim-2 {
+      0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
+      20% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 1px); }
+      40% { clip-path: inset(30% 0 20% 0); transform: translate(2px, -2px); }
+      60% { clip-path: inset(70% 0 10% 0); transform: translate(-2px, 2px); }
+      80% { clip-path: inset(20% 0 50% 0); transform: translate(1px, -1px); }
+      100% { clip-path: inset(50% 0 30% 0); transform: translate(-1px, 1px); }
+    }
+
+    /* TERMINAL BOX */
+    .terminal-box {
+      background: rgba(0, 10, 5, 0.8);
+      border: 1px solid #00ffcc;
+      box-shadow: 0 0 30px rgba(0,255,204,0.1), inset 0 0 20px rgba(0,255,204,0.05);
+      border-radius: 4px;
+      padding: 40px;
+      max-width: 900px;
+      width: 100%;
+      position: relative;
+      margin-top: 40px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .terminal-header {
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      background: #000;
+      padding: 0 10px;
+      color: #00ffcc;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    .terminal-text {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      color: #d4d4d4;
+      min-height: 200px;
+    }
+
+    .terminal-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1.2em;
+      background: #00ffcc;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* HUD SPONSORS */
+    .hud-sponsors {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .hud-badge {
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 8px 16px;
+      color: #fff;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+    }
+    .hud-badge.orange { color: #ff5e00; border-color: #ff5e00; background: rgba(255,94,0,0.1); }
+    .hud-badge.green { color: #00ff88; border-color: #00ff88; background: rgba(0,255,136,0.1); }
+
+    /* PANELS GALLERY */
+    .panels-gallery {
+      padding: 100px 5vw;
+      position: relative;
+      z-index: 5;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 80px;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
+    .section-title span { color: #00ffcc; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      transition: border-color 0.4s;
+    }
+    .glass-card:hover {
+      border-color: #00ffcc;
+    }
+
+    .glass-img-wrapper {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      transform: translateZ(30px); /* 3D pop effect */
+      position: relative;
+    }
+    
+    .glass-img-wrapper::after {
+      content: '';
+      position: absolute;
+      top:0; left:0; width:100%; height:100%;
+      background: linear-gradient(135deg, rgba(0,255,204,0.2) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .glass-card:hover .glass-img-wrapper::after {
+      opacity: 1;
+    }
+
+    .glass-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .glass-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      transform: translateZ(20px);
+    }
+    .card-id {
+      font-family: monospace;
+      color: #00ffcc;
+      font-size: 1rem;
+    }
+    .card-status {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #fff;
+      background: rgba(255,255,255,0.1);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+    
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .terminal-box { padding: 20px; }
+      .terminal-text { font-size: 1rem; }
+      .custom-cursor { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="custom-cursor" id="cursor"></div>
+  <div class="tech-bg"></div>
+
+  <!-- FIXED HEADER -->
+  <header id="header" style="background: rgba(0,0,0,0.8); border-bottom: 1px solid rgba(0,255,204,0.2); backdrop-filter: blur(10px);">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="c-red">2</span><span class="c-yellow">3</span><span class="c-green">4</span> <span class="text-white">AFRICA</span>
+      </a>
+      <nav class="nav-links">
+        <a href="ecosystem.html" style="color: #fff;">THE ECOSYSTEM</a>
+        <a href="events.html" style="color: #fff;">EVENTS</a>
+        <a href="https://greyapple.vip" target="_blank" style="color: #fff;">GREYAPPLE</a>
+        <a href="cruiseroom.html" style="color: #00ffcc;">THE CRUISE ROOM</a>
+      </nav>
+      <div class="header-right">
+        <a href="mailto:234groupinfo@gmail.com" class="btn-primary-pill shadow-red">JOIN THE MOVEMENT</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO LAB SECTION -->
+  <section class="hero-lab">
+    <h1 class="glitch-title" data-text="THE CRUISE ROOM">THE CRUISE ROOM</h1>
+    
+    <div class="hud-sponsors">
+      <div class="hud-badge orange">ACCESS BANK COLLAB</div>
+      <div class="hud-badge green">GREENROOM LAGOS</div>
+    </div>
+
+    <div class="terminal-box gs-fade">
+      <div class="terminal-header">SYS.LOG // WORKSHOP_DATA</div>
+      <div class="terminal-text" id="typewriter-container">
+        <!-- Text will be injected here via GSAP -->
+      </div>
+    </div>
+  </section>
+
+  <!-- PANELS GALLERY -->
+  <section class="panels-gallery">
+    <h2 class="section-title gs-fade">DECRYPTING <span>THE PANELS</span></h2>
+    
+    <div class="gallery-grid">
+      
+      <!-- Panel 1: Music -->
+      <div class="glass-card gs-card">
+        <div class="glass-img-wrapper">
+          <img src="assets/cruiseroom/cruise-1.png" alt="Music Panel">
+        </div>
+        <div class="card-footer">
+          <div class="card-id">#DAT.01_MUSIC</div>
+          <div class="card-status">VERIFIED</div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Business, Tech & Investment -->
+      <div class="glass-card gs-card">
+        <div class="glass-img-wrapper">
+          <img src="assets/cruiseroom/cruise-2.png" alt="Tech Panel">
+        </div>
+        <div class="card-footer">
+          <div class="card-id">#DAT.02_TECH</div>
+          <div class="card-status">VERIFIED</div>
+        </div>
+      </div>
+
+      <!-- Panel 3: Media & Culture -->
+      <div class="glass-card gs-card">
+        <div class="glass-img-wrapper">
+          <img src="assets/cruiseroom/cruise-3.png" alt="Media Panel">
+        </div>
+        <div class="card-footer">
+          <div class="card-id">#DAT.03_MEDIA</div>
+          <div class="card-status">VERIFIED</div>
+        </div>
+      </div>
+
+      <!-- Panel 4: General Cruise Room -->
+      <div class="glass-card gs-card">
+        <div class="glass-img-wrapper">
+          <img src="assets/cruiseroom/cruise-4.png" alt="Cruise Room Overview">
+        </div>
+        <div class="card-footer">
+          <div class="card-id">#DAT.04_OVERVIEW</div>
+          <div class="card-status">ACCESS GRANTED</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  
+  <!-- FOOTER -->
+  <footer class="site-footer" style="background: #000; border-top: 1px solid rgba(0,255,204,0.2);">
+    <div class="container text-center">
+      <h2 class="section-heading" style="color: #fff;">PARTNER WITH THE FUTURE.</h2>
+      <a href="mailto:234groupinfo@gmail.com" class="btn-primary-pill shadow-red mt-6" style="background: #00ffcc; color: #000;">CONTACT US</a>
+    </div>
+  </footer>
+
+  <script>
+    // Custom Cursor Logic
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('a, .glass-card').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.background = '#00ffcc';
+        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.background = 'transparent';
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+    });
+
+    // 3D Glass Card Tilt Effect
+    const cards = document.querySelectorAll('.glass-card');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -10;
+        const rotateY = ((x - centerX) / centerX) * 10;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+      });
+    });
+
+    // GSAP Typewriter Effect
+    const terminalText = `In collaboration with Access Bank and GreenRoom Lagos, we held a Creative Workshop which was an interactive, value-driven session for creatives and young professionals.<br><br>The programme focused on practical skill development, idea exchange, and real-world insights delivered through guided discussions and facilitator-led sessions.<br><br>Attendees actively participated through questions, shared experiences, and collaborative conversations, creating an engaging learning environment. The workshop successfully fostered knowledge sharing, creative growth, and meaningful peer interaction among participants.<span class="terminal-cursor"></span>`;
+    
+    gsap.to("#typewriter-container", {
+      duration: 5,
+      text: terminalText,
+      ease: "none",
+      delay: 0.5
+    });
+
+    // GSAP Scroll Animations
+    gsap.utils.toArray('.gs-fade').forEach(el => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 80%",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+      });
+    });
+
+    gsap.utils.toArray('.gs-card').forEach((card, i) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+        },
+        y: 100,
+        opacity: 0,
+        rotationX: -20,
+        duration: 1,
+        delay: i * 0.15,
+        ease: "back.out(1.7)"
+      });
+    });
+  </script>
+</body>
+</html>
