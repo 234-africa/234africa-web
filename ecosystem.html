@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>234AFRICA — The Ecosystem</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- FIXED 3D BACKGROUND (Wireframe Sphere + Colorful Square Confetti) -->
+  <div id="canvas-container">
+    <canvas id="webgl-canvas"></canvas>
+  </div>
+
+  <!-- FIXED HEADER -->
+  <header id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="c-red">2</span><span class="c-yellow">3</span><span class="c-green">4</span> <span class="text-black">AFRICA</span>
+      </a>
+      <nav class="nav-links pill-nav">
+        <a href="ecosystem.html">the<br>ECOSYSTEM</a>
+        <a href="events.html">EVENTS</a>
+        <a href="greyapple.html">GREYAPPLE</a>
+        <a href="cruiseroom.html">the cruise<br>room</a>
+        <a href="greyapple2.html">greyapple</a>
+      </nav>
+      <div class="header-right">
+        <button class="btn-audio">
+          <span class="audio-dots">....</span> AUDIO OFF
+        </button>
+        <a href="mailto:234groupinfo@gmail.com" class="btn-primary-pill">JOIN THE MOVEMENT</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SCROLL DOM -->
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+      
+      <!-- SPACING FOR FIXED HEADER -->
+      <div style="height: 120px;"></div>
+
+      <!-- THE 4 PILLARS -->
+      <section class="section-content" id="pillars">
+        <div class="container">
+          <div class="text-center mb-12">
+            <div class="badge-tag">OUR ECOSYSTEM</div>
+            <h2 class="section-heading">THE 4 PILLARS OF 234AFRICA</h2>
+          </div>
+          
+          <div class="pillar-grid">
+            <div class="eco-card border-red">
+              <h4 class="text-black">MARKETING</h4>
+              <p class="mb-8">Bridging global brands with African youth culture through experiential campaigns.</p>
+              <ul>
+                <li>Brand Activations</li>
+                <li>Experiential Marketing</li>
+                <li>Digital Campaigns</li>
+                <li>Culture Consulting</li>
+              </ul>
+            </div>
+            
+            <div class="eco-card border-yellow">
+              <h4 class="text-black">MUSIC</h4>
+              <p class="mb-8">Amplifying the sounds of tomorrow through global music distribution and artist spotlights.</p>
+              <ul>
+                <li>Global Music Distribution</li>
+                <li>State-of-the-art Studios</li>
+                <li>Artist Spotlights on Radio</li>
+                <li>A&R and Talent Discovery</li>
+              </ul>
+            </div>
+            
+            <div class="eco-card border-green">
+              <h4 class="text-black">EVENTS</h4>
+              <p class="mb-8">Producing massive scale nightlife and festival experiences.</p>
+              <ul>
+                <li>Music Festivals</li>
+                <li>Nightlife Experiences</li>
+                <li>Concert Production</li>
+                <li>Tour Management</li>
+              </ul>
+            </div>
+            
+            <div class="eco-card border-black">
+              <h4 class="text-black">greyapple</h4>
+              <p class="mb-8">Our proprietary ticketing infrastructure with zero hidden fees.</p>
+              <ul>
+                <li>GreyApple Ticketing Platform</li>
+                <li>Zero Hidden Fees</li>
+                <li>Seamless Box Office</li>
+                <li>Audience Analytics</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="site-footer">
+        <div class="container text-center">
+          <h2 class="section-heading">PARTNER WITH THE CULTURE.</h2>
+          <a href="mailto:234groupinfo@gmail.com" class="btn-primary-pill shadow-red mt-6">CONTACT US</a>
+          <p class="footer-meta mt-12">Lagos, Nigeria • +234 8103236094 • @234.hq</p>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
