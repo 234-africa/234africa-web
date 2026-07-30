@@ -128,6 +128,7 @@
       /* Initial state hidden WAY back in Z space */
       transform: translate3d(0, 0, -3000px) scale(0);
       opacity: 0;
+      overflow: hidden;
     }
 
     /* Intense Hover Effect */
@@ -136,6 +137,14 @@
       z-index: 100 !important;
     }
     
+    .poster-img-container {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      position: absolute;
+      top: 0; left: 0;
+      z-index: 1;
+    }
+
     .poster-img {
       width: 100%; height: 100%; 
       object-fit: cover; 
@@ -156,28 +165,62 @@
       100% { transform: translate(0) skew(0deg); }
     }
 
-    /* Floating Event Info */
-    .event-info {
+    /* FUNCTIONAL CARD OVERLAY */
+    .card-overlay {
       position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%) scale(0.8);
-      width: 110%;
-      background: #FFEA00;
+      bottom: 0; left: 0; width: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      padding: 20px;
+      z-index: 2;
+      transform: translateY(101%);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .poster-card:hover .card-overlay {
+      transform: translateY(0);
+    }
+
+    .card-overlay h3 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #FFEA00;
+      margin: 0;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .card-overlay .date-loc {
+      font-size: 0.9rem;
+      color: #00FFCC;
+      font-weight: 700;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    .card-overlay .desc {
+      font-size: 0.95rem;
+      color: #fff;
+      font-weight: 400;
+      line-height: 1.4;
+      margin: 5px 0 15px;
+    }
+    .card-overlay .ticket-btn {
+      display: inline-block;
+      background: #fff;
       color: #000;
-      padding: 15px;
+      padding: 10px 0;
       text-align: center;
       font-weight: 900;
-      font-size: 1.5rem;
-      text-transform: uppercase;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border: 4px solid #000;
-      box-shadow: 10px 10px 0px #000;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
     }
-    .poster-card:hover .event-info {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1.1) rotate(-5deg);
+    .card-overlay .ticket-btn:hover {
+      background: #FF0055;
+      color: #fff;
     }
 
     /* CUSTOM CURSOR & PARTICLES */
@@ -204,11 +247,41 @@
       100% { opacity: 0; transform: scale(0); }
     }
 
+    /* MOBILE-FIRST DEGRADATION */
     @media (max-width: 768px) {
       .kinetic-track { font-size: 4rem; }
       .cursor-dot { display: none; }
-      .poster-card { width: 80vw; }
-      .poster-card:hover .event-info { transform: translate(-50%, -50%) scale(1); rotate: 0deg; }
+      
+      /* Hide the scroll area used for 3D animation */
+      .explosion-scroll-area { display: none; }
+      .scroll-hint { display: none; }
+
+      /* Convert fixed gallery to relative scrolling feed */
+      .poster-gallery {
+        position: relative;
+        height: auto;
+        flex-direction: column;
+        padding: 120px 5vw;
+        gap: 40px;
+        pointer-events: auto;
+      }
+      
+      /* Reset cards to be fully visible and stacked */
+      .poster-card {
+        position: relative;
+        transform: none !important;
+        opacity: 1 !important;
+        width: 100%;
+        max-width: 400px;
+        aspect-ratio: auto; /* Let content dictate height if needed */
+        min-height: 500px;
+      }
+      
+      /* Keep overlay always partially visible or fully visible on mobile */
+      .card-overlay {
+        transform: translateY(0);
+        background: rgba(0, 0, 0, 0.95);
+      }
     }
   </style>
 </head>
@@ -247,35 +320,70 @@
 
   <div class="scroll-hint">SCROLL EXTREMELY FAST ↓</div>
 
-  <!-- Scroll Area to drive the 3D explosion -->
+  <!-- Scroll Area to drive the 3D explosion (Desktop Only) -->
   <div class="explosion-scroll-area"></div>
 
   <!-- Posters locked in viewport -->
   <div class="poster-gallery" id="gallery">
     
     <div class="poster-card" data-x="-30" data-y="-20" data-rot="15">
-      <img src="assets/events-posters/poster-1.jpg" alt="On The Beach" class="poster-img">
-      <div class="event-info">On The Beach<br>Dec 27</div>
+      <div class="poster-img-container">
+        <img src="assets/events-posters/poster-1.jpg" alt="On The Beach" class="poster-img">
+      </div>
+      <div class="card-overlay">
+        <h3>On The Beach</h3>
+        <p class="date-loc">Dec 27 • Lagos</p>
+        <p class="desc">The ultimate beach party experience featuring top artists, sand, and heavy bass.</p>
+        <a href="https://greyapple.vip" target="_blank" class="ticket-btn">GET TICKETS</a>
+      </div>
     </div>
     
     <div class="poster-card" data-x="30" data-y="20" data-rot="-10">
-      <img src="assets/events-posters/poster-2.jpg" alt="Independence Day" class="poster-img">
-      <div class="event-info">Independence<br>Oct 4</div>
+      <div class="poster-img-container">
+        <img src="assets/events-posters/poster-2.jpg" alt="Independence Day" class="poster-img">
+      </div>
+      <div class="card-overlay">
+        <h3>Independence</h3>
+        <p class="date-loc">Oct 4 • Landmark</p>
+        <p class="desc">A massive celebration of culture, sound, and the African spirit.</p>
+        <a href="https://greyapple.vip" target="_blank" class="ticket-btn">GET TICKETS</a>
+      </div>
     </div>
 
     <div class="poster-card" data-x="-40" data-y="30" data-rot="-25">
-      <img src="assets/events-posters/poster-3.png" alt="On The Roof" class="poster-img">
-      <div class="event-info">On The Roof<br>Dec 17</div>
+      <div class="poster-img-container">
+        <img src="assets/events-posters/poster-3.png" alt="On The Roof" class="poster-img">
+      </div>
+      <div class="card-overlay">
+        <h3>On The Roof</h3>
+        <p class="date-loc">Dec 17 • Rooftop VI</p>
+        <p class="desc">Exclusive rooftop vibes, cocktails, and city skyline views.</p>
+        <a href="https://greyapple.vip" target="_blank" class="ticket-btn">GET TICKETS</a>
+      </div>
     </div>
 
     <div class="poster-card" data-x="40" data-y="-30" data-rot="20">
-      <img src="assets/events-posters/poster-4.jpg" alt="Sundown on Summer" class="poster-img">
-      <div class="event-info">Sundown<br>Aug 8</div>
+      <div class="poster-img-container">
+        <img src="assets/events-posters/poster-4.jpg" alt="Sundown on Summer" class="poster-img">
+      </div>
+      <div class="card-overlay">
+        <h3>Sundown</h3>
+        <p class="date-loc">Aug 8 • Lagos</p>
+        <p class="desc">Closing out the summer with the most explosive day party.</p>
+        <a href="https://greyapple.vip" target="_blank" class="ticket-btn">GET TICKETS</a>
+      </div>
     </div>
 
     <div class="poster-card" data-x="0" data-y="0" data-rot="0">
-      <img src="assets/events-posters/poster-5.png" alt="Cruise Room" class="poster-img" style="background: #111;">
-      <div class="event-info">Cruise Room<br>Dec 18</div>
+      <div class="poster-img-container">
+        <img src="assets/events-posters/poster-5.png" alt="Cruise Room" class="poster-img" style="background: #111;">
+      </div>
+      <div class="card-overlay">
+        <h3>Cruise Room</h3>
+        <p class="date-loc">Dec 18 • Creative Hub</p>
+        <p class="desc">Interactive, value-driven sessions for creatives and young professionals.</p>
+        <a href="https://greyapple.vip" target="_blank" class="ticket-btn">GET TICKETS</a>
+      </div>
     </div>
     
   </div>
@@ -283,81 +391,77 @@
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    // --- CURSOR & PARTICLES ---
+    // --- CURSOR & PARTICLES (Desktop Only to save performance) ---
     const cursor = document.getElementById('cursor');
     const colors = ['#FF0055', '#FFEA00', '#00FFCC', '#9D00FF'];
     
-    document.addEventListener('mousemove', (e) => {
-      // Move cursor dot
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+    if (window.innerWidth > 768) {
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
 
-      // Create particle on move
-      if (Math.random() > 0.5) { // Throttle particle creation
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.style.left = (e.clientX + (Math.random() * 20 - 10)) + 'px';
-        p.style.top = (e.clientY + (Math.random() * 20 - 10)) + 'px';
-        p.style.background = colors[Math.floor(Math.random() * colors.length)];
-        document.body.appendChild(p);
-        
-        // Cleanup particle
-        setTimeout(() => { p.remove(); }, 800);
-      }
-    });
+        if (Math.random() > 0.5) { 
+          const p = document.createElement('div');
+          p.className = 'particle';
+          p.style.left = (e.clientX + (Math.random() * 20 - 10)) + 'px';
+          p.style.top = (e.clientY + (Math.random() * 20 - 10)) + 'px';
+          p.style.background = colors[Math.floor(Math.random() * colors.length)];
+          document.body.appendChild(p);
+          setTimeout(() => { p.remove(); }, 800);
+        }
+      });
 
-    document.querySelectorAll('a, .poster-card').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '60px';
-        cursor.style.height = '60px';
-        cursor.style.background = '#fff';
+      document.querySelectorAll('a, .poster-card').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.style.width = '60px';
+          cursor.style.height = '60px';
+          cursor.style.background = '#fff';
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.style.width = '30px';
+          cursor.style.height = '30px';
+          cursor.style.background = 'transparent';
+        });
       });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '30px';
-        cursor.style.height = '30px';
-        cursor.style.background = 'transparent';
-      });
-    });
+    }
 
     // --- KINETIC TYPOGRAPHY ---
-    // Infinite marquee loops
     gsap.to('#track1', { xPercent: -50, ease: 'none', duration: 10, repeat: -1 });
     gsap.to('#track2', { xPercent: 50, ease: 'none', duration: 15, repeat: -1, startAt: {xPercent: -50} });
     gsap.to('#track3', { xPercent: -50, ease: 'none', duration: 12, repeat: -1 });
 
-    // --- 3D POSTER EXPLOSION ---
-    const cards = document.querySelectorAll('.poster-card');
-    
-    // Timeline attached to scroll
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".explosion-scroll-area",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1, // Smooth scrubbing
-      }
-    });
+    // --- 3D POSTER EXPLOSION (MATCH MEDIA FOR DESKTOP ONLY) ---
+    let mm = gsap.matchMedia();
 
-    // Fade out scroll hint
-    tl.to('.scroll-hint', { opacity: 0, duration: 0.1 }, 0);
+    mm.add("(min-width: 769px)", () => {
+      const cards = document.querySelectorAll('.poster-card');
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".explosion-scroll-area",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1, 
+        }
+      });
 
-    // Animate each card flying in from the Z-axis deep background and scattering
-    cards.forEach((card, index) => {
-      // Read target positions from data attributes
-      const targetX = card.getAttribute('data-x'); // e.g. -30vw
-      const targetY = card.getAttribute('data-y'); // e.g. 20vh
-      const targetRot = card.getAttribute('data-rot'); // e.g. 15deg
+      tl.to('.scroll-hint', { opacity: 0, duration: 0.1 }, 0);
 
-      tl.to(card, {
-        z: 0, // Bring to front
-        x: targetX + "vw",
-        y: targetY + "vh",
-        rotationZ: targetRot,
-        scale: 1,
-        opacity: 1,
-        duration: 1,
-        ease: "power2.out"
-      }, index * 0.15); // Stagger the fly-ins slightly
+      cards.forEach((card, index) => {
+        const targetX = card.getAttribute('data-x'); 
+        const targetY = card.getAttribute('data-y'); 
+        const targetRot = card.getAttribute('data-rot'); 
+
+        tl.to(card, {
+          z: 0, 
+          x: targetX + "vw",
+          y: targetY + "vh",
+          rotationZ: targetRot,
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          ease: "power2.out"
+        }, index * 0.15); 
+      });
     });
 
   </script>
