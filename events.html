@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>234AFRICA - Events (The Filmstrip)</title>
+  <title>234AFRICA - Events (3D Kinetic Vortex)</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800;12..96,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   
@@ -13,157 +13,180 @@
   
   <style>
     body {
-      background: #050505;
+      background: #000;
       margin: 0; padding: 0;
       font-family: 'Space Grotesk', sans-serif;
       overflow-x: hidden;
-      transition: background-color 0.8s ease;
+      color: #fff;
     }
     
     /* Force header links to be white on this dark page */
     .nav-links, .nav-links a { color: #fff !important; }
+    #header { background: transparent !important; }
 
-    /* The pinning container */
-    .pin-container {
+    /* The glowing background ambiance */
+    .ambient-glow {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100vw; height: 100vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232, 65, 40, 0.15) 0%, rgba(0,0,0,0) 60%);
+      z-index: 0;
+      pointer-events: none;
+      filter: blur(80px);
+      transition: background 0.5s ease;
+    }
+
+    /* SCROLL SETUP */
+    /* This creates the scrollable space. E.g. 5 events = 600vh */
+    .scroll-space {
+      position: absolute;
+      top: 0; left: 0;
       width: 100%;
-      height: 100vh;
+      height: 600vh;
+      z-index: 1;
+    }
+
+    /* 3D SCENE (FIXED VIEWPORT) */
+    .scene {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      perspective: 800px;
       overflow: hidden;
-      position: relative;
+      z-index: 2;
+      pointer-events: none; /* Let clicks pass through unless on a card */
     }
 
-    /* The horizontal moving track */
-    .scroll-track {
-      display: flex;
-      width: max-content;
-      height: 100%;
-      padding-top: 80px; /* offset for header */
+    .tunnel {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
     }
 
-    .event-panel {
-      width: 100vw;
-      height: 100%;
+    /* THE EVENT CARDS */
+    .event-card {
+      position: absolute;
+      top: 50%; left: 50%;
+      /* initial placement centered, we'll shift them in JS */
+      transform: translate(-50%, -50%);
+      width: clamp(280px, 80vw, 900px);
       display: flex;
+      flex-direction: row;
+      gap: 30px;
       align-items: center;
-      justify-content: center;
-      padding: 0 5vw;
-      position: relative;
+      background: rgba(10,10,10,0.8);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 50px rgba(0,0,0,0.8);
+      pointer-events: auto;
+      transform-origin: center center;
+      /* Default hidden */
+      opacity: 0;
+      will-change: transform, opacity;
     }
 
-    .panel-content {
-      display: flex;
-      width: 100%;
-      max-width: 1400px;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
+    .event-poster {
+      width: 40%;
+      max-width: 350px;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
 
-    /* LEFT: Crazy Typography */
-    .panel-left {
+    .event-info {
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
     }
-    
+
     .event-title {
       font-family: var(--font-display);
-      font-size: clamp(4rem, 10vw, 12rem);
+      font-size: clamp(2.5rem, 5vw, 5rem);
       font-weight: 900;
-      line-height: 0.85;
+      line-height: 0.9;
       text-transform: uppercase;
-      color: transparent;
-      -webkit-text-stroke: 2px #fff;
-      margin: 0;
-      position: relative;
-    }
-    .event-title::before {
-      content: attr(data-text);
-      position: absolute;
-      left: 0; top: 0;
-      width: 0%;
-      color: #fff;
-      -webkit-text-stroke: 0px;
-      overflow: hidden;
-      transition: width 0.5s ease;
-      white-space: nowrap;
-    }
-    .event-panel:hover .event-title::before {
-      width: 100%;
+      margin: 0 0 10px 0;
+      text-shadow: 0 10px 20px rgba(0,0,0,0.5);
     }
 
     .event-meta {
-      font-size: 1.5rem;
-      color: rgba(255,255,255,0.7);
-      margin-top: 20px;
+      font-size: 1.2rem;
       font-weight: 600;
+      color: #aaa;
+      margin-bottom: 30px;
       text-transform: uppercase;
       letter-spacing: 2px;
     }
 
     .event-btn {
-      margin-top: 40px;
       display: inline-block;
-      padding: 15px 40px;
+      padding: 12px 30px;
       background: #fff;
       color: #000;
       font-family: var(--font-display);
       font-weight: 900;
-      font-size: 1.2rem;
-      border-radius: 100px;
-      text-decoration: none;
+      font-size: 1rem;
       text-transform: uppercase;
-      transition: transform 0.3s ease;
+      text-decoration: none;
+      border-radius: 100px;
       width: fit-content;
-    }
-    .event-btn:hover {
-      transform: scale(1.05);
+      transition: all 0.3s ease;
     }
 
-    /* RIGHT: Clear Uncropped Poster */
-    .panel-right {
-      flex: 1;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      perspective: 1000px;
-    }
-    
-    .poster-wrap {
-      width: 100%;
-      max-width: 500px;
-      height: 70vh;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-      border: 4px solid #fff;
-      transition: transform 0.5s ease, box-shadow 0.5s ease;
-    }
-    
-    .event-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      background: #000;
-    }
+    /* NEON ACCENTS */
+    .c-red { border-color: rgba(232, 65, 40, 0.4); box-shadow: 0 0 40px rgba(232, 65, 40, 0.2); }
+    .c-red .event-title { color: #fff; text-shadow: 0 0 20px rgba(232, 65, 40, 0.8); }
+    .c-red .event-btn:hover { background: var(--c-red); color: #fff; box-shadow: 0 0 20px var(--c-red); }
 
-    .event-panel:hover .poster-wrap {
-      transform: rotateY(-10deg) rotateX(5deg) scale(1.02);
-    }
+    .c-green { border-color: rgba(16, 140, 90, 0.4); box-shadow: 0 0 40px rgba(16, 140, 90, 0.2); }
+    .c-green .event-title { color: #fff; text-shadow: 0 0 20px rgba(16, 140, 90, 0.8); }
+    .c-green .event-btn:hover { background: var(--c-green); color: #000; box-shadow: 0 0 20px var(--c-green); }
 
-    /* BRAND COLORS DYNAMIC INJECTION VIA JS */
-    /* Mobile Fallback: Vertical Snap */
-    @media (max-width: 992px) {
-      .pin-container { height: auto; overflow: visible; }
-      .scroll-track { flex-direction: column; width: 100%; padding-top: 0; }
-      .event-panel { height: 100vh; flex-direction: column; padding: 100px 20px 20px; scroll-snap-align: start; }
-      .panel-content { flex-direction: column; gap: 20px; text-align: center; }
-      .panel-left { align-items: center; }
-      .event-title { -webkit-text-stroke: 1px #fff; font-size: 4rem; }
-      .panel-right { justify-content: center; width: 100%; }
-      .poster-wrap { height: 50vh; border-width: 2px; }
-      html { scroll-snap-type: y mandatory; }
-      .event-title::before { width: 100%; }
+    .c-yellow { border-color: rgba(244, 162, 24, 0.4); box-shadow: 0 0 40px rgba(244, 162, 24, 0.2); }
+    .c-yellow .event-title { color: #fff; text-shadow: 0 0 20px rgba(244, 162, 24, 0.8); }
+    .c-yellow .event-btn:hover { background: var(--c-yellow); color: #000; box-shadow: 0 0 20px var(--c-yellow); }
+
+    .instructions {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.9rem;
+      color: #fff;
+      opacity: 0.5;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      z-index: 100;
+      animation: pulse 2s infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes pulse { 0% { opacity: 0.2; transform: translateX(-50%) translateY(0); } 100% { opacity: 0.8; transform: translateX(-50%) translateY(5px); } }
+
+    /* MOBILE LAYOUT TWEAKS (Stack the card contents, but KEEP 3D tunnel) */
+    @media (max-width: 768px) {
+      .event-card {
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        width: 85vw;
+      }
+      .event-poster {
+        width: 100%;
+        max-width: none;
+        height: 35vh;
+        object-fit: contain; /* Prevent cropping completely */
+        background: transparent;
+        box-shadow: none;
+      }
+      .event-title { font-size: 2.5rem; text-align: center; }
+      .event-meta { font-size: 1rem; text-align: center; margin-bottom: 15px; }
+      .event-btn { margin: 0 auto; }
+      .event-info { width: 100%; align-items: center; }
     }
   </style>
 </head>
@@ -183,91 +206,138 @@
     </div>
   </header>
 
-  <div class="pin-container" id="pinMaster">
-    <div class="scroll-track" id="scrollTrack">
-      <!-- Populated by JS -->
+  <div class="ambient-glow" id="ambientGlow"></div>
+
+  <!-- Dummy scroll space -->
+  <div class="scroll-space"></div>
+
+  <!-- The 3D Scene fixed to viewport -->
+  <div class="scene">
+    <div class="tunnel" id="tunnel">
+      <!-- Cards generated by JS -->
     </div>
   </div>
+
+  <div class="instructions">Scroll to Fly</div>
 
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
     const events = [
-      { title: "ON THE BEACH", date: "Dec 27, 2026 • Lagos", img: "assets/events-posters/poster-1.jpg", bgColor: "#E84128", link: "https://greyapple.vip" },
-      { title: "INDEPENDENCE", date: "Oct 4, 2026 • Landmark", img: "assets/events-posters/poster-2.jpg", bgColor: "#108C5A", link: "https://greyapple.vip" },
-      { title: "ON THE ROOF", date: "Dec 17, 2026 • Rooftop VI", img: "assets/events-posters/poster-3.png", bgColor: "#F4A218", link: "https://greyapple.vip" },
-      { title: "SUNDOWN", date: "Aug 8, 2026 • Lagos", img: "assets/events-posters/poster-4.jpg", bgColor: "#E84128", link: "https://greyapple.vip" },
-      { title: "CRUISE ROOM", date: "Dec 18, 2026 • The Hub", img: "assets/events-posters/poster-5.png", bgColor: "#108C5A", link: "cruiseroom.html" }
+      { title: "ON THE BEACH", date: "Dec 27, 2026 • Lagos", img: "assets/events-posters/poster-1.jpg", colorClass: "c-red", rgb: "232, 65, 40", link: "https://greyapple.vip" },
+      { title: "INDEPENDENCE", date: "Oct 4, 2026 • Landmark", img: "assets/events-posters/poster-2.jpg", colorClass: "c-green", rgb: "16, 140, 90", link: "https://greyapple.vip" },
+      { title: "ON THE ROOF", date: "Dec 17, 2026 • Rooftop VI", img: "assets/events-posters/poster-3.png", colorClass: "c-yellow", rgb: "244, 162, 24", link: "https://greyapple.vip" },
+      { title: "SUNDOWN", date: "Aug 8, 2026 • Lagos", img: "assets/events-posters/poster-4.jpg", colorClass: "c-red", rgb: "232, 65, 40", link: "https://greyapple.vip" },
+      { title: "CRUISE ROOM", date: "Dec 18, 2026 • The Hub", img: "assets/events-posters/poster-5.png", colorClass: "c-green", rgb: "16, 140, 90", link: "cruiseroom.html" }
     ];
 
-    const track = document.getElementById('scrollTrack');
+    const tunnel = document.getElementById('tunnel');
+    const glow = document.getElementById('ambientGlow');
+    
+    // Z-spacing between cards in the 3D tunnel
+    const zSpacing = 1500; 
 
+    // Build cards
     events.forEach((ev, i) => {
-      const panel = document.createElement('div');
-      panel.className = 'event-panel';
-      panel.setAttribute('data-color', ev.bgColor);
+      const card = document.createElement('div');
+      card.className = `event-card ${ev.colorClass}`;
+      card.setAttribute('data-rgb', ev.rgb);
       
-      panel.innerHTML = `
-        <div class="panel-content">
-          <div class="panel-left">
-            <h2 class="event-title" data-text="${ev.title}">${ev.title}</h2>
-            <div class="event-meta">${ev.date}</div>
-            <a href="${ev.link}" class="event-btn">GET TICKETS</a>
-          </div>
-          <div class="panel-right">
-            <div class="poster-wrap">
-              <img src="${ev.img}" alt="${ev.title}" class="event-img">
-            </div>
-          </div>
+      // Position them deep in the Z-axis (negative Z goes into the screen)
+      const initialZ = -(i * zSpacing);
+      
+      card.innerHTML = `
+        <img src="${ev.img}" alt="${ev.title}" class="event-poster">
+        <div class="event-info">
+          <h2 class="event-title">${ev.title}</h2>
+          <div class="event-meta">${ev.date}</div>
+          <a href="${ev.link}" class="event-btn">GET TICKETS</a>
         </div>
       `;
-      track.appendChild(panel);
+      tunnel.appendChild(card);
+      
+      // Set initial transform
+      gsap.set(card, {
+        z: initialZ,
+        rotationY: (i % 2 === 0 ? -10 : 10), // alternate slight rotation for depth
+        rotationX: 5
+      });
     });
 
-    const panels = gsap.utils.toArray('.event-panel');
-
-    // Desktop Horizontal Scroll
-    if (window.innerWidth > 992) {
-      let scrollTween = gsap.to(panels, {
-        xPercent: -100 * (panels.length - 1),
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#pinMaster",
-          pin: true,
-          scrub: 1,
-          snap: 1 / (panels.length - 1),
-          end: () => "+=" + track.offsetWidth
+    const cards = gsap.utils.toArray('.event-card');
+    
+    // The master timeline tied to the scroll
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".scroll-space",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1, // Smooth scrubbing
+        onUpdate: (self) => {
+          // Calculate which card is closest to camera (z = 0)
+          const totalZ = (events.length - 1) * zSpacing;
+          const currentZ = self.progress * totalZ;
+          
+          let closestIndex = Math.round(currentZ / zSpacing);
+          closestIndex = Math.max(0, Math.min(closestIndex, events.length - 1));
+          
+          // Update ambient glow color to match the closest active card
+          const rgb = events[closestIndex].rgb;
+          glow.style.background = `radial-gradient(circle, rgba(${rgb}, 0.25) 0%, rgba(0,0,0,0) 70%)`;
         }
-      });
+      }
+    });
 
-      // Background color change logic for desktop
-      panels.forEach((panel, i) => {
-        ScrollTrigger.create({
-          trigger: panel,
-          containerAnimation: scrollTween,
-          start: "left center",
-          end: "right center",
-          onEnter: () => gsap.to('body', { backgroundColor: panel.getAttribute('data-color'), duration: 0.5 }),
-          onEnterBack: () => gsap.to('body', { backgroundColor: panel.getAttribute('data-color'), duration: 0.5 })
-        });
-      });
+    // 1. Move the entire tunnel FORWARD on Z axis as you scroll down
+    tl.to(tunnel, {
+      z: (events.length - 1) * zSpacing,
+      ease: "none"
+    }, 0);
+
+    // 2. Animate each card's opacity & rotation individually as it passes the camera
+    cards.forEach((card, i) => {
+      const cardZ = i * zSpacing;
+      const totalZ = (events.length - 1) * zSpacing;
       
-      // Initial color
-      gsap.set('body', { backgroundColor: events[0].bgColor });
-
-    } else {
-      // Mobile Vertical Scroll Background morphing
-      panels.forEach((panel, i) => {
-        ScrollTrigger.create({
-          trigger: panel,
-          start: "top center",
-          end: "bottom center",
-          onEnter: () => gsap.to('body', { backgroundColor: panel.getAttribute('data-color'), duration: 0.5 }),
-          onEnterBack: () => gsap.to('body', { backgroundColor: panel.getAttribute('data-color'), duration: 0.5 })
+      // Normalize timeline position for this card
+      const centerTime = cardZ / totalZ;
+      const startTime = Math.max(0, centerTime - 0.3); // When it starts fading in from the dark
+      const endTime = Math.min(1, centerTime + 0.1);   // When it flies past the camera and disappears
+      
+      // Fade in and straighten out as it approaches the camera (Z=0)
+      tl.to(card, {
+        opacity: 1,
+        rotationY: 0,
+        rotationX: 0,
+        ease: "power2.inOut",
+        duration: centerTime - startTime
+      }, startTime * tl.duration() || 0);
+      
+      // Fade out and fly past (scale up drastically) as it goes behind camera
+      if(centerTime < 1) {
+        tl.to(card, {
+          opacity: 0,
+          scale: 2,
+          rotationY: (i % 2 === 0 ? 20 : -20),
+          ease: "power2.in",
+          duration: endTime - centerTime
+        }, centerTime * tl.duration());
+      }
+    });
+    
+    // Mouse Parallax for Desktop (creates the floating atmosphere)
+    if(window.innerWidth > 768) {
+      document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 20; // -10 to 10 deg
+        const y = (e.clientY / window.innerHeight - 0.5) * 20;
+        
+        gsap.to('.scene', {
+          rotationY: x,
+          rotationX: -y,
+          ease: "power2.out",
+          duration: 1
         });
       });
-      // Initial color
-      gsap.set('body', { backgroundColor: events[0].bgColor });
     }
   </script>
 </body>
