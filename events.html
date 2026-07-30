@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>234AFRICA - Events</title>
+  <title>234AFRICA - Events (Futuristic Gallery)</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -12,84 +12,250 @@
 
   <link rel="stylesheet" href="style.css" />
   <style>
-    body { background: #0a0a0a; color: #fff; }
-    .hero-events {
-      padding: 180px 0 100px;
-      text-align: center;
-      background: #000;
-      border-bottom: 4px solid var(--c-yellow);
+    body { 
+      background: #000; 
+      color: #fff; 
+      overflow-x: hidden; 
+      font-family: 'Space Grotesk', sans-serif;
     }
-    .poster-section {
-      padding: 80px 0;
-      border-bottom: 2px solid #222;
+    
+    /* GSAP Horizontal Scroll Container */
+    .events-scroll-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+      position: relative;
     }
-    .poster-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
+    
+    /* Background Cyber Noise / Overlay */
+    .cyber-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .events-wrapper {
+      display: flex;
+      height: 100vh;
       align-items: center;
+      padding: 0 10vw;
     }
-    .poster-grid.reverse {
-      direction: rtl;
-    }
-    .poster-grid.reverse > * {
-      direction: ltr;
-    }
-    .poster-img {
-      width: 100%;
-      border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-      border: 4px solid #222;
-      transition: transform 0.4s ease;
-    }
-    .poster-img:hover {
-      transform: scale(1.02) rotate(-1deg);
-      border-color: var(--c-yellow);
-    }
-    .poster-details h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      font-weight: 900;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      text-transform: uppercase;
-    }
-    .poster-details .meta-item {
+
+    .event-panel {
+      width: 100vw;
+      height: 100vh;
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-family: var(--font-body);
-      font-size: 1.2rem;
-      margin-bottom: 16px;
-      color: #ccc;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 0 5vw;
+      position: relative;
+      z-index: 10;
     }
-    .meta-icon {
-      font-size: 1.5rem;
-      color: var(--c-yellow);
+
+    .panel-content {
+      display: flex;
+      align-items: center;
+      gap: 6vw;
+      width: 100%;
+      max-width: 1400px;
     }
-    .event-tag {
-      display: inline-block;
-      padding: 8px 16px;
-      border-radius: 100px;
-      background: #222;
-      color: #fff;
+
+    /* 3D Poster Container */
+    .poster-3d-wrapper {
+      flex: 1;
+      perspective: 1000px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .poster-img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 12px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+    }
+
+    /* HUD Details Styling */
+    .hud-details {
+      flex: 1;
+      font-family: 'Space Grotesk', monospace;
+    }
+
+    .hud-tag {
+      color: #0f0;
       font-weight: 700;
+      letter-spacing: 4px;
       font-size: 0.9rem;
       text-transform: uppercase;
       margin-bottom: 20px;
-      letter-spacing: 1px;
+      display: inline-block;
+      border: 1px solid #0f0;
+      padding: 4px 12px;
+      text-shadow: 0 0 10px rgba(0,255,0,0.5);
+      box-shadow: 0 0 15px rgba(0,255,0,0.2) inset;
+    }
+
+    .hud-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 0px var(--c-red), -2px -2px 0px var(--c-green);
+      position: relative;
+    }
+
+    .hud-title::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 2px;
+      top: -2px;
+      color: var(--c-yellow);
+      mix-blend-mode: overlay;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .event-panel:hover .hud-title::after {
+      opacity: 1;
+    }
+
+    .data-line {
+      display: flex;
+      gap: 15px;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      color: #b0b0b0;
+      border-bottom: 1px dashed rgba(255,255,255,0.1);
+      padding-bottom: 8px;
+    }
+
+    .data-label {
+      color: #fff;
+      font-weight: 700;
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    .data-value {
+      font-weight: 500;
+    }
+
+    .hud-btn {
+      margin-top: 40px;
+      display: inline-block;
+      padding: 16px 40px;
+      background: transparent;
+      color: #fff;
+      border: 2px solid #fff;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      cursor: none; /* We'll use a custom cursor maybe */
+    }
+
+    .hud-btn:hover {
+      background: #fff;
+      color: #000;
+      box-shadow: 0 0 20px rgba(255,255,255,0.6);
+    }
+
+    /* Fixed Intro Title */
+    .fixed-intro {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+      z-index: 5;
+    }
+
+    .glitch-text {
+      font-family: var(--font-display);
+      font-size: 6rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Space Grotesk', monospace;
+      color: #fff;
+      letter-spacing: 3px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+    /* Custom Cursor */
+    .custom-cursor {
+      width: 30px;
+      height: 30px;
+      border: 2px solid var(--c-yellow);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
     }
     
     @media (max-width: 900px) {
-      .poster-grid { grid-template-columns: 1fr; gap: 40px; }
-      .poster-grid.reverse { direction: ltr; }
+      /* Revert to vertical scrolling on mobile for usability */
+      .events-scroll-container {
+        height: auto;
+        flex-direction: column;
+        overflow-y: auto;
+      }
+      .events-wrapper {
+        height: auto;
+        flex-direction: column;
+        padding: 0;
+      }
+      .event-panel {
+        width: 100%;
+        height: auto;
+        padding: 100px 5vw;
+      }
+      .panel-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      .data-line {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        border-bottom: none;
+      }
+      .data-label { width: auto; color: var(--c-yellow); }
+      .fixed-intro { height: 60vh; }
+      .custom-cursor { display: none; }
     }
   </style>
 </head>
 <body>
 
+  <div class="custom-cursor" id="cursor"></div>
+
   <!-- FIXED HEADER -->
-  <header id="header" style="background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);">
+  <header id="header" style="background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);">
     <div class="header-inner">
       <a href="index.html" class="logo">
         <span class="c-red">2</span><span class="c-yellow">3</span><span class="c-green">4</span> <span class="text-white">AFRICA</span>
@@ -101,142 +267,260 @@
         <a href="cruiseroom.html" style="color: #fff;">THE CRUISE ROOM</a>
       </nav>
       <div class="header-right">
-        <button class="btn-audio" style="color:#fff;">
-          <span class="audio-dots">....</span> AUDIO OFF
-        </button>
         <a href="mailto:234groupinfo@gmail.com" class="btn-primary-pill shadow-red">JOIN THE MOVEMENT</a>
       </div>
     </div>
   </header>
 
-  <div class="hero-events">
-    <div class="container">
-      <h1 class="hero-title text-white">CULTURAL<br><span class="c-yellow">PHENOMENONS.</span></h1>
-      <p class="section-body mx-auto text-white mt-6" style="max-width: 600px; opacity: 0.8;">
-        We don't just throw parties. We engineer experiences that define the culture. Explore our signature events below.
-      </p>
-    </div>
+  <!-- INTRO SCREEN -->
+  <div class="fixed-intro">
+    <h1 class="glitch-text" data-text="THE CULTURE">THE CULTURE</h1>
+    <h2 style="color: var(--c-yellow); font-size: 2rem; margin-top: -10px;">IS LIVE.</h2>
+    <div class="scroll-indicator">[ SCROLL TO INITIATE ]</div>
   </div>
 
-  <div id="smooth-wrapper">
-    <div id="smooth-content">
-
+  <!-- HORIZONTAL SCROLL GALLERY -->
+  <div class="events-scroll-container" id="scroll-container">
+    <div class="cyber-bg"></div>
+    
+    <div class="events-wrapper" id="events-wrapper">
+      
       <!-- EVENT 1: On The Beach -->
-      <section class="poster-section">
-        <div class="container">
-          <div class="poster-grid">
-            <div>
-              <img src="assets/events-posters/poster-1.jpg" alt="+234 On The Beach" class="poster-img">
+      <section class="event-panel">
+        <div class="panel-content">
+          <div class="poster-3d-wrapper">
+            <img src="assets/events-posters/poster-1.jpg" alt="+234 On The Beach" class="poster-img tilt-card">
+          </div>
+          <div class="hud-details">
+            <div class="hud-tag" style="color: #ff003c; border-color: #ff003c; box-shadow: 0 0 15px rgba(255,0,60,0.2) inset;">[ SIGNATURE ]</div>
+            <h2 class="hud-title" data-text="+234 On The Beach">+234 On The Beach</h2>
+            
+            <div class="data-line">
+              <div class="data-label">SYS.LOC //</div>
+              <div class="data-value">Villa Eduardo, Ilashe</div>
             </div>
-            <div class="poster-details">
-              <div class="event-tag" style="color: var(--c-red); border: 1px solid var(--c-red);">SIGNATURE EVENT</div>
-              <h2>+234 On The Beach</h2>
-              <div class="meta-item"><span class="meta-icon">📍</span> Villa Eduardo, Ilashe</div>
-              <div class="meta-item"><span class="meta-icon">🗓️</span> 27th December, 2024</div>
-              <div class="meta-item"><span class="meta-icon">⏰</span> Day Shift: 10am - 7pm <br> Night Shift: 7pm - 10am</div>
-              <div class="meta-item"><span class="meta-icon">🎧</span> Hosted by DJ Phil</div>
-              
-              <div class="mt-8">
-                <a href="https://wa.me/2348067621024" class="btn-primary-pill text-black shadow-red" style="background: var(--c-yellow);">RSVP NOW: +234 806 762 1024 ➔</a>
-              </div>
+            <div class="data-line">
+              <div class="data-label">SYS.DATE //</div>
+              <div class="data-value">27th December, 2024</div>
             </div>
+            <div class="data-line">
+              <div class="data-label">SYS.TIME //</div>
+              <div class="data-value">Day Shift: 10am-7pm | Night Shift: 7pm-10am</div>
+            </div>
+            <div class="data-line">
+              <div class="data-label">SYS.HOST //</div>
+              <div class="data-value" style="color: var(--c-yellow);">DJ Phil</div>
+            </div>
+            
+            <a href="https://wa.me/2348067621024" class="hud-btn" style="border-color: #ff003c;">INITIATE RSVP_</a>
           </div>
         </div>
       </section>
 
       <!-- EVENT 2: Independence Day -->
-      <section class="poster-section" style="background: #111;">
-        <div class="container">
-          <div class="poster-grid reverse">
-            <div>
-              <img src="assets/events-posters/poster-2.jpg" alt="Independence Day Party" class="poster-img">
+      <section class="event-panel">
+        <div class="panel-content">
+          <div class="poster-3d-wrapper">
+            <img src="assets/events-posters/poster-2.jpg" alt="Independence Day Party" class="poster-img tilt-card">
+          </div>
+          <div class="hud-details">
+            <div class="hud-tag" style="color: #00ff00; border-color: #00ff00;">[ SOUNDSYSTEM ]</div>
+            <h2 class="hud-title" data-text="Independence Day">Independence Day</h2>
+            
+            <div class="data-line">
+              <div class="data-label">SYS.LOC //</div>
+              <div class="data-value">Clubhouse Landmark</div>
             </div>
-            <div class="poster-details">
-              <div class="event-tag" style="color: var(--c-green); border: 1px solid var(--c-green);">SOUNDSYSTEM</div>
-              <h2>Independence Day Party</h2>
-              <div class="meta-item"><span class="meta-icon">📍</span> Clubhouse Landmark</div>
-              <div class="meta-item"><span class="meta-icon">🗓️</span> October 4</div>
-              <div class="meta-item"><span class="meta-icon">⏰</span> 8:00 PM</div>
-              <div class="meta-item"><span class="meta-icon">🎧</span> DJ Phil & Friends</div>
+            <div class="data-line">
+              <div class="data-label">SYS.DATE //</div>
+              <div class="data-value">October 4</div>
+            </div>
+            <div class="data-line">
+              <div class="data-label">SYS.TIME //</div>
+              <div class="data-value">08:00 PM</div>
+            </div>
+            <div class="data-line">
+              <div class="data-label">SYS.HOST //</div>
+              <div class="data-value">DJ Phil & Friends</div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- EVENT 3: Cruise Room -->
-      <section class="poster-section">
-        <div class="container">
-          <div class="poster-grid">
-            <div>
-              <img src="assets/events-posters/poster-5.png" alt="Cruise Room" class="poster-img" style="background: #000;">
+      <section class="event-panel">
+        <div class="panel-content">
+          <div class="poster-3d-wrapper">
+            <img src="assets/events-posters/poster-5.png" alt="Cruise Room" class="poster-img tilt-card" style="background: #111;">
+          </div>
+          <div class="hud-details">
+            <div class="hud-tag" style="color: #FF5A00; border-color: #FF5A00;">[ PANELS ]</div>
+            <h2 class="hud-title" data-text="CRUISE ROOM">CRUISE ROOM</h2>
+            
+            <div class="data-line">
+              <div class="data-label">SYS.LOC //</div>
+              <div class="data-value">Bature Brewery, VI, Lagos</div>
             </div>
-            <div class="poster-details">
-              <div class="event-tag" style="color: #FF5A00; border: 1px solid #FF5A00;">PANELS & CULTURE</div>
-              <h2>CRUISE ROOM <br><span style="font-size: 0.5em; opacity: 0.7;">Cruise Control x Greenroom</span></h2>
-              <div class="meta-item"><span class="meta-icon">📍</span> Bature Brewery, Victoria Island, Lagos</div>
-              <div class="meta-item"><span class="meta-icon">🗓️</span> December 18</div>
-              <p class="section-body mt-4" style="color: #aaa; font-size: 1.1rem; max-width: 90%;">
-                Where Lagos meets the world for creatives, by creatives. Featuring insightful panels on Media, Business & Culture, Music, and Tech & Investment.
-              </p>
-              <div class="mt-8">
-                <a href="#" class="btn-outline-pill" style="color: #FF5A00; border-color: #FF5A00;">LEARN MORE</a>
-              </div>
+            <div class="data-line">
+              <div class="data-label">SYS.DATE //</div>
+              <div class="data-value">December 18</div>
             </div>
+            <div class="data-line">
+              <div class="data-label">SYS.INFO //</div>
+              <div class="data-value">Media, Tech & Culture Panels</div>
+            </div>
+            
+            <a href="#" class="hud-btn" style="border-color: #FF5A00;">ACCESS DATA_</a>
           </div>
         </div>
       </section>
 
       <!-- EVENT 4: Sundown on Summer -->
-      <section class="poster-section" style="background: #111;">
-        <div class="container">
-          <div class="poster-grid reverse">
-            <div>
-              <img src="assets/events-posters/poster-4.jpg" alt="Sundown on Summer" class="poster-img">
+      <section class="event-panel">
+        <div class="panel-content">
+          <div class="poster-3d-wrapper">
+            <img src="assets/events-posters/poster-4.jpg" alt="Sundown on Summer" class="poster-img tilt-card">
+          </div>
+          <div class="hud-details">
+            <div class="hud-tag" style="color: #FFD700; border-color: #FFD700;">[ CLOSING ]</div>
+            <h2 class="hud-title" data-text="Sundown On Summer">Sundown On Summer</h2>
+            
+            <div class="data-line">
+              <div class="data-label">SYS.LOC //</div>
+              <div class="data-value">Engine Room Lagos</div>
             </div>
-            <div class="poster-details">
-              <div class="event-tag" style="color: #FFD700; border: 1px solid #FFD700;">SUMMER CLOSING</div>
-              <h2>Sundown On Summer</h2>
-              <div class="meta-item"><span class="meta-icon">📍</span> Engine Room Lagos</div>
-              <div class="meta-item"><span class="meta-icon">🗓️</span> August 8th</div>
-              <div class="meta-item"><span class="meta-icon">⏰</span> 10:00 PM</div>
-              <div class="meta-item"><span class="meta-icon">🎧</span> Music Policy: DJ Phil & Friends</div>
+            <div class="data-line">
+              <div class="data-label">SYS.DATE //</div>
+              <div class="data-value">August 8th</div>
+            </div>
+            <div class="data-line">
+              <div class="data-label">SYS.TIME //</div>
+              <div class="data-value">10:00 PM</div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- EVENT 5: On The Roof -->
-      <section class="poster-section">
-        <div class="container">
-          <div class="poster-grid">
-            <div>
-              <img src="assets/events-posters/poster-3.png" alt="On The Roof" class="poster-img">
+      <section class="event-panel">
+        <div class="panel-content">
+          <div class="poster-3d-wrapper">
+            <img src="assets/events-posters/poster-3.png" alt="On The Roof" class="poster-img tilt-card">
+          </div>
+          <div class="hud-details">
+            <div class="hud-tag" style="color: #9D00FF; border-color: #9D00FF;">[ NIGHTLIFE ]</div>
+            <h2 class="hud-title" data-text="On The Roof">On The Roof</h2>
+            
+            <div class="data-line">
+              <div class="data-label">SYS.LOC //</div>
+              <div class="data-value">No 5 Bar & Lounge, Lekki</div>
             </div>
-            <div class="poster-details">
-              <div class="event-tag" style="color: #9D00FF; border: 1px solid #9D00FF;">NIGHTLIFE</div>
-              <h2>On The Roof</h2>
-              <div class="meta-item"><span class="meta-icon">📍</span> No 5 Bar & Lounge, 5 Ayinde Makinde Street, Lekki Phase 1</div>
-              <div class="meta-item"><span class="meta-icon">🗓️</span> 17th December, 2022</div>
-              <div class="meta-item"><span class="meta-icon">⏰</span> 7:00 PM</div>
-              <div class="meta-item"><span class="meta-icon">👗</span> Dress Code: ALL BLACK</div>
-              <div class="meta-item"><span class="meta-icon">🎶</span> Afrobeats & Amapiano by DJ Phil</div>
+            <div class="data-line">
+              <div class="data-label">SYS.DATE //</div>
+              <div class="data-value">17th December, 2022</div>
+            </div>
+            <div class="data-line">
+              <div class="data-label">SYS.DRESS //</div>
+              <div class="data-value">ALL BLACK</div>
+            </div>
+            <div class="data-line">
+              <div class="data-label">SYS.SOUND //</div>
+              <div class="data-value">Afrobeats & Amapiano</div>
             </div>
           </div>
         </div>
       </section>
 
-
-      <!-- FOOTER -->
-      <footer class="site-footer" style="background: #050505;">
-        <div class="container text-center">
-          <h2 class="section-heading text-white">PARTNER WITH THE CULTURE.</h2>
-          <a href="mailto:234groupinfo@gmail.com" class="btn-primary-pill shadow-red mt-6">CONTACT US</a>
-          <p class="footer-meta mt-12" style="color: #555;">Lagos, Nigeria • +234 8103236094 • @234.hq</p>
-        </div>
-      </footer>
-
     </div>
   </div>
 
+  <script>
+    // Custom Cursor Logic
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // Add hover effects to cursor
+    document.querySelectorAll('a, button, .hud-btn').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.background = 'var(--c-yellow)';
+        cursor.style.width = '50px';
+        cursor.style.height = '50px';
+        cursor.style.mixBlendMode = 'difference';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.background = 'transparent';
+        cursor.style.width = '30px';
+        cursor.style.height = '30px';
+        cursor.style.mixBlendMode = 'normal';
+      });
+    });
+
+    // 3D Tilt Effect on Posters
+    const tiltCards = document.querySelectorAll('.tilt-card');
+    
+    tiltCards.forEach(card => {
+      card.parentElement.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left; // x position within the element.
+        const y = e.clientY - rect.top;  // y position within the element.
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((y - centerY) / centerY) * -15; // Max 15deg
+        const rotateY = ((x - centerX) / centerX) * 15;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+      });
+      
+      card.parentElement.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+      });
+    });
+
+    // GSAP Horizontal Scroll Setup
+    // Only apply horizontal scroll on desktop screens
+    if (window.innerWidth > 900) {
+      const wrapper = document.getElementById('events-wrapper');
+      const panels = gsap.utils.toArray('.event-panel');
+
+      gsap.to(panels, {
+        xPercent: -100 * (panels.length - 1),
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#scroll-container",
+          pin: true,
+          scrub: 1,
+          snap: {
+            snapTo: 1 / (panels.length - 1),
+            duration: 0.5,
+            delay: 0.1,
+            ease: "power1.inOut"
+          },
+          // Wait for the intro section to scroll past
+          start: "top top",
+          end: () => "+=" + wrapper.offsetWidth
+        }
+      });
+      
+      // Animate posters scaling up as they come into view
+      panels.forEach((panel, i) => {
+        gsap.from(panel.querySelector('.poster-img'), {
+          scale: 0.5,
+          opacity: 0,
+          scrollTrigger: {
+            trigger: panel,
+            containerAnimation: gsap.getById("scroll-container"), // Doesn't perfectly work out of box for horizontal, but we can do a scrub
+            start: "left center",
+            end: "center center",
+            scrub: true
+          }
+        });
+      });
+    }
+  </script>
 </body>
 </html>
