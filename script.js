@@ -259,7 +259,8 @@ async function initSanityCMS() {
   }
   setTimeout(() => ScrollTrigger.refresh(), 500);
 
-  // 2. Process Brands
+  // 2. Process Brands (Commented out to preserve static HTML brands)
+  /*
   const marquee = document.getElementById('marquee-track');
   if (marquee) {
     const defaultBrands = [
@@ -286,6 +287,7 @@ async function initSanityCMS() {
     
     marquee.innerHTML = brandHtml + brandHtml + brandHtml;
   }
+  */
 }
 
 document.addEventListener('DOMContentLoaded', initSanityCMS);
