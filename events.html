@@ -177,21 +177,21 @@
     events.forEach(ev => {
       const item = document.createElement('a');
       item.href = ev.link;
-      item.className = \`brutalist-item \${ev.colorClass}\`;
+      item.className = `brutalist-item ${ev.colorClass}`;
       item.style.textDecoration = 'none';
       
       // On mobile, apply the image directly as a background so it's not boring flat black
       if (window.innerWidth <= 768) {
-        item.style.backgroundImage = \`linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('\${ev.img}')\`;
+        item.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('${ev.img}')`;
       }
 
-      item.innerHTML = \`
-        <h2 class="item-title">\${ev.title}</h2>
+      item.innerHTML = `
+        <h2 class="item-title">${ev.title}</h2>
         <div class="item-meta">
-          <div class="item-date-loc">\${ev.date}</div>
+          <div class="item-date-loc">${ev.date}</div>
           <div class="item-btn">GET TICKETS</div>
         </div>
-      \`;
+      `;
 
       if (window.innerWidth > 768) {
         item.addEventListener('mouseenter', () => {
