@@ -300,14 +300,272 @@
         </div>
       </section>
 
-      <!-- FOOTER -->
-      <footer class="site-footer">
-        <div class="container text-center">
-          <h2 class="section-heading">PARTNER WITH THE CULTURE.</h2>
-          <a href="mailto:234groupinfo@gmail.com" class="btn-primary-pill shadow-red mt-6">CONTACT US</a>
-          <p class="footer-meta mt-12">Lagos, Nigeria • +234 8103236094 • @234.hq</p>
+      <!-- CONTACT FOOTER -->
+      <footer class="contact-footer">
+
+        <!-- Animated background blobs -->
+        <div class="cf-blob cf-blob-red"></div>
+        <div class="cf-blob cf-blob-green"></div>
+
+        <div class="cf-inner">
+          <div class="cf-eyebrow">GET IN TOUCH</div>
+
+          <h2 class="cf-title">
+            LET'S BUILD<br>
+            <span class="cf-title-outline">SOMETHING</span><br>
+            <span class="cf-title-gradient">TOGETHER.</span>
+          </h2>
+
+          <div class="cf-cards">
+
+            <!-- Instagram -->
+            <a href="https://instagram.com/234.hq" target="_blank" class="cf-card cf-card--ig">
+              <div class="cf-card-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <circle cx="12" cy="12" r="4"/>
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+              </div>
+              <div class="cf-card-body">
+                <div class="cf-card-label">Instagram</div>
+                <div class="cf-card-value">@234.hq</div>
+              </div>
+              <div class="cf-card-arrow">↗</div>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:234groupinfo@gmail.com" class="cf-card cf-card--email">
+              <div class="cf-card-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <polyline points="2,4 12,13 22,4"/>
+                </svg>
+              </div>
+              <div class="cf-card-body">
+                <div class="cf-card-label">Email</div>
+                <div class="cf-card-value">234groupinfo@gmail.com</div>
+              </div>
+              <div class="cf-card-arrow">↗</div>
+            </a>
+
+            <!-- Phone -->
+            <a href="tel:+2348103236094" class="cf-card cf-card--phone">
+              <div class="cf-card-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </div>
+              <div class="cf-card-body">
+                <div class="cf-card-label">Phone / WhatsApp</div>
+                <div class="cf-card-value">+234 810 323 6094</div>
+              </div>
+              <div class="cf-card-arrow">↗</div>
+            </a>
+
+          </div>
+
+          <div class="cf-bottom">
+            <span class="cf-location">📍 Lagos, Nigeria</span>
+            <span class="cf-copy">© 2025 234AFRICA. All rights reserved.</span>
+          </div>
         </div>
+
       </footer>
+
+      <style>
+        .contact-footer {
+          position: relative;
+          background: #06070A;
+          border-top: 1px solid rgba(255,255,255,0.07);
+          padding: 100px 6vw 60px;
+          overflow: hidden;
+        }
+
+        /* Ambient blobs */
+        .cf-blob {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(120px);
+          pointer-events: none;
+        }
+        .cf-blob-red {
+          width: 500px; height: 500px;
+          background: var(--c-red, #E84128);
+          opacity: 0.06;
+          top: -150px; left: -100px;
+          animation: blobPulse 10s ease-in-out infinite alternate;
+        }
+        .cf-blob-green {
+          width: 400px; height: 400px;
+          background: var(--c-green, #108C5A);
+          opacity: 0.05;
+          bottom: -100px; right: -80px;
+          animation: blobPulse 12s ease-in-out infinite alternate-reverse;
+        }
+        @keyframes blobPulse {
+          from { transform: scale(1); }
+          to   { transform: scale(1.15); }
+        }
+
+        .cf-inner {
+          position: relative;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .cf-eyebrow {
+          font-family: 'Space Grotesk', 'Outfit', sans-serif;
+          font-size: 0.7rem;
+          font-weight: 700;
+          letter-spacing: 0.25em;
+          color: var(--c-yellow, #F4A218);
+          text-transform: uppercase;
+          margin-bottom: 24px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+        .cf-eyebrow::before {
+          content: '';
+          width: 32px; height: 1px;
+          background: var(--c-yellow, #F4A218);
+        }
+
+        .cf-title {
+          font-family: 'Bricolage Grotesque', 'Outfit', sans-serif;
+          font-size: clamp(3.5rem, 9vw, 8rem);
+          font-weight: 900;
+          line-height: 0.88;
+          letter-spacing: -3px;
+          text-transform: uppercase;
+          color: #fff;
+          margin-bottom: 64px;
+        }
+        .cf-title-outline {
+          color: transparent;
+          -webkit-text-stroke: 2px rgba(255,255,255,0.2);
+        }
+        .cf-title-gradient {
+          background: linear-gradient(90deg, var(--c-red,#E84128), var(--c-yellow,#F4A218));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        /* Cards row */
+        .cf-cards {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+          margin-bottom: 60px;
+        }
+
+        .cf-card {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          padding: 28px 24px;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 12px;
+          text-decoration: none;
+          color: #fff;
+          position: relative;
+          overflow: hidden;
+          transition: border-color 0.3s, background 0.3s, transform 0.3s;
+          cursor: pointer;
+        }
+        .cf-card::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          transition: opacity 0.3s;
+          border-radius: 12px;
+        }
+        .cf-card:hover { transform: translateY(-4px); }
+        .cf-card:hover::before { opacity: 1; }
+
+        /* Instagram — gradient purple/pink */
+        .cf-card--ig { --card-color: #E1306C; }
+        .cf-card--ig::before { background: linear-gradient(135deg, rgba(225,48,108,0.12), rgba(131,58,180,0.08)); }
+        .cf-card--ig:hover { border-color: rgba(225,48,108,0.4); }
+        .cf-card--ig .cf-card-icon { color: #E1306C; }
+
+        /* Email — brand red */
+        .cf-card--email { --card-color: #E84128; }
+        .cf-card--email::before { background: linear-gradient(135deg, rgba(232,65,40,0.12), rgba(244,162,24,0.06)); }
+        .cf-card--email:hover { border-color: rgba(232,65,40,0.4); }
+        .cf-card--email .cf-card-icon { color: #E84128; }
+
+        /* Phone — brand green */
+        .cf-card--phone { --card-color: #108C5A; }
+        .cf-card--phone::before { background: linear-gradient(135deg, rgba(16,140,90,0.12), rgba(16,140,90,0.04)); }
+        .cf-card--phone:hover { border-color: rgba(16,140,90,0.4); }
+        .cf-card--phone .cf-card-icon { color: #3DBA6F; }
+
+        .cf-card-icon {
+          flex-shrink: 0;
+          width: 52px; height: 52px;
+          display: flex; align-items: center; justify-content: center;
+          background: rgba(255,255,255,0.05);
+          border-radius: 10px;
+          transition: background 0.3s;
+        }
+        .cf-card:hover .cf-card-icon { background: rgba(255,255,255,0.08); }
+
+        .cf-card-body { flex: 1; min-width: 0; }
+        .cf-card-label {
+          font-size: 0.62rem;
+          font-weight: 700;
+          letter-spacing: 0.18em;
+          color: rgba(255,255,255,0.3);
+          text-transform: uppercase;
+          margin-bottom: 4px;
+        }
+        .cf-card-value {
+          font-family: 'Bricolage Grotesque', 'Outfit', sans-serif;
+          font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+          font-weight: 700;
+          color: #fff;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .cf-card-arrow {
+          font-size: 1.3rem;
+          color: rgba(255,255,255,0.2);
+          transition: color 0.3s, transform 0.3s;
+          flex-shrink: 0;
+        }
+        .cf-card:hover .cf-card-arrow {
+          color: #fff;
+          transform: translate(3px, -3px);
+        }
+
+        .cf-bottom {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-top: 32px;
+          border-top: 1px solid rgba(255,255,255,0.06);
+          font-size: 0.75rem;
+          color: rgba(255,255,255,0.25);
+          letter-spacing: 0.05em;
+        }
+        .cf-location { color: rgba(255,255,255,0.35); }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+          .contact-footer { padding: 80px 24px 48px; }
+          .cf-title { letter-spacing: -2px; margin-bottom: 48px; }
+          .cf-cards { grid-template-columns: 1fr; gap: 12px; }
+          .cf-card-value { white-space: normal; }
+          .cf-bottom { flex-direction: column; gap: 10px; text-align: center; }
+        }
+      </style>
 
     </div>
   </div>
