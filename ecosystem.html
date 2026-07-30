@@ -7,6 +7,7 @@
   
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800;12..96,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="stylesheet" href="style.css" />
   
   <style>
@@ -17,20 +18,29 @@
       overflow: hidden; /* Lock scroll, full screen accordion */
     }
     
+    /* 3D WebGL Background Canvas */
+    #webgl-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+
     /* Make header links visible on dark background */
-    .nav-links, .nav-links a { color: #fff !important; }
-    #header { background: transparent !important; }
+    .nav-links, .nav-links a { color: #fff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+    #header { background: transparent !important; border-bottom: none !important; }
 
     /* The Accordion Container */
     .accordion-container {
       display: flex;
       width: 100vw;
       height: 100vh; /* Full viewport height */
-      padding-top: 80px; /* Space for the header */
+      padding-top: 0; /* REMOVED PADDING - flows under header */
       box-sizing: border-box;
     }
 
-    /* Individual Panels (Futuristic Base) */
+    /* Individual Panels (Cyber-Glass Base) */
     .acc-panel {
       flex: 1;
       position: relative;
@@ -41,13 +51,16 @@
       justify-content: center;
       border-right: 1px solid rgba(255,255,255,0.1);
       cursor: pointer;
-      background: #050505;
+      /* Glassmorphism */
+      background: rgba(10, 10, 10, 0.4);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
     }
     .acc-panel:last-child {
       border-right: none;
     }
 
-    /* Vertical Title (Hollow Outline Base) */
+    /* Vertical Title (Hollow Outline Base + Glitch) */
     .acc-title-wrap {
       position: absolute;
       top: 50%; left: 50%;
@@ -72,6 +85,20 @@
       transition: all 0.3s ease;
     }
 
+    /* Glitch Animation for Titles */
+    .acc-title {
+      animation: glitch 4s infinite linear alternate-reverse;
+    }
+    @keyframes glitch {
+      0% { transform: rotate(180deg) translate(0); }
+      10% { transform: rotate(180deg) translate(-2px, 2px); }
+      20% { transform: rotate(180deg) translate(-2px, -2px); }
+      30% { transform: rotate(180deg) translate(2px, 2px); }
+      40% { transform: rotate(180deg) translate(2px, -2px); }
+      50% { transform: rotate(180deg) translate(0); }
+      100% { transform: rotate(180deg) translate(0); }
+    }
+
     /* Hidden Content (Neon Glow Text) */
     .acc-content {
       opacity: 0;
@@ -82,6 +109,8 @@
       text-align: center;
       z-index: 20;
       pointer-events: none;
+      /* Add some margin to push it down so it doesn't overlap header */
+      margin-top: 80px; 
     }
     .acc-content p {
       font-size: clamp(2rem, 4vw, 4rem);
@@ -91,6 +120,7 @@
       color: #fff;
       margin: 0;
       text-transform: uppercase;
+      text-shadow: 0 5px 20px rgba(0,0,0,0.8);
     }
 
     /* HOVER MECHANICS (Desktop) */
@@ -123,42 +153,42 @@
       pointer-events: auto !important;
     }
 
-    /* PILLAR COLORS (Futuristic Neon Profiles) */
+    /* PILLAR COLORS (Futuristic Neon Profiles over Glass) */
     /* Marketing (Red) */
     .acc-marketing:hover, .acc-marketing.active {
-      background: radial-gradient(circle at center, rgba(232, 65, 40, 0.2) 0%, #050505 100%);
+      background: radial-gradient(circle at center, rgba(232, 65, 40, 0.4) 0%, rgba(10,10,10,0.6) 100%);
       box-shadow: inset 0 0 50px rgba(232, 65, 40, 0.3);
       border-color: var(--c-red);
     }
     .acc-marketing:hover .acc-title, .acc-marketing.active .acc-title { color: var(--c-red); -webkit-text-stroke: 0; text-shadow: 0 0 20px var(--c-red); }
-    .acc-marketing .acc-content p { text-shadow: 0 0 20px rgba(232, 65, 40, 0.8); }
+    .acc-marketing .acc-content p { text-shadow: 0 0 20px rgba(232, 65, 40, 0.8), 0 5px 20px rgba(0,0,0,0.8); }
 
     /* Music (Yellow) */
     .acc-music:hover, .acc-music.active {
-      background: radial-gradient(circle at center, rgba(244, 162, 24, 0.15) 0%, #050505 100%);
+      background: radial-gradient(circle at center, rgba(244, 162, 24, 0.3) 0%, rgba(10,10,10,0.6) 100%);
       box-shadow: inset 0 0 50px rgba(244, 162, 24, 0.2);
       border-color: var(--c-yellow);
     }
     .acc-music:hover .acc-title, .acc-music.active .acc-title { color: var(--c-yellow); -webkit-text-stroke: 0; text-shadow: 0 0 20px var(--c-yellow); }
-    .acc-music .acc-content p { text-shadow: 0 0 20px rgba(244, 162, 24, 0.8); }
+    .acc-music .acc-content p { text-shadow: 0 0 20px rgba(244, 162, 24, 0.8), 0 5px 20px rgba(0,0,0,0.8); }
 
     /* Events (Green) */
     .acc-events:hover, .acc-events.active {
-      background: radial-gradient(circle at center, rgba(16, 140, 90, 0.25) 0%, #050505 100%);
+      background: radial-gradient(circle at center, rgba(16, 140, 90, 0.5) 0%, rgba(10,10,10,0.6) 100%);
       box-shadow: inset 0 0 50px rgba(16, 140, 90, 0.4);
       border-color: var(--c-green);
     }
     .acc-events:hover .acc-title, .acc-events.active .acc-title { color: var(--c-green); -webkit-text-stroke: 0; text-shadow: 0 0 20px var(--c-green); }
-    .acc-events .acc-content p { text-shadow: 0 0 20px rgba(16, 140, 90, 0.8); }
+    .acc-events .acc-content p { text-shadow: 0 0 20px rgba(16, 140, 90, 0.8), 0 5px 20px rgba(0,0,0,0.8); }
 
     /* GreyApple (White) */
     .acc-greyapple:hover, .acc-greyapple.active {
-      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, #050505 100%);
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, rgba(10,10,10,0.6) 100%);
       box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.15);
       border-color: #fff;
     }
     .acc-greyapple:hover .acc-title, .acc-greyapple.active .acc-title { color: #fff; -webkit-text-stroke: 0; text-shadow: 0 0 20px rgba(255,255,255,0.8); }
-    .acc-greyapple .acc-content p { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+    .acc-greyapple .acc-content p { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 5px 20px rgba(0,0,0,0.8); }
 
     /* CRT Scanline Overlay */
     .accordion-container::after {
@@ -172,34 +202,50 @@
       z-index: 999;
     }
 
-    /* MOBILE LAYOUT (Stack horizontally into vertical slices) */
+    /* MOBILE LAYOUT */
     @media (max-width: 992px) {
       .accordion-container {
-        flex-direction: column; /* Stack top-to-bottom */
-        padding-top: 60px; /* Smaller header offset */
-        height: 100svh; /* Exact mobile height */
+        flex-direction: column; 
+        padding-top: 0; 
+        height: 100svh; 
       }
       .acc-panel {
         border-right: none;
-        border-bottom: 2px solid #000;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
       }
       .acc-panel:last-child {
         border-bottom: none;
       }
       .acc-title {
-        writing-mode: horizontal-tb; /* Turn text horizontal */
+        writing-mode: horizontal-tb; 
         transform: rotate(0deg);
         font-size: clamp(2.5rem, 8vw, 4rem);
+        animation: glitch-horiz 4s infinite linear alternate-reverse;
+      }
+      .acc-content {
+        margin-top: 40px; /* offset header on mobile */
       }
       .acc-content p {
         font-size: clamp(1.2rem, 5vw, 2rem);
       }
-      /* On mobile, expand even more to fit text vertically */
       .acc-panel.active { flex: 8 !important; }
+    }
+    
+    @keyframes glitch-horiz {
+      0% { transform: rotate(0deg) translate(0); }
+      10% { transform: rotate(0deg) translate(-2px, 2px); }
+      20% { transform: rotate(0deg) translate(-2px, -2px); }
+      30% { transform: rotate(0deg) translate(2px, 2px); }
+      40% { transform: rotate(0deg) translate(2px, -2px); }
+      50% { transform: rotate(0deg) translate(0); }
+      100% { transform: rotate(0deg) translate(0); }
     }
   </style>
 </head>
 <body>
+
+  <!-- 3D WEBGL BACKGROUND -->
+  <canvas id="webgl-bg"></canvas>
 
   <header id="header">
     <div class="header-inner">
@@ -252,19 +298,75 @@
   </div>
 
   <script>
-    // Add touch support for mobile/tablets
+    // --- THREE.JS CYBER GRID BACKGROUND ---
+    const canvas = document.getElementById('webgl-bg');
+    const scene = new THREE.Scene();
+    
+    // Add subtle fog to fade out the grid in the distance
+    scene.fog = new THREE.FogExp2(0x000000, 0.0015);
+
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+    camera.position.y = 50;
+    camera.position.z = 100;
+    camera.rotation.x = -Math.PI / 8;
+
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Create a moving wireframe terrain
+    const geometry = new THREE.PlaneGeometry(2000, 2000, 40, 40);
+    
+    // Displace vertices to create terrain
+    const vertices = geometry.attributes.position.array;
+    for ( let i = 0; i < vertices.length; i += 3 ) {
+        // Displace Z (which is Y in world space once rotated)
+        vertices[ i + 2 ] = Math.random() * 60 - 30; 
+    }
+    geometry.computeVertexNormals();
+
+    const material = new THREE.MeshBasicMaterial({
+      color: 0x444444, // Subtle grey grid
+      wireframe: true,
+      transparent: true,
+      opacity: 0.6
+    });
+
+    const plane = new THREE.Mesh(geometry, material);
+    plane.rotation.x = -Math.PI / 2; // Lay flat
+    scene.add(plane);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      // Move terrain forward to simulate flying
+      plane.position.z += 1;
+      
+      // Reset position to loop seamlessly (magic number based on geometry size)
+      if(plane.position.z > 50) {
+          plane.position.z = 0;
+      }
+      
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // --- ACCORDION LOGIC ---
     const panels = document.querySelectorAll('.acc-panel');
     
     panels.forEach(panel => {
       panel.addEventListener('click', () => {
-        // Remove active class from all
         panels.forEach(p => p.classList.remove('active'));
-        // Add to clicked
         panel.classList.add('active');
       });
     });
 
-    // Automatically expand the first one on load for mobile, so it doesn't look empty
     if(window.innerWidth <= 992) {
       panels[0].classList.add('active');
     }
