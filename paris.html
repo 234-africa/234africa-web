@@ -1,18 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="sketch">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>234AFRICA × PARIS // THE SOLSTICE SPATIAL EXPERIENCE 🗼🔥</title>
+  <title>234AFRICA × PARIS // ARCHITECTURAL SOLSTICE EDITION 🗼</title>
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="shortcut icon" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
 
-  <!-- FONTS -->
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800;12..96,900&family=Outfit:wght@300;400;600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-
-  <!-- THREE.JS FOR 3D WEBGL IMMERSIVE SCENE -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- FONTS: Bricolage Grotesque, Outfit, Space Mono, Bodoni Moda for Parisian Editorial -->
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800;12..96,900&family=Outfit:wght@300;400;600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <!-- GSAP & ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -20,60 +17,76 @@
 
   <link rel="stylesheet" href="style.css" />
   <style>
+    /* ════════════════════════════════════════════════════
+       DUAL-THEME CSS VARIABLES:
+       1) SKETCH MODE (Parisian Architectural Editorial Ink & Paper)
+       2) CLUB MODE (Summer Solstice Neon Cyber-Obsidian)
+    ════════════════════════════════════════════════════ */
     :root {
-      --void-bg: #010003;
-      --neon-red: #FF3B00;
-      --neon-green: #00F58C;
-      --neon-yellow: #FFBE00;
-      --neon-cyan: #00F2FE;
-      --neon-purple: #9D4EDD;
-      --neon-pink: #FF007F;
+      --bg-main: #F3EFEA;
+      --text-main: #1B1E2B;
+      --accent-indigo: #2C3E6B;
+      --accent-orange: #E84128;
+      --accent-gold: #C98A2C;
+      --paper-grid: rgba(44, 62, 107, 0.08);
+      --card-bg: rgba(255, 255, 255, 0.7);
+      --card-border: rgba(44, 62, 107, 0.25);
+      --font-display: 'Bodoni Moda', serif;
+      --font-body: 'Outfit', sans-serif;
+      --font-mono: 'Space Mono', monospace;
     }
 
-    * {
-      box-sizing: border-box;
+    [data-theme="club"] {
+      --bg-main: #0B0A10;
+      --text-main: #FFFFFF;
+      --accent-indigo: #00F2FE;
+      --accent-orange: #FF3B00;
+      --accent-gold: #FFBE00;
+      --paper-grid: rgba(255, 59, 0, 0.08);
+      --card-bg: rgba(18, 16, 26, 0.85);
+      --card-border: rgba(255, 59, 0, 0.45);
+      --font-display: 'Bricolage Grotesque', sans-serif;
     }
 
+    * { box-sizing: border-box; }
     html, body {
-      margin: 0;
-      padding: 0;
-      background: var(--void-bg);
-      color: #fff;
-      font-family: 'Outfit', sans-serif;
+      margin: 0; padding: 0;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      transition: background-color 0.5s ease, color 0.5s ease;
       overflow-x: hidden;
       width: 100%;
     }
 
-    /* ════════════════════════════════════════════════════
-       1. FIXED FULLSCREEN 3D THREE.JS CANVAS (ZERO BOXES)
-    ════════════════════════════════════════════════════ */
-    #webgl-canvas {
+    /* Architectural Paper Grid Background */
+    .architectural-bg-grid {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      inset: 0;
+      background-image: 
+        linear-gradient(var(--paper-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--paper-grid) 1px, transparent 1px);
+      background-size: 50px 50px;
       pointer-events: none;
       z-index: 1;
     }
 
-    /* Minimalist Glass Header without boxy borders */
+    /* Minimalist Glass Header */
     header#header {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 999;
-      background: linear-gradient(to bottom, rgba(1, 0, 3, 0.8) 0%, transparent 100%);
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
       padding: 24px 4vw;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      pointer-events: auto;
     }
     .header-logo-img {
       height: 38px;
       width: auto;
       display: block;
-      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
     }
     .spatial-nav {
       display: flex;
@@ -81,9 +94,9 @@
       align-items: center;
     }
     .spatial-nav a {
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.75);
       text-decoration: none;
-      font-family: 'Space Mono', monospace;
+      font-family: var(--font-mono);
       font-size: 0.8rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -92,7 +105,7 @@
     }
     .spatial-nav a:hover, .spatial-nav a.active {
       color: #FFF;
-      text-shadow: 0 0 15px var(--neon-cyan);
+      text-shadow: 0 0 15px var(--accent-indigo);
     }
     .spatial-nav a.active::after {
       content: '';
@@ -101,351 +114,453 @@
       left: 0;
       width: 100%;
       height: 2px;
-      background: var(--neon-red);
-      box-shadow: 0 0 10px var(--neon-red);
+      background: var(--accent-orange);
     }
 
     /* ════════════════════════════════════════════════════
-       2. ZERO-BOX SPATIAL OVERLAY (FLOATING TYPOGRAPHY)
+       1. INTERACTIVE THEME SWITCHER HUD (TOP BAR)
     ════════════════════════════════════════════════════ */
-    #spatial-overlay {
+    .theme-switcher-bar {
       position: relative;
       z-index: 10;
-      width: 100%;
-      pointer-events: none; /* Let clicks pass to interactive elements */
-    }
-
-    .spatial-waypoint {
-      min-height: 100vh;
-      width: 100%;
+      margin-top: 110px;
+      padding: 0 4vw;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 100px 4vw;
-      position: relative;
-      pointer-events: none;
     }
-
-    /* ── WAYPOINT 01: HERO SPATIAL TYPOGRAPHY ── */
-    .hero-spatial-content {
-      text-align: center;
-      pointer-events: auto;
-      max-width: 1200px;
+    .theme-switcher-pill {
+      display: inline-flex;
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 100px;
+      padding: 6px;
+      gap: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      backdrop-filter: blur(12px);
     }
-
-    .spatial-badge {
-      display: inline-block;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.82rem;
-      color: var(--neon-cyan);
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-      text-shadow: 0 0 20px rgba(0, 242, 254, 0.8);
-      animation: cyanPulseText 2s infinite alternate;
-    }
-    @keyframes cyanPulseText {
-      0% { opacity: 0.7; transform: scale(1); }
-      100% { opacity: 1; transform: scale(1.05); }
-    }
-
-    .spatial-hero-title {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(4.5rem, 13vw, 12rem);
-      font-weight: 900;
-      line-height: 0.85;
-      text-transform: uppercase;
-      letter-spacing: -4px;
-      margin: 0;
-      position: relative;
-      user-select: none;
-    }
-    .title-white {
-      color: #FFFFFF;
-      text-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
-    }
-    .title-red {
-      background: linear-gradient(135deg, var(--neon-yellow) 0%, var(--neon-red) 50%, var(--neon-pink) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 50px rgba(255, 59, 0, 0.7));
-    }
-
-    .spatial-tagline {
-      font-family: 'Outfit', sans-serif;
-      font-size: clamp(1.15rem, 2.5vw, 1.6rem);
-      font-weight: 300;
-      color: rgba(255, 255, 255, 0.85);
-      max-width: 800px;
-      margin: 36px auto 0;
-      line-height: 1.6;
-      text-shadow: 0 0 20px rgba(0,0,0,0.8);
-    }
-
-    .scroll-indicator-orbit {
-      margin-top: 60px;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--neon-yellow);
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      animation: floatDown 2s infinite alternate ease-in-out;
-    }
-    @keyframes floatDown {
-      0% { transform: translateY(0); opacity: 0.5; }
-      100% { transform: translateY(12px); opacity: 1; text-shadow: 0 0 15px var(--neon-yellow); }
-    }
-
-    /* ── WAYPOINT 02: FREE-FLOATING CINEMA PORTAL (NO BOX BORDERS) ── */
-    .portal-waypoint {
-      min-height: 110vh;
-    }
-
-    .portal-title-float {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      margin-bottom: 40px;
-      text-align: center;
-      color: #FFF;
-      text-shadow: 0 0 35px rgba(255, 59, 0, 0.8);
-      pointer-events: auto;
-    }
-
-    /* Organic glowing portal wrapper without box lines */
-    .cinema-portal-container {
-      position: relative;
-      width: 100%;
-      max-width: 1150px;
-      pointer-events: auto;
-      border-radius: 40px;
-      padding: 4px;
-      background: linear-gradient(135deg, var(--neon-red), var(--neon-yellow), var(--neon-cyan), var(--neon-purple));
-      box-shadow: 
-        0 0 80px rgba(255, 59, 0, 0.4),
-        0 0 140px rgba(0, 242, 254, 0.25),
-        0 40px 100px rgba(0, 0, 0, 0.95);
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .cinema-portal-container:hover {
-      transform: scale(1.02);
-      box-shadow: 
-        0 0 100px rgba(255, 59, 0, 0.7),
-        0 0 180px rgba(0, 242, 254, 0.4),
-        0 50px 120px rgba(0, 0, 0, 0.95);
-    }
-    .cinema-video-player {
-      width: 100%;
-      max-height: 640px;
-      border-radius: 36px;
-      display: block;
-      object-fit: cover;
-      background: #000;
-    }
-
-    .portal-telemetry-tag {
-      margin-top: 24px;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.82rem;
-      color: var(--neon-green);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      text-shadow: 0 0 15px var(--neon-green);
-      pointer-events: auto;
-    }
-
-    /* ── WAYPOINT 03: ORBITAL LINEUP CONSTELLATION (ZERO BOXES) ── */
-    .constellation-waypoint {
-      min-height: 115vh;
-    }
-    
-    .constellation-heading {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(2.5rem, 6vw, 5.5rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      text-align: center;
-      margin-bottom: 12px;
-      background: linear-gradient(90deg, #FFF, var(--neon-cyan), #FFF);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 30px rgba(0, 242, 254, 0.6));
-    }
-    .constellation-sub {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.7);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 70px;
-      text-align: center;
-    }
-
-    /* Free-floating typography constellation (No Cards!) */
-    .orbital-artist-cluster {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 36px 48px;
-      max-width: 1250px;
-      margin: 0 auto;
-      pointer-events: auto;
-    }
-
-    .orbital-artist-node {
-      position: relative;
+    .theme-mode-btn {
+      background: transparent;
+      border: none;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-main);
+      padding: 10px 20px;
+      border-radius: 100px;
       cursor: pointer;
-      padding: 16px 28px;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      user-select: none;
-    }
-    .node-genre-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--neon-yellow);
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 6px;
-      opacity: 0.7;
-      transition: all 0.3s;
-    }
-    .node-artist-name {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(2rem, 4vw, 3.8rem);
-      font-weight: 900;
-      color: #FFF;
-      line-height: 1;
-      text-transform: uppercase;
-      letter-spacing: -2px;
-      transition: all 0.3s;
-    }
-
-    /* Zero-box hover physics: glows and floats in 3D space */
-    .orbital-artist-node:hover .node-artist-name,
-    .orbital-artist-node.active .node-artist-name {
-      transform: scale(1.15) translateY(-6px);
-      text-shadow: 0 0 35px var(--neon-cyan), 0 0 70px var(--neon-cyan);
-      color: #FFF;
-    }
-    .orbital-artist-node:hover .node-genre-label,
-    .orbital-artist-node.active .node-genre-label {
-      opacity: 1;
-      color: var(--neon-green);
-      text-shadow: 0 0 15px var(--neon-green);
-    }
-
-    /* Floating Holographic Artist Bio Display in the void */
-    .floating-bio-hologram {
-      margin-top: 60px;
-      max-width: 750px;
-      text-align: center;
-      pointer-events: auto;
-      min-height: 100px;
-      transition: all 0.4s;
-    }
-    .hologram-bio-text {
-      font-family: 'Outfit', sans-serif;
-      font-size: clamp(1.1rem, 2.2vw, 1.4rem);
-      color: #00F2FE;
-      font-weight: 400;
-      line-height: 1.6;
-      text-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
-      margin: 0;
-    }
-
-    /* ── WAYPOINT 04: HOLOGRAPHIC FLYER MONOLITH & CONTINENTAL BRIDGE ── */
-    .monolith-waypoint {
-      min-height: 110vh;
+      letter-spacing: 0.12em;
+      transition: all 0.3s ease;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
+    }
+    .theme-mode-btn.active {
+      background: var(--accent-orange);
+      color: #FFF !important;
+      box-shadow: 0 0 25px rgba(232, 65, 40, 0.6);
+    }
+    .theme-mode-btn:hover:not(.active) {
+      background: rgba(44, 62, 107, 0.15);
     }
 
-    .monolith-layout-grid {
+    /* ════════════════════════════════════════════════════
+       2. EDITORIAL HERO MONOLITH STAGE (NO BOXY GRIDS!)
+    ════════════════════════════════════════════════════ */
+    .paris-hero-stage {
+      position: relative;
+      z-index: 10;
+      padding: 60px 4vw 100px;
+      max-width: 1450px;
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.15fr 1fr;
       gap: 60px;
-      max-width: 1350px;
-      width: 100%;
       align-items: center;
-      pointer-events: auto;
     }
 
-    .monolith-text-side {
+    .hero-editorial-col {
       text-align: left;
     }
-    .monolith-subtitle {
-      font-family: 'Space Mono', monospace;
+    .editorial-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
       font-size: 0.82rem;
-      color: var(--neon-red);
+      color: var(--accent-orange);
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      margin-bottom: 20px;
-      display: block;
-      text-shadow: 0 0 15px var(--neon-red);
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--accent-orange);
+      padding-bottom: 6px;
     }
-    .monolith-title {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+    .editorial-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 8vw, 7.5rem);
       font-weight: 900;
-      line-height: 1;
+      line-height: 0.92;
       text-transform: uppercase;
       margin: 0 0 24px 0;
+      letter-spacing: -2px;
     }
-    .monolith-desc {
-      font-size: 1.15rem;
-      color: rgba(255, 255, 255, 0.85);
+    .title-accent-span {
+      color: var(--accent-indigo);
+    }
+    .editorial-subtitle {
+      font-size: clamp(1.15rem, 2vw, 1.4rem);
+      color: var(--text-main);
+      opacity: 0.85;
       line-height: 1.7;
       margin: 0 0 36px 0;
+      max-width: 620px;
     }
-    .monolith-stat-chips {
+    .editorial-stamps-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 24px;
+      align-items: center;
     }
-    .spatial-chip {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--neon-yellow);
-      letter-spacing: 0.12em;
+    .paris-stamp-seal {
+      border: 2px dashed var(--accent-gold);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent-gold);
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      border-bottom: 2px solid var(--neon-yellow);
-      padding-bottom: 4px;
-      text-shadow: 0 0 15px rgba(255, 190, 0, 0.5);
+      background: rgba(201, 138, 44, 0.06);
     }
 
-    /* Floating angled flyer without a card border */
-    .monolith-flyer-projection {
+    /* 3D Angled Eiffel Tower Sketch Flyer Monolith */
+    .hero-flyer-monolith {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      perspective: 1400px;
+    }
+    .flyer-monolith-frame {
       position: relative;
       cursor: pointer;
-      transform: perspective(1200px) rotateY(-14deg) rotateX(6deg);
+      border-radius: 28px;
+      overflow: hidden;
+      transform: rotateY(-12deg) rotateX(6deg);
       transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      filter: drop-shadow(0 0 60px rgba(255, 59, 0, 0.5));
+      box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.4),
+        0 0 50px rgba(232, 65, 40, 0.2);
+      border: 3px solid var(--card-border);
     }
-    .monolith-flyer-projection:hover {
-      transform: perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1.05);
-      filter: drop-shadow(0 0 90px rgba(0, 245, 140, 0.7));
+    .flyer-monolith-frame:hover {
+      transform: rotateY(0deg) rotateX(0deg) scale(1.04);
+      box-shadow: 
+        0 40px 100px rgba(0, 0, 0, 0.6),
+        0 0 80px rgba(232, 65, 40, 0.4);
+      border-color: var(--accent-orange);
     }
-    .projection-img {
+    .monolith-flyer-img {
       width: 100%;
       max-width: 520px;
       height: auto;
       display: block;
-      border-radius: 28px;
+    }
+    .monolith-reticle-tag {
+      position: absolute;
+      bottom: 24px; right: 24px;
+      background: var(--accent-orange);
+      color: #FFF;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 100px;
+      letter-spacing: 0.1em;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s;
+      box-shadow: 0 10px 30px rgba(232, 65, 40, 0.6);
+    }
+    .flyer-monolith-frame:hover .monolith-reticle-tag {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    /* ── FULLSCREEN HOLOGRAPHIC LIGHTBOX FOR FLYER ── */
-    #spatial-lightbox {
+    /* ════════════════════════════════════════════════════
+       3. BROADCAST THEATER & LIVE EQ WAVES (ZERO BOXES)
+    ════════════════════════════════════════════════════ */
+    .paris-broadcast-stage {
+      position: relative;
+      z-index: 10;
+      padding: 60px 4vw 100px;
+      max-width: 1350px;
+      margin: 0 auto;
+    }
+    .broadcast-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 32px;
+      border-bottom: 2px solid var(--card-border);
+      padding-bottom: 20px;
+    }
+    .broadcast-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .broadcast-telemetry-tag {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--accent-orange);
+      letter-spacing: 0.15em;
+    }
+
+    .broadcast-video-wrapper {
+      position: relative;
+      border-radius: 32px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.6);
+      border: 2px solid var(--card-border);
+    }
+    .paris-hero-video {
+      width: 100%;
+      max-height: 640px;
+      object-fit: cover;
+      display: block;
+    }
+    .video-eq-bar {
+      background: rgba(11, 10, 16, 0.92);
+      padding: 16px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .eq-frequency-waves {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      height: 18px;
+    }
+    .eq-frequency-waves span {
+      width: 4px;
+      background: var(--accent-orange);
+      border-radius: 2px;
+      animation: eqWaveAnim 0.6s infinite alternate ease-in-out;
+    }
+    .eq-frequency-waves span:nth-child(1) { height: 8px; animation-delay: 0.1s; }
+    .eq-frequency-waves span:nth-child(2) { height: 16px; animation-delay: 0.3s; }
+    .eq-frequency-waves span:nth-child(3) { height: 10px; animation-delay: 0.2s; }
+    .eq-frequency-waves span:nth-child(4) { height: 18px; animation-delay: 0.4s; }
+    .eq-frequency-waves span:nth-child(5) { height: 12px; animation-delay: 0.1s; }
+    .eq-frequency-waves span:nth-child(6) { height: 8px; animation-delay: 0.5s; }
+    .eq-frequency-waves span:nth-child(7) { height: 16px; animation-delay: 0.2s; }
+    .eq-frequency-waves span:nth-child(8) { height: 10px; animation-delay: 0.3s; }
+    @keyframes eqWaveAnim {
+      0% { transform: scaleY(0.4); }
+      100% { transform: scaleY(1.3); }
+    }
+
+    /* ════════════════════════════════════════════════════
+       4. THE PARIS SOUND SYNDICATE VINYL TURNTABLE DECK
+    ════════════════════════════════════════════════════ */
+    .paris-turntable-stage {
+      position: relative;
+      z-index: 10;
+      padding: 80px 4vw 120px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .turntable-heading {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 0 0 16px 0;
+    }
+    .turntable-sub {
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: var(--accent-indigo);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 60px;
+    }
+
+    .turntable-split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    /* Interactive Vinyl Disc Display */
+    .vinyl-disc-showcase {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .vinyl-record-disc {
+      width: clamp(260px, 35vw, 380px);
+      height: clamp(260px, 35vw, 380px);
+      border-radius: 50%;
+      background: radial-gradient(circle, #0B0A10 0%, #1A1826 30%, #050408 70%, #222030 100%);
+      border: 8px solid #111;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.7), 0 0 50px rgba(232, 65, 40, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      animation: vinylSpin 18s linear infinite;
+    }
+    @keyframes vinylSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .vinyl-center-label {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--accent-orange);
+      border: 4px solid #FFF;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+    }
+    .vinyl-label-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: #FFF;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+    .vinyl-label-name {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      color: #FFF;
+      font-weight: 900;
+    }
+
+    /* Tracklist Selector Pads (Zero Boxy Cards!) */
+    .tracklist-selector-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .track-item-pad {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 24px;
+      border-radius: 16px;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      transition: all 0.35s ease;
+    }
+    .track-item-pad:hover, .track-item-pad.active {
+      background: var(--accent-orange);
+      color: #FFF !important;
+      border-color: var(--accent-orange);
+      transform: translateX(12px);
+      box-shadow: 0 15px 35px rgba(232, 65, 40, 0.35);
+    }
+    .track-num {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      letter-spacing: 0.15em;
+      opacity: 0.8;
+    }
+    .track-artist {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .track-role {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      opacity: 0.85;
+    }
+
+    /* ════════════════════════════════════════════════════
+       5. CONTINENTAL CULTURAL BRIDGE & FOOTER
+    ════════════════════════════════════════════════════ */
+    .paris-bridge-stage {
+      position: relative;
+      z-index: 10;
+      padding: 80px 4vw 120px;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .bridge-tagline {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-orange);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .bridge-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5.5vw, 4.8rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin: 0 0 24px 0;
+      text-transform: uppercase;
+    }
+    .bridge-desc {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      opacity: 0.85;
+      max-width: 800px;
+      margin: 0 auto 50px;
+    }
+    .bridge-return-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--text-main);
+      color: var(--bg-main) !important;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 18px 36px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      text-decoration: none;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+      transition: all 0.3s;
+    }
+    .bridge-return-btn:hover {
+      background: var(--accent-orange);
+      color: #FFF !important;
+      transform: scale(1.05);
+      box-shadow: 0 20px 60px rgba(232, 65, 40, 0.5);
+    }
+
+    /* FULLSCREEN HOLOGRAPHIC FLYER LIGHTBOX */
+    #flyer-lightbox-modal {
       position: fixed;
       inset: 0;
-      background: rgba(1, 0, 3, 0.94);
-      backdrop-filter: blur(30px);
-      z-index: 99999;
+      background: rgba(0, 0, 0, 0.94);
+      backdrop-filter: blur(25px);
+      z-index: 999999;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -454,7 +569,7 @@
       pointer-events: none;
       transition: opacity 0.4s ease;
     }
-    #spatial-lightbox.active {
+    #flyer-lightbox-modal.active {
       opacity: 1;
       pointer-events: auto;
     }
@@ -463,19 +578,17 @@
       height: 88vh;
       max-width: 95vw;
       object-fit: contain;
-      filter: drop-shadow(0 0 80px rgba(255, 190, 0, 0.6));
+      filter: drop-shadow(0 0 80px rgba(255, 190, 0, 0.5));
     }
-    .lightbox-close-spatial {
+    .lightbox-close-btn {
       position: absolute;
-      top: 30px;
-      right: 40px;
-      font-family: 'Space Mono', monospace;
-      font-size: 1.1rem;
+      top: 30px; right: 40px;
+      font-family: var(--font-mono);
+      font-size: 1.2rem;
       color: #FFF;
       background: transparent;
       border: 1px solid rgba(255, 255, 255, 0.4);
-      width: 54px;
-      height: 54px;
+      width: 54px; height: 54px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -483,74 +596,31 @@
       cursor: pointer;
       transition: all 0.3s;
     }
-    .lightbox-close-spatial:hover {
-      border-color: var(--neon-red);
-      color: var(--neon-red);
+    .lightbox-close-btn:hover {
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
       transform: scale(1.15) rotate(90deg);
     }
 
-    /* ── FOOTER ZERO-BOX SPATIAL COMMAND ── */
-    footer.spatial-footer {
-      padding: 80px 4vw 60px;
-      text-align: center;
-      position: relative;
-      z-index: 10;
-      pointer-events: auto;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      background: linear-gradient(to top, rgba(1, 0, 3, 0.95), transparent);
-    }
-    .spatial-footer-brand {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(2rem, 5vw, 4rem);
-      font-weight: 900;
-      color: #FFF;
-      margin-bottom: 24px;
-      text-transform: uppercase;
-      letter-spacing: -1px;
-    }
-    .spatial-socials-row {
-      display: flex;
-      justify-content: center;
-      gap: 36px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
-    }
-    .spatial-socials-row a {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.9rem;
-      color: var(--neon-yellow);
-      text-decoration: none;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      transition: all 0.3s;
-    }
-    .spatial-socials-row a:hover {
-      color: #FFF;
-      text-shadow: 0 0 20px var(--neon-yellow);
-      transform: translateY(-3px);
-    }
-    .spatial-copyright {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.4);
-      letter-spacing: 0.15em;
-    }
-
     @media (max-width: 992px) {
-      .monolith-layout-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-      .monolith-text-side { text-align: center; }
-      .monolith-stat-chips { justify-content: center; }
-      .monolith-flyer-projection { transform: none; margin: 0 auto; }
+      .paris-hero-stage, .turntable-split-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+      .hero-editorial-col { text-align: center; }
+      .editorial-stamps-row { justify-content: center; }
+      .flyer-monolith-frame { transform: none; margin: 0 auto; }
       .spatial-nav { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- FIXED THREE.JS 3D WEBGL FULLSCREEN CANVAS (ZERO BOXES) -->
-  <canvas id="webgl-canvas"></canvas>
+  <!-- Architectural Paper Grid Background -->
+  <div class="architectural-bg-grid"></div>
 
-  <!-- GLASS HEADER WITHOUT BOXY BORDERS -->
+  <!-- MINIMALIST GLASS HEADER -->
   <header id="header">
     <a href="index.html" class="logo">
       <img src="assets/234logo-transparent.png" alt="234AFRICA Logo" class="header-logo-img">
@@ -565,356 +635,213 @@
   </header>
 
   <!-- ════════════════════════════════════════════════════
-     ZERO-BOX SPATIAL OVERLAY LAYER (100% FREE-FLOATING)
+     1. INTERACTIVE THEME SWITCHER HUD (SKETCH vs CLUB MODE)
   ════════════════════════════════════════════════════ -->
-  <div id="spatial-overlay">
-
-    <!-- WAYPOINT 01: HERO SPATIAL TYPOGRAPHY -->
-    <section class="spatial-waypoint hero-waypoint" id="waypoint-hero">
-      <div class="hero-spatial-content">
-        <div class="spatial-badge">
-          // FÊTE DE LA MUSIQUE 2026 ● IMPASSE DIDEROT TAKEOVER
-        </div>
-        <h1 class="spatial-hero-title">
-          <span class="title-white">234AFRICA</span><br>
-          <span class="title-red">× PARIS</span>
-        </h1>
-        <p class="spatial-tagline">
-          African Sonic Power × French Street Culture. An immersive open-air solstice block party in Pantin, Paris hosted by Divine in collaboration with <strong>Piano After Dark (PVW)</strong>.
-        </p>
-        <div class="scroll-indicator-orbit">
-          ▼ SCROLL TO FLIGHT NAVIGATE 3D SPACE ▼
-        </div>
-      </div>
-    </section>
-
-    <!-- WAYPOINT 02: FREE-FLOATING CINEMA PORTAL (ZERO BOXES) -->
-    <section class="spatial-waypoint portal-waypoint" id="waypoint-portal">
-      <h2 class="portal-title-float">THE STREET TAKEOVER REEL</h2>
-      
-      <div class="cinema-portal-container">
-        <video controls autoplay loop muted playsinline class="cinema-video-player">
-          <source src="assets/events/paris-video.mov" type="video/quicktime">
-          <source src="assets/events/paris-video.mov" type="video/mp4">
-          <source src="assets/events/paris-video.mp4" type="video/mp4">
-          Your browser does not support HTML5 video.
-        </video>
-      </div>
-
-      <div class="portal-telemetry-tag">
-        ● LIVE AUDIO-VISUAL RECORDING // IMPASSE DIDEROT 93500 PANTIN, FRANCE
-      </div>
-    </section>
-
-    <!-- WAYPOINT 03: ORBITAL LINEUP CONSTELLATION (FREE-FLOATING NODES) -->
-    <section class="spatial-waypoint constellation-waypoint" id="waypoint-constellation">
-      <h2 class="constellation-heading">THE SOUND CONSTELLATION</h2>
-      <div class="constellation-sub">// HOVER ANY ORBITAL NODE IN 3D SPACE</div>
-
-      <div class="orbital-artist-cluster">
-        <!-- Node 1 -->
-        <div class="orbital-artist-node active" data-name="DJ MICHEL" data-bio="Parisian tastemaker and resident selector driving high-energy Afrobeats and street anthems." data-color="#00F2FE">
-          <span class="node-genre-label">[ 01 // RESIDENT ]</span>
-          <div class="node-artist-name">DJ MICHEL</div>
-        </div>
-
-        <!-- Node 2 -->
-        <div class="orbital-artist-node" data-name="KDDO" data-bio="Award-winning producer and hit-maker bringing continental Amapiano grooves and heavy basslines." data-color="#00F58C">
-          <span class="node-genre-label">[ 02 // PRODUCER ]</span>
-          <div class="node-artist-name">KDDO</div>
-        </div>
-
-        <!-- Node 3 -->
-        <div class="orbital-artist-node" data-name="KAIRA STARR" data-bio="Electrifying live vocalist merging soul, Afro-fusion, and magnetic stage performance." data-color="#FF3B00">
-          <span class="node-genre-label">[ 03 // VOCALIST ]</span>
-          <div class="node-artist-name">KAIRA STARR</div>
-        </div>
-
-        <!-- Node 4 -->
-        <div class="orbital-artist-node" data-name="STEEVE TYLER" data-bio="French street culture selector blending urban rhythms with international club sounds." data-color="#FFBE00">
-          <span class="node-genre-label">[ 04 // SELECTOR ]</span>
-          <div class="node-artist-name">STEEVE TYLER</div>
-        </div>
-
-        <!-- Node 5 -->
-        <div class="orbital-artist-node" data-name="DJ PHIL" data-bio="Master of percussive Amapiano sets and high-voltage dancefloor orchestration." data-color="#9D4EDD">
-          <span class="node-genre-label">[ 05 // AMAPIANO ]</span>
-          <div class="node-artist-name">DJ PHIL</div>
-        </div>
-
-        <!-- Node 6 -->
-        <div class="orbital-artist-node" data-name="PHINOVA" data-bio="Sonic innovator fusing deep electronic synthesis with rhythmic African percussion." data-color="#FF007F">
-          <span class="node-genre-label">[ 06 // ELECTRONIC ]</span>
-          <div class="node-artist-name">PHINOVA</div>
-        </div>
-
-        <!-- Node 7 -->
-        <div class="orbital-artist-node" data-name="VJTRUE" data-bio="Visual artist and live projectionist designing the holographic aesthetics of the block party." data-color="#00F2FE">
-          <span class="node-genre-label">[ 07 // VISUALS ]</span>
-          <div class="node-artist-name">VJTRUE</div>
-        </div>
-
-        <!-- Node 8 -->
-        <div class="orbital-artist-node" data-name="DBOI NOME" data-bio="The voice of the block party—commanding the crowd and elevating energy to peak capacity." data-color="#00F58C">
-          <span class="node-genre-label">[ 08 // HYPEMAN ]</span>
-          <div class="node-artist-name">DBOI NOME</div>
-        </div>
-      </div>
-
-      <!-- Holographic Artist Bio Projection -->
-      <div class="floating-bio-hologram">
-        <p class="hologram-bio-text" id="constellation-bio-text">
-          "Parisian tastemaker and resident selector driving high-energy Afrobeats and street anthems."
-        </p>
-      </div>
-    </section>
-
-    <!-- WAYPOINT 04: HOLOGRAPHIC FLYER MONOLITH & CONTINENTAL BRIDGE -->
-    <section class="spatial-waypoint monolith-waypoint" id="waypoint-monolith">
-      <div class="monolith-layout-grid">
-        <div class="monolith-text-side">
-          <span class="monolith-subtitle">// WEST AFRICA TO EUROPE CONTINENTAL BRIDGE</span>
-          <h2 class="monolith-title">
-            ESTABLISHING AFRICAN <span style="color: var(--neon-yellow);">ROOTS IN PARIS.</span>
-          </h2>
-          <p class="monolith-desc">
-            We don't just host events; we build permanent cultural bridges. Partnering with <strong>Piano After Dark (PVW)</strong>, 234AFRICA transformed Impasse Diderot into an open-air solstice celebration uniting African youth energy with European street culture.
-          </p>
-          <div class="monolith-stat-chips">
-            <span class="spatial-chip">★ 1,200+ PANTIN ATTENDEES</span>
-            <span class="spatial-chip">★ 2 DAYS NON-STOP ENERGY</span>
-            <span class="spatial-chip">★ PIANO AFTER DARK PARTNERSHIP</span>
-          </div>
-        </div>
-
-        <!-- Free-floating angled 3D projection of the flyer -->
-        <div class="monolith-flyer-projection" id="flyer-monolith-trigger">
-          <img src="assets/events/fete-paris.jpg" alt="Fête de la Musique Paris Flyer" class="projection-img">
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- ZERO-BOX SPATIAL FOOTER -->
-  <footer class="spatial-footer">
-    <div class="spatial-footer-brand">234AFRICA // EUROPE PORTAL</div>
-    <div class="spatial-socials-row">
-      <a href="https://instagram.com/234.hq" target="_blank">IG: @234.HQ</a>
-      <a href="mailto:234groupinfo@gmail.com">MAIL: 234GROUPINFO@GMAIL.COM</a>
-      <a href="tel:+2348103236094">TEL: +234 810 323 6094</a>
-      <a href="index.html">← RETURN TO MAIN PORTAL</a>
+  <div class="theme-switcher-bar">
+    <div class="theme-switcher-pill">
+      <button class="theme-mode-btn active" id="btn-sketch-mode" onclick="setParisTheme('sketch')">
+        <span>📜 PARISIAN ARCHITECTURAL SKETCH</span>
+      </button>
+      <button class="theme-mode-btn" id="btn-club-mode" onclick="setParisTheme('club')">
+        <span>🔥 SUMMER SOLSTICE CLUB MODE</span>
+      </button>
     </div>
-    <div class="spatial-copyright">
-      © 2026 234AFRICA // ALL RIGHTS RESERVED ● DESIGNED WITH THREE.JS SPATIAL WEBGL
-    </div>
-  </footer>
-
-  <!-- FULLSCREEN HOLOGRAPHIC LIGHTBOX FOR FLYER -->
-  <div id="spatial-lightbox">
-    <button class="lightbox-close-spatial" id="spatial-close-btn">✕</button>
-    <img src="assets/events/fete-paris.jpg" alt="4K Paris Flyer" class="lightbox-img-el">
   </div>
 
   <!-- ════════════════════════════════════════════════════
-     THREE.JS 3D WEBGL IMMERSIVE SPHERE & STARFIELD ENGINE
+     2. EDITORIAL HERO MONOLITH STAGE (ZERO BOXES)
   ════════════════════════════════════════════════════ -->
+  <section class="paris-hero-stage">
+    <div class="hero-editorial-col">
+      <div class="editorial-badge">// FÊTE DE LA MUSIQUE 2026 ● IMPASSE DIDEROT TAKEOVER</div>
+      <h1 class="editorial-title">
+        234AFRICA <br><span class="title-accent-span">× PARIS</span>
+      </h1>
+      <p class="editorial-subtitle">
+        African Sonic Power meets French Street Culture. An open-air solstice celebration in Pantin, Paris hosted by Divine in collaboration with <strong>Piano After Dark (PVW)</strong>.
+      </p>
+      <div class="editorial-stamps-row">
+        <div class="paris-stamp-seal">20.06.26 — 21.06.26</div>
+        <div class="paris-stamp-seal">93500 PANTIN, FRANCE</div>
+        <div class="paris-stamp-seal">HOSTED BY DIVINE</div>
+      </div>
+    </div>
+
+    <!-- 3D Angled Eiffel Tower Sketch Flyer Monolith -->
+    <div class="hero-flyer-monolith">
+      <div class="flyer-monolith-frame" id="flyer-monolith-trigger">
+        <img src="assets/events/fete-paris.jpg" alt="Fête de la Musique Paris Eiffel Sketch Flyer" class="monolith-flyer-img">
+        <div class="monolith-reticle-tag">⚡ CLICK TO INSPECT 4K FLYER ↗</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+     3. BROADCAST THEATER & LIVE EQ WAVES
+  ════════════════════════════════════════════════════ -->
+  <section class="paris-broadcast-stage">
+    <div class="broadcast-header-row">
+      <div>
+        <h2 class="broadcast-title">THE TAKEOVER FILM</h2>
+      </div>
+      <div class="broadcast-telemetry-tag">
+        ● LIVE TELEMETRY // IMPASSE DIDEROT, PARIS
+      </div>
+    </div>
+
+    <div class="broadcast-video-wrapper">
+      <video controls autoplay loop muted playsinline class="paris-hero-video">
+        <source src="assets/events/paris-video.mov" type="video/quicktime">
+        <source src="assets/events/paris-video.mov" type="video/mp4">
+        <source src="assets/events/paris-video.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+
+      <div class="video-eq-bar">
+        <div class="eq-frequency-waves">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <span style="font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.15em; opacity: 0.8;">
+          // SOLSTICE SOUNDSCAPE FREQUENCY — 4K STREAMING
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+     4. THE PARIS SOUND SYNDICATE VINYL TURNTABLE DECK
+  ════════════════════════════════════════════════════ -->
+  <section class="paris-turntable-stage">
+    <h2 class="turntable-heading">THE SOUND SYNDICATE</h2>
+    <div class="turntable-sub">// INTERACTIVE VINYL DECK — SELECT ANY ARTIST TO SPIN</div>
+
+    <div class="turntable-split-grid">
+      <!-- Left: Interactive Spinning Vinyl Disc -->
+      <div class="vinyl-disc-showcase">
+        <div class="vinyl-record-disc" id="active-vinyl-disc">
+          <div class="vinyl-center-label">
+            <span class="vinyl-label-title">FÊTE 2026</span>
+            <span class="vinyl-label-name" id="vinyl-artist-name">DJ MICHEL</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Tracklist Selector Pads -->
+      <div class="tracklist-selector-list">
+        <div class="track-item-pad active" data-artist="DJ MICHEL" data-role="RESIDENT SELECTOR">
+          <span class="track-num">[ 01 ]</span>
+          <span class="track-artist">DJ MICHEL</span>
+          <span class="track-role">RESIDENT</span>
+        </div>
+        <div class="track-item-pad" data-artist="KDDO" data-role="AMAPIANO & AFROBEATS PRODUCER">
+          <span class="track-num">[ 02 ]</span>
+          <span class="track-artist">KDDO</span>
+          <span class="track-role">PRODUCER</span>
+        </div>
+        <div class="track-item-pad" data-artist="KAIRA STARR" data-role="LIVE VOCALIST & PERFORMER">
+          <span class="track-num">[ 03 ]</span>
+          <span class="track-artist">KAIRA STARR</span>
+          <span class="track-role">VOCALIST</span>
+        </div>
+        <div class="track-item-pad" data-artist="STEEVE TYLER" data-role="FRENCH STREET CULTURE SELECTOR">
+          <span class="track-num">[ 04 ]</span>
+          <span class="track-artist">STEEVE TYLER</span>
+          <span class="track-role">SELECTOR</span>
+        </div>
+        <div class="track-item-pad" data-artist="DJ PHIL" data-role="HIGH-ENERGY PERCUSSIVE AMAPIANO">
+          <span class="track-num">[ 05 ]</span>
+          <span class="track-artist">DJ PHIL</span>
+          <span class="track-role">AMAPIANO</span>
+        </div>
+        <div class="track-item-pad" data-artist="PHINOVA" data-role="ELECTRONIC AFRO-FUSION INNOVATOR">
+          <span class="track-num">[ 06 ]</span>
+          <span class="track-artist">PHINOVA</span>
+          <span class="track-role">ELECTRONIC</span>
+        </div>
+        <div class="track-item-pad" data-artist="VJTRUE" data-role="HOLOGRAPHIC VISUAL PROJECTIONIST">
+          <span class="track-num">[ 07 ]</span>
+          <span class="track-artist">VJTRUE</span>
+          <span class="track-role">VISUALS</span>
+        </div>
+        <div class="track-item-pad" data-artist="DBOI NOME" data-role="COMMANDING BLOCK PARTY HYPEMAN">
+          <span class="track-num">[ 08 ]</span>
+          <span class="track-artist">DBOI NOME</span>
+          <span class="track-role">HYPEMAN</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+     5. CONTINENTAL CULTURAL BRIDGE & FOOTER
+  ════════════════════════════════════════════════════ -->
+  <section class="paris-bridge-stage">
+    <div class="bridge-tagline">// WEST AFRICA TO EUROPE CONTINENTAL BRIDGE</div>
+    <h2 class="bridge-title">ESTABLISHING AFRICAN <br>ROOTS IN EUROPE.</h2>
+    <p class="bridge-desc">
+      We don't just host events; we build permanent cultural bridges. Partnering with <strong>Piano After Dark (PVW)</strong>, 234AFRICA transformed Impasse Diderot into a two-day summer solstice celebration uniting African youth energy with European street culture.
+    </p>
+    <a href="index.html" class="bridge-return-btn">
+      <span>← RETURN TO 234AFRICA MAIN PORTAL</span>
+    </a>
+  </section>
+
+  <!-- FULLSCREEN HOLOGRAPHIC FLYER LIGHTBOX -->
+  <div id="flyer-lightbox-modal">
+    <button class="lightbox-close-btn" id="close-lightbox-btn">✕</button>
+    <img src="assets/events/fete-paris.jpg" alt="4K Paris Flyer" class="lightbox-img-el">
+  </div>
+
   <script>
-    // 1. THREE.JS IMMERSIVE SCENE SETUP
-    const canvas = document.getElementById('webgl-canvas');
-    if (canvas && typeof THREE !== 'undefined') {
-      const scene = new THREE.Scene();
-      scene.fog = new THREE.FogExp2(0x010003, 0.0018);
-
-      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
-      camera.position.z = 180;
-
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-      // A. THE CENTRAL MORPHING SOLSTICE PARTICLE SPHERE (NO BOXES!)
-      const sphereGeo = new THREE.SphereGeometry(42, 64, 64);
-      const sphereMat = new THREE.PointsMaterial({
-        size: 1.4,
-        color: 0xFF3B00,
-        transparent: true,
-        opacity: 0.85,
-        blending: THREE.AdditiveBlending
-      });
-      const solsticeSphere = new THREE.Points(sphereGeo, sphereMat);
-      scene.add(solsticeSphere);
-
-      // B. INNER WIREFRAME ORBITAL RING
-      const ringGeo = new THREE.TorusGeometry(68, 0.4, 16, 100);
-      const ringMat = new THREE.MeshBasicMaterial({
-        color: 0x00F2FE,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.35
-      });
-      const orbitalRing = new THREE.Mesh(ringGeo, ringMat);
-      orbitalRing.rotation.x = Math.PI / 3;
-      scene.add(orbitalRing);
-
-      // C. THE COSMIC STARFIELD VOID (3,000 STARS)
-      const starsGeo = new THREE.BufferGeometry();
-      const starsCount = 3000;
-      const posArray = new Float32Array(starsCount * 3);
-      const colArray = new Float32Array(starsCount * 3);
-
-      const colorPalette = [
-        new THREE.Color(0xFF3B00), // Red/Orange
-        new THREE.Color(0xFFBE00), // Yellow
-        new THREE.Color(0x00F58C), // Acid Green
-        new THREE.Color(0x00F2FE), // Cyan
-        new THREE.Color(0x9D4EDD)  // Purple
-      ];
-
-      for (let i = 0; i < starsCount * 3; i += 3) {
-        posArray[i] = (Math.random() - 0.5) * 1400;
-        posArray[i+1] = (Math.random() - 0.5) * 1400;
-        posArray[i+2] = (Math.random() - 0.5) * 1400;
-
-        const c = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-        colArray[i] = c.r;
-        colArray[i+1] = c.g;
-        colArray[i+2] = c.b;
+    // 1. DUAL-THEME SWITCHER LOGIC
+    function setParisTheme(mode) {
+      document.documentElement.setAttribute('data-theme', mode);
+      const btnSketch = document.getElementById('btn-sketch-mode');
+      const btnClub = document.getElementById('btn-club-mode');
+      if (mode === 'sketch') {
+        btnSketch.classList.add('active');
+        btnClub.classList.remove('active');
+      } else {
+        btnClub.classList.add('active');
+        btnSketch.classList.remove('active');
       }
-
-      starsGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-      starsGeo.setAttribute('color', new THREE.BufferAttribute(colArray, 3));
-
-      const starsMat = new THREE.PointsMaterial({
-        size: 2.2,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.75,
-        blending: THREE.AdditiveBlending
-      });
-      const starfield = new THREE.Points(starsGeo, starsMat);
-      scene.add(starfield);
-
-      // Mouse Parallax Physics
-      const mouse = { x: 0, y: 0 };
-      window.addEventListener('mousemove', (e) => {
-        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-      });
-
-      // Window Resize Handling
-      window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      });
-
-      // 3D Animation Loop
-      let clock = new THREE.Clock();
-      let targetSphereColor = new THREE.Color(0xFF3B00);
-
-      function animateThreeScene() {
-        requestAnimationFrame(animateThreeScene);
-
-        const elapsedTime = clock.getElapsedTime();
-
-        // Rotate Sphere and Rings
-        solsticeSphere.rotation.y = elapsedTime * 0.18;
-        solsticeSphere.rotation.x = Math.sin(elapsedTime * 0.3) * 0.25;
-
-        orbitalRing.rotation.z = elapsedTime * 0.22;
-        orbitalRing.rotation.y = Math.cos(elapsedTime * 0.2) * 0.3;
-
-        starfield.rotation.y = elapsedTime * 0.04;
-
-        // Smooth color lerp when artist nodes are hovered
-        sphereMat.color.lerp(targetSphereColor, 0.05);
-
-        // Subtle camera mouse parallax
-        camera.position.x += (mouse.x * 25 - camera.position.x) * 0.04;
-        camera.position.y += (mouse.y * 25 - camera.position.y) * 0.04;
-        camera.lookAt(0, 0, 0);
-
-        renderer.render(scene, camera);
-      }
-      animateThreeScene();
-
-      // 2. ORBITAL ARTIST NODE INTERACTION -> THREE.JS SPHERE COLOR & BIO SHIFT
-      const artistNodes = document.querySelectorAll('.orbital-artist-node');
-      const bioTextEl = document.getElementById('constellation-bio-text');
-
-      artistNodes.forEach(node => {
-        node.addEventListener('mouseenter', () => {
-          artistNodes.forEach(n => n.classList.remove('active'));
-          node.classList.add('active');
-
-          const bio = node.getAttribute('data-bio');
-          const hex = node.getAttribute('data-color');
-
-          if (bioTextEl && bio) {
-            bioTextEl.style.opacity = '0';
-            setTimeout(() => {
-              bioTextEl.textContent = `"${bio}"`;
-              bioTextEl.style.color = hex;
-              bioTextEl.style.opacity = '1';
-            }, 120);
-          }
-
-          // Instantly shift the central 3D sphere's color in WebGL!
-          if (hex) {
-            targetSphereColor.set(hex);
-          }
-        });
-      });
-
-      // 3. GSAP SCROLLTRIGGER 3D CAMERA FLIGHT CHOREOGRAPHY
-      window.addEventListener('DOMContentLoaded', () => {
-        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-          gsap.registerPlugin(ScrollTrigger);
-
-          // Fly camera forward and rotate sphere on scroll
-          gsap.to(camera.position, {
-            scrollTrigger: {
-              trigger: '#spatial-overlay',
-              start: 'top top',
-              end: 'bottom bottom',
-              scrub: 1.5
-            },
-            z: 95,
-            y: -20,
-            ease: 'none'
-          });
-
-          gsap.to(solsticeSphere.scale, {
-            scrollTrigger: {
-              trigger: '#waypoint-constellation',
-              start: 'top center',
-              end: 'bottom center',
-              scrub: 1
-            },
-            x: 1.3,
-            y: 1.3,
-            z: 1.3,
-            ease: 'none'
-          });
-        }
-      });
     }
 
-    // 4. FULLSCREEN HOLOGRAPHIC FLYER LIGHTBOX
-    const flyerTrigger = document.getElementById('flyer-monolith-trigger');
-    const spatialModal = document.getElementById('spatial-lightbox');
-    const spatialClose = document.getElementById('spatial-close-btn');
+    // 2. INTERACTIVE VINYL TURNTABLE PAD LOGIC
+    const trackPads = document.querySelectorAll('.track-item-pad');
+    const vinylNameEl = document.getElementById('vinyl-artist-name');
 
-    if (flyerTrigger && spatialModal) {
-      flyerTrigger.addEventListener('click', () => {
-        spatialModal.classList.add('active');
+    trackPads.forEach(pad => {
+      pad.addEventListener('click', () => {
+        trackPads.forEach(p => p.classList.remove('active'));
+        pad.classList.add('active');
+        const artist = pad.getAttribute('data-artist');
+        if (vinylNameEl && artist) {
+          vinylNameEl.textContent = artist;
+        }
       });
-      spatialClose.addEventListener('click', () => {
-        spatialModal.classList.remove('active');
+      pad.addEventListener('mouseenter', () => {
+        const artist = pad.getAttribute('data-artist');
+        if (vinylNameEl && artist) {
+          vinylNameEl.textContent = artist;
+        }
       });
-      spatialModal.addEventListener('click', (e) => {
-        if (e.target === spatialModal) spatialModal.classList.remove('active');
+    });
+
+    // 3. FULLSCREEN FLYER LIGHTBOX
+    const triggerEl = document.getElementById('flyer-monolith-trigger');
+    const modalEl = document.getElementById('flyer-lightbox-modal');
+    const closeEl = document.getElementById('close-lightbox-btn');
+
+    if (triggerEl && modalEl) {
+      triggerEl.addEventListener('click', () => {
+        modalEl.classList.add('active');
+      });
+      closeEl.addEventListener('click', () => {
+        modalEl.classList.remove('active');
+      });
+      modalEl.addEventListener('click', (e) => {
+        if (e.target === modalEl) modalEl.classList.remove('active');
       });
     }
   </script>

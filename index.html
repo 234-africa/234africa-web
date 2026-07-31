@@ -462,56 +462,84 @@
             </div>
           </div>
 
-          <!-- 1. CREATIVE CINEMATIC '234 in PARIS' VIDEO TAKEOVER CARD -->
-          <div class="paris-cinematic-card">
-            <div class="paris-card-hud-top">
-              <div class="paris-hud-badge">
+          <!-- 1. CRAZY CREATIVE '234 in PARIS' ASYMMETRIC STREET-BILLBOARD CARD -->
+          <div class="paris-crazy-billboard">
+            <div class="billboard-top-bar">
+              <div class="billboard-badge">
                 <span class="paris-rec-dot"></span>
-                <span>REC ● LIVE TELEMETRY // IMPASSE DIDEROT, PARIS</span>
+                <span>REC ● 4K ARCHITECTURAL TELEMETRY // IMPASSE DIDEROT, PANTIN</span>
               </div>
-              <div class="paris-hud-node">[ EUROPE EXPANSION // NODE 02 — PANTIN ]</div>
+              <div class="billboard-collab-tag">
+                <span>[ COLLAB: <strong>PIANO AFTER DARK (PVW)</strong> × DIVINE ]</span>
+              </div>
             </div>
 
-            <!-- The Cinematic Video Frame -->
-            <div class="paris-video-stage">
-              <video controls autoplay loop muted playsinline class="paris-hero-video">
-                <source src="assets/events/paris-video.mov" type="video/quicktime">
-                <source src="assets/events/paris-video.mov" type="video/mp4">
-                <source src="assets/events/paris-video.mp4" type="video/mp4">
-                Your browser does not support HTML5 video.
-              </video>
+            <!-- Asymmetric Editorial Street Billboard Layout -->
+            <div class="billboard-split-grid">
+              <!-- Left Column: 3D Angled Eiffel Tower Sketch Flyer Poster -->
+              <div class="billboard-flyer-col">
+                <div class="flyer-3d-frame" onclick="window.location.href='paris.html'">
+                  <div class="flyer-stamp-overlay">
+                    <span>20.06.26 • 21.06.26</span>
+                  </div>
+                  <img src="assets/events/fete-paris.jpg" alt="Fête de la Musique Paris Eiffel Sketch Flyer" class="billboard-flyer-img">
+                  <div class="flyer-hover-reticle">
+                    <span>⚡ EXPLORE PARIS VAULT ↗</span>
+                  </div>
+                </div>
+              </div>
 
-              <!-- Floating Glassmorphic HUD Overlay over the Video -->
-              <div class="paris-video-overlay-panel">
-                <div class="paris-panel-left">
-                  <span class="paris-tag">[ FÊTE DE LA MUSIQUE 2026 // PIANO AFTER DARK ]</span>
-                  <h3 class="paris-title">234 in <span class="c-red-glow">PARIS</span></h3>
-                  <p class="paris-desc">
-                    French Street Culture × African Sonic Power. Watch our summer solstice block party takeover in Pantin, Paris.
+              <!-- Right Column: Widescreen Video Theater & Editorial Command -->
+              <div class="billboard-video-col">
+                <div class="billboard-video-frame">
+                  <!-- Live EQ Waveform bar -->
+                  <div class="billboard-eq-header">
+                    <div class="eq-waves">
+                      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <span class="eq-label">// SOLSTICE AUDIO FREQUENCY</span>
+                  </div>
+
+                  <video controls autoplay loop muted playsinline class="billboard-video-el">
+                    <source src="assets/events/paris-video.mov" type="video/quicktime">
+                    <source src="assets/events/paris-video.mov" type="video/mp4">
+                    <source src="assets/events/paris-video.mp4" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                  </video>
+                </div>
+
+                <div class="billboard-editorial-info">
+                  <span class="billboard-subtag">// FÊTE DE LA MUSIQUE 2026 ● SUMMER SOLSTICE TAKEOVER</span>
+                  <h3 class="billboard-title">
+                    234 in <span class="solstice-text-glow">PARIS</span>
+                  </h3>
+                  <p class="billboard-desc">
+                    African Sonic Power meets French Street Culture. An open-air solstice celebration uniting over 1,200+ attendees in Pantin, Paris—architecting our permanent roots in Europe.
                   </p>
-                </div>
-                <div class="paris-panel-right">
-                  <a href="paris.html" class="paris-cta-btn">
-                    <span>EXPLORE PARIS DOSSIER & VAULT</span>
-                    <span class="paris-btn-icon">↗</span>
-                  </a>
+                  
+                  <div class="billboard-action-row">
+                    <a href="paris.html" class="billboard-cta-btn">
+                      <span>ENTER PARIS ARCHIVE & BLOCK PARTY VAULT</span>
+                      <span class="billboard-btn-arrow">➔</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Artist Marquee Ticker Bar below Video -->
-            <div class="paris-marquee-bar">
+            <!-- Kinetic Marquee Bar -->
+            <div class="billboard-marquee-bar">
               <div class="paris-marquee-track">
-                <span>★ KDDO</span>
                 <span>★ DJ MICHEL</span>
+                <span>★ KDDO</span>
                 <span>★ KAIRA STARR</span>
                 <span>★ STEEVE TYLER</span>
                 <span>★ DJ PHIL</span>
                 <span>★ PHINOVA</span>
                 <span>★ VJTRUE</span>
                 <span>★ DBOI NOME</span>
-                <span>★ KDDO</span>
                 <span>★ DJ MICHEL</span>
+                <span>★ KDDO</span>
                 <span>★ KAIRA STARR</span>
                 <span>★ STEEVE TYLER</span>
                 <span>★ DJ PHIL</span>
@@ -521,6 +549,7 @@
               </div>
             </div>
           </div>
+
 
           <!-- 2. FUTURISTIC '234 × PAU' CAMPUS PARTNERSHIP CARD -->
           <div class="pau-futuristic-card">
@@ -573,162 +602,267 @@
             z-index: 1;
           }
 
-          /* ── 1. PARIS CINEMATIC TAKEOVER CARD ── */
-          .paris-cinematic-card {
-            background: rgba(15, 14, 20, 0.85);
-            border: 1px solid rgba(232, 65, 40, 0.35);
-            border-radius: 28px;
-            padding: 28px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(232, 65, 40, 0.12);
-            margin-bottom: 40px;
+          /* ── 1. CRAZY CREATIVE '234 in PARIS' ASYMMETRIC STREET-BILLBOARD CARD ── */
+          .paris-crazy-billboard {
+            background: linear-gradient(145deg, #0A090F 0%, #111019 100%);
+            border: 1px solid rgba(255, 59, 0, 0.45);
+            border-radius: 32px;
+            padding: 36px;
+            box-shadow: 
+              0 25px 80px rgba(0, 0, 0, 0.8),
+              0 0 50px rgba(255, 59, 0, 0.15),
+              inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            margin-bottom: 50px;
             position: relative;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
           }
-          .paris-cinematic-card:hover {
-            border-color: #E84128;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 60px rgba(232, 65, 40, 0.25);
-            transform: translateY(-6px);
+          .paris-crazy-billboard:hover {
+            border-color: #FF3B00;
+            box-shadow: 
+              0 35px 100px rgba(0, 0, 0, 0.95),
+              0 0 80px rgba(255, 59, 0, 0.28);
+            transform: translateY(-8px);
           }
-          .paris-card-hud-top {
+          .billboard-top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
           }
-          .paris-hud-badge {
+          .billboard-badge {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(232, 65, 40, 0.15);
-            border: 1px solid rgba(232, 65, 40, 0.5);
+            gap: 12px;
+            background: rgba(255, 59, 0, 0.15);
+            border: 1px solid #FF3B00;
             color: #FFF;
             font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
+            font-size: 0.78rem;
             font-weight: 700;
-            padding: 6px 14px;
+            padding: 8px 18px;
             border-radius: 100px;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
+            box-shadow: 0 0 20px rgba(255, 59, 0, 0.3);
           }
           .paris-rec-dot {
-            width: 8px; height: 8px;
+            width: 9px; height: 9px;
             border-radius: 50%;
-            background: #E84128;
-            box-shadow: 0 0 10px #E84128;
+            background: #FF3B00;
+            box-shadow: 0 0 12px #FF3B00;
             animation: parisRecPulse 1.2s infinite;
           }
           @keyframes parisRecPulse {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.3; transform: scale(0.8); }
           }
-          .paris-hud-node {
+          .billboard-collab-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.82rem;
+            color: #FFBE00;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(255, 190, 0, 0.5);
+          }
+          .billboard-split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.35fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 32px;
+          }
+          .billboard-flyer-col {
+            position: relative;
+            display: flex;
+            justify-content: center;
+          }
+          .flyer-3d-frame {
+            position: relative;
+            cursor: pointer;
+            border-radius: 24px;
+            overflow: hidden;
+            transform: perspective(1200px) rotateY(-8deg) rotateX(4deg);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(255, 59, 0, 0.25);
+          }
+          .flyer-3d-frame:hover {
+            transform: perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1.04);
+            border-color: #FFBE00;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.95), 0 0 70px rgba(255, 190, 0, 0.5);
+          }
+          .billboard-flyer-img {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            display: block;
+          }
+          .flyer-stamp-overlay {
+            position: absolute;
+            top: 20px; left: 20px;
+            background: rgba(1, 0, 3, 0.85);
+            border: 1px solid #FFBE00;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            color: #FFBE00;
+            letter-spacing: 0.15em;
+            z-index: 2;
+            backdrop-filter: blur(8px);
+          }
+          .flyer-hover-reticle {
+            position: absolute;
+            bottom: 20px; right: 20px;
+            background: #FF3B00;
+            color: #FFF;
             font-family: 'Space Mono', monospace;
             font-size: 0.75rem;
-            color: #A0A0B0;
-            letter-spacing: 0.1em;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 100px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            z-index: 2;
           }
-
-          .paris-video-stage {
-            position: relative;
-            width: 100%;
+          .flyer-3d-frame:hover .flyer-hover-reticle {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          .billboard-video-col {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+          }
+          .billboard-video-frame {
+            background: #000;
             border-radius: 20px;
             overflow: hidden;
-            background: #000;
             border: 1px solid rgba(255, 255, 255, 0.12);
+            position: relative;
           }
-          .paris-hero-video {
+          .billboard-eq-header {
+            background: rgba(20, 18, 30, 0.9);
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          }
+          .eq-waves {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            height: 14px;
+          }
+          .eq-waves span {
+            width: 3px;
+            background: #00F58C;
+            border-radius: 2px;
+            animation: eqWaveAnim 0.7s infinite alternate ease-in-out;
+          }
+          .eq-waves span:nth-child(1) { height: 6px; animation-delay: 0.1s; }
+          .eq-waves span:nth-child(2) { height: 12px; animation-delay: 0.3s; }
+          .eq-waves span:nth-child(3) { height: 8px; animation-delay: 0.2s; }
+          .eq-waves span:nth-child(4) { height: 14px; animation-delay: 0.4s; }
+          .eq-waves span:nth-child(5) { height: 10px; animation-delay: 0.1s; }
+          .eq-waves span:nth-child(6) { height: 6px; animation-delay: 0.5s; }
+          .eq-waves span:nth-child(7) { height: 12px; animation-delay: 0.2s; }
+          .eq-waves span:nth-child(8) { height: 8px; animation-delay: 0.3s; }
+          @keyframes eqWaveAnim {
+            0% { transform: scaleY(0.4); }
+            100% { transform: scaleY(1.3); }
+          }
+          .eq-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.15em;
+          }
+          .billboard-video-el {
             width: 100%;
-            max-height: 580px;
+            max-height: 380px;
             object-fit: cover;
             display: block;
           }
-          .paris-video-overlay-panel {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            background: linear-gradient(to top, rgba(5, 5, 8, 0.96) 10%, rgba(5, 5, 8, 0.7) 70%, transparent 100%);
-            padding: 36px 32px 28px;
+          .billboard-editorial-info {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            flex-wrap: wrap;
-            gap: 24px;
-            backdrop-filter: blur(8px);
+            flex-direction: column;
+            gap: 12px;
           }
-          .paris-panel-left {
-            max-width: 650px;
-          }
-          .paris-tag {
+          .billboard-subtag {
             font-family: 'Space Mono', monospace;
-            font-size: 0.72rem;
-            color: #F4A218;
-            letter-spacing: 0.15em;
-            font-weight: 700;
-            display: block;
-            margin-bottom: 8px;
+            font-size: 0.78rem;
+            color: #00F58C;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
           }
-          .paris-title {
+          .billboard-title {
             font-family: 'Bricolage Grotesque', sans-serif;
-            font-size: clamp(2.4rem, 5vw, 4rem);
+            font-size: clamp(2.4rem, 4.5vw, 4rem);
             font-weight: 900;
             color: #FFF;
-            line-height: 1;
-            margin: 0 0 12px 0;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-          }
-          .c-red-glow {
-            color: #E84128;
-            text-shadow: 0 0 25px rgba(232, 65, 40, 0.8);
-          }
-          .paris-desc {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.05rem;
-            color: #DDD;
+            line-height: 0.95;
             margin: 0;
-            line-height: 1.5;
+            text-transform: uppercase;
+            letter-spacing: -2px;
           }
-          .paris-cta-btn {
+          .solstice-text-glow {
+            background: linear-gradient(135deg, #FFBE00 0%, #FF3B00 60%, #FF007F 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 25px rgba(255, 59, 0, 0.6));
+          }
+          .billboard-desc {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.08rem;
+            color: rgba(255, 255, 255, 0.82);
+            line-height: 1.6;
+            margin: 0 0 12px 0;
+          }
+          .billboard-action-row {
+            display: flex;
+          }
+          .billboard-cta-btn {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            background: #E84128;
-            color: #FFF !important;
+            gap: 16px;
+            background: linear-gradient(135deg, #FF3B00, #FFBE00);
+            color: #000 !important;
             font-family: 'Space Mono', monospace;
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             font-weight: 700;
-            padding: 16px 28px;
+            padding: 16px 32px;
             border-radius: 100px;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             text-decoration: none;
-            box-shadow: 0 0 30px rgba(232, 65, 40, 0.5);
+            box-shadow: 0 0 35px rgba(255, 59, 0, 0.6);
             transition: all 0.3s;
           }
-          .paris-cta-btn:hover {
+          .billboard-cta-btn:hover {
             background: #FFF;
             color: #000 !important;
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.9);
             transform: scale(1.04);
           }
-          .paris-btn-icon {
-            font-size: 1.1rem;
+          .billboard-btn-arrow {
+            font-size: 1.2rem;
             transition: transform 0.3s;
           }
-          .paris-cta-btn:hover .paris-btn-icon {
-            transform: translate(3px, -3px);
+          .billboard-cta-btn:hover .billboard-btn-arrow {
+            transform: translateX(5px);
           }
-
-          /* Marquee bar below video */
-          .paris-marquee-bar {
-            margin-top: 18px;
-            background: rgba(232, 65, 40, 0.1);
-            border: 1px solid rgba(232, 65, 40, 0.25);
-            border-radius: 12px;
-            padding: 10px 0;
+          .billboard-marquee-bar {
+            background: rgba(255, 59, 0, 0.1);
+            border: 1px solid rgba(255, 59, 0, 0.3);
+            border-radius: 14px;
+            padding: 12px 0;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -736,13 +870,13 @@
             display: inline-block;
             animation: parisMarqueeScroll 25s linear infinite;
             font-family: 'Space Mono', monospace;
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            color: #FFB3A8;
-            letter-spacing: 0.15em;
+            color: #FFBE00;
+            letter-spacing: 0.18em;
           }
           .paris-marquee-track span {
-            margin-right: 28px;
+            margin-right: 32px;
           }
           @keyframes parisMarqueeScroll {
             0% { transform: translateX(0); }
