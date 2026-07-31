@@ -485,21 +485,13 @@
         <span>REC_STATE: ACTIVE</span>
       </div>
       <div class="video-container-hud" id="paris-video-box">
-        <!-- The HTML5 Video Tag: Automatically plays paris-video.mp4 if uploaded -->
-        <video controls autoplay loop muted playsinline id="paris-video-element">
-          <source src="assets/events/paris-video.mp4" type="video/mp4">
+        <!-- Live Video Stream: Fête de la Musique Paris Reel -->
+        <video controls autoplay loop muted playsinline id="paris-video-element" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;">
           <source src="assets/events/paris-video.mov" type="video/quicktime">
+          <source src="assets/events/paris-video.mov" type="video/mp4">
+          <source src="assets/events/paris-video.mp4" type="video/mp4">
           Your browser does not support HTML5 video.
         </video>
-
-        <!-- Placeholder Overlay (Fades out automatically if video plays) -->
-        <div class="video-placeholder-overlay" id="video-placeholder">
-          <div class="video-pulse-icon">▶</div>
-          <h4>BLOCK PARTY REEL</h4>
-          <p>
-            Drop your video into <code>assets/events/paris-video.mp4</code> to stream high-voltage street telemetry from Impasse Diderot, Paris.
-          </p>
-        </div>
       </div>
     </div>
   </section>
@@ -660,21 +652,6 @@
     }
     setInterval(updateParisClock, 1000);
     updateParisClock();
-
-    // Auto-hide video placeholder overlay when video is playing
-    const videoEl = document.getElementById('paris-video-element');
-    const placeholderEl = document.getElementById('video-placeholder');
-    if (videoEl && placeholderEl) {
-      videoEl.addEventListener('playing', () => {
-        placeholderEl.style.opacity = '0';
-        placeholderEl.style.pointerEvents = 'none';
-      });
-      // Also check if video loaded automatically
-      if (!videoEl.paused && videoEl.currentTime > 0) {
-        placeholderEl.style.opacity = '0';
-        placeholderEl.style.pointerEvents = 'none';
-      }
-    }
   </script>
 
   <script src="cyber-transitions.js"></script>
