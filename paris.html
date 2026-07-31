@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>234AFRICA × PARIS | FÊTE DE LA MUSIQUE // BLOCK PARTY TAKEOVER 🗼🔥</title>
+  <title>234.OS // PARIS TAKEOVER — INTERACTIVE CYBER-VAULT 🗼🔥</title>
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="shortcut icon" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
@@ -15,25 +15,28 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   
-  <!-- VANILLA TILT FOR 3D HOVER EFFECTS -->
+  <!-- VANILLA TILT FOR 3D HOVER PHYSICS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 
   <link rel="stylesheet" href="style.css" />
   <style>
     :root {
-      --bg-dark: #030206;
+      --bg-void: #020105;
       --c-red: #E84128;
-      --c-red-glow: #FF3B00;
-      --c-green: #00F58C;
-      --c-green-dark: #108C5A;
-      --c-yellow: #FFBE00;
-      --c-cyan: #00F2FE;
-      --c-purple: #9D4EDD;
-      --c-pink: #FF007F;
+      --c-neon-orange: #FF3B00;
+      --c-neon-green: #00F58C;
+      --c-neon-yellow: #FFBE00;
+      --c-neon-cyan: #00F2FE;
+      --c-neon-purple: #9D4EDD;
+      --c-neon-pink: #FF007F;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
-      background: var(--bg-dark);
+      background: var(--bg-void);
       color: #fff;
       font-family: 'Outfit', sans-serif;
       overflow-x: hidden;
@@ -43,686 +46,540 @@
     }
 
     /* ════════════════════════════════════════════════════
-       1. CHROMATIC FLOATING ORBS & CYBER MATRIX BG
+       1. INTERACTIVE CYBER-CANVAS & HOLO-LASER ENVIRONMENT
     ════════════════════════════════════════════════════ */
-    .paris-grid-bg {
+    #cyber-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .os-scanline-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0) 50%,
+        rgba(0, 0, 0, 0.25) 50%,
+        rgba(0, 0, 0, 0.25)
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.7;
+    }
+
+    .os-grid-lines {
       position: fixed;
       inset: 0;
       background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-      background-size: 50px 50px;
-      pointer-events: none;
-      z-index: -3;
-    }
-
-    .paris-ambient-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.35;
+        linear-gradient(rgba(0, 242, 254, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 254, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
       pointer-events: none;
       z-index: -2;
-      transition: all 1s ease;
-    }
-    .orb-red {
-      top: -10%;
-      left: 10%;
-      width: 550px;
-      height: 550px;
-      background: var(--c-red-glow);
-      animation: floatOrb1 18s infinite alternate ease-in-out;
-    }
-    .orb-green {
-      bottom: 10%;
-      right: 5%;
-      width: 600px;
-      height: 600px;
-      background: var(--c-green);
-      animation: floatOrb2 22s infinite alternate ease-in-out;
-    }
-    .orb-purple {
-      top: 40%;
-      right: 25%;
-      width: 450px;
-      height: 450px;
-      background: var(--c-purple);
-      animation: floatOrb3 15s infinite alternate ease-in-out;
-    }
-
-    @keyframes floatOrb1 {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(100px, 80px) scale(1.15); }
-      100% { transform: translate(-50px, 150px) scale(0.95); }
-    }
-    @keyframes floatOrb2 {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(-120px, -100px) scale(1.2); }
-      100% { transform: translate(60px, -60px) scale(1); }
-    }
-    @keyframes floatOrb3 {
-      0% { transform: translate(0, 0) scale(0.9); }
-      100% { transform: translate(-80px, 120px) scale(1.25); }
     }
 
     /* ════════════════════════════════════════════════════
-       2. CRAZY CREATIVE HERO SECTION WITH AUDIO VISUALIZER
+       2. TOP COMM-STATUS BAR & AUDIO SYNTH DRIVER
     ════════════════════════════════════════════════════ */
-    .paris-hero-section {
-      padding: 170px 4vw 80px;
-      text-align: center;
-      position: relative;
-      z-index: 5;
-    }
-
-    .paris-hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(255, 190, 0, 0.12);
-      border: 1px solid rgba(255, 190, 0, 0.5);
-      color: var(--c-yellow);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.82rem;
-      font-weight: 700;
-      padding: 10px 24px;
-      border-radius: 100px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      box-shadow: 0 0 35px rgba(255, 190, 0, 0.25);
-      margin-bottom: 30px;
-      animation: badgeGlow 3s infinite alternate;
-    }
-    @keyframes badgeGlow {
-      0% { box-shadow: 0 0 20px rgba(255, 190, 0, 0.2); border-color: rgba(255, 190, 0, 0.4); }
-      100% { box-shadow: 0 0 45px rgba(255, 190, 0, 0.5); border-color: var(--c-yellow); }
-    }
-
-    .paris-hero-title {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(3.8rem, 10vw, 9.2rem);
-      font-weight: 900;
-      line-height: 0.92;
-      text-transform: uppercase;
-      letter-spacing: -3px;
-      margin: 0 auto 24px;
-      position: relative;
-    }
-    .paris-hero-title .title-paris {
-      background: linear-gradient(135deg, #FFFFFF 0%, var(--c-yellow) 45%, var(--c-red-glow) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 35px rgba(232, 65, 40, 0.6));
-    }
-    .title-x {
-      color: var(--c-red);
-      display: inline-block;
-      animation: pulseX 1.5s infinite alternate;
-    }
-    @keyframes pulseX {
-      0% { transform: scale(1) rotate(0deg); text-shadow: 0 0 15px var(--c-red); }
-      100% { transform: scale(1.18) rotate(10deg); text-shadow: 0 0 40px var(--c-red-glow); }
-    }
-
-    .paris-hero-tagline {
-      font-family: 'Outfit', sans-serif;
-      font-size: clamp(1.1rem, 2.2vw, 1.45rem);
-      color: #E2E2E8;
-      max-width: 850px;
-      margin: 0 auto 36px;
-      line-height: 1.6;
-      font-weight: 500;
-    }
-
-    /* Live Audio Visualizer Equalizer Bar */
-    .audio-visualizer-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      margin-bottom: 48px;
-    }
-    .av-bar {
-      width: 5px;
-      height: 28px;
-      background: var(--c-green);
-      border-radius: 100px;
-      animation: eqBounce 1.2s ease-in-out infinite alternate;
-      box-shadow: 0 0 10px var(--c-green);
-    }
-    .av-bar:nth-child(2) { animation-delay: 0.2s; background: var(--c-yellow); height: 42px; }
-    .av-bar:nth-child(3) { animation-delay: 0.4s; background: var(--c-red); height: 35px; }
-    .av-bar:nth-child(4) { animation-delay: 0.1s; background: var(--c-cyan); height: 50px; }
-    .av-bar:nth-child(5) { animation-delay: 0.5s; background: var(--c-pink); height: 30px; }
-    .av-bar:nth-child(6) { animation-delay: 0.3s; background: var(--c-yellow); height: 45px; }
-    .av-bar:nth-child(7) { animation-delay: 0.6s; background: var(--c-green); height: 26px; }
-    .av-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: #999;
-      letter-spacing: 0.15em;
-      margin: 0 14px;
-      text-transform: uppercase;
-    }
-
-    /* Kinetic Stats HUD Bar */
-    .paris-stats-hud {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .stat-hud-pill {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      padding: 12px 26px;
-      border-radius: 100px;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: #FFF;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.3s;
-    }
-    .stat-hud-pill:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: var(--c-yellow);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    }
-    .stat-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--c-green);
-      box-shadow: 0 0 12px var(--c-green);
-    }
-
-    /* ════════════════════════════════════════════════════
-       3. WIDESCREEN CINEMATIC THEATER & 3D FLYER CARD
-    ════════════════════════════════════════════════════ */
-    .paris-showcase-grid {
-      max-width: 1400px;
-      margin: 0 auto 120px;
-      padding: 0 4vw;
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 40px;
-      align-items: start;
-    }
-
-    /* Main Video Stage Theater */
-    .paris-video-theater {
-      background: rgba(14, 13, 20, 0.88);
-      border: 1px solid rgba(232, 65, 40, 0.4);
-      border-radius: 32px;
-      padding: 28px;
-      position: relative;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.85), 0 0 60px rgba(232, 65, 40, 0.2);
-      overflow: hidden;
-      transition: all 0.4s;
-    }
-    .paris-video-theater:hover {
-      border-color: var(--c-red-glow);
-      box-shadow: 0 35px 100px rgba(0,0,0,0.95), 0 0 80px rgba(232, 65, 40, 0.35);
-    }
-
-    .theater-hud-top {
+    .os-top-bar {
+      position: sticky;
+      top: 80px;
+      z-index: 100;
+      background: rgba(8, 7, 14, 0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 242, 254, 0.25);
+      padding: 12px 4vw;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 22px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
     }
-    .rec-badge-pill {
+    .os-status-pill {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: rgba(232, 65, 40, 0.2);
-      border: 1px solid rgba(232, 65, 40, 0.6);
-      color: #FFF;
+      background: rgba(0, 245, 140, 0.12);
+      border: 1px solid rgba(0, 245, 140, 0.5);
+      color: var(--c-neon-green);
       font-family: 'Space Mono', monospace;
       font-size: 0.75rem;
       font-weight: 700;
       padding: 6px 16px;
       border-radius: 100px;
-      letter-spacing: 0.12em;
-    }
-    .rec-pulse-circle {
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: var(--c-red-glow);
-      box-shadow: 0 0 12px var(--c-red-glow);
-      animation: recBlink 1s infinite;
-    }
-    @keyframes recBlink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
-    }
-
-    .theater-specs {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--c-cyan);
       letter-spacing: 0.15em;
     }
-
-    .theater-screen-frame {
-      position: relative;
-      width: 100%;
-      border-radius: 20px;
-      overflow: hidden;
-      background: #000;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+    .os-live-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--c-neon-green);
+      box-shadow: 0 0 10px var(--c-neon-green);
+      animation: greenBlink 1.2s infinite;
     }
-    .theater-video-el {
-      width: 100%;
-      max-height: 650px;
-      object-fit: cover;
-      display: block;
+    @keyframes greenBlink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.8); }
     }
 
-    /* Floating Caption Bar over video */
-    .theater-caption-overlay {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: linear-gradient(to top, rgba(5, 5, 10, 0.95) 15%, rgba(5, 5, 10, 0.6) 75%, transparent 100%);
-      padding: 28px 24px 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .theater-caption-title {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-      font-weight: 900;
-      color: #FFF;
-      margin: 0 0 6px 0;
+    .os-system-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--c-neon-yellow);
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-    }
-    .theater-caption-desc {
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.95rem;
-      color: #DDD;
-      margin: 0;
+      font-weight: 700;
+      text-shadow: 0 0 15px rgba(255, 190, 0, 0.5);
     }
 
-    /* 3D Tilt Flyer Card */
-    .paris-flyer-hologram {
-      background: rgba(20, 18, 30, 0.85);
-      border: 1px solid rgba(255, 190, 0, 0.4);
-      border-radius: 32px;
+    .os-audio-toggle {
+      background: rgba(255, 59, 0, 0.15);
+      border: 1px solid var(--c-neon-orange);
+      color: #FFF;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 100px;
+      cursor: pointer;
+      letter-spacing: 0.12em;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 20px rgba(255, 59, 0, 0.3);
+    }
+    .os-audio-toggle:hover {
+      background: var(--c-neon-orange);
+      color: #FFF;
+      transform: scale(1.05);
+      box-shadow: 0 0 35px rgba(255, 59, 0, 0.8);
+    }
+
+    /* ════════════════════════════════════════════════════
+       3. 234.OS CYBER-BENTO INTERACTIVE DESKTOP
+    ════════════════════════════════════════════════════ */
+    .os-desktop-wrapper {
+      max-width: 1550px;
+      margin: 0 auto;
+      padding: 40px 4vw 140px;
+    }
+
+    /* Hero Headline & Intro Deck */
+    .os-hero-header {
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+    }
+    .os-hero-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(3.5rem, 9.5vw, 9.5rem);
+      font-weight: 900;
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: -3px;
+      margin: 0 0 16px 0;
+    }
+    .os-hero-title .glow-paris {
+      background: linear-gradient(135deg, #FFFFFF 0%, var(--c-neon-yellow) 40%, var(--c-neon-orange) 80%, var(--c-neon-pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 45px rgba(255, 59, 0, 0.6));
+    }
+    .os-x {
+      color: var(--c-neon-orange);
+      display: inline-block;
+      text-shadow: 0 0 25px var(--c-neon-orange);
+      animation: osPulseX 2s infinite alternate;
+    }
+    @keyframes osPulseX {
+      0% { transform: scale(1) rotate(0deg); }
+      100% { transform: scale(1.15) rotate(15deg); }
+    }
+    .os-hero-subtitle {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(0.9rem, 2vw, 1.25rem);
+      color: #00F2FE;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      max-width: 900px;
+      margin: 0 auto;
+      text-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+    }
+
+    /* THE BENTO DECK GRID */
+    .os-bento-grid {
+      display: grid;
+      grid-template-columns: 380px 1fr 380px;
+      gap: 28px;
+      align-items: start;
+      margin-bottom: 60px;
+    }
+
+    /* Crosshairs inside frames */
+    .os-frame {
+      background: rgba(13, 12, 20, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 28px;
       padding: 24px;
-      box-shadow: 0 25px 70px rgba(0,0,0,0.8), 0 0 50px rgba(255, 190, 0, 0.15);
-      transform-style: preserve-3d;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .paris-flyer-hologram:hover {
-      border-color: var(--c-yellow);
-      box-shadow: 0 35px 90px rgba(0,0,0,0.95), 0 0 70px rgba(255, 190, 0, 0.35);
-      transform: translateY(-8px);
+    .os-frame:hover {
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 35px 90px rgba(0, 0, 0, 0.95);
     }
-    .flyer-hud-top {
+    .os-corner {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-color: var(--c-neon-cyan);
+      pointer-events: none;
+      opacity: 0.7;
+    }
+    .c-tl { top: 12px; left: 12px; border-top: 2px solid; border-left: 2px solid; }
+    .c-tr { top: 12px; right: 12px; border-top: 2px solid; border-right: 2px solid; }
+    .c-bl { bottom: 12px; left: 12px; border-bottom: 2px solid; border-left: 2px solid; }
+    .c-br { bottom: 12px; right: 12px; border-bottom: 2px solid; border-right: 2px solid; }
+
+    .os-frame-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       font-family: 'Space Mono', monospace;
       font-size: 0.72rem;
-      color: var(--c-yellow);
       letter-spacing: 0.14em;
     }
-    .flyer-img-wrapper {
+
+    /* ── LEFT PANEL: 3D HOLOGRAPHIC FLYER VAULT ── */
+    .flyer-hologram-card {
+      border-top: 4px solid var(--c-neon-yellow);
+    }
+    .flyer-hud-tag { color: var(--c-neon-yellow); }
+    .flyer-img-box {
       position: relative;
-      border-radius: 20px;
+      border-radius: 18px;
       overflow: hidden;
       cursor: pointer;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-      group: true;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.7);
     }
-    .flyer-main-img {
+    .flyer-el {
       width: 100%;
       height: auto;
       display: block;
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.5s;
     }
-    .flyer-img-wrapper:hover .flyer-main-img {
-      transform: scale(1.05);
+    .flyer-img-box:hover .flyer-el {
+      transform: scale(1.06);
     }
-    .flyer-zoom-badge {
+    .flyer-hover-action {
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.55);
+      background: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(4px);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       opacity: 0;
-      transition: opacity 0.35s;
+      transition: opacity 0.3s;
     }
-    .flyer-img-wrapper:hover .flyer-zoom-badge {
+    .flyer-img-box:hover .flyer-hover-action {
       opacity: 1;
     }
-    .zoom-btn {
-      background: var(--c-yellow);
+    .reticle-btn {
+      background: var(--c-neon-yellow);
       color: #000;
       font-family: 'Space Mono', monospace;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 800;
-      padding: 12px 24px;
+      padding: 12px 22px;
       border-radius: 100px;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      box-shadow: 0 0 25px rgba(255, 190, 0, 0.8);
+      box-shadow: 0 0 30px rgba(255, 190, 0, 0.8);
     }
 
-    /* ════════════════════════════════════════════════════
-       4. DOUBLE-DIRECTION MARQUEE BANNER
-    ════════════════════════════════════════════════════ */
-    .paris-dual-marquee {
-      margin: 0 0 120px 0;
-      overflow: hidden;
-      background: rgba(232, 65, 40, 0.08);
-      border-top: 1px solid rgba(232, 65, 40, 0.3);
-      border-bottom: 1px solid rgba(232, 65, 40, 0.3);
-      padding: 18px 0;
-    }
-    .marquee-line {
-      display: flex;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-    .marquee-track-1 {
-      display: inline-block;
-      animation: scrollRightToLeft 28s linear infinite;
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 1.4rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      color: #FFF;
-      letter-spacing: 2px;
-    }
-    .marquee-track-2 {
-      display: inline-block;
-      animation: scrollLeftToRight 32s linear infinite;
-      font-family: 'Space Mono', monospace;
-      font-size: 1.05rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--c-yellow);
-      letter-spacing: 4px;
-      margin-top: 8px;
-    }
-    .marquee-line span {
-      margin-right: 40px;
-    }
-    @keyframes scrollRightToLeft {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    @keyframes scrollLeftToRight {
-      0% { transform: translateX(-50%); }
-      100% { transform: translateX(0); }
-    }
-
-    /* ════════════════════════════════════════════════════
-       5. THE SONIC SYNDICATE — CHROMATIC ARTIST DECKS
-    ════════════════════════════════════════════════════ */
-    .paris-lineup-section {
-      max-width: 1350px;
-      margin: 0 auto 130px;
-      padding: 0 4vw;
-      text-align: center;
-    }
-    .section-cyber-tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
-      letter-spacing: 0.22em;
-      color: var(--c-green);
-      margin-bottom: 14px;
-      display: block;
-      text-transform: uppercase;
-    }
-    .section-main-heading {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 1;
-      margin-bottom: 18px;
-      letter-spacing: -2px;
-    }
-    .section-subtext {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.7);
-      margin: 0 auto 50px;
-      max-width: 700px;
-    }
-
-    .artist-chroma-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      text-align: left;
-    }
-
-    .artist-chroma-card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 24px;
-      padding: 32px 28px;
+    /* ── CENTER PANEL: INTERACTIVE CYBER CINEMA MONITOR ── */
+    .video-monitor-card {
+      border-top: 4px solid var(--c-neon-orange);
       position: relative;
+    }
+    .video-hud-tag { color: var(--c-neon-orange); }
+    
+    .filter-controls-dock {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFF;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 100px;
+      cursor: pointer;
+      letter-spacing: 0.1em;
+      transition: all 0.25s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--c-neon-orange);
+      color: #FFF;
+      border-color: var(--c-neon-orange);
+      box-shadow: 0 0 20px rgba(255, 59, 0, 0.6);
+    }
+
+    .monitor-screen-frame {
+      position: relative;
+      width: 100%;
+      border-radius: 20px;
       overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: default;
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.8);
     }
-    .artist-chroma-card::before {
-      content: '';
+    .monitor-video {
+      width: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      display: block;
+      transition: filter 0.4s ease;
+    }
+    /* Video filter classes triggered by JS */
+    .filter-cyberscan { filter: hue-rotate(180deg) contrast(130%) saturate(140%); }
+    .filter-neonbass { filter: saturate(220%) contrast(125%) brightness(110%); }
+    .filter-thermal { filter: invert(10%) sepia(80%) saturate(300%) hue-rotate(320deg); }
+
+    .monitor-caption-bar {
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: var(--c-yellow);
-      transition: height 0.4s;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(5, 5, 12, 0.95) 20%, rgba(5, 5, 12, 0.6) 80%, transparent 100%);
+      padding: 24px 20px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
     }
-    /* Unique artist color accents */
-    .card--orange::before { background: var(--c-red-glow); }
-    .card--green::before { background: var(--c-green); }
-    .card--cyan::before { background: var(--c-cyan); }
-    .card--yellow::before { background: var(--c-yellow); }
-    .card--purple::before { background: var(--c-purple); }
-    .card--pink::before { background: var(--c-pink); }
-
-    .artist-chroma-card:hover {
-      transform: translateY(-8px) scale(1.03);
-      border-color: rgba(255, 255, 255, 0.35);
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    .caption-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+      font-weight: 900;
+      color: #FFF;
+      margin: 0 0 4px 0;
+      text-transform: uppercase;
     }
-    .card--orange:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 35px rgba(255, 59, 0, 0.3); }
-    .card--green:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 35px rgba(0, 245, 140, 0.3); }
-    .card--cyan:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 35px rgba(0, 242, 254, 0.3); }
-    .card--yellow:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 35px rgba(255, 190, 0, 0.3); }
-    .card--purple:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 35px rgba(157, 78, 221, 0.3); }
-    .card--pink:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 35px rgba(255, 0, 127, 0.3); }
+    .caption-desc {
+      font-size: 0.92rem;
+      color: #DDD;
+      margin: 0;
+    }
 
-    .artist-top-row {
+    /* ── RIGHT PANEL: INTERACTIVE DJ SOUNDBOARD SAMPLER ── */
+    .soundboard-card {
+      border-top: 4px solid var(--c-neon-cyan);
+    }
+    .soundboard-hud-tag { color: var(--c-neon-cyan); }
+    .soundboard-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .sound-pad {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 12px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
+      cursor: pointer;
+      transition: all 0.25s;
     }
-    .artist-genre-pill {
+    .sound-pad:hover, .sound-pad.active {
+      background: rgba(0, 242, 254, 0.15);
+      border-color: var(--c-neon-cyan);
+      transform: translateX(6px);
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.35);
+    }
+    .pad-id {
       font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
+      color: var(--c-neon-cyan);
       font-weight: 700;
       letter-spacing: 0.12em;
-      padding: 6px 14px;
-      border-radius: 100px;
-      background: rgba(255, 255, 255, 0.08);
-      color: #EEE;
     }
-    .artist-eq-icon {
-      font-size: 1.1rem;
-    }
-
-    .artist-name {
+    .pad-name {
       font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 1.95rem;
-      font-weight: 900;
-      text-transform: uppercase;
+      font-size: 1.15rem;
+      font-weight: 800;
       color: #FFF;
-      margin: 0 0 10px 0;
-      letter-spacing: -1px;
+      text-transform: uppercase;
     }
-    .artist-bio {
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.95rem;
-      color: #BBB;
-      margin: 0;
-      line-height: 1.5;
+    .pad-eq-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--c-neon-cyan);
+      box-shadow: 0 0 8px var(--c-neon-cyan);
     }
 
     /* ════════════════════════════════════════════════════
-       6. CHROMATIC DOSSIER: WHY EUROPE MATTERS
+       4. INTERACTIVE ARTIST DOSSIER TERMINAL (DYNAMIC PAD)
     ════════════════════════════════════════════════════ */
-    .paris-narrative-section {
-      max-width: 1350px;
-      margin: 0 auto 130px;
-      padding: 0 4vw;
-    }
-    .narrative-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 32px;
-      margin-top: 48px;
-    }
-    .narrative-card {
-      background: rgba(20, 19, 28, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+    .os-artist-dossier-panel {
+      background: linear-gradient(135deg, rgba(16, 15, 25, 0.95), rgba(22, 20, 36, 0.95));
+      border: 1px solid rgba(0, 242, 254, 0.45);
       border-radius: 28px;
-      padding: 40px 34px;
+      padding: 36px 40px;
+      margin-bottom: 60px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 50px rgba(0, 242, 254, 0.15);
+      transition: all 0.4s;
+    }
+    .dossier-inner-grid {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 36px;
+      align-items: center;
+    }
+    .dossier-genre-badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--c-neon-cyan);
+      background: rgba(0, 242, 254, 0.12);
+      border: 1px solid var(--c-neon-cyan);
+      padding: 6px 16px;
+      border-radius: 100px;
+      letter-spacing: 0.15em;
+      margin-bottom: 14px;
+    }
+    .dossier-artist-name {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: 900;
+      color: #FFF;
+      line-height: 1;
+      margin: 0 0 16px 0;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
+    .dossier-artist-bio {
+      font-size: 1.1rem;
+      color: #DDD;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0;
+    }
+
+    /* Kinetic Audio Wave Simulation box */
+    .dossier-wave-box {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 24px;
+      text-align: center;
+    }
+    .wave-bars-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 5px;
+      height: 60px;
+      margin-bottom: 12px;
+    }
+    .wave-bar-el {
+      width: 6px;
+      background: var(--c-neon-cyan);
+      border-radius: 100px;
+      animation: eqWavePulse 0.9s infinite alternate ease-in-out;
+      box-shadow: 0 0 10px var(--c-neon-cyan);
+    }
+    .wave-bar-el:nth-child(1) { height: 20px; animation-delay: 0.1s; }
+    .wave-bar-el:nth-child(2) { height: 45px; animation-delay: 0.4s; }
+    .wave-bar-el:nth-child(3) { height: 60px; animation-delay: 0.2s; }
+    .wave-bar-el:nth-child(4) { height: 35px; animation-delay: 0.6s; }
+    .wave-bar-el:nth-child(5) { height: 50px; animation-delay: 0.3s; }
+    .wave-bar-el:nth-child(6) { height: 25px; animation-delay: 0.5s; }
+    .wave-bar-el:nth-child(7) { height: 40px; animation-delay: 0.15s; }
+
+    @keyframes eqWavePulse {
+      0% { transform: scaleY(0.4); }
+      100% { transform: scaleY(1.1); }
+    }
+
+    /* ════════════════════════════════════════════════════
+       5. WHY PARIS — CHROMATIC BENTO PILLARS
+    ════════════════════════════════════════════════════ */
+    .os-pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 28px;
+      margin-bottom: 60px;
+    }
+    .os-pillar-card {
+      background: rgba(14, 13, 22, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 26px;
+      padding: 36px 30px;
       position: relative;
       overflow: hidden;
       transition: all 0.4s;
     }
-    .narrative-card:hover {
+    .os-pillar-card:hover {
       transform: translateY(-8px);
-      border-color: rgba(255, 255, 255, 0.4);
       box-shadow: 0 25px 60px rgba(0,0,0,0.8);
     }
-    .nc-tag {
+    .pillar-tag {
       font-family: 'Space Mono', monospace;
-      font-size: 0.74rem;
+      font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.16em;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       display: block;
     }
-    .nc-title {
+    .pillar-title {
       font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 2rem;
+      font-size: 1.95rem;
       font-weight: 900;
+      color: #FFF;
+      margin: 0 0 14px 0;
       text-transform: uppercase;
       line-height: 1.1;
-      margin: 0 0 16px 0;
-      color: #FFF;
     }
-    .nc-desc {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.05rem;
+    .pillar-desc {
+      font-size: 1.02rem;
       color: #CCC;
-      line-height: 1.65;
+      line-height: 1.6;
       margin: 0;
     }
 
     /* ════════════════════════════════════════════════════
-       7. GLOBAL EXPANSION RADAR MAP
+       6. LIGHTBOX MODAL FOR FLYER
     ════════════════════════════════════════════════════ */
-    .paris-radar-section {
-      max-width: 1350px;
-      margin: 0 auto 130px;
-      padding: 0 4vw;
-      text-align: center;
-    }
-    .radar-cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-      margin-top: 48px;
-      text-align: left;
-    }
-    .radar-node-card {
-      background: rgba(255, 255, 255, 0.035);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 22px;
-      padding: 30px 24px;
-      position: relative;
-      transition: all 0.35s;
-    }
-    .radar-node-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(255, 255, 255, 0.3);
-      background: rgba(255, 255, 255, 0.07);
-    }
-    .radar-node-active {
-      background: rgba(232, 65, 40, 0.1);
-      border: 1px solid var(--c-red-glow);
-      box-shadow: 0 0 40px rgba(232, 65, 40, 0.25);
-    }
-    .radar-status-pill {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      padding: 5px 12px;
-      border-radius: 100px;
-      display: inline-block;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-    }
-    .pill--paris { background: rgba(255, 59, 0, 0.2); color: var(--c-red-glow); border: 1px solid var(--c-red-glow); }
-    .pill--lagos { background: rgba(0, 245, 140, 0.2); color: var(--c-green); border: 1px solid var(--c-green); }
-    .pill--london { background: rgba(0, 242, 254, 0.2); color: var(--c-cyan); border: 1px solid var(--c-cyan); }
-    .pill--berlin { background: rgba(157, 78, 221, 0.2); color: var(--c-purple); border: 1px solid var(--c-purple); }
-
-    .radar-city-title {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 2.1rem;
-      font-weight: 900;
-      color: #FFF;
-      margin: 0 0 8px 0;
-      text-transform: uppercase;
-    }
-    .radar-desc {
-      font-size: 0.95rem;
-      color: #BBB;
-      margin: 0;
-      line-height: 1.5;
-    }
-
-    /* ════════════════════════════════════════════════════
-       8. FULL-SCREEN LIGHTBOX MODAL FOR FLYER
-    ════════════════════════════════════════════════════ */
-    .flyer-lightbox-modal {
+    .flyer-modal-lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.94);
-      backdrop-filter: blur(20px);
-      z-index: 10000;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(25px);
+      z-index: 99999;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -731,37 +588,37 @@
       pointer-events: none;
       transition: opacity 0.35s;
     }
-    .flyer-lightbox-modal.active {
+    .flyer-modal-lightbox.active {
       opacity: 1;
       pointer-events: auto;
     }
-    .lightbox-content {
+    .lightbox-wrapper {
       position: relative;
-      max-width: 90vw;
-      max-height: 90vh;
+      max-width: 92vw;
+      max-height: 92vh;
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 0 80px rgba(255, 190, 0, 0.4);
-      border: 1px solid rgba(255, 190, 0, 0.5);
+      box-shadow: 0 0 80px rgba(255, 190, 0, 0.5);
+      border: 1px solid rgba(255, 190, 0, 0.6);
     }
-    .lightbox-img {
+    .lightbox-image {
       width: auto;
       height: 85vh;
       max-width: 100%;
       display: block;
       object-fit: contain;
     }
-    .lightbox-close-btn {
+    .close-modal-btn {
       position: absolute;
-      top: 25px;
-      right: 25px;
-      background: rgba(255, 255, 255, 0.15);
+      top: 24px;
+      right: 24px;
+      background: rgba(255, 255, 255, 0.18);
       border: 1px solid rgba(255, 255, 255, 0.4);
       color: #FFF;
       font-family: 'Space Mono', monospace;
       font-size: 1.1rem;
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -769,33 +626,38 @@
       cursor: pointer;
       transition: all 0.3s;
     }
-    .lightbox-close-btn:hover {
-      background: var(--c-red-glow);
-      color: #FFF;
+    .close-modal-btn:hover {
+      background: var(--c-neon-orange);
       transform: scale(1.1);
     }
 
     /* ════════════════════════════════════════════════════
-       RESPONSIVE ADAPTATIONS
+       RESPONSIVE BREAKPOINTS
     ════════════════════════════════════════════════════ */
-    @media (max-width: 992px) {
-      .paris-showcase-grid { grid-template-columns: 1fr; }
-      .paris-flyer-hologram { max-width: 600px; margin: 0 auto; }
+    @media (max-width: 1300px) {
+      .os-bento-grid {
+        grid-template-columns: 1fr;
+      }
+      .os-frame {
+        max-width: 100%;
+      }
+      .soundboard-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
     }
     @media (max-width: 768px) {
-      .paris-hero-section { padding: 140px 5vw 60px; }
-      .paris-video-theater { padding: 20px; }
-      .theater-caption-overlay { padding: 20px 16px; }
+      .os-desktop-wrapper { padding: 20px 4vw 80px; }
+      .os-hero-title { font-size: clamp(2.8rem, 11vw, 5rem); }
+      .dossier-inner-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- FLOATING CHROMATIC ORBS & CYBER MATRIX BG -->
-  <div class="paris-grid-bg"></div>
-  <div class="paris-ambient-orb orb-red"></div>
-  <div class="paris-ambient-orb orb-green"></div>
-  <div class="paris-ambient-orb orb-purple"></div>
+  <!-- INTERACTIVE HTML5 CANVAS PARTICLE & LASER FIELD -->
+  <canvas id="cyber-canvas"></canvas>
+  <div class="os-scanline-overlay"></div>
+  <div class="os-grid-lines"></div>
 
   <!-- FIXED GLASSMORPHIC HEADER -->
   <header id="header" class="cyber-header">
@@ -813,288 +675,228 @@
     </div>
   </header>
 
-  <!-- 1. HERO SECTION WITH AUDIO VISUALIZER & KINETIC STATS -->
-  <section class="paris-hero-section">
-    <div class="paris-hero-badge">
-      <span>● FÊTE DE LA MUSIQUE // EUROPE EXPANSION PORTAL</span>
+  <!-- 234.OS CYBER-COMM LINK STATUS BAR -->
+  <div class="os-top-bar">
+    <div class="os-status-pill">
+      <span class="os-live-dot"></span>
+      <span>234.OS // EUROPE TELEMETRY ACTIVE</span>
     </div>
 
-    <h1 class="paris-hero-title">
-      234AFRICA <span class="title-x">×</span> <span class="title-paris">PARIS</span>
-    </h1>
-
-    <p class="paris-hero-tagline">
-      French Street Culture × African Sonic Power. On World Music Day, we partnered with <strong>Piano After Dark (PVW)</strong> to take over Impasse Diderot in Pantin, Paris for a summer solstice open-air block party.
-    </p>
-
-    <!-- Interactive Equalizer Bars -->
-    <div class="audio-visualizer-bar">
-      <div class="av-bar"></div>
-      <div class="av-bar"></div>
-      <div class="av-bar"></div>
-      <span class="av-label">[ AFROBEATS × AMAPIANO SOUND SYSTEM // 120 DB ]</span>
-      <div class="av-bar"></div>
-      <div class="av-bar"></div>
-      <div class="av-bar"></div>
+    <div class="os-system-title">
+      FÊTE DE LA MUSIQUE 2026 // PARIS BLOCK PARTY VAULT
     </div>
 
-    <!-- Kinetic Stats HUD Bar -->
-    <div class="paris-stats-hud">
-      <div class="stat-hud-pill">
-        <span class="stat-dot"></span>
-        <span>1,200+ ATTENDEES IN PANTIN</span>
-      </div>
-      <div class="stat-hud-pill">
-        <span class="stat-dot" style="background: var(--c-yellow); box-shadow: 0 0 10px var(--c-yellow);"></span>
-        <span>2 DAYS NON-STOP SONIC POWER</span>
-      </div>
-      <div class="stat-hud-pill">
-        <span class="stat-dot" style="background: var(--c-red-glow); box-shadow: 0 0 10px var(--c-red-glow);"></span>
-        <span>8 INTERNATIONAL DJS & TASTEMAKERS</span>
-      </div>
-      <div class="stat-hud-pill">
-        <span class="stat-dot" style="background: var(--c-cyan); box-shadow: 0 0 10px var(--c-cyan);"></span>
-        <span>PARTNERSHIP WITH PIANO AFTER DARK</span>
+    <button class="os-audio-toggle" id="os-sound-btn">
+      <span>🔊 CYBER-SYNTH AUDIO: ON</span>
+    </button>
+  </div>
+
+  <!-- MAIN 234.OS CYBER-BENTO DESKTOP -->
+  <main class="os-desktop-wrapper">
+    
+    <!-- Hero Header Title -->
+    <div class="os-hero-header">
+      <h1 class="os-hero-title">
+        234AFRICA <span class="os-x">×</span> <span class="glow-paris">PARIS</span>
+      </h1>
+      <div class="os-hero-subtitle">
+        // THE STREET TAKEOVER AT IMPASSE DIDEROT 93500 PANTIN × PIANO AFTER DARK
       </div>
     </div>
-  </section>
 
-  <!-- 2. WIDESCREEN CINEMATIC VIDEO THEATER & 3D FLYER CARD -->
-  <section class="paris-showcase-grid">
-    <!-- Widescreen Video Theater -->
-    <div class="paris-video-theater">
-      <div class="theater-hud-top">
-        <div class="rec-badge-pill">
-          <span class="rec-pulse-circle"></span>
-          <span>REC ● LIVE TELEMETRY // IMPASSE DIDEROT, PARIS 93500</span>
+    <!-- ── THE 234.OS BENTO COMMAND DECK ── -->
+    <div class="os-bento-grid">
+      
+      <!-- MODULE 01 (LEFT): 3D HOLOGRAPHIC FLYER DECK -->
+      <div class="os-frame flyer-hologram-card" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-perspective="1000">
+        <span class="os-corner c-tl"></span><span class="os-corner c-tr"></span>
+        <span class="os-corner c-bl"></span><span class="os-corner c-br"></span>
+
+        <div class="os-frame-header">
+          <span class="flyer-hud-tag">[ MODULE 01 // ARTIFACT VAULT ]</span>
+          <span>4K_VERIFIED</span>
         </div>
-        <div class="theater-specs">[ SYS_AUDIO: STEREO // RES: 4K HIGH-BANDWIDTH ]</div>
-      </div>
 
-      <div class="theater-screen-frame">
-        <video controls autoplay loop muted playsinline class="theater-video-el">
-          <source src="assets/events/paris-video.mov" type="video/quicktime">
-          <source src="assets/events/paris-video.mov" type="video/mp4">
-          <source src="assets/events/paris-video.mp4" type="video/mp4">
-          Your browser does not support HTML5 video.
-        </video>
-
-        <!-- Glassmorphic Caption Bar -->
-        <div class="theater-caption-overlay">
-          <div>
-            <h3 class="theater-caption-title">234 in <span style="color: var(--c-red-glow);">PARIS</span> — SUMMER SOLSTICE REEL</h3>
-            <p class="theater-caption-desc">Watch the official street party takeover filmed live at Impasse Diderot.</p>
-          </div>
-          <div>
-            <span style="font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--c-yellow); border: 1px solid var(--c-yellow); padding: 8px 18px; border-radius: 100px; display: inline-block;">
-              // EVENT VAULT 2026
-            </span>
+        <div class="flyer-img-box" id="flyer-trigger">
+          <img src="assets/events/fete-paris.jpg" alt="Fête de la Musique Paris Flyer" class="flyer-el">
+          <div class="flyer-hover-action">
+            <div class="reticle-btn">🔍 ENGAGE 4K RETICLE</div>
           </div>
         </div>
       </div>
+
+      <!-- MODULE 02 (CENTER): CYBER CINEMA MONITOR & LIVE FILTER SWITCHER -->
+      <div class="os-frame video-monitor-card">
+        <span class="os-corner c-tl"></span><span class="os-corner c-tr"></span>
+        <span class="os-corner c-bl"></span><span class="os-corner c-br"></span>
+
+        <div class="os-frame-header">
+          <span class="video-hud-tag">[ MODULE 02 // BROADCAST MONITOR ]</span>
+          <span>REC ● LIVE TELEMETRY</span>
+        </div>
+
+        <!-- Interactive Chromatic Filter Selector -->
+        <div class="filter-controls-dock">
+          <button class="filter-btn active" data-filter="normal">● NORMAL 4K</button>
+          <button class="filter-btn" data-filter="cyberscan">⚡ CYBER-SCAN</button>
+          <button class="filter-btn" data-filter="neonbass">🔥 NEON-OVERDRIVE</button>
+          <button class="filter-btn" data-filter="thermal">🌌 THERMAL-BASS</button>
+        </div>
+
+        <!-- Video Display Stage -->
+        <div class="monitor-screen-frame">
+          <video controls autoplay loop muted playsinline id="main-video-el" class="monitor-video">
+            <source src="assets/events/paris-video.mov" type="video/quicktime">
+            <source src="assets/events/paris-video.mov" type="video/mp4">
+            <source src="assets/events/paris-video.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+
+          <div class="monitor-caption-bar">
+            <div>
+              <h3 class="caption-title">234 in <span style="color: var(--c-neon-orange);">PARIS</span> — IMPASSE DIDEROT</h3>
+              <p class="caption-desc">Summer solstice open-air street takeover filmed live in Pantin, France.</p>
+            </div>
+            <div>
+              <span style="font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--c-neon-yellow); border: 1px solid var(--c-neon-yellow); padding: 6px 14px; border-radius: 100px;">
+                // FÊTE DE LA MUSIQUE
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODULE 03 (RIGHT): INTERACTIVE SOUNDBOARD SAMPLER DECK -->
+      <div class="os-frame soundboard-card">
+        <span class="os-corner c-tl"></span><span class="os-corner c-tr"></span>
+        <span class="os-corner c-bl"></span><span class="os-corner c-br"></span>
+
+        <div class="os-frame-header">
+          <span class="soundboard-hud-tag">[ MODULE 03 // SOUND SYNDICATE ]</span>
+          <span>CLICK TO ENGAGE</span>
+        </div>
+
+        <div class="soundboard-grid" id="soundboard-pads">
+          <div class="sound-pad active" data-artist="michel" data-genre="AFROBEATS // RESIDENT" data-name="DJ MICHEL" data-bio="Parisian tastemaker and resident selector driving high-energy Afrobeats and street anthems." data-color="#00F2FE">
+            <div>
+              <div class="pad-id">[ 01 // RESIDENT ]</div>
+              <div class="pad-name">DJ MICHEL</div>
+            </div>
+            <span class="pad-eq-dot" style="background: #00F2FE; box-shadow: 0 0 10px #00F2FE;"></span>
+          </div>
+
+          <div class="sound-pad" data-artist="kddo" data-genre="AMAPIANO // PRODUCER" data-name="KDDO" data-bio="Award-winning hit-maker producer bringing continental Amapiano basslines to the Paris street stage." data-color="#00F58C">
+            <div>
+              <div class="pad-id">[ 02 // PRODUCER ]</div>
+              <div class="pad-name">KDDO</div>
+            </div>
+            <span class="pad-eq-dot" style="background: #00F58C; box-shadow: 0 0 10px #00F58C;"></span>
+          </div>
+
+          <div class="sound-pad" data-artist="kaira" data-genre="VOCALS // PERFORMANCE" data-name="KAIRA STARR" data-bio="Electrifying live vocalist merging soul, Afro-fusion, and magnetic stage performance." data-color="#FF3B00">
+            <div>
+              <div class="pad-id">[ 03 // VOCALS ]</div>
+              <div class="pad-name">KAIRA STARR</div>
+            </div>
+            <span class="pad-eq-dot" style="background: #FF3B00; box-shadow: 0 0 10px #FF3B00;"></span>
+          </div>
+
+          <div class="sound-pad" data-artist="steeve" data-genre="FRENCH STREET // BASS" data-name="STEEVE TYLER" data-bio="French street culture selector blending urban rhythms with international club sounds." data-color="#FFBE00">
+            <div>
+              <div class="pad-id">[ 04 // SELECTOR ]</div>
+              <div class="pad-name">STEEVE TYLER</div>
+            </div>
+            <span class="pad-eq-dot" style="background: #FFBE00; box-shadow: 0 0 10px #FFBE00;"></span>
+          </div>
+
+          <div class="sound-pad" data-artist="phil" data-genre="AMAPIANO // HEAVYWEIGHT" data-name="DJ PHIL" data-bio="Master of percussive Amapiano sets and high-voltage dancefloor orchestration." data-color="#9D4EDD">
+            <div>
+              <div class="pad-id">[ 05 // AMAPIANO ]</div>
+              <div class="pad-name">DJ PHIL</div>
+            </div>
+            <span class="pad-eq-dot" style="background: #9D4EDD; box-shadow: 0 0 10px #9D4EDD;"></span>
+          </div>
+
+          <div class="sound-pad" data-artist="phinova" data-genre="ELECTRONIC // AFRO-FUSION" data-name="PHINOVA" data-bio="Sonic innovator fusing deep electronic synthesis with rhythmic African percussion." data-color="#FF007F">
+            <div>
+              <div class="pad-id">[ 06 // FUSION ]</div>
+              <div class="pad-name">PHINOVA</div>
+            </div>
+            <span class="pad-eq-dot" style="background: #FF007F; box-shadow: 0 0 10px #FF007F;"></span>
+          </div>
+
+          <div class="sound-pad" data-artist="vjtrue" data-genre="VISUAL // TELEMETRY" data-name="VJTRUE" data-bio="Visual artist and live projectionist designing the holographic aesthetics of the block party." data-color="#00F2FE">
+            <div>
+              <div class="pad-id">[ 07 // VISUALS ]</div>
+              <div class="pad-name">VJTRUE</div>
+            </div>
+            <span class="pad-eq-dot" style="background: #00F2FE; box-shadow: 0 0 10px #00F2FE;"></span>
+          </div>
+
+          <div class="sound-pad" data-artist="dboi" data-genre="HOST // HYPEMAN" data-name="DBOI NOME" data-bio="The voice of the block party—commanding the crowd and elevating energy to peak capacity." data-color="#00F58C">
+            <div>
+              <div class="pad-id">[ 08 // HYPEMAN ]</div>
+              <div class="pad-name">DBOI NOME</div>
+            </div>
+            <span class="pad-eq-dot" style="background: #00F58C; box-shadow: 0 0 10px #00F58C;"></span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- 3D Holographic Flyer Vault Card -->
-    <div class="paris-flyer-hologram" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-perspective="1000">
-      <div class="flyer-hud-top">
-        <span>[ ARTIFACT 01 // OFFICIAL FLYER ]</span>
-        <span>SYS_VERIFIED</span>
-      </div>
+    <!-- ── INTERACTIVE ARTIST DOSSIER TERMINAL (REACTS TO SOUNDBOARD CLICK) ── -->
+    <div class="os-artist-dossier-panel" id="artist-dossier-panel">
+      <div class="dossier-inner-grid">
+        <div>
+          <span class="dossier-genre-badge" id="dossier-genre">AFROBEATS // RESIDENT</span>
+          <h2 class="dossier-artist-name" id="dossier-name">DJ MICHEL</h2>
+          <p class="dossier-artist-bio" id="dossier-bio">
+            Parisian tastemaker and resident selector driving high-energy Afrobeats and street anthems.
+          </p>
+        </div>
 
-      <div class="flyer-img-wrapper" id="open-flyer-btn">
-        <img src="assets/events/fete-paris.jpg" alt="Fête de la Musique Paris Flyer" class="flyer-main-img">
-        <div class="flyer-zoom-badge">
-          <div class="zoom-btn">🔍 VIEW 4K FLYER</div>
+        <div class="dossier-wave-box">
+          <div class="wave-bars-row">
+            <div class="wave-bar-el"></div><div class="wave-bar-el"></div><div class="wave-bar-el"></div>
+            <div class="wave-bar-el"></div><div class="wave-bar-el"></div><div class="wave-bar-el"></div>
+            <div class="wave-bar-el"></div>
+          </div>
+          <span style="font-family: 'Space Mono', monospace; font-size: 0.72rem; color: #AAA; letter-spacing: 0.12em;">
+            [ SONIC FREQUENCY: LIVE ]
+          </span>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- 3. DUAL ANIMATED MARQUEE TICKER BARS -->
-  <section class="paris-dual-marquee">
-    <div class="marquee-line">
-      <div class="marquee-track-1">
-        <span>FÊTE DE LA MUSIQUE PARIS 2026</span>
-        <span>★ IMPASSE DIDEROT TAKEOVER</span>
-        <span>★ PIANO AFTER DARK</span>
-        <span>★ WEST AFRICA TO EUROPE</span>
-        <span>★ FÊTE DE LA MUSIQUE PARIS 2026</span>
-        <span>★ IMPASSE DIDEROT TAKEOVER</span>
-        <span>★ PIANO AFTER DARK</span>
-        <span>★ WEST AFRICA TO EUROPE</span>
-      </div>
-    </div>
-    <div class="marquee-line">
-      <div class="marquee-track-2">
-        <span>★ DJ MICHEL ★ KDDO ★ KAIRA STARR ★ STEEVE TYLER ★ DJ PHIL ★ PHINOVA ★ VJTRUE ★ DBOI NOME</span>
-        <span>★ DJ MICHEL ★ KDDO ★ KAIRA STARR ★ STEEVE TYLER ★ DJ PHIL ★ PHINOVA ★ VJTRUE ★ DBOI NOME</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. THE SONIC SYNDICATE — CHROMATIC ARTIST DECKS -->
-  <section class="paris-lineup-section">
-    <span class="section-cyber-tag">[ CURATED BY 234AFRICA // PARIS LINEUP ]</span>
-    <h2 class="section-main-heading">
-      THE PARIS <span style="color: var(--c-yellow);">SOUND SYNDICATE.</span>
-    </h2>
-    <p class="section-subtext">
-      An international roster of tastemakers, producers, and sonic architects bridging West African sound culture with European street nightlife.
-    </p>
-
-    <div class="artist-chroma-grid">
-      <!-- Artist 1 -->
-      <div class="artist-chroma-card card--orange">
-        <div class="artist-top-row">
-          <span class="artist-genre-pill">AFROBEATS // RESIDENT</span>
-          <span class="artist-eq-icon">🎛️</span>
-        </div>
-        <h3 class="artist-name">DJ MICHEL</h3>
-        <p class="artist-bio">Parisian tastemaker and resident selector driving high-energy Afrobeats and street anthems.</p>
-      </div>
-
-      <!-- Artist 2 -->
-      <div class="artist-chroma-card card--green">
-        <div class="artist-top-row">
-          <span class="artist-genre-pill">AMAPIANO // PRODUCER</span>
-          <span class="artist-eq-icon">🔥</span>
-        </div>
-        <h3 class="artist-name">KDDO</h3>
-        <p class="artist-bio">Award-winning producer and hit-maker bringing continental Amapiano grooves and heavy basslines.</p>
-      </div>
-
-      <!-- Artist 3 -->
-      <div class="artist-chroma-card card--cyan">
-        <div class="artist-top-row">
-          <span class="artist-genre-pill">VOCALS // PERFORMANCE</span>
-          <span class="artist-eq-icon">🎤</span>
-        </div>
-        <h3 class="artist-name">KAIRA STARR</h3>
-        <p class="artist-bio">Electrifying live vocalist merging soul, Afro-fusion, and magnetic stage performance.</p>
-      </div>
-
-      <!-- Artist 4 -->
-      <div class="artist-chroma-card card--yellow">
-        <div class="artist-top-row">
-          <span class="artist-genre-pill">FRENCH STREET // BASS</span>
-          <span class="artist-eq-icon">🎧</span>
-        </div>
-        <h3 class="artist-name">STEEVE TYLER</h3>
-        <p class="artist-bio">French street culture selector blending urban rhythms with international club sounds.</p>
-      </div>
-
-      <!-- Artist 5 -->
-      <div class="artist-chroma-card card--purple">
-        <div class="artist-top-row">
-          <span class="artist-genre-pill">AMAPIANO // HEAVYWEIGHT</span>
-          <span class="artist-eq-icon">⚡</span>
-        </div>
-        <h3 class="artist-name">DJ PHIL</h3>
-        <p class="artist-bio">Master of percussive Amapiano sets and high-voltage dancefloor orchestration.</p>
-      </div>
-
-      <!-- Artist 6 -->
-      <div class="artist-chroma-card card--pink">
-        <div class="artist-top-row">
-          <span class="artist-genre-pill">ELECTRONIC // AFRO-FUSION</span>
-          <span class="artist-eq-icon">🚀</span>
-        </div>
-        <h3 class="artist-name">PHINOVA</h3>
-        <p class="artist-bio">Sonic innovator fusing deep electronic synthesis with rhythmic African percussion.</p>
-      </div>
-
-      <!-- Artist 7 -->
-      <div class="artist-chroma-card card--orange">
-        <div class="artist-top-row">
-          <span class="artist-genre-pill">VISUAL TELEMETRY</span>
-          <span class="artist-eq-icon">🖥️</span>
-        </div>
-        <h3 class="artist-name">VJTRUE</h3>
-        <p class="artist-bio">Visual artist and live projectionist designing the holographic aesthetics of the block party.</p>
-      </div>
-
-      <!-- Artist 8 -->
-      <div class="artist-chroma-card card--green">
-        <div class="artist-top-row">
-          <span class="artist-genre-pill">HOST // HYPEMAN</span>
-          <span class="artist-eq-icon">📢</span>
-        </div>
-        <h3 class="artist-name">DBOI NOME</h3>
-        <p class="artist-bio">The voice of the block party—commanding the crowd and elevating energy to peak capacity.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. CHROMATIC DOSSIER: WHY EUROPE MATTERS -->
-  <section class="paris-narrative-section">
-    <span class="section-cyber-tag">[ EXPANSION ARCHITECTURE // CONTINENTAL BRIDGES ]</span>
-    <h2 class="section-main-heading">
-      ESTABLISHING AFRICAN ROOTS IN <span style="color: var(--c-green);">EUROPE.</span>
-    </h2>
-
-    <div class="narrative-grid">
-      <!-- Pillar 1 -->
-      <div class="narrative-card" style="border-top: 4px solid var(--c-red-glow);">
-        <span class="nc-tag" style="color: var(--c-red-glow);">[ 01 // GLOBAL BRIDGE ]</span>
-        <h3 class="nc-title">Exporting the Nightlife Infrastructure</h3>
-        <p class="nc-desc">
-          234AFRICA is expanding beyond continental borders. We are building a permanent cultural pipeline between West Africa and Europe's creative capitals—creating an authentic home for Afrobeats, Amapiano, and African youth expression on the global stage.
+    <!-- ── WHY PARIS — CHROMATIC BENTO PILLARS ── -->
+    <div class="os-pillars-grid">
+      <div class="os-pillar-card" style="border-top: 4px solid var(--c-neon-orange);">
+        <span class="pillar-tag" style="color: var(--c-neon-orange);">[ 01 // CONTINENTAL BRIDGE ]</span>
+        <h3 class="pillar-title">Exporting West African Nightlife</h3>
+        <p class="pillar-desc">
+          We don't just host events; we build permanent cultural bridges. 234AFRICA is establishing roots in Europe's creative capitals to give African youth expression and sonic power an undeniable international home.
         </p>
       </div>
 
-      <!-- Pillar 2 -->
-      <div class="narrative-card" style="border-top: 4px solid var(--c-yellow);">
-        <span class="nc-tag" style="color: var(--c-yellow);">[ 02 // FÊTE DE LA MUSIQUE ]</span>
-        <h3 class="nc-title">Summer Solstice Street Takeover</h3>
-        <p class="nc-desc">
-          France's legendary World Music Day is the ultimate canvas. Partnering with <strong>Piano After Dark (PVW)</strong>, we transformed Impasse Diderot into an explosive open-air celebration where Paris street culture collided with African sonic energy.
+      <div class="os-pillar-card" style="border-top: 4px solid var(--c-neon-yellow);">
+        <span class="pillar-tag" style="color: var(--c-neon-yellow);">[ 02 // FÊTE DE LA MUSIQUE ]</span>
+        <h3 class="pillar-title">Summer Solstice Street Takeover</h3>
+        <p class="pillar-desc">
+          France's legendary World Music Day is our canvas. In strategic collaboration with <strong>Piano After Dark (PVW)</strong>, we turned Impasse Diderot into an open-air sanctuary where French street culture collided with African energy.
         </p>
       </div>
 
-      <!-- Pillar 3 -->
-      <div class="narrative-card" style="border-top: 4px solid var(--c-green);">
-        <span class="nc-tag" style="color: var(--c-green);">[ 03 // DIASPORA UNITY ]</span>
-        <h3 class="nc-title">Connecting Creatives Across Borders</h3>
-        <p class="nc-desc">
-          Our European footprint isn't just about events—it's about long-term creative equity. By uniting diaspora tastemakers, DJs, and live performers in Paris, we prove that African nightlife is the driving force of international pop culture.
+      <div class="os-pillar-card" style="border-top: 4px solid var(--c-neon-green);">
+        <span class="pillar-tag" style="color: var(--c-neon-green);">[ 03 // DIASPORA OWNERSHIP ]</span>
+        <h3 class="pillar-title">Uniting Creative Tastemakers</h3>
+        <p class="pillar-desc">
+          By uniting diaspora DJs, live performers, and creative entrepreneurs in Paris, we prove that African nightlife is the driving force of modern international pop culture and venture equity.
         </p>
       </div>
     </div>
-  </section>
 
-  <!-- 6. GLOBAL EXPANSION RADAR MAP -->
-  <section class="paris-radar-section">
-    <span class="section-cyber-tag">[ STRATEGIC ROADMAP // GLOBAL TELEMETRY ]</span>
-    <h2 class="section-main-heading">
-      234AFRICA <span style="color: var(--c-cyan);">GLOBAL NODES.</span>
-    </h2>
-
-    <div class="radar-cards-grid">
-      <div class="radar-node-card">
-        <span class="radar-status-pill pill--lagos">[ ACTIVE MOTHERSHIP ]</span>
-        <h3 class="radar-city-title">LAGOS, NG</h3>
-        <p class="radar-desc">The cultural engine powering our campus and urban experiences across Africa.</p>
-      </div>
-
-      <div class="radar-node-card radar-node-active">
-        <span class="radar-status-pill pill--paris">[ DEPLOYED // SUMMER 2026 ]</span>
-        <h3 class="radar-city-title">PARIS, FR</h3>
-        <p class="radar-desc">Fête de la Musique block party & European partnership bridge with Piano After Dark.</p>
-      </div>
-
-      <div class="radar-node-card">
-        <span class="radar-status-pill pill--london">[ NEXT DEPLOYMENT ]</span>
-        <h3 class="radar-city-title">LONDON, UK</h3>
-        <p class="radar-desc">Connecting the UK diaspora with large-scale live productions and creative workshops.</p>
-      </div>
-
-      <div class="radar-node-card">
-        <span class="radar-status-pill pill--berlin">[ IN DEVELOPMENT ]</span>
-        <h3 class="radar-city-title">BERLIN, DE</h3>
-        <p class="radar-desc">Merging African sound architecture with European electronic nightlife culture.</p>
-      </div>
-    </div>
-  </section>
+  </main>
 
   <!-- ULTRA-FUTURISTIC CYBER-DECK COMMAND FOOTER -->
   <footer class="cyber-deck-footer">
@@ -1143,21 +945,24 @@
 
       <div class="cd-bottom-bar">
         <span>© 2026 234AFRICA // ALL RIGHTS RESERVED</span>
-        <span class="cd-sys-code">SYS_VER: 234.5.0_EUROPE // PARIS BLOCK PARTY EDITION</span>
+        <span class="cd-sys-code">SYS_VER: 234.6.0_EUROPE // PARIS 234.OS CYBER-VAULT</span>
       </div>
     </div>
   </footer>
 
-  <!-- FULL-SCREEN FLYER LIGHTBOX MODAL -->
-  <div class="flyer-lightbox-modal" id="flyer-modal">
-    <div class="lightbox-content">
-      <button class="lightbox-close-btn" id="close-modal-btn">✕</button>
-      <img src="assets/events/fete-paris.jpg" alt="4K Paris Flyer" class="lightbox-img">
+  <!-- FULL-SCREEN 4K RETICLE LIGHTBOX MODAL -->
+  <div class="flyer-modal-lightbox" id="flyer-modal">
+    <div class="lightbox-wrapper">
+      <button class="close-modal-btn" id="close-modal-btn">✕</button>
+      <img src="assets/events/fete-paris.jpg" alt="4K Paris Flyer" class="lightbox-image">
     </div>
   </div>
 
+  <!-- ════════════════════════════════════════════════════
+     234.OS CYBER-SYNTH WEB AUDIO & INTERACTIVE JS ENGINE
+  ════════════════════════════════════════════════════ -->
   <script>
-    // 1. Live Clock for Paris (CEST / UTC+2)
+    // 1. LIVE CEST CLOCK
     function updateParisClock() {
       const el = document.getElementById('cf-paris-clock');
       if (!el) return;
@@ -1171,64 +976,225 @@
     setInterval(updateParisClock, 1000);
     updateParisClock();
 
-    // 2. Lightbox Modal Logic
-    const openBtn = document.getElementById('open-flyer-btn');
-    const modal = document.getElementById('flyer-modal');
-    const closeBtn = document.getElementById('close-modal-btn');
+    // 2. WEB AUDIO API CYBER-SYNTH SOUND ENGINE (MAD CREATIVE SOUND EFFECTS)
+    let audioCtx = null;
+    let synthEnabled = true;
 
-    if (openBtn && modal) {
-      openBtn.addEventListener('click', () => {
-        modal.classList.add('active');
-      });
-      closeBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-      });
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.classList.remove('active');
+    function playCyberBeep(freq = 440, type = 'sine', duration = 0.08) {
+      if (!synthEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // AudioContext error handling
+      }
+    }
+
+    const soundBtn = document.getElementById('os-sound-btn');
+    if (soundBtn) {
+      soundBtn.addEventListener('click', () => {
+        synthEnabled = !synthEnabled;
+        soundBtn.innerHTML = synthEnabled ? '<span>🔊 CYBER-SYNTH AUDIO: ON</span>' : '<span>🔇 CYBER-SYNTH AUDIO: OFF</span>';
+        playCyberBeep(600, 'triangle', 0.1);
       });
     }
 
-    // 3. GSAP ScrollTrigger Entrance Animations
+    // 3. INTERACTIVE CHROMATIC VIDEO FILTERS
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const mainVideo = document.getElementById('main-video-el');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const mode = btn.getAttribute('data-filter');
+        mainVideo.className = 'monitor-video'; // reset
+        if (mode === 'cyberscan') mainVideo.classList.add('filter-cyberscan');
+        if (mode === 'neonbass') mainVideo.classList.add('filter-neonbass');
+        if (mode === 'thermal') mainVideo.classList.add('filter-thermal');
+
+        playCyberBeep(750, 'sawtooth', 0.06);
+      });
+    });
+
+    // 4. INTERACTIVE SOUNDBOARD SAMPLER DECK & ARTIST DOSSIER SWITCHER
+    const pads = document.querySelectorAll('.sound-pad');
+    const dossierPanel = document.getElementById('artist-dossier-panel');
+    const dossierGenre = document.getElementById('dossier-genre');
+    const dossierName = document.getElementById('dossier-name');
+    const dossierBio = document.getElementById('dossier-bio');
+
+    pads.forEach(pad => {
+      pad.addEventListener('click', () => {
+        pads.forEach(p => p.classList.remove('active'));
+        pad.classList.add('active');
+
+        const genre = pad.getAttribute('data-genre');
+        const name = pad.getAttribute('data-name');
+        const bio = pad.getAttribute('data-bio');
+        const color = pad.getAttribute('data-color');
+
+        // Glitch transition on the panel
+        dossierPanel.style.transform = 'scale(0.97)';
+        dossierPanel.style.borderColor = color;
+        dossierGenre.style.color = color;
+        dossierGenre.style.borderColor = color;
+        dossierGenre.style.background = `${color}22`;
+
+        setTimeout(() => {
+          dossierGenre.textContent = genre;
+          dossierName.textContent = name;
+          dossierBio.textContent = bio;
+          dossierPanel.style.transform = 'scale(1)';
+        }, 120);
+
+        // Synthesize a unique pitch per artist!
+        const freqs = {
+          'michel': 523.25, // C5
+          'kddo': 587.33,   // D5
+          'kaira': 659.25,  // E5
+          'steeve': 698.46, // F5
+          'phil': 783.99,   // G5
+          'phinova': 880.00,// A5
+          'vjtrue': 987.77, // B5
+          'dboi': 1046.50   // C6
+        };
+        const key = pad.getAttribute('data-artist');
+        playCyberBeep(freqs[key] || 440, 'triangle', 0.12);
+      });
+    });
+
+    // 5. LIGHTBOX MODAL TRIGGER
+    const flyerTrigger = document.getElementById('flyer-trigger');
+    const modal = document.getElementById('flyer-modal');
+    const closeBtn = document.getElementById('close-modal-btn');
+
+    if (flyerTrigger && modal) {
+      flyerTrigger.addEventListener('click', () => {
+        modal.classList.add('active');
+        playCyberBeep(800, 'sine', 0.1);
+      });
+      closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+        playCyberBeep(400, 'sine', 0.1);
+      });
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.remove('active');
+          playCyberBeep(400, 'sine', 0.1);
+        }
+      });
+    }
+
+    // 6. INTERACTIVE HTML5 CANVAS PARTICLE & LASER ENGINE
+    const canvas = document.getElementById('cyber-canvas');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+
+    if (canvas && ctx) {
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const mouse = { x: width / 2, y: height / 2 };
+      window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      });
+
+      const particles = [];
+      const colors = ['#00F2FE', '#00F58C', '#FF3B00', '#FFBE00', '#9D4EDD'];
+
+      for (let i = 0; i < 50; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 1.5,
+          vy: (Math.random() - 0.5) * 1.5,
+          size: Math.random() * 2.5 + 1,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+      }
+
+      function animateCanvas() {
+        ctx.clearRect(0, 0, width, height);
+
+        particles.forEach((p, idx) => {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+
+          // Interactive mouse attraction/repulsion
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 180) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.strokeStyle = p.color;
+            ctx.globalAlpha = (1 - dist / 180) * 0.4;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = p.color;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        });
+
+        requestAnimationFrame(animateCanvas);
+      }
+      animateCanvas();
+    }
+
+    // 7. GSAP SCROLLANIMATION
     window.addEventListener('DOMContentLoaded', () => {
       if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
 
-        // Animate Artist Chroma Cards on scroll
-        gsap.from('.artist-chroma-card', {
-          scrollTrigger: {
-            trigger: '.artist-chroma-grid',
-            start: 'top 85%'
-          },
-          y: 40,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: 'power3.out'
-        });
-
-        // Animate Narrative Cards on scroll
-        gsap.from('.narrative-card', {
-          scrollTrigger: {
-            trigger: '.narrative-grid',
-            start: 'top 85%'
-          },
-          y: 40,
+        gsap.from('.os-frame', {
+          y: 35,
           opacity: 0,
           duration: 0.8,
           stagger: 0.15,
           ease: 'power3.out'
         });
 
-        // Animate Radar Nodes on scroll
-        gsap.from('.radar-node-card', {
+        gsap.from('.os-pillar-card', {
           scrollTrigger: {
-            trigger: '.radar-cards-grid',
+            trigger: '.os-pillars-grid',
             start: 'top 85%'
           },
-          y: 30,
+          y: 40,
           opacity: 0,
           duration: 0.8,
-          stagger: 0.12,
+          stagger: 0.15,
           ease: 'power3.out'
         });
       }
