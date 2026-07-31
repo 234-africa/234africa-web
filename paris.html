@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>234.OS // PARIS TAKEOVER — INTERACTIVE CYBER-VAULT 🗼🔥</title>
+  <title>234AFRICA × PARIS // THE SOLSTICE SPATIAL EXPERIENCE 🗼🔥</title>
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="shortcut icon" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
@@ -11,574 +11,440 @@
   <!-- FONTS -->
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800;12..96,900&family=Outfit:wght@300;400;600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
+  <!-- THREE.JS FOR 3D WEBGL IMMERSIVE SCENE -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   <!-- GSAP & ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  
-  <!-- VANILLA TILT FOR 3D HOVER PHYSICS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 
   <link rel="stylesheet" href="style.css" />
   <style>
     :root {
-      --bg-void: #020105;
-      --c-red: #E84128;
-      --c-neon-orange: #FF3B00;
-      --c-neon-green: #00F58C;
-      --c-neon-yellow: #FFBE00;
-      --c-neon-cyan: #00F2FE;
-      --c-neon-purple: #9D4EDD;
-      --c-neon-pink: #FF007F;
+      --void-bg: #010003;
+      --neon-red: #FF3B00;
+      --neon-green: #00F58C;
+      --neon-yellow: #FFBE00;
+      --neon-cyan: #00F2FE;
+      --neon-purple: #9D4EDD;
+      --neon-pink: #FF007F;
     }
 
     * {
       box-sizing: border-box;
     }
 
-    body {
-      background: var(--bg-void);
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--void-bg);
       color: #fff;
       font-family: 'Outfit', sans-serif;
       overflow-x: hidden;
-      margin: 0;
-      padding: 0;
-      position: relative;
+      width: 100%;
     }
 
     /* ════════════════════════════════════════════════════
-       1. INTERACTIVE CYBER-CANVAS & HOLO-LASER ENVIRONMENT
+       1. FIXED FULLSCREEN 3D THREE.JS CANVAS (ZERO BOXES)
     ════════════════════════════════════════════════════ */
-    #cyber-canvas {
+    #webgl-canvas {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
       pointer-events: none;
-      z-index: -2;
+      z-index: 1;
     }
 
-    .os-scanline-overlay {
+    /* Minimalist Glass Header without boxy borders */
+    header#header {
       position: fixed;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0),
-        rgba(255, 255, 255, 0) 50%,
-        rgba(0, 0, 0, 0.25) 50%,
-        rgba(0, 0, 0, 0.25)
-      );
-      background-size: 100% 4px;
-      pointer-events: none;
-      z-index: -1;
-      opacity: 0.7;
-    }
-
-    .os-grid-lines {
-      position: fixed;
-      inset: 0;
-      background-image: 
-        linear-gradient(rgba(0, 242, 254, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 242, 254, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-      z-index: -2;
-    }
-
-    /* ════════════════════════════════════════════════════
-       2. TOP COMM-STATUS BAR & AUDIO SYNTH DRIVER
-    ════════════════════════════════════════════════════ */
-    .os-top-bar {
-      position: sticky;
-      top: 80px;
-      z-index: 100;
-      background: rgba(8, 7, 14, 0.88);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0, 242, 254, 0.25);
-      padding: 12px 4vw;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      background: linear-gradient(to bottom, rgba(1, 0, 3, 0.8) 0%, transparent 100%);
+      padding: 24px 4vw;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      pointer-events: auto;
     }
-    .os-status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(0, 245, 140, 0.12);
-      border: 1px solid rgba(0, 245, 140, 0.5);
-      color: var(--c-neon-green);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 6px 16px;
-      border-radius: 100px;
-      letter-spacing: 0.15em;
+    .header-logo-img {
+      height: 38px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
     }
-    .os-live-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--c-neon-green);
-      box-shadow: 0 0 10px var(--c-neon-green);
-      animation: greenBlink 1.2s infinite;
-    }
-    @keyframes greenBlink {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.3; transform: scale(0.8); }
-    }
-
-    .os-system-title {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.85rem;
-      color: var(--c-neon-yellow);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      font-weight: 700;
-      text-shadow: 0 0 15px rgba(255, 190, 0, 0.5);
-    }
-
-    .os-audio-toggle {
-      background: rgba(255, 59, 0, 0.15);
-      border: 1px solid var(--c-neon-orange);
-      color: #FFF;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 8px 20px;
-      border-radius: 100px;
-      cursor: pointer;
-      letter-spacing: 0.12em;
-      transition: all 0.3s;
+    .spatial-nav {
       display: flex;
+      gap: 36px;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 0 20px rgba(255, 59, 0, 0.3);
     }
-    .os-audio-toggle:hover {
-      background: var(--c-neon-orange);
+    .spatial-nav a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .spatial-nav a:hover, .spatial-nav a.active {
       color: #FFF;
-      transform: scale(1.05);
-      box-shadow: 0 0 35px rgba(255, 59, 0, 0.8);
+      text-shadow: 0 0 15px var(--neon-cyan);
+    }
+    .spatial-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--neon-red);
+      box-shadow: 0 0 10px var(--neon-red);
     }
 
     /* ════════════════════════════════════════════════════
-       3. 234.OS CYBER-BENTO INTERACTIVE DESKTOP
+       2. ZERO-BOX SPATIAL OVERLAY (FLOATING TYPOGRAPHY)
     ════════════════════════════════════════════════════ */
-    .os-desktop-wrapper {
-      max-width: 1550px;
-      margin: 0 auto;
-      padding: 40px 4vw 140px;
+    #spatial-overlay {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      pointer-events: none; /* Let clicks pass to interactive elements */
     }
 
-    /* Hero Headline & Intro Deck */
-    .os-hero-header {
-      text-align: center;
-      margin-bottom: 50px;
+    .spatial-waypoint {
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 4vw;
       position: relative;
+      pointer-events: none;
     }
-    .os-hero-title {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(3.5rem, 9.5vw, 9.5rem);
-      font-weight: 900;
-      line-height: 0.9;
+
+    /* ── WAYPOINT 01: HERO SPATIAL TYPOGRAPHY ── */
+    .hero-spatial-content {
+      text-align: center;
+      pointer-events: auto;
+      max-width: 1200px;
+    }
+
+    .spatial-badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--neon-cyan);
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      letter-spacing: -3px;
-      margin: 0 0 16px 0;
+      margin-bottom: 24px;
+      text-shadow: 0 0 20px rgba(0, 242, 254, 0.8);
+      animation: cyanPulseText 2s infinite alternate;
     }
-    .os-hero-title .glow-paris {
-      background: linear-gradient(135deg, #FFFFFF 0%, var(--c-neon-yellow) 40%, var(--c-neon-orange) 80%, var(--c-neon-pink) 100%);
+    @keyframes cyanPulseText {
+      0% { opacity: 0.7; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.05); }
+    }
+
+    .spatial-hero-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(4.5rem, 13vw, 12rem);
+      font-weight: 900;
+      line-height: 0.85;
+      text-transform: uppercase;
+      letter-spacing: -4px;
+      margin: 0;
+      position: relative;
+      user-select: none;
+    }
+    .title-white {
+      color: #FFFFFF;
+      text-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
+    }
+    .title-red {
+      background: linear-gradient(135deg, var(--neon-yellow) 0%, var(--neon-red) 50%, var(--neon-pink) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 45px rgba(255, 59, 0, 0.6));
+      filter: drop-shadow(0 0 50px rgba(255, 59, 0, 0.7));
     }
-    .os-x {
-      color: var(--c-neon-orange);
-      display: inline-block;
-      text-shadow: 0 0 25px var(--c-neon-orange);
-      animation: osPulseX 2s infinite alternate;
+
+    .spatial-tagline {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.15rem, 2.5vw, 1.6rem);
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 800px;
+      margin: 36px auto 0;
+      line-height: 1.6;
+      text-shadow: 0 0 20px rgba(0,0,0,0.8);
     }
-    @keyframes osPulseX {
-      0% { transform: scale(1) rotate(0deg); }
-      100% { transform: scale(1.15) rotate(15deg); }
-    }
-    .os-hero-subtitle {
+
+    .scroll-indicator-orbit {
+      margin-top: 60px;
       font-family: 'Space Mono', monospace;
-      font-size: clamp(0.9rem, 2vw, 1.25rem);
-      color: #00F2FE;
-      letter-spacing: 0.15em;
+      font-size: 0.75rem;
+      color: var(--neon-yellow);
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      max-width: 900px;
-      margin: 0 auto;
-      text-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+      animation: floatDown 2s infinite alternate ease-in-out;
+    }
+    @keyframes floatDown {
+      0% { transform: translateY(0); opacity: 0.5; }
+      100% { transform: translateY(12px); opacity: 1; text-shadow: 0 0 15px var(--neon-yellow); }
     }
 
-    /* THE BENTO DECK GRID */
-    .os-bento-grid {
-      display: grid;
-      grid-template-columns: 380px 1fr 380px;
-      gap: 28px;
-      align-items: start;
-      margin-bottom: 60px;
+    /* ── WAYPOINT 02: FREE-FLOATING CINEMA PORTAL (NO BOX BORDERS) ── */
+    .portal-waypoint {
+      min-height: 110vh;
     }
 
-    /* Crosshairs inside frames */
-    .os-frame {
-      background: rgba(13, 12, 20, 0.88);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 28px;
-      padding: 24px;
+    .portal-title-float {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      text-align: center;
+      color: #FFF;
+      text-shadow: 0 0 35px rgba(255, 59, 0, 0.8);
+      pointer-events: auto;
+    }
+
+    /* Organic glowing portal wrapper without box lines */
+    .cinema-portal-container {
       position: relative;
-      overflow: hidden;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .os-frame:hover {
-      border-color: rgba(255, 255, 255, 0.35);
-      box-shadow: 0 35px 90px rgba(0, 0, 0, 0.95);
-    }
-    .os-corner {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      border-color: var(--c-neon-cyan);
-      pointer-events: none;
-      opacity: 0.7;
-    }
-    .c-tl { top: 12px; left: 12px; border-top: 2px solid; border-left: 2px solid; }
-    .c-tr { top: 12px; right: 12px; border-top: 2px solid; border-right: 2px solid; }
-    .c-bl { bottom: 12px; left: 12px; border-bottom: 2px solid; border-left: 2px solid; }
-    .c-br { bottom: 12px; right: 12px; border-bottom: 2px solid; border-right: 2px solid; }
-
-    .os-frame-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-    }
-
-    /* ── LEFT PANEL: 3D HOLOGRAPHIC FLYER VAULT ── */
-    .flyer-hologram-card {
-      border-top: 4px solid var(--c-neon-yellow);
-    }
-    .flyer-hud-tag { color: var(--c-neon-yellow); }
-    .flyer-img-box {
-      position: relative;
-      border-radius: 18px;
-      overflow: hidden;
-      cursor: pointer;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-    }
-    .flyer-el {
       width: 100%;
-      height: auto;
+      max-width: 1150px;
+      pointer-events: auto;
+      border-radius: 40px;
+      padding: 4px;
+      background: linear-gradient(135deg, var(--neon-red), var(--neon-yellow), var(--neon-cyan), var(--neon-purple));
+      box-shadow: 
+        0 0 80px rgba(255, 59, 0, 0.4),
+        0 0 140px rgba(0, 242, 254, 0.25),
+        0 40px 100px rgba(0, 0, 0, 0.95);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .cinema-portal-container:hover {
+      transform: scale(1.02);
+      box-shadow: 
+        0 0 100px rgba(255, 59, 0, 0.7),
+        0 0 180px rgba(0, 242, 254, 0.4),
+        0 50px 120px rgba(0, 0, 0, 0.95);
+    }
+    .cinema-video-player {
+      width: 100%;
+      max-height: 640px;
+      border-radius: 36px;
       display: block;
-      transition: transform 0.5s;
+      object-fit: cover;
+      background: #000;
     }
-    .flyer-img-box:hover .flyer-el {
-      transform: scale(1.06);
+
+    .portal-telemetry-tag {
+      margin-top: 24px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--neon-green);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-shadow: 0 0 15px var(--neon-green);
+      pointer-events: auto;
     }
-    .flyer-hover-action {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
+
+    /* ── WAYPOINT 03: ORBITAL LINEUP CONSTELLATION (ZERO BOXES) ── */
+    .constellation-waypoint {
+      min-height: 115vh;
+    }
+    
+    .constellation-heading {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, #FFF, var(--neon-cyan), #FFF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px rgba(0, 242, 254, 0.6));
+    }
+    .constellation-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 70px;
+      text-align: center;
+    }
+
+    /* Free-floating typography constellation (No Cards!) */
+    .orbital-artist-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 36px 48px;
+      max-width: 1250px;
+      margin: 0 auto;
+      pointer-events: auto;
+    }
+
+    .orbital-artist-node {
+      position: relative;
+      cursor: pointer;
+      padding: 16px 28px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+    .node-genre-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--neon-yellow);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+      opacity: 0.7;
+      transition: all 0.3s;
+    }
+    .node-artist-name {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.8rem);
+      font-weight: 900;
+      color: #FFF;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+      transition: all 0.3s;
+    }
+
+    /* Zero-box hover physics: glows and floats in 3D space */
+    .orbital-artist-node:hover .node-artist-name,
+    .orbital-artist-node.active .node-artist-name {
+      transform: scale(1.15) translateY(-6px);
+      text-shadow: 0 0 35px var(--neon-cyan), 0 0 70px var(--neon-cyan);
+      color: #FFF;
+    }
+    .orbital-artist-node:hover .node-genre-label,
+    .orbital-artist-node.active .node-genre-label {
+      opacity: 1;
+      color: var(--neon-green);
+      text-shadow: 0 0 15px var(--neon-green);
+    }
+
+    /* Floating Holographic Artist Bio Display in the void */
+    .floating-bio-hologram {
+      margin-top: 60px;
+      max-width: 750px;
+      text-align: center;
+      pointer-events: auto;
+      min-height: 100px;
+      transition: all 0.4s;
+    }
+    .hologram-bio-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+      color: #00F2FE;
+      font-weight: 400;
+      line-height: 1.6;
+      text-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+      margin: 0;
+    }
+
+    /* ── WAYPOINT 04: HOLOGRAPHIC FLYER MONOLITH & CONTINENTAL BRIDGE ── */
+    .monolith-waypoint {
+      min-height: 110vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s;
     }
-    .flyer-img-box:hover .flyer-hover-action {
-      opacity: 1;
+
+    .monolith-layout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      max-width: 1350px;
+      width: 100%;
+      align-items: center;
+      pointer-events: auto;
     }
-    .reticle-btn {
-      background: var(--c-neon-yellow);
-      color: #000;
+
+    .monolith-text-side {
+      text-align: left;
+    }
+    .monolith-subtitle {
       font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
-      font-weight: 800;
-      padding: 12px 22px;
-      border-radius: 100px;
+      font-size: 0.82rem;
+      color: var(--neon-red);
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      box-shadow: 0 0 30px rgba(255, 190, 0, 0.8);
-    }
-
-    /* ── CENTER PANEL: INTERACTIVE CYBER CINEMA MONITOR ── */
-    .video-monitor-card {
-      border-top: 4px solid var(--c-neon-orange);
-      position: relative;
-    }
-    .video-hud-tag { color: var(--c-neon-orange); }
-    
-    .filter-controls-dock {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-    .filter-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #FFF;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 6px 14px;
-      border-radius: 100px;
-      cursor: pointer;
-      letter-spacing: 0.1em;
-      transition: all 0.25s;
-    }
-    .filter-btn.active, .filter-btn:hover {
-      background: var(--c-neon-orange);
-      color: #FFF;
-      border-color: var(--c-neon-orange);
-      box-shadow: 0 0 20px rgba(255, 59, 0, 0.6);
-    }
-
-    .monitor-screen-frame {
-      position: relative;
-      width: 100%;
-      border-radius: 20px;
-      overflow: hidden;
-      background: #000;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-    }
-    .monitor-video {
-      width: 100%;
-      max-height: 520px;
-      object-fit: cover;
+      margin-bottom: 20px;
       display: block;
-      transition: filter 0.4s ease;
+      text-shadow: 0 0 15px var(--neon-red);
     }
-    /* Video filter classes triggered by JS */
-    .filter-cyberscan { filter: hue-rotate(180deg) contrast(130%) saturate(140%); }
-    .filter-neonbass { filter: saturate(220%) contrast(125%) brightness(110%); }
-    .filter-thermal { filter: invert(10%) sepia(80%) saturate(300%) hue-rotate(320deg); }
-
-    .monitor-caption-bar {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: linear-gradient(to top, rgba(5, 5, 12, 0.95) 20%, rgba(5, 5, 12, 0.6) 80%, transparent 100%);
-      padding: 24px 20px 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .caption-title {
+    .monolith-title {
       font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+      font-size: clamp(2.8rem, 5.5vw, 4.5rem);
       font-weight: 900;
-      color: #FFF;
-      margin: 0 0 4px 0;
-      text-transform: uppercase;
-    }
-    .caption-desc {
-      font-size: 0.92rem;
-      color: #DDD;
-      margin: 0;
-    }
-
-    /* ── RIGHT PANEL: INTERACTIVE DJ SOUNDBOARD SAMPLER ── */
-    .soundboard-card {
-      border-top: 4px solid var(--c-neon-cyan);
-    }
-    .soundboard-hud-tag { color: var(--c-neon-cyan); }
-    .soundboard-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-    .sound-pad {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 14px;
-      padding: 12px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      transition: all 0.25s;
-    }
-    .sound-pad:hover, .sound-pad.active {
-      background: rgba(0, 242, 254, 0.15);
-      border-color: var(--c-neon-cyan);
-      transform: translateX(6px);
-      box-shadow: 0 0 25px rgba(0, 242, 254, 0.35);
-    }
-    .pad-id {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--c-neon-cyan);
-      font-weight: 700;
-      letter-spacing: 0.12em;
-    }
-    .pad-name {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: #FFF;
-      text-transform: uppercase;
-    }
-    .pad-eq-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--c-neon-cyan);
-      box-shadow: 0 0 8px var(--c-neon-cyan);
-    }
-
-    /* ════════════════════════════════════════════════════
-       4. INTERACTIVE ARTIST DOSSIER TERMINAL (DYNAMIC PAD)
-    ════════════════════════════════════════════════════ */
-    .os-artist-dossier-panel {
-      background: linear-gradient(135deg, rgba(16, 15, 25, 0.95), rgba(22, 20, 36, 0.95));
-      border: 1px solid rgba(0, 242, 254, 0.45);
-      border-radius: 28px;
-      padding: 36px 40px;
-      margin-bottom: 60px;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 50px rgba(0, 242, 254, 0.15);
-      transition: all 0.4s;
-    }
-    .dossier-inner-grid {
-      display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 36px;
-      align-items: center;
-    }
-    .dossier-genre-badge {
-      display: inline-block;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--c-neon-cyan);
-      background: rgba(0, 242, 254, 0.12);
-      border: 1px solid var(--c-neon-cyan);
-      padding: 6px 16px;
-      border-radius: 100px;
-      letter-spacing: 0.15em;
-      margin-bottom: 14px;
-    }
-    .dossier-artist-name {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(2.4rem, 5vw, 4.2rem);
-      font-weight: 900;
-      color: #FFF;
       line-height: 1;
-      margin: 0 0 16px 0;
       text-transform: uppercase;
-      letter-spacing: -1px;
+      margin: 0 0 24px 0;
     }
-    .dossier-artist-bio {
-      font-size: 1.1rem;
-      color: #DDD;
-      line-height: 1.6;
-      max-width: 800px;
-      margin: 0;
+    .monolith-desc {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.7;
+      margin: 0 0 36px 0;
     }
-
-    /* Kinetic Audio Wave Simulation box */
-    .dossier-wave-box {
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
-      padding: 24px;
-      text-align: center;
-    }
-    .wave-bars-row {
+    .monolith-stat-chips {
       display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 5px;
-      height: 60px;
-      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 20px;
     }
-    .wave-bar-el {
-      width: 6px;
-      background: var(--c-neon-cyan);
-      border-radius: 100px;
-      animation: eqWavePulse 0.9s infinite alternate ease-in-out;
-      box-shadow: 0 0 10px var(--c-neon-cyan);
-    }
-    .wave-bar-el:nth-child(1) { height: 20px; animation-delay: 0.1s; }
-    .wave-bar-el:nth-child(2) { height: 45px; animation-delay: 0.4s; }
-    .wave-bar-el:nth-child(3) { height: 60px; animation-delay: 0.2s; }
-    .wave-bar-el:nth-child(4) { height: 35px; animation-delay: 0.6s; }
-    .wave-bar-el:nth-child(5) { height: 50px; animation-delay: 0.3s; }
-    .wave-bar-el:nth-child(6) { height: 25px; animation-delay: 0.5s; }
-    .wave-bar-el:nth-child(7) { height: 40px; animation-delay: 0.15s; }
-
-    @keyframes eqWavePulse {
-      0% { transform: scaleY(0.4); }
-      100% { transform: scaleY(1.1); }
-    }
-
-    /* ════════════════════════════════════════════════════
-       5. WHY PARIS — CHROMATIC BENTO PILLARS
-    ════════════════════════════════════════════════════ */
-    .os-pillars-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-      gap: 28px;
-      margin-bottom: 60px;
-    }
-    .os-pillar-card {
-      background: rgba(14, 13, 22, 0.88);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 26px;
-      padding: 36px 30px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.4s;
-    }
-    .os-pillar-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 25px 60px rgba(0,0,0,0.8);
-    }
-    .pillar-tag {
+    .spatial-chip {
       font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      margin-bottom: 16px;
-      display: block;
-    }
-    .pillar-title {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 1.95rem;
-      font-weight: 900;
-      color: #FFF;
-      margin: 0 0 14px 0;
+      font-size: 0.8rem;
+      color: var(--neon-yellow);
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      line-height: 1.1;
-    }
-    .pillar-desc {
-      font-size: 1.02rem;
-      color: #CCC;
-      line-height: 1.6;
-      margin: 0;
+      border-bottom: 2px solid var(--neon-yellow);
+      padding-bottom: 4px;
+      text-shadow: 0 0 15px rgba(255, 190, 0, 0.5);
     }
 
-    /* ════════════════════════════════════════════════════
-       6. LIGHTBOX MODAL FOR FLYER
-    ════════════════════════════════════════════════════ */
-    .flyer-modal-lightbox {
+    /* Floating angled flyer without a card border */
+    .monolith-flyer-projection {
+      position: relative;
+      cursor: pointer;
+      transform: perspective(1200px) rotateY(-14deg) rotateX(6deg);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: drop-shadow(0 0 60px rgba(255, 59, 0, 0.5));
+    }
+    .monolith-flyer-projection:hover {
+      transform: perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1.05);
+      filter: drop-shadow(0 0 90px rgba(0, 245, 140, 0.7));
+    }
+    .projection-img {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      display: block;
+      border-radius: 28px;
+    }
+
+    /* ── FULLSCREEN HOLOGRAPHIC LIGHTBOX FOR FLYER ── */
+    #spatial-lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(25px);
+      background: rgba(1, 0, 3, 0.94);
+      backdrop-filter: blur(30px);
       z-index: 99999;
       display: flex;
       align-items: center;
@@ -586,39 +452,30 @@
       padding: 30px;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.35s;
+      transition: opacity 0.4s ease;
     }
-    .flyer-modal-lightbox.active {
+    #spatial-lightbox.active {
       opacity: 1;
       pointer-events: auto;
     }
-    .lightbox-wrapper {
-      position: relative;
-      max-width: 92vw;
-      max-height: 92vh;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 0 80px rgba(255, 190, 0, 0.5);
-      border: 1px solid rgba(255, 190, 0, 0.6);
-    }
-    .lightbox-image {
+    .lightbox-img-el {
       width: auto;
-      height: 85vh;
-      max-width: 100%;
-      display: block;
+      height: 88vh;
+      max-width: 95vw;
       object-fit: contain;
+      filter: drop-shadow(0 0 80px rgba(255, 190, 0, 0.6));
     }
-    .close-modal-btn {
+    .lightbox-close-spatial {
       position: absolute;
-      top: 24px;
-      right: 24px;
-      background: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      color: #FFF;
+      top: 30px;
+      right: 40px;
       font-family: 'Space Mono', monospace;
       font-size: 1.1rem;
-      width: 48px;
-      height: 48px;
+      color: #FFF;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -626,579 +483,440 @@
       cursor: pointer;
       transition: all 0.3s;
     }
-    .close-modal-btn:hover {
-      background: var(--c-neon-orange);
-      transform: scale(1.1);
+    .lightbox-close-spatial:hover {
+      border-color: var(--neon-red);
+      color: var(--neon-red);
+      transform: scale(1.15) rotate(90deg);
     }
 
-    /* ════════════════════════════════════════════════════
-       RESPONSIVE BREAKPOINTS
-    ════════════════════════════════════════════════════ */
-    @media (max-width: 1300px) {
-      .os-bento-grid {
-        grid-template-columns: 1fr;
-      }
-      .os-frame {
-        max-width: 100%;
-      }
-      .soundboard-grid {
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      }
+    /* ── FOOTER ZERO-BOX SPATIAL COMMAND ── */
+    footer.spatial-footer {
+      padding: 80px 4vw 60px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      pointer-events: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(to top, rgba(1, 0, 3, 0.95), transparent);
     }
-    @media (max-width: 768px) {
-      .os-desktop-wrapper { padding: 20px 4vw 80px; }
-      .os-hero-title { font-size: clamp(2.8rem, 11vw, 5rem); }
-      .dossier-inner-grid { grid-template-columns: 1fr; }
+    .spatial-footer-brand {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 900;
+      color: #FFF;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
+    .spatial-socials-row {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .spatial-socials-row a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--neon-yellow);
+      text-decoration: none;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .spatial-socials-row a:hover {
+      color: #FFF;
+      text-shadow: 0 0 20px var(--neon-yellow);
+      transform: translateY(-3px);
+    }
+    .spatial-copyright {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 0.15em;
+    }
+
+    @media (max-width: 992px) {
+      .monolith-layout-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .monolith-text-side { text-align: center; }
+      .monolith-stat-chips { justify-content: center; }
+      .monolith-flyer-projection { transform: none; margin: 0 auto; }
+      .spatial-nav { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- INTERACTIVE HTML5 CANVAS PARTICLE & LASER FIELD -->
-  <canvas id="cyber-canvas"></canvas>
-  <div class="os-scanline-overlay"></div>
-  <div class="os-grid-lines"></div>
+  <!-- FIXED THREE.JS 3D WEBGL FULLSCREEN CANVAS (ZERO BOXES) -->
+  <canvas id="webgl-canvas"></canvas>
 
-  <!-- FIXED GLASSMORPHIC HEADER -->
-  <header id="header" class="cyber-header">
-    <div class="header-inner">
-      <a href="index.html" class="logo" style="display: flex; align-items: center; z-index: 999;">
-        <img src="assets/234logo-transparent.png" alt="234AFRICA Logo" style="height: 40px; width: auto; object-fit: contain;">
-      </a>
-      <nav class="nav-links">
-        <a href="ecosystem.html">THE ECOSYSTEM</a>
-        <a href="events.html">EVENTS</a>
-        <a href="paris.html" class="active">234 × PARIS</a>
-        <a href="https://greyapple.vip" target="_blank">GREYAPPLE</a>
-        <a href="cruiseroom.html">THE CRUISE ROOM</a>
-      </nav>
-    </div>
+  <!-- GLASS HEADER WITHOUT BOXY BORDERS -->
+  <header id="header">
+    <a href="index.html" class="logo">
+      <img src="assets/234logo-transparent.png" alt="234AFRICA Logo" class="header-logo-img">
+    </a>
+    <nav class="spatial-nav">
+      <a href="ecosystem.html">THE ECOSYSTEM</a>
+      <a href="events.html">EVENTS</a>
+      <a href="paris.html" class="active">234 × PARIS</a>
+      <a href="https://greyapple.vip" target="_blank">GREYAPPLE</a>
+      <a href="cruiseroom.html">THE CRUISE ROOM</a>
+    </nav>
   </header>
 
-  <!-- 234.OS CYBER-COMM LINK STATUS BAR -->
-  <div class="os-top-bar">
-    <div class="os-status-pill">
-      <span class="os-live-dot"></span>
-      <span>234.OS // EUROPE TELEMETRY ACTIVE</span>
-    </div>
+  <!-- ════════════════════════════════════════════════════
+     ZERO-BOX SPATIAL OVERLAY LAYER (100% FREE-FLOATING)
+  ════════════════════════════════════════════════════ -->
+  <div id="spatial-overlay">
 
-    <div class="os-system-title">
-      FÊTE DE LA MUSIQUE 2026 // PARIS BLOCK PARTY VAULT
-    </div>
+    <!-- WAYPOINT 01: HERO SPATIAL TYPOGRAPHY -->
+    <section class="spatial-waypoint hero-waypoint" id="waypoint-hero">
+      <div class="hero-spatial-content">
+        <div class="spatial-badge">
+          // FÊTE DE LA MUSIQUE 2026 ● IMPASSE DIDEROT TAKEOVER
+        </div>
+        <h1 class="spatial-hero-title">
+          <span class="title-white">234AFRICA</span><br>
+          <span class="title-red">× PARIS</span>
+        </h1>
+        <p class="spatial-tagline">
+          African Sonic Power × French Street Culture. An immersive open-air solstice block party in Pantin, Paris hosted by Divine in collaboration with <strong>Piano After Dark (PVW)</strong>.
+        </p>
+        <div class="scroll-indicator-orbit">
+          ▼ SCROLL TO FLIGHT NAVIGATE 3D SPACE ▼
+        </div>
+      </div>
+    </section>
 
-    <button class="os-audio-toggle" id="os-sound-btn">
-      <span>🔊 CYBER-SYNTH AUDIO: ON</span>
-    </button>
+    <!-- WAYPOINT 02: FREE-FLOATING CINEMA PORTAL (ZERO BOXES) -->
+    <section class="spatial-waypoint portal-waypoint" id="waypoint-portal">
+      <h2 class="portal-title-float">THE STREET TAKEOVER REEL</h2>
+      
+      <div class="cinema-portal-container">
+        <video controls autoplay loop muted playsinline class="cinema-video-player">
+          <source src="assets/events/paris-video.mov" type="video/quicktime">
+          <source src="assets/events/paris-video.mov" type="video/mp4">
+          <source src="assets/events/paris-video.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+
+      <div class="portal-telemetry-tag">
+        ● LIVE AUDIO-VISUAL RECORDING // IMPASSE DIDEROT 93500 PANTIN, FRANCE
+      </div>
+    </section>
+
+    <!-- WAYPOINT 03: ORBITAL LINEUP CONSTELLATION (FREE-FLOATING NODES) -->
+    <section class="spatial-waypoint constellation-waypoint" id="waypoint-constellation">
+      <h2 class="constellation-heading">THE SOUND CONSTELLATION</h2>
+      <div class="constellation-sub">// HOVER ANY ORBITAL NODE IN 3D SPACE</div>
+
+      <div class="orbital-artist-cluster">
+        <!-- Node 1 -->
+        <div class="orbital-artist-node active" data-name="DJ MICHEL" data-bio="Parisian tastemaker and resident selector driving high-energy Afrobeats and street anthems." data-color="#00F2FE">
+          <span class="node-genre-label">[ 01 // RESIDENT ]</span>
+          <div class="node-artist-name">DJ MICHEL</div>
+        </div>
+
+        <!-- Node 2 -->
+        <div class="orbital-artist-node" data-name="KDDO" data-bio="Award-winning producer and hit-maker bringing continental Amapiano grooves and heavy basslines." data-color="#00F58C">
+          <span class="node-genre-label">[ 02 // PRODUCER ]</span>
+          <div class="node-artist-name">KDDO</div>
+        </div>
+
+        <!-- Node 3 -->
+        <div class="orbital-artist-node" data-name="KAIRA STARR" data-bio="Electrifying live vocalist merging soul, Afro-fusion, and magnetic stage performance." data-color="#FF3B00">
+          <span class="node-genre-label">[ 03 // VOCALIST ]</span>
+          <div class="node-artist-name">KAIRA STARR</div>
+        </div>
+
+        <!-- Node 4 -->
+        <div class="orbital-artist-node" data-name="STEEVE TYLER" data-bio="French street culture selector blending urban rhythms with international club sounds." data-color="#FFBE00">
+          <span class="node-genre-label">[ 04 // SELECTOR ]</span>
+          <div class="node-artist-name">STEEVE TYLER</div>
+        </div>
+
+        <!-- Node 5 -->
+        <div class="orbital-artist-node" data-name="DJ PHIL" data-bio="Master of percussive Amapiano sets and high-voltage dancefloor orchestration." data-color="#9D4EDD">
+          <span class="node-genre-label">[ 05 // AMAPIANO ]</span>
+          <div class="node-artist-name">DJ PHIL</div>
+        </div>
+
+        <!-- Node 6 -->
+        <div class="orbital-artist-node" data-name="PHINOVA" data-bio="Sonic innovator fusing deep electronic synthesis with rhythmic African percussion." data-color="#FF007F">
+          <span class="node-genre-label">[ 06 // ELECTRONIC ]</span>
+          <div class="node-artist-name">PHINOVA</div>
+        </div>
+
+        <!-- Node 7 -->
+        <div class="orbital-artist-node" data-name="VJTRUE" data-bio="Visual artist and live projectionist designing the holographic aesthetics of the block party." data-color="#00F2FE">
+          <span class="node-genre-label">[ 07 // VISUALS ]</span>
+          <div class="node-artist-name">VJTRUE</div>
+        </div>
+
+        <!-- Node 8 -->
+        <div class="orbital-artist-node" data-name="DBOI NOME" data-bio="The voice of the block party—commanding the crowd and elevating energy to peak capacity." data-color="#00F58C">
+          <span class="node-genre-label">[ 08 // HYPEMAN ]</span>
+          <div class="node-artist-name">DBOI NOME</div>
+        </div>
+      </div>
+
+      <!-- Holographic Artist Bio Projection -->
+      <div class="floating-bio-hologram">
+        <p class="hologram-bio-text" id="constellation-bio-text">
+          "Parisian tastemaker and resident selector driving high-energy Afrobeats and street anthems."
+        </p>
+      </div>
+    </section>
+
+    <!-- WAYPOINT 04: HOLOGRAPHIC FLYER MONOLITH & CONTINENTAL BRIDGE -->
+    <section class="spatial-waypoint monolith-waypoint" id="waypoint-monolith">
+      <div class="monolith-layout-grid">
+        <div class="monolith-text-side">
+          <span class="monolith-subtitle">// WEST AFRICA TO EUROPE CONTINENTAL BRIDGE</span>
+          <h2 class="monolith-title">
+            ESTABLISHING AFRICAN <span style="color: var(--neon-yellow);">ROOTS IN PARIS.</span>
+          </h2>
+          <p class="monolith-desc">
+            We don't just host events; we build permanent cultural bridges. Partnering with <strong>Piano After Dark (PVW)</strong>, 234AFRICA transformed Impasse Diderot into an open-air solstice celebration uniting African youth energy with European street culture.
+          </p>
+          <div class="monolith-stat-chips">
+            <span class="spatial-chip">★ 1,200+ PANTIN ATTENDEES</span>
+            <span class="spatial-chip">★ 2 DAYS NON-STOP ENERGY</span>
+            <span class="spatial-chip">★ PIANO AFTER DARK PARTNERSHIP</span>
+          </div>
+        </div>
+
+        <!-- Free-floating angled 3D projection of the flyer -->
+        <div class="monolith-flyer-projection" id="flyer-monolith-trigger">
+          <img src="assets/events/fete-paris.jpg" alt="Fête de la Musique Paris Flyer" class="projection-img">
+        </div>
+      </div>
+    </section>
+
   </div>
 
-  <!-- MAIN 234.OS CYBER-BENTO DESKTOP -->
-  <main class="os-desktop-wrapper">
-    
-    <!-- Hero Header Title -->
-    <div class="os-hero-header">
-      <h1 class="os-hero-title">
-        234AFRICA <span class="os-x">×</span> <span class="glow-paris">PARIS</span>
-      </h1>
-      <div class="os-hero-subtitle">
-        // THE STREET TAKEOVER AT IMPASSE DIDEROT 93500 PANTIN × PIANO AFTER DARK
-      </div>
+  <!-- ZERO-BOX SPATIAL FOOTER -->
+  <footer class="spatial-footer">
+    <div class="spatial-footer-brand">234AFRICA // EUROPE PORTAL</div>
+    <div class="spatial-socials-row">
+      <a href="https://instagram.com/234.hq" target="_blank">IG: @234.HQ</a>
+      <a href="mailto:234groupinfo@gmail.com">MAIL: 234GROUPINFO@GMAIL.COM</a>
+      <a href="tel:+2348103236094">TEL: +234 810 323 6094</a>
+      <a href="index.html">← RETURN TO MAIN PORTAL</a>
     </div>
-
-    <!-- ── THE 234.OS BENTO COMMAND DECK ── -->
-    <div class="os-bento-grid">
-      
-      <!-- MODULE 01 (LEFT): 3D HOLOGRAPHIC FLYER DECK -->
-      <div class="os-frame flyer-hologram-card" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-perspective="1000">
-        <span class="os-corner c-tl"></span><span class="os-corner c-tr"></span>
-        <span class="os-corner c-bl"></span><span class="os-corner c-br"></span>
-
-        <div class="os-frame-header">
-          <span class="flyer-hud-tag">[ MODULE 01 // ARTIFACT VAULT ]</span>
-          <span>4K_VERIFIED</span>
-        </div>
-
-        <div class="flyer-img-box" id="flyer-trigger">
-          <img src="assets/events/fete-paris.jpg" alt="Fête de la Musique Paris Flyer" class="flyer-el">
-          <div class="flyer-hover-action">
-            <div class="reticle-btn">🔍 ENGAGE 4K RETICLE</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- MODULE 02 (CENTER): CYBER CINEMA MONITOR & LIVE FILTER SWITCHER -->
-      <div class="os-frame video-monitor-card">
-        <span class="os-corner c-tl"></span><span class="os-corner c-tr"></span>
-        <span class="os-corner c-bl"></span><span class="os-corner c-br"></span>
-
-        <div class="os-frame-header">
-          <span class="video-hud-tag">[ MODULE 02 // BROADCAST MONITOR ]</span>
-          <span>REC ● LIVE TELEMETRY</span>
-        </div>
-
-        <!-- Interactive Chromatic Filter Selector -->
-        <div class="filter-controls-dock">
-          <button class="filter-btn active" data-filter="normal">● NORMAL 4K</button>
-          <button class="filter-btn" data-filter="cyberscan">⚡ CYBER-SCAN</button>
-          <button class="filter-btn" data-filter="neonbass">🔥 NEON-OVERDRIVE</button>
-          <button class="filter-btn" data-filter="thermal">🌌 THERMAL-BASS</button>
-        </div>
-
-        <!-- Video Display Stage -->
-        <div class="monitor-screen-frame">
-          <video controls autoplay loop muted playsinline id="main-video-el" class="monitor-video">
-            <source src="assets/events/paris-video.mov" type="video/quicktime">
-            <source src="assets/events/paris-video.mov" type="video/mp4">
-            <source src="assets/events/paris-video.mp4" type="video/mp4">
-            Your browser does not support HTML5 video.
-          </video>
-
-          <div class="monitor-caption-bar">
-            <div>
-              <h3 class="caption-title">234 in <span style="color: var(--c-neon-orange);">PARIS</span> — IMPASSE DIDEROT</h3>
-              <p class="caption-desc">Summer solstice open-air street takeover filmed live in Pantin, France.</p>
-            </div>
-            <div>
-              <span style="font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--c-neon-yellow); border: 1px solid var(--c-neon-yellow); padding: 6px 14px; border-radius: 100px;">
-                // FÊTE DE LA MUSIQUE
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- MODULE 03 (RIGHT): INTERACTIVE SOUNDBOARD SAMPLER DECK -->
-      <div class="os-frame soundboard-card">
-        <span class="os-corner c-tl"></span><span class="os-corner c-tr"></span>
-        <span class="os-corner c-bl"></span><span class="os-corner c-br"></span>
-
-        <div class="os-frame-header">
-          <span class="soundboard-hud-tag">[ MODULE 03 // SOUND SYNDICATE ]</span>
-          <span>CLICK TO ENGAGE</span>
-        </div>
-
-        <div class="soundboard-grid" id="soundboard-pads">
-          <div class="sound-pad active" data-artist="michel" data-genre="AFROBEATS // RESIDENT" data-name="DJ MICHEL" data-bio="Parisian tastemaker and resident selector driving high-energy Afrobeats and street anthems." data-color="#00F2FE">
-            <div>
-              <div class="pad-id">[ 01 // RESIDENT ]</div>
-              <div class="pad-name">DJ MICHEL</div>
-            </div>
-            <span class="pad-eq-dot" style="background: #00F2FE; box-shadow: 0 0 10px #00F2FE;"></span>
-          </div>
-
-          <div class="sound-pad" data-artist="kddo" data-genre="AMAPIANO // PRODUCER" data-name="KDDO" data-bio="Award-winning hit-maker producer bringing continental Amapiano basslines to the Paris street stage." data-color="#00F58C">
-            <div>
-              <div class="pad-id">[ 02 // PRODUCER ]</div>
-              <div class="pad-name">KDDO</div>
-            </div>
-            <span class="pad-eq-dot" style="background: #00F58C; box-shadow: 0 0 10px #00F58C;"></span>
-          </div>
-
-          <div class="sound-pad" data-artist="kaira" data-genre="VOCALS // PERFORMANCE" data-name="KAIRA STARR" data-bio="Electrifying live vocalist merging soul, Afro-fusion, and magnetic stage performance." data-color="#FF3B00">
-            <div>
-              <div class="pad-id">[ 03 // VOCALS ]</div>
-              <div class="pad-name">KAIRA STARR</div>
-            </div>
-            <span class="pad-eq-dot" style="background: #FF3B00; box-shadow: 0 0 10px #FF3B00;"></span>
-          </div>
-
-          <div class="sound-pad" data-artist="steeve" data-genre="FRENCH STREET // BASS" data-name="STEEVE TYLER" data-bio="French street culture selector blending urban rhythms with international club sounds." data-color="#FFBE00">
-            <div>
-              <div class="pad-id">[ 04 // SELECTOR ]</div>
-              <div class="pad-name">STEEVE TYLER</div>
-            </div>
-            <span class="pad-eq-dot" style="background: #FFBE00; box-shadow: 0 0 10px #FFBE00;"></span>
-          </div>
-
-          <div class="sound-pad" data-artist="phil" data-genre="AMAPIANO // HEAVYWEIGHT" data-name="DJ PHIL" data-bio="Master of percussive Amapiano sets and high-voltage dancefloor orchestration." data-color="#9D4EDD">
-            <div>
-              <div class="pad-id">[ 05 // AMAPIANO ]</div>
-              <div class="pad-name">DJ PHIL</div>
-            </div>
-            <span class="pad-eq-dot" style="background: #9D4EDD; box-shadow: 0 0 10px #9D4EDD;"></span>
-          </div>
-
-          <div class="sound-pad" data-artist="phinova" data-genre="ELECTRONIC // AFRO-FUSION" data-name="PHINOVA" data-bio="Sonic innovator fusing deep electronic synthesis with rhythmic African percussion." data-color="#FF007F">
-            <div>
-              <div class="pad-id">[ 06 // FUSION ]</div>
-              <div class="pad-name">PHINOVA</div>
-            </div>
-            <span class="pad-eq-dot" style="background: #FF007F; box-shadow: 0 0 10px #FF007F;"></span>
-          </div>
-
-          <div class="sound-pad" data-artist="vjtrue" data-genre="VISUAL // TELEMETRY" data-name="VJTRUE" data-bio="Visual artist and live projectionist designing the holographic aesthetics of the block party." data-color="#00F2FE">
-            <div>
-              <div class="pad-id">[ 07 // VISUALS ]</div>
-              <div class="pad-name">VJTRUE</div>
-            </div>
-            <span class="pad-eq-dot" style="background: #00F2FE; box-shadow: 0 0 10px #00F2FE;"></span>
-          </div>
-
-          <div class="sound-pad" data-artist="dboi" data-genre="HOST // HYPEMAN" data-name="DBOI NOME" data-bio="The voice of the block party—commanding the crowd and elevating energy to peak capacity." data-color="#00F58C">
-            <div>
-              <div class="pad-id">[ 08 // HYPEMAN ]</div>
-              <div class="pad-name">DBOI NOME</div>
-            </div>
-            <span class="pad-eq-dot" style="background: #00F58C; box-shadow: 0 0 10px #00F58C;"></span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ── INTERACTIVE ARTIST DOSSIER TERMINAL (REACTS TO SOUNDBOARD CLICK) ── -->
-    <div class="os-artist-dossier-panel" id="artist-dossier-panel">
-      <div class="dossier-inner-grid">
-        <div>
-          <span class="dossier-genre-badge" id="dossier-genre">AFROBEATS // RESIDENT</span>
-          <h2 class="dossier-artist-name" id="dossier-name">DJ MICHEL</h2>
-          <p class="dossier-artist-bio" id="dossier-bio">
-            Parisian tastemaker and resident selector driving high-energy Afrobeats and street anthems.
-          </p>
-        </div>
-
-        <div class="dossier-wave-box">
-          <div class="wave-bars-row">
-            <div class="wave-bar-el"></div><div class="wave-bar-el"></div><div class="wave-bar-el"></div>
-            <div class="wave-bar-el"></div><div class="wave-bar-el"></div><div class="wave-bar-el"></div>
-            <div class="wave-bar-el"></div>
-          </div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 0.72rem; color: #AAA; letter-spacing: 0.12em;">
-            [ SONIC FREQUENCY: LIVE ]
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── WHY PARIS — CHROMATIC BENTO PILLARS ── -->
-    <div class="os-pillars-grid">
-      <div class="os-pillar-card" style="border-top: 4px solid var(--c-neon-orange);">
-        <span class="pillar-tag" style="color: var(--c-neon-orange);">[ 01 // CONTINENTAL BRIDGE ]</span>
-        <h3 class="pillar-title">Exporting West African Nightlife</h3>
-        <p class="pillar-desc">
-          We don't just host events; we build permanent cultural bridges. 234AFRICA is establishing roots in Europe's creative capitals to give African youth expression and sonic power an undeniable international home.
-        </p>
-      </div>
-
-      <div class="os-pillar-card" style="border-top: 4px solid var(--c-neon-yellow);">
-        <span class="pillar-tag" style="color: var(--c-neon-yellow);">[ 02 // FÊTE DE LA MUSIQUE ]</span>
-        <h3 class="pillar-title">Summer Solstice Street Takeover</h3>
-        <p class="pillar-desc">
-          France's legendary World Music Day is our canvas. In strategic collaboration with <strong>Piano After Dark (PVW)</strong>, we turned Impasse Diderot into an open-air sanctuary where French street culture collided with African energy.
-        </p>
-      </div>
-
-      <div class="os-pillar-card" style="border-top: 4px solid var(--c-neon-green);">
-        <span class="pillar-tag" style="color: var(--c-neon-green);">[ 03 // DIASPORA OWNERSHIP ]</span>
-        <h3 class="pillar-title">Uniting Creative Tastemakers</h3>
-        <p class="pillar-desc">
-          By uniting diaspora DJs, live performers, and creative entrepreneurs in Paris, we prove that African nightlife is the driving force of modern international pop culture and venture equity.
-        </p>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- ULTRA-FUTURISTIC CYBER-DECK COMMAND FOOTER -->
-  <footer class="cyber-deck-footer">
-    <div class="cd-laser-scanner"></div>
-    <div class="cd-grid-bg"></div>
-
-    <div class="cd-container">
-      <div class="cd-hud-top">
-        <div class="cd-hud-left">
-          <span class="cd-pulse-dot"></span>
-          <span class="cd-status-text">SYSTEM COMM-LINK // EUROPE HQ PORTAL</span>
-        </div>
-        <div class="cd-hud-center">
-          <span id="cf-paris-clock" class="cd-clock">00:00:00 CEST // PARIS, FR</span>
-        </div>
-        <div class="cd-hud-right">
-          <span class="cd-tag">[ CORE: ONLINE ]</span>
-        </div>
-      </div>
-
-      <div class="cd-center-title">
-        <div class="cd-sub">[ DIRECT COMMUNICATION PORTAL ]</div>
-        <h2 class="cd-main-title">
-          234<span class="c-red">.</span>HQ
-          <span class="cd-glow-text">CONNECT</span>
-        </h2>
-      </div>
-
-      <div class="cd-pills-dock">
-        <a href="https://instagram.com/234.hq" target="_blank" class="cd-pill cd-pill--ig">
-          <span class="cd-pill-tag">[ IG ]</span>
-          <span class="cd-pill-value">@234.hq</span>
-          <span class="cd-pill-arrow">↗</span>
-        </a>
-        <a href="mailto:234groupinfo@gmail.com" class="cd-pill cd-pill--mail">
-          <span class="cd-pill-tag">[ MAIL ]</span>
-          <span class="cd-pill-value">234groupinfo@gmail.com</span>
-          <span class="cd-pill-arrow">↗</span>
-        </a>
-        <a href="tel:+2348103236094" class="cd-pill cd-pill--tel">
-          <span class="cd-pill-tag">[ TEL ]</span>
-          <span class="cd-pill-value">+234 810 323 6094</span>
-          <span class="cd-pill-arrow">↗</span>
-        </a>
-      </div>
-
-      <div class="cd-bottom-bar">
-        <span>© 2026 234AFRICA // ALL RIGHTS RESERVED</span>
-        <span class="cd-sys-code">SYS_VER: 234.6.0_EUROPE // PARIS 234.OS CYBER-VAULT</span>
-      </div>
+    <div class="spatial-copyright">
+      © 2026 234AFRICA // ALL RIGHTS RESERVED ● DESIGNED WITH THREE.JS SPATIAL WEBGL
     </div>
   </footer>
 
-  <!-- FULL-SCREEN 4K RETICLE LIGHTBOX MODAL -->
-  <div class="flyer-modal-lightbox" id="flyer-modal">
-    <div class="lightbox-wrapper">
-      <button class="close-modal-btn" id="close-modal-btn">✕</button>
-      <img src="assets/events/fete-paris.jpg" alt="4K Paris Flyer" class="lightbox-image">
-    </div>
+  <!-- FULLSCREEN HOLOGRAPHIC LIGHTBOX FOR FLYER -->
+  <div id="spatial-lightbox">
+    <button class="lightbox-close-spatial" id="spatial-close-btn">✕</button>
+    <img src="assets/events/fete-paris.jpg" alt="4K Paris Flyer" class="lightbox-img-el">
   </div>
 
   <!-- ════════════════════════════════════════════════════
-     234.OS CYBER-SYNTH WEB AUDIO & INTERACTIVE JS ENGINE
+     THREE.JS 3D WEBGL IMMERSIVE SPHERE & STARFIELD ENGINE
   ════════════════════════════════════════════════════ -->
   <script>
-    // 1. LIVE CEST CLOCK
-    function updateParisClock() {
-      const el = document.getElementById('cf-paris-clock');
-      if (!el) return;
-      const now = new Date();
-      const parisTime = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Paris' }));
-      const h = String(parisTime.getHours()).padStart(2, '0');
-      const m = String(parisTime.getMinutes()).padStart(2, '0');
-      const s = String(parisTime.getSeconds()).padStart(2, '0');
-      el.textContent = `${h}:${m}:${s} CEST // PARIS, FR`;
-    }
-    setInterval(updateParisClock, 1000);
-    updateParisClock();
+    // 1. THREE.JS IMMERSIVE SCENE SETUP
+    const canvas = document.getElementById('webgl-canvas');
+    if (canvas && typeof THREE !== 'undefined') {
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x010003, 0.0018);
 
-    // 2. WEB AUDIO API CYBER-SYNTH SOUND ENGINE (MAD CREATIVE SOUND EFFECTS)
-    let audioCtx = null;
-    let synthEnabled = true;
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+      camera.position.z = 180;
 
-    function playCyberBeep(freq = 440, type = 'sine', duration = 0.08) {
-      if (!synthEnabled) return;
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      // A. THE CENTRAL MORPHING SOLSTICE PARTICLE SPHERE (NO BOXES!)
+      const sphereGeo = new THREE.SphereGeometry(42, 64, 64);
+      const sphereMat = new THREE.PointsMaterial({
+        size: 1.4,
+        color: 0xFF3B00,
+        transparent: true,
+        opacity: 0.85,
+        blending: THREE.AdditiveBlending
+      });
+      const solsticeSphere = new THREE.Points(sphereGeo, sphereMat);
+      scene.add(solsticeSphere);
 
-        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      // B. INNER WIREFRAME ORBITAL RING
+      const ringGeo = new THREE.TorusGeometry(68, 0.4, 16, 100);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: 0x00F2FE,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.35
+      });
+      const orbitalRing = new THREE.Mesh(ringGeo, ringMat);
+      orbitalRing.rotation.x = Math.PI / 3;
+      scene.add(orbitalRing);
 
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-      } catch (e) {
-        // AudioContext error handling
+      // C. THE COSMIC STARFIELD VOID (3,000 STARS)
+      const starsGeo = new THREE.BufferGeometry();
+      const starsCount = 3000;
+      const posArray = new Float32Array(starsCount * 3);
+      const colArray = new Float32Array(starsCount * 3);
+
+      const colorPalette = [
+        new THREE.Color(0xFF3B00), // Red/Orange
+        new THREE.Color(0xFFBE00), // Yellow
+        new THREE.Color(0x00F58C), // Acid Green
+        new THREE.Color(0x00F2FE), // Cyan
+        new THREE.Color(0x9D4EDD)  // Purple
+      ];
+
+      for (let i = 0; i < starsCount * 3; i += 3) {
+        posArray[i] = (Math.random() - 0.5) * 1400;
+        posArray[i+1] = (Math.random() - 0.5) * 1400;
+        posArray[i+2] = (Math.random() - 0.5) * 1400;
+
+        const c = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+        colArray[i] = c.r;
+        colArray[i+1] = c.g;
+        colArray[i+2] = c.b;
       }
-    }
 
-    const soundBtn = document.getElementById('os-sound-btn');
-    if (soundBtn) {
-      soundBtn.addEventListener('click', () => {
-        synthEnabled = !synthEnabled;
-        soundBtn.innerHTML = synthEnabled ? '<span>🔊 CYBER-SYNTH AUDIO: ON</span>' : '<span>🔇 CYBER-SYNTH AUDIO: OFF</span>';
-        playCyberBeep(600, 'triangle', 0.1);
+      starsGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      starsGeo.setAttribute('color', new THREE.BufferAttribute(colArray, 3));
+
+      const starsMat = new THREE.PointsMaterial({
+        size: 2.2,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.75,
+        blending: THREE.AdditiveBlending
       });
-    }
+      const starfield = new THREE.Points(starsGeo, starsMat);
+      scene.add(starfield);
 
-    // 3. INTERACTIVE CHROMATIC VIDEO FILTERS
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const mainVideo = document.getElementById('main-video-el');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const mode = btn.getAttribute('data-filter');
-        mainVideo.className = 'monitor-video'; // reset
-        if (mode === 'cyberscan') mainVideo.classList.add('filter-cyberscan');
-        if (mode === 'neonbass') mainVideo.classList.add('filter-neonbass');
-        if (mode === 'thermal') mainVideo.classList.add('filter-thermal');
-
-        playCyberBeep(750, 'sawtooth', 0.06);
+      // Mouse Parallax Physics
+      const mouse = { x: 0, y: 0 };
+      window.addEventListener('mousemove', (e) => {
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
       });
-    });
 
-    // 4. INTERACTIVE SOUNDBOARD SAMPLER DECK & ARTIST DOSSIER SWITCHER
-    const pads = document.querySelectorAll('.sound-pad');
-    const dossierPanel = document.getElementById('artist-dossier-panel');
-    const dossierGenre = document.getElementById('dossier-genre');
-    const dossierName = document.getElementById('dossier-name');
-    const dossierBio = document.getElementById('dossier-bio');
-
-    pads.forEach(pad => {
-      pad.addEventListener('click', () => {
-        pads.forEach(p => p.classList.remove('active'));
-        pad.classList.add('active');
-
-        const genre = pad.getAttribute('data-genre');
-        const name = pad.getAttribute('data-name');
-        const bio = pad.getAttribute('data-bio');
-        const color = pad.getAttribute('data-color');
-
-        // Glitch transition on the panel
-        dossierPanel.style.transform = 'scale(0.97)';
-        dossierPanel.style.borderColor = color;
-        dossierGenre.style.color = color;
-        dossierGenre.style.borderColor = color;
-        dossierGenre.style.background = `${color}22`;
-
-        setTimeout(() => {
-          dossierGenre.textContent = genre;
-          dossierName.textContent = name;
-          dossierBio.textContent = bio;
-          dossierPanel.style.transform = 'scale(1)';
-        }, 120);
-
-        // Synthesize a unique pitch per artist!
-        const freqs = {
-          'michel': 523.25, // C5
-          'kddo': 587.33,   // D5
-          'kaira': 659.25,  // E5
-          'steeve': 698.46, // F5
-          'phil': 783.99,   // G5
-          'phinova': 880.00,// A5
-          'vjtrue': 987.77, // B5
-          'dboi': 1046.50   // C6
-        };
-        const key = pad.getAttribute('data-artist');
-        playCyberBeep(freqs[key] || 440, 'triangle', 0.12);
+      // Window Resize Handling
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
       });
-    });
 
-    // 5. LIGHTBOX MODAL TRIGGER
-    const flyerTrigger = document.getElementById('flyer-trigger');
-    const modal = document.getElementById('flyer-modal');
-    const closeBtn = document.getElementById('close-modal-btn');
+      // 3D Animation Loop
+      let clock = new THREE.Clock();
+      let targetSphereColor = new THREE.Color(0xFF3B00);
 
-    if (flyerTrigger && modal) {
-      flyerTrigger.addEventListener('click', () => {
-        modal.classList.add('active');
-        playCyberBeep(800, 'sine', 0.1);
+      function animateThreeScene() {
+        requestAnimationFrame(animateThreeScene);
+
+        const elapsedTime = clock.getElapsedTime();
+
+        // Rotate Sphere and Rings
+        solsticeSphere.rotation.y = elapsedTime * 0.18;
+        solsticeSphere.rotation.x = Math.sin(elapsedTime * 0.3) * 0.25;
+
+        orbitalRing.rotation.z = elapsedTime * 0.22;
+        orbitalRing.rotation.y = Math.cos(elapsedTime * 0.2) * 0.3;
+
+        starfield.rotation.y = elapsedTime * 0.04;
+
+        // Smooth color lerp when artist nodes are hovered
+        sphereMat.color.lerp(targetSphereColor, 0.05);
+
+        // Subtle camera mouse parallax
+        camera.position.x += (mouse.x * 25 - camera.position.x) * 0.04;
+        camera.position.y += (mouse.y * 25 - camera.position.y) * 0.04;
+        camera.lookAt(0, 0, 0);
+
+        renderer.render(scene, camera);
+      }
+      animateThreeScene();
+
+      // 2. ORBITAL ARTIST NODE INTERACTION -> THREE.JS SPHERE COLOR & BIO SHIFT
+      const artistNodes = document.querySelectorAll('.orbital-artist-node');
+      const bioTextEl = document.getElementById('constellation-bio-text');
+
+      artistNodes.forEach(node => {
+        node.addEventListener('mouseenter', () => {
+          artistNodes.forEach(n => n.classList.remove('active'));
+          node.classList.add('active');
+
+          const bio = node.getAttribute('data-bio');
+          const hex = node.getAttribute('data-color');
+
+          if (bioTextEl && bio) {
+            bioTextEl.style.opacity = '0';
+            setTimeout(() => {
+              bioTextEl.textContent = `"${bio}"`;
+              bioTextEl.style.color = hex;
+              bioTextEl.style.opacity = '1';
+            }, 120);
+          }
+
+          // Instantly shift the central 3D sphere's color in WebGL!
+          if (hex) {
+            targetSphereColor.set(hex);
+          }
+        });
       });
-      closeBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-        playCyberBeep(400, 'sine', 0.1);
-      });
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.classList.remove('active');
-          playCyberBeep(400, 'sine', 0.1);
+
+      // 3. GSAP SCROLLTRIGGER 3D CAMERA FLIGHT CHOREOGRAPHY
+      window.addEventListener('DOMContentLoaded', () => {
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+          gsap.registerPlugin(ScrollTrigger);
+
+          // Fly camera forward and rotate sphere on scroll
+          gsap.to(camera.position, {
+            scrollTrigger: {
+              trigger: '#spatial-overlay',
+              start: 'top top',
+              end: 'bottom bottom',
+              scrub: 1.5
+            },
+            z: 95,
+            y: -20,
+            ease: 'none'
+          });
+
+          gsap.to(solsticeSphere.scale, {
+            scrollTrigger: {
+              trigger: '#waypoint-constellation',
+              start: 'top center',
+              end: 'bottom center',
+              scrub: 1
+            },
+            x: 1.3,
+            y: 1.3,
+            z: 1.3,
+            ease: 'none'
+          });
         }
       });
     }
 
-    // 6. INTERACTIVE HTML5 CANVAS PARTICLE & LASER ENGINE
-    const canvas = document.getElementById('cyber-canvas');
-    const ctx = canvas ? canvas.getContext('2d') : null;
+    // 4. FULLSCREEN HOLOGRAPHIC FLYER LIGHTBOX
+    const flyerTrigger = document.getElementById('flyer-monolith-trigger');
+    const spatialModal = document.getElementById('spatial-lightbox');
+    const spatialClose = document.getElementById('spatial-close-btn');
 
-    if (canvas && ctx) {
-      let width = canvas.width = window.innerWidth;
-      let height = canvas.height = window.innerHeight;
-
-      window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
+    if (flyerTrigger && spatialModal) {
+      flyerTrigger.addEventListener('click', () => {
+        spatialModal.classList.add('active');
       });
-
-      const mouse = { x: width / 2, y: height / 2 };
-      window.addEventListener('mousemove', (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
+      spatialClose.addEventListener('click', () => {
+        spatialModal.classList.remove('active');
       });
-
-      const particles = [];
-      const colors = ['#00F2FE', '#00F58C', '#FF3B00', '#FFBE00', '#9D4EDD'];
-
-      for (let i = 0; i < 50; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 1.5,
-          vy: (Math.random() - 0.5) * 1.5,
-          size: Math.random() * 2.5 + 1,
-          color: colors[Math.floor(Math.random() * colors.length)]
-        });
-      }
-
-      function animateCanvas() {
-        ctx.clearRect(0, 0, width, height);
-
-        particles.forEach((p, idx) => {
-          p.x += p.vx;
-          p.y += p.vy;
-
-          if (p.x < 0 || p.x > width) p.vx *= -1;
-          if (p.y < 0 || p.y > height) p.vy *= -1;
-
-          // Interactive mouse attraction/repulsion
-          const dx = mouse.x - p.x;
-          const dy = mouse.y - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 180) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(mouse.x, mouse.y);
-            ctx.strokeStyle = p.color;
-            ctx.globalAlpha = (1 - dist / 180) * 0.4;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-            ctx.globalAlpha = 1;
-          }
-
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          ctx.fillStyle = p.color;
-          ctx.shadowBlur = 10;
-          ctx.shadowColor = p.color;
-          ctx.fill();
-          ctx.shadowBlur = 0;
-        });
-
-        requestAnimationFrame(animateCanvas);
-      }
-      animateCanvas();
+      spatialModal.addEventListener('click', (e) => {
+        if (e.target === spatialModal) spatialModal.classList.remove('active');
+      });
     }
-
-    // 7. GSAP SCROLLANIMATION
-    window.addEventListener('DOMContentLoaded', () => {
-      if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
-
-        gsap.from('.os-frame', {
-          y: 35,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out'
-        });
-
-        gsap.from('.os-pillar-card', {
-          scrollTrigger: {
-            trigger: '.os-pillars-grid',
-            start: 'top 85%'
-          },
-          y: 40,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out'
-        });
-      }
-    });
   </script>
 
   <script src="cyber-transitions.js"></script>
