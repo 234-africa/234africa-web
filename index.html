@@ -438,521 +438,488 @@
         </style>
       </section>
 
-      <!-- ══════════════════════════════════════════════════════════════════════
-           1. THE 234 in PARIS // WIDESCREEN CINEMATIC BROADCAST STAGE (v3.0)
-           (100% STANDALONE OPEN-AIR THEATER — ZERO BOX-TO-BOX STRUCTURE)
-      ══════════════════════════════════════════════════════════════════════ -->
-      <section class="paris-widescreen-arena" id="parisHoloVault">
-        <!-- Ambient Neon Particles & Scan-Line Grid -->
-        <div class="paris-arena-grid"></div>
-        <div class="paris-floating-orb orb-1"></div>
-        <div class="paris-floating-orb orb-2"></div>
+<!-- ══════════════════════════════════════════════════════════════════════
+     1. THE 234 in PARIS // IMMERSIVE CINEMATIC HUD
+     (Full Background Video with Holographic Glass Overlays)
+══════════════════════════════════════════════════════════════════════ -->
+<section class="paris-hud-arena" id="parisHudVault">
+  
+  <!-- 1. ABSOLUTE BACKGROUND VIDEO -->
+  <div class="paris-hud-video-wrapper">
+    <video id="parisBgVideo" autoplay loop muted playsinline class="paris-hud-video">
+      <source src="assets/events/paris-video.mov" type="video/quicktime">
+      <source src="assets/events/paris-video.mov" type="video/mp4">
+      <source src="assets/events/paris-video.mp4" type="video/mp4">
+    </video>
+    <!-- Dark gradient & scanline overlay for text legibility -->
+    <div class="paris-hud-overlay"></div>
+    <div class="paris-hud-scanlines"></div>
+  </div>
 
-        <div class="paris-arena-container">
-          <!-- Live System Version Banner -->
-          <div class="paris-version-banner">
-            <span class="version-dot"></span>
-            <span>⚡ LIVE ARCHITECTURE v3.0 // NEW WIDESCREEN HOLO-STAGE & PAU 3D HEX-LAB ACTIVE</span>
+  <!-- 2. HUD CONTENT CONTAINER (Z-INDEX ABOVE VIDEO) -->
+  <div class="paris-hud-container">
+    
+    <!-- Top System Status HUD -->
+    <div class="hud-top-bar">
+      <div class="hud-status">
+        <span class="hud-rec-dot"></span>
+        <span>LIVE FEED // IMPASSE DIDEROT, PANTIN</span>
+      </div>
+      <div class="hud-audio-ctrl">
+        <button id="btnHudAudio" class="hud-btn" onclick="toggleHudAudio()">
+          <span class="hud-btn-icon">🔊</span> UNMUTE ENVIRONMENT
+        </button>
+      </div>
+    </div>
+
+    <div class="hud-main-content">
+      <!-- Left side: Typography & Context -->
+      <div class="hud-left-panel">
+        <div class="hud-title-wrap">
+          <h2 class="hud-title">234 in <br><span class="hud-glitch-text" data-text="PARIS">PARIS</span></h2>
+        </div>
+        
+        <div class="hud-meta-box">
+          <div class="hud-meta-line">
+            <span class="hud-meta-key">COLLAB:</span>
+            <span class="hud-meta-val">PIANO AFTER DARK (PVW) × DIVINE</span>
           </div>
-
-          <div class="paris-stage-header">
-            <div class="paris-stage-left">
-              <div class="paris-badge-pill">
-                <span class="rec-pulse"></span>
-                <span>4K BROADCAST // IMPASSE DIDEROT, PANTIN</span>
-              </div>
-              <h2 class="paris-arena-title">
-                234 in <span class="solstice-text-glow">PARIS</span>
-              </h2>
-              <div class="paris-collab-text">
-                [ COLLABORATION: <strong>PIANO AFTER DARK (PVW)</strong> × DIVINE ]
-              </div>
-            </div>
-
-            <div class="paris-stage-right">
-              <!-- Interactive Live Equalizer & Soundboard Control Bar -->
-              <div class="paris-soundboard-panel">
-                <div class="soundboard-title">// LIVE AUDIO EQUALIZER</div>
-                <div class="paris-eq-waves" id="parisEqWaves">
-                  <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-                </div>
-                <div class="soundboard-buttons">
-                  <button class="sound-btn active" id="btnToggleAudio" onclick="toggleParisAudio()">
-                    <span>🔊 UNMUTE LIVE SOUND</span>
-                  </button>
-                  <button class="sound-btn" onclick="triggerStageFlash()">
-                    <span>⚡ LASER STROBE</span>
-                  </button>
-                  <button class="sound-btn" onclick="boostEqWaves()">
-                    <span>🎛️ BASS BOOST</span>
-                  </button>
-                </div>
-              </div>
-            </div>
+          <div class="hud-meta-line">
+            <span class="hud-meta-key">ATTENDANCE:</span>
+            <span class="hud-meta-val">1,200+ CONFIRMED</span>
           </div>
-
-          <!-- ASYMMETRIC 21:9 WIDESCREEN CINEMA DISPLAY + FLOATING 3D FLYER -->
-          <div class="paris-cinema-display" id="parisCinemaDisplay">
-            <!-- Widescreen Video Theater -->
-            <div class="cinema-video-viewport">
-              <video id="parisCockpitVideo" controls autoplay loop muted playsinline class="cinema-video-el">
-                <source src="assets/events/paris-video.mov" type="video/quicktime">
-                <source src="assets/events/paris-video.mov" type="video/mp4">
-                <source src="assets/events/paris-video.mp4" type="video/mp4">
-                Your browser does not support HTML5 video.
-              </video>
-              <div class="video-scanline-bar"></div>
-            </div>
-
-            <!-- Tilted 3D Architectural Blueprint Card (Eiffel Tower Flyer) -->
-            <div class="cinema-3d-blueprint" onclick="window.location.href='paris.html'">
-              <div class="blueprint-stamp-header">
-                <span>20.06.26 • 21.06.26</span>
-              </div>
-              <img src="assets/events/fete-paris.jpg" alt="Fête de la Musique Paris Eiffel Sketch Flyer" class="blueprint-flyer-img">
-              <div class="blueprint-explore-tag">
-                <span>⚡ ENTER PARIS ARCHIVE ↗</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Widescreen Editorial Footer & Direct Portal CTA -->
-          <div class="paris-arena-footer">
-            <p class="paris-arena-desc">
-              African Sonic Power meets French Street Culture. An open-air solstice celebration uniting over 1,200+ attendees in Pantin, Paris—architecting our permanent roots in Europe.
-            </p>
-            <a href="paris.html" class="paris-portal-cta">
-              <span>ENTER PARIS ARCHIVE & BLOCK PARTY VAULT</span>
-              <span class="portal-arrow">➔</span>
-            </a>
-          </div>
-
-          <!-- Kinetic Marquee Ticker -->
-          <div class="paris-marquee-strip">
-            <div class="paris-marquee-track">
-              <span>★ DJ MICHEL</span>
-              <span>★ KDDO</span>
-              <span>★ KAIRA STARR</span>
-              <span>★ STEEVE TYLER</span>
-              <span>★ DJ PHIL</span>
-              <span>★ PHINOVA</span>
-              <span>★ VJTRUE</span>
-              <span>★ DBOI NOME</span>
-              <span>★ DJ MICHEL</span>
-              <span>★ KDDO</span>
-              <span>★ KAIRA STARR</span>
-              <span>★ STEEVE TYLER</span>
-              <span>★ DJ PHIL</span>
-              <span>★ PHINOVA</span>
-              <span>★ VJTRUE</span>
-              <span>★ DBOI NOME</span>
-            </div>
+          <div class="hud-meta-line">
+            <span class="hud-meta-key">STATUS:</span>
+            <span class="hud-meta-val hud-c-green">MISSION ACCOMPLISHED</span>
           </div>
         </div>
 
-        <script>
-          function toggleParisAudio() {
-            const vid = document.getElementById('parisCockpitVideo');
-            const btn = document.getElementById('btnToggleAudio');
-            if (!vid || !btn) return;
-            if (vid.muted) {
-              vid.muted = false;
-              btn.innerHTML = '<span>🔇 MUTE LIVE SOUND</span>';
-              btn.classList.add('unmuted');
-            } else {
-              vid.muted = true;
-              btn.innerHTML = '<span>🔊 UNMUTE LIVE SOUND</span>';
-              btn.classList.remove('unmuted');
-            }
-          }
+        <p class="hud-desc">
+          African Sonic Power meets French Street Culture. An open-air solstice celebration uniting thousands in Pantin, Paris—architecting our permanent roots in Europe.
+        </p>
 
-          function triggerStageFlash() {
-            const disp = document.getElementById('parisCinemaDisplay');
-            if (!disp) return;
-            disp.classList.add('laser-strobe-flash');
-            setTimeout(() => {
-              disp.classList.remove('laser-strobe-flash');
-            }, 600);
-          }
+        <a href="paris.html" class="hud-portal-cta">
+          <span>ACCESS ARCHIVE DOSSIER</span>
+          <span class="hud-arrow">↗</span>
+        </a>
+      </div>
 
-          function boostEqWaves() {
-            const waves = document.getElementById('parisEqWaves');
-            if (!waves) return;
-            waves.classList.add('bass-boosted');
-            setTimeout(() => {
-              waves.classList.remove('bass-boosted');
-            }, 3000);
-          }
-        </script>
+      <!-- Right side: Floating Holographic Flyer -->
+      <div class="hud-right-panel">
+        <div class="hud-flyer-3d" id="hudFlyer3D">
+          <div class="hud-flyer-glass">
+            <div class="hud-flyer-header">
+              <span>ATTACHMENT // FETE-PARIS.JPG</span>
+            </div>
+            <img src="assets/events/fete-paris.jpg" alt="Paris Flyer" class="hud-flyer-img">
+            <div class="hud-flyer-footer">
+              <span>ENCRYPTED ASSET</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <style>
-          /* ════════════════════════════════════════════════════
-             PARIS WIDESCREEN CINEMATIC STAGE CSS
-          ════════════════════════════════════════════════════ */
-          .paris-widescreen-arena {
-            padding: 100px 4vw 120px;
-            background: radial-gradient(circle at 50% 20%, #15102A 0%, #06040C 75%);
-            border-top: 2px solid #FF3B00;
-            border-bottom: 2px solid #FF3B00;
-            position: relative;
-            overflow: hidden;
-          }
-          .paris-arena-grid {
-            position: absolute;
-            inset: 0;
-            background-image: 
-              linear-gradient(rgba(0, 242, 254, 0.05) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255, 59, 0, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: 1;
-          }
-          .paris-floating-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            pointer-events: none;
-            z-index: 1;
-          }
-          .orb-1 {
-            width: 450px; height: 450px;
-            top: 50px; left: -100px;
-            background: rgba(255, 59, 0, 0.2);
-          }
-          .orb-2 {
-            width: 400px; height: 400px;
-            bottom: 50px; right: -100px;
-            background: rgba(0, 242, 254, 0.15);
-          }
-          .paris-arena-container {
-            max-width: 1420px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 3;
-          }
-          .paris-version-banner {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255, 190, 0, 0.15);
-            border: 1px solid #FFBE00;
-            color: #FFBE00;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.78rem;
-            font-weight: 800;
-            padding: 10px 22px;
-            border-radius: 100px;
-            letter-spacing: 0.14em;
-            margin-bottom: 36px;
-            box-shadow: 0 0 30px rgba(255, 190, 0, 0.4);
-          }
-          .version-dot {
-            width: 9px; height: 9px;
-            border-radius: 50%;
-            background: #FFBE00;
-            box-shadow: 0 0 12px #FFBE00;
-          }
-          .paris-stage-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            flex-wrap: wrap;
-            gap: 28px;
-            margin-bottom: 40px;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
-            padding-bottom: 28px;
-          }
-          .paris-badge-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 59, 0, 0.15);
-            border: 1px solid #FF3B00;
-            color: #FFF;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.78rem;
-            font-weight: 700;
-            padding: 8px 18px;
-            border-radius: 100px;
-            letter-spacing: 0.15em;
-            margin-bottom: 14px;
-            box-shadow: 0 0 25px rgba(255, 59, 0, 0.4);
-          }
-          .rec-pulse {
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            background: #FF3B00;
-            box-shadow: 0 0 12px #FF3B00;
-            animation: parisRecPulse 1.2s infinite;
-          }
-          @keyframes parisRecPulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(0.7); }
-          }
-          .paris-arena-title {
-            font-family: 'Bricolage Grotesque', sans-serif;
-            font-size: clamp(3.2rem, 6.5vw, 5.8rem);
-            font-weight: 900;
-            color: #FFF;
-            line-height: 0.9;
-            margin: 0 0 12px 0;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-          }
-          .solstice-text-glow {
-            background: linear-gradient(135deg, #FFBE00 0%, #FF3B00 60%, #FF007F 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 35px rgba(255, 59, 0, 0.7));
-          }
-          .paris-collab-text {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.95rem;
-            color: #FFBE00;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-          }
+    <!-- Bottom Ticker -->
+    <div class="hud-bottom-ticker">
+      <div class="hud-ticker-track">
+        <span>// TARGET LOCKED: PARIS</span>
+        <span>// TARGET LOCKED: PARIS</span>
+        <span>// TARGET LOCKED: PARIS</span>
+        <span>// TARGET LOCKED: PARIS</span>
+        <span>// TARGET LOCKED: PARIS</span>
+        <span>// TARGET LOCKED: PARIS</span>
+        <span>// TARGET LOCKED: PARIS</span>
+        <span>// TARGET LOCKED: PARIS</span>
+      </div>
+    </div>
 
-          .paris-soundboard-panel {
-            background: rgba(18, 16, 32, 0.9);
-            border: 1px solid rgba(255, 59, 0, 0.5);
-            border-radius: 20px;
-            padding: 16px 24px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 59, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-          }
-          .soundboard-title {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            color: #00F2FE;
-            letter-spacing: 0.18em;
-          }
-          .paris-eq-waves {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            height: 22px;
-          }
-          .paris-eq-waves span {
-            width: 4px;
-            background: #00F58C;
-            border-radius: 2px;
-            animation: eqParisAnim 0.6s infinite alternate ease-in-out;
-          }
-          .paris-eq-waves.bass-boosted span {
-            background: #FF3B00 !important;
-            animation: eqParisAnim 0.2s infinite alternate ease-in-out !important;
-          }
-          .paris-eq-waves span:nth-child(1) { height: 8px; animation-delay: 0.1s; }
-          .paris-eq-waves span:nth-child(2) { height: 16px; animation-delay: 0.3s; }
-          .paris-eq-waves span:nth-child(3) { height: 10px; animation-delay: 0.2s; }
-          .paris-eq-waves span:nth-child(4) { height: 20px; animation-delay: 0.4s; }
-          .paris-eq-waves span:nth-child(5) { height: 12px; animation-delay: 0.1s; }
-          .paris-eq-waves span:nth-child(6) { height: 8px; animation-delay: 0.5s; }
-          .paris-eq-waves span:nth-child(7) { height: 18px; animation-delay: 0.2s; }
-          .paris-eq-waves span:nth-child(8) { height: 12px; animation-delay: 0.3s; }
-          .paris-eq-waves span:nth-child(9) { height: 20px; animation-delay: 0.1s; }
-          .paris-eq-waves span:nth-child(10) { height: 14px; animation-delay: 0.4s; }
-          .paris-eq-waves span:nth-child(11) { height: 10px; animation-delay: 0.2s; }
-          .paris-eq-waves span:nth-child(12) { height: 18px; animation-delay: 0.5s; }
-          @keyframes eqParisAnim {
-            0% { transform: scaleY(0.3); }
-            100% { transform: scaleY(1.4); }
-          }
+  </div>
 
-          .soundboard-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-          }
-          .sound-btn {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #FFF;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 8px 14px;
-            border-radius: 100px;
-            cursor: pointer;
-            transition: all 0.3s;
-          }
-          .sound-btn:hover {
-            background: #FF3B00;
-            border-color: #FF3B00;
-            box-shadow: 0 0 20px rgba(255, 59, 0, 0.6);
-            transform: translateY(-2px);
-          }
-          .sound-btn.unmuted {
-            background: #00F58C;
-            color: #000;
-            border-color: #00F58C;
-            box-shadow: 0 0 25px rgba(0, 245, 140, 0.6);
-          }
+  <script>
+    // Audio Toggle for HUD Background Video
+    function toggleHudAudio() {
+      const vid = document.getElementById('parisBgVideo');
+      const btn = document.getElementById('btnHudAudio');
+      if (!vid || !btn) return;
+      if (vid.muted) {
+        vid.muted = false;
+        btn.innerHTML = '<span class="hud-btn-icon">🔇</span> MUTE ENVIRONMENT';
+        btn.classList.add('hud-unmuted');
+      } else {
+        vid.muted = true;
+        btn.innerHTML = '<span class="hud-btn-icon">🔊</span> UNMUTE ENVIRONMENT';
+        btn.classList.remove('hud-unmuted');
+      }
+    }
 
-          /* WIDESCREEN CINEMA DISPLAY */
-          .paris-cinema-display {
-            position: relative;
-            background: #000;
-            border: 2px solid rgba(255, 59, 0, 0.6);
-            border-radius: 40px;
-            overflow: hidden;
-            box-shadow: 
-              0 30px 100px rgba(0, 0, 0, 0.95),
-              0 0 70px rgba(255, 59, 0, 0.3);
-            margin-bottom: 40px;
-            transition: all 0.5s ease;
-          }
-          .paris-cinema-display.laser-strobe-flash {
-            border-color: #FFF;
-            box-shadow: 0 0 100px rgba(255, 255, 255, 0.95), 0 0 160px #FF3B00;
-            filter: brightness(1.4);
-          }
-          .cinema-video-viewport {
-            position: relative;
-            width: 100%;
-          }
-          .cinema-video-el {
-            width: 100%;
-            max-height: 680px;
-            object-fit: cover;
-            display: block;
-          }
-          .video-scanline-bar {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 0%, rgba(255, 59, 0, 0.08) 50%, transparent 100%);
-            background-size: 100% 4px;
-            pointer-events: none;
-          }
+    // 3D Parallax Effect for the Holographic Flyer
+    document.addEventListener('DOMContentLoaded', () => {
+      const arena = document.getElementById('parisHudVault');
+      const flyer = document.getElementById('hudFlyer3D');
+      if (!arena || !flyer) return;
 
-          /* Tilted 3D Architectural Blueprint Card Overlay */
-          .cinema-3d-blueprint {
-            position: absolute;
-            top: 32px; right: 32px;
-            width: 250px;
-            background: rgba(5, 4, 11, 0.9);
-            border: 2px solid #FFBE00;
-            border-radius: 24px;
-            padding: 14px;
-            cursor: pointer;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 190, 0, 0.4);
-            transform: perspective(1200px) rotateY(-12deg) rotateX(4deg);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 10;
-          }
-          .cinema-3d-blueprint:hover {
-            transform: perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1.08);
-            border-color: #FF3B00;
-            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.95), 0 0 60px rgba(255, 59, 0, 0.65);
-          }
-          .blueprint-stamp-header {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            color: #FFBE00;
-            letter-spacing: 0.12em;
-            margin-bottom: 10px;
-            text-align: center;
-          }
-          .blueprint-flyer-img {
-            width: 100%;
-            height: auto;
-            border-radius: 14px;
-            display: block;
-          }
-          .blueprint-explore-tag {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: #FFF;
-            background: #FF3B00;
-            text-align: center;
-            padding: 8px;
-            border-radius: 100px;
-            margin-top: 12px;
-            letter-spacing: 0.1em;
-          }
+      arena.addEventListener('mousemove', (e) => {
+        const rect = arena.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Calculate rotation based on mouse position relative to center of section
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((y - centerY) / centerY) * -15; // Max 15 deg
+        const rotateY = ((x - centerX) / centerX) * 15;  // Max 15 deg
 
-          .paris-arena-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 28px;
-            margin-bottom: 36px;
-          }
-          .paris-arena-desc {
-            font-size: 1.18rem;
-            color: rgba(255, 255, 255, 0.88);
-            line-height: 1.6;
-            margin: 0;
-            max-width: 720px;
-          }
-          .paris-portal-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 16px;
-            background: linear-gradient(135deg, #FF3B00, #FFBE00);
-            color: #000 !important;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.94rem;
-            font-weight: 800;
-            padding: 20px 40px;
-            border-radius: 100px;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            text-decoration: none;
-            box-shadow: 0 0 45px rgba(255, 59, 0, 0.7);
-            transition: all 0.3s;
-          }
-          .paris-portal-cta:hover {
-            background: #FFF;
-            color: #000 !important;
-            box-shadow: 0 0 70px rgba(255, 255, 255, 0.95);
-            transform: scale(1.06);
-          }
-          .portal-arrow {
-            font-size: 1.3rem;
-            transition: transform 0.3s;
-          }
-          .paris-portal-cta:hover .portal-arrow {
-            transform: translateX(6px);
-          }
+        flyer.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(30px)`;
+      });
 
-          .paris-marquee-strip {
-            background: rgba(255, 59, 0, 0.12);
-            border: 1px solid rgba(255, 59, 0, 0.35);
-            border-radius: 16px;
-            padding: 14px 0;
-            overflow: hidden;
-            white-space: nowrap;
-          }
-          .paris-marquee-track {
-            display: inline-block;
-            animation: holovaultMarquee 25s linear infinite;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #FFBE00;
-            letter-spacing: 0.18em;
-          }
-          .paris-marquee-track span { margin-right: 36px; }
-          @keyframes holovaultMarquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-          }
+      arena.addEventListener('mouseleave', () => {
+        flyer.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)`;
+      });
+    });
+  </script>
 
-          @media (max-width: 768px) {
-            .paris-widescreen-arena { padding: 60px 20px; }
-            .cinema-3d-blueprint { display: none; }
-            .paris-arena-footer { flex-direction: column; text-align: center; }
-            .paris-portal-cta { width: 100%; justify-content: center; }
-          }
-        </style>
-      </section>
+  <style>
+    /* ════════════════════════════════════════════════════
+       PARIS IMMERSIVE HUD CSS
+    ════════════════════════════════════════════════════ */
+    .paris-hud-arena {
+      position: relative;
+      width: 100%;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #000;
+      border-top: 2px solid #FF3B00;
+      border-bottom: 2px solid #FF3B00;
+    }
+
+    /* 1. BACKGROUND VIDEO & OVERLAYS */
+    .paris-hud-video-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .paris-hud-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.05); /* Slight scale to allow for cinematic pan/zoom if needed */
+      transition: transform 3s ease-out, filter 1s ease;
+      filter: saturate(0.8) contrast(1.2);
+    }
+    .paris-hud-arena:hover .paris-hud-video {
+      transform: scale(1.0);
+      filter: saturate(1.1) contrast(1.1);
+    }
+    .paris-hud-overlay {
+      position: absolute;
+      inset: 0;
+      /* Dark gradient to ensure text pops */
+      background: linear-gradient(90deg, rgba(5,4,10,0.95) 0%, rgba(5,4,10,0.7) 40%, rgba(5,4,10,0.4) 100%);
+    }
+    .paris-hud-scanlines {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%);
+      background-size: 100% 4px;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+    }
+
+    /* 2. HUD CONTAINER & UI ELEMENTS */
+    .paris-hud-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1400px;
+      padding: 60px 4vw;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 90vh;
+    }
+
+    /* Top Bar */
+    .hud-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      margin-bottom: 60px;
+      margin-top: 40px;
+    }
+    .hud-status {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: #FF3B00;
+      letter-spacing: 0.15em;
+      background: rgba(0,0,0,0.5);
+      padding: 8px 16px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,59,0,0.3);
+      backdrop-filter: blur(10px);
+    }
+    .hud-rec-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #FF3B00;
+      box-shadow: 0 0 10px #FF3B00;
+      animation: hudPulse 1.2s infinite;
+    }
+    @keyframes hudPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .hud-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #FFF;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .hud-btn:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: #FFF;
+    }
+    .hud-unmuted {
+      background: rgba(0, 245, 140, 0.2);
+      border-color: #00F58C;
+      color: #00F58C;
+    }
+
+    /* Main Content */
+    .hud-main-content {
+      display: flex;
+      flex: 1;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+    }
+
+    /* Left Panel */
+    .hud-left-panel {
+      flex: 1;
+      max-width: 650px;
+    }
+    .hud-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(4rem, 8vw, 7rem);
+      font-weight: 900;
+      color: #FFF;
+      line-height: 0.9;
+      margin: 0 0 30px 0;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+    }
+    .hud-glitch-text {
+      position: relative;
+      display: inline-block;
+      color: transparent;
+      -webkit-text-stroke: 2px #FFF;
+    }
+    .hud-glitch-text::before {
+      content: attr(data-text);
+      position: absolute;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      color: #FF3B00;
+      z-index: -1;
+      transform: translate(6px, 6px);
+      filter: blur(2px);
+      opacity: 0.8;
+      transition: all 0.3s;
+    }
+    .paris-hud-arena:hover .hud-glitch-text::before {
+      transform: translate(10px, 10px);
+      filter: blur(4px);
+    }
+    
+    .hud-meta-box {
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-left: 4px solid #FFBE00;
+      padding: 20px;
+      margin-bottom: 30px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .hud-meta-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+    }
+    .hud-meta-key {
+      color: rgba(255,255,255,0.5);
+      width: 100px;
+    }
+    .hud-meta-val {
+      color: #FFF;
+      letter-spacing: 0.05em;
+    }
+    .hud-c-green { color: #00F58C; }
+
+    .hud-desc {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .hud-portal-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      background: transparent;
+      border: 1px solid #FFF;
+      color: #FFF;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      padding: 16px 32px;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .hud-portal-cta::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 0%; height: 100%;
+      background: #FFF;
+      z-index: -1;
+      transition: width 0.3s ease;
+    }
+    .hud-portal-cta:hover {
+      color: #000;
+    }
+    .hud-portal-cta:hover::before {
+      width: 100%;
+    }
+    .hud-arrow {
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+    }
+    .hud-portal-cta:hover .hud-arrow {
+      transform: translate(3px, -3px);
+    }
+
+    /* Right Panel (3D Flyer) */
+    .hud-right-panel {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      perspective: 1000px; /* Required for 3D */
+    }
+    .hud-flyer-3d {
+      width: 100%;
+      max-width: 420px;
+      transition: transform 0.1s ease-out; /* Smooth follow */
+      transform-style: preserve-3d;
+    }
+    .hud-flyer-glass {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 16px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(0,242,254,0.15);
+      backdrop-filter: blur(15px);
+      transform: translateZ(20px); /* Pops out from container */
+    }
+    .hud-flyer-header, .hud-flyer-footer {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      text-align: right;
+    }
+    .hud-flyer-footer {
+      margin-top: 12px;
+      margin-bottom: 0;
+      text-align: left;
+      color: #00F2FE;
+    }
+    .hud-flyer-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: contrast(1.1) brightness(0.9);
+      transition: filter 0.3s;
+    }
+    .hud-flyer-3d:hover .hud-flyer-img {
+      filter: contrast(1.1) brightness(1.1);
+    }
+
+    /* Bottom Ticker */
+    .hud-bottom-ticker {
+      margin-top: 60px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .hud-ticker-track {
+      display: inline-block;
+      animation: hudTicker 30s linear infinite;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.2em;
+    }
+    .hud-ticker-track span {
+      margin-right: 40px;
+    }
+    @keyframes hudTicker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 992px) {
+      .hud-main-content {
+        flex-direction: column;
+        justify-content: center;
+      }
+      .hud-right-panel {
+        justify-content: center;
+        margin-top: 40px;
+      }
+      .paris-hud-overlay {
+        background: rgba(5,4,10,0.85); /* Darker on mobile for readability */
+      }
+    }
+    @media (max-width: 768px) {
+      .hud-top-bar { flex-direction: column; align-items: flex-start; gap: 15px; }
+      .hud-title { font-size: 3.5rem; }
+    }
+  </style>
+</section>
+
 
 
       <!-- ══════════════════════════════════════════════════════════════════════
