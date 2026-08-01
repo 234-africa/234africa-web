@@ -439,105 +439,97 @@
       </section>
 
       <!-- ══════════════════════════════════════════════════════════════════════
-           1. THE 234 in PARIS // WIDESCREEN CINEMATIC HOLO-VAULT & TAKEOVER FILM
-           (STANDALONE SEPARATE SECTION - ZERO GROUPING WITH PAU!)
+           1. THE 234 in PARIS // WIDESCREEN CINEMATIC BROADCAST STAGE (v3.0)
+           (100% STANDALONE OPEN-AIR THEATER — ZERO BOX-TO-BOX STRUCTURE)
       ══════════════════════════════════════════════════════════════════════ -->
-      <section class="paris-cinematic-holovault-section" id="parisHoloVault">
-        <!-- Laser Grid Background -->
-        <div class="holo-laser-grid"></div>
+      <section class="paris-widescreen-arena" id="parisHoloVault">
+        <!-- Ambient Neon Particles & Scan-Line Grid -->
+        <div class="paris-arena-grid"></div>
+        <div class="paris-floating-orb orb-1"></div>
+        <div class="paris-floating-orb orb-2"></div>
 
-        <div class="holovault-container">
-          <!-- Standalone Section Header -->
-          <div class="holovault-top-bar">
-            <div class="holovault-badge">
-              <span class="holo-pulse-dot"></span>
-              <span>LIVE TELEMETRY // IMPASSE DIDEROT, PANTIN — PARIS TAKEOVER</span>
-            </div>
-            <div class="holovault-subtext">
-              // 01. EUROPEAN ROOTS — FÊTE DE LA MUSIQUE 2026
-            </div>
+        <div class="paris-arena-container">
+          <!-- Live System Version Banner -->
+          <div class="paris-version-banner">
+            <span class="version-dot"></span>
+            <span>⚡ LIVE ARCHITECTURE v3.0 // NEW WIDESCREEN HOLO-STAGE & PAU 3D HEX-LAB ACTIVE</span>
           </div>
 
-          <div class="holovault-title-row">
-            <div>
-              <h2 class="holovault-heading">
+          <div class="paris-stage-header">
+            <div class="paris-stage-left">
+              <div class="paris-badge-pill">
+                <span class="rec-pulse"></span>
+                <span>4K BROADCAST // IMPASSE DIDEROT, PANTIN</span>
+              </div>
+              <h2 class="paris-arena-title">
                 234 in <span class="solstice-text-glow">PARIS</span>
               </h2>
-              <div class="holovault-collab">
+              <div class="paris-collab-text">
                 [ COLLABORATION: <strong>PIANO AFTER DARK (PVW)</strong> × DIVINE ]
               </div>
             </div>
-            <div class="holovault-telemetry-box">
-              <span class="telemetry-item">BPM: <strong>128</strong></span>
-              <span class="telemetry-item">dB: <strong>104.2</strong></span>
-              <span class="telemetry-item">STATUS: <strong>RECORDED LIVE</strong></span>
+
+            <div class="paris-stage-right">
+              <!-- Interactive Live Equalizer & Soundboard Control Bar -->
+              <div class="paris-soundboard-panel">
+                <div class="soundboard-title">// LIVE AUDIO EQUALIZER</div>
+                <div class="paris-eq-waves" id="parisEqWaves">
+                  <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <div class="soundboard-buttons">
+                  <button class="sound-btn active" id="btnToggleAudio" onclick="toggleParisAudio()">
+                    <span>🔊 UNMUTE LIVE SOUND</span>
+                  </button>
+                  <button class="sound-btn" onclick="triggerStageFlash()">
+                    <span>⚡ LASER STROBE</span>
+                  </button>
+                  <button class="sound-btn" onclick="boostEqWaves()">
+                    <span>🎛️ BASS BOOST</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- THE CRAZY WIDESCREEN VIDEO COCKPIT (NOT A ORDINARY BOX!) -->
-          <div class="holovault-cockpit-frame" id="parisCockpitFrame">
-            <!-- Top HUD Equalizer & Soundboard Controls -->
-            <div class="cockpit-hud-header">
-              <div class="cockpit-eq-waves" id="cockpitEqWaves">
-                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-              </div>
-              
-              <!-- Live Interactive Soundboard Controls -->
-              <div class="cockpit-soundboard-controls">
-                <button class="sound-btn active" id="btnToggleAudio" onclick="toggleParisAudio()">
-                  <span>🔊 UNMUTE LIVE SOUND</span>
-                </button>
-                <button class="sound-btn" onclick="triggerStageFlash()">
-                  <span>⚡ STAGE STROBE</span>
-                </button>
-                <button class="sound-btn" onclick="boostEqWaves()">
-                  <span>🎛️ BASS BOOST</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Main Widescreen Video Theater -->
-            <div class="cockpit-video-viewport">
-              <video id="parisCockpitVideo" controls autoplay loop muted playsinline class="cockpit-video-el">
+          <!-- ASYMMETRIC 21:9 WIDESCREEN CINEMA DISPLAY + FLOATING 3D FLYER -->
+          <div class="paris-cinema-display" id="parisCinemaDisplay">
+            <!-- Widescreen Video Theater -->
+            <div class="cinema-video-viewport">
+              <video id="parisCockpitVideo" controls autoplay loop muted playsinline class="cinema-video-el">
                 <source src="assets/events/paris-video.mov" type="video/quicktime">
                 <source src="assets/events/paris-video.mov" type="video/mp4">
                 <source src="assets/events/paris-video.mp4" type="video/mp4">
                 Your browser does not support HTML5 video.
               </video>
-
-              <!-- Floating 3D Architectural Blueprint Overlay in Top-Right -->
-              <div class="holo-blueprint-overlay" onclick="window.location.href='paris.html'">
-                <div class="blueprint-stamp">
-                  <span>20.06.26 • 21.06.26</span>
-                </div>
-                <img src="assets/events/fete-paris.jpg" alt="Eiffel Tower Sketch Flyer" class="blueprint-flyer-img">
-                <div class="blueprint-hover-tag">
-                  <span>⚡ OPEN PARIS ARCHIVE ↗</span>
-                </div>
-              </div>
-
-              <!-- Cyber Scanning Corner Brackets -->
-              <div class="cyber-bracket bracket-tl"></div>
-              <div class="cyber-bracket bracket-tr"></div>
-              <div class="cyber-bracket bracket-bl"></div>
-              <div class="cyber-bracket bracket-br"></div>
+              <div class="video-scanline-bar"></div>
             </div>
 
-            <!-- Bottom Editorial Description & Massive CTA Bar -->
-            <div class="cockpit-footer-bar">
-              <p class="cockpit-desc">
-                African Sonic Power meets French Street Culture. An open-air solstice celebration uniting over 1,200+ attendees in Pantin, Paris—architecting our permanent roots in Europe.
-              </p>
-              <a href="paris.html" class="cockpit-cta-btn">
-                <span>ENTER PARIS ARCHIVE & BLOCK PARTY VAULT</span>
-                <span class="cockpit-arrow">➔</span>
-              </a>
+            <!-- Tilted 3D Architectural Blueprint Card (Eiffel Tower Flyer) -->
+            <div class="cinema-3d-blueprint" onclick="window.location.href='paris.html'">
+              <div class="blueprint-stamp-header">
+                <span>20.06.26 • 21.06.26</span>
+              </div>
+              <img src="assets/events/fete-paris.jpg" alt="Fête de la Musique Paris Eiffel Sketch Flyer" class="blueprint-flyer-img">
+              <div class="blueprint-explore-tag">
+                <span>⚡ ENTER PARIS ARCHIVE ↗</span>
+              </div>
             </div>
           </div>
 
-          <!-- Kinetic Artist Credit Ticker -->
-          <div class="holovault-ticker-wrap">
-            <div class="holovault-ticker-track">
+          <!-- Widescreen Editorial Footer & Direct Portal CTA -->
+          <div class="paris-arena-footer">
+            <p class="paris-arena-desc">
+              African Sonic Power meets French Street Culture. An open-air solstice celebration uniting over 1,200+ attendees in Pantin, Paris—architecting our permanent roots in Europe.
+            </p>
+            <a href="paris.html" class="paris-portal-cta">
+              <span>ENTER PARIS ARCHIVE & BLOCK PARTY VAULT</span>
+              <span class="portal-arrow">➔</span>
+            </a>
+          </div>
+
+          <!-- Kinetic Marquee Ticker -->
+          <div class="paris-marquee-strip">
+            <div class="paris-marquee-track">
               <span>★ DJ MICHEL</span>
               <span>★ KDDO</span>
               <span>★ KAIRA STARR</span>
@@ -559,7 +551,6 @@
         </div>
 
         <script>
-          // Interactive Soundboard Functions for the Paris Video
           function toggleParisAudio() {
             const vid = document.getElementById('parisCockpitVideo');
             const btn = document.getElementById('btnToggleAudio');
@@ -576,16 +567,16 @@
           }
 
           function triggerStageFlash() {
-            const frame = document.getElementById('parisCockpitFrame');
-            if (!frame) return;
-            frame.classList.add('stage-strobe-flash');
+            const disp = document.getElementById('parisCinemaDisplay');
+            if (!disp) return;
+            disp.classList.add('laser-strobe-flash');
             setTimeout(() => {
-              frame.classList.remove('stage-strobe-flash');
+              disp.classList.remove('laser-strobe-flash');
             }, 600);
           }
 
           function boostEqWaves() {
-            const waves = document.getElementById('cockpitEqWaves');
+            const waves = document.getElementById('parisEqWaves');
             if (!waves) return;
             waves.classList.add('bass-boosted');
             setTimeout(() => {
@@ -596,17 +587,17 @@
 
         <style>
           /* ════════════════════════════════════════════════════
-             PARIS CINEMATIC HOLO-VAULT CSS (COMPLETELY DISTINCT)
+             PARIS WIDESCREEN CINEMATIC STAGE CSS
           ════════════════════════════════════════════════════ */
-          .paris-cinematic-holovault-section {
-            padding: 110px 4vw;
-            background: radial-gradient(circle at 50% 20%, #131024 0%, #05040A 75%);
-            border-top: 2px solid rgba(255, 59, 0, 0.4);
-            border-bottom: 2px solid rgba(255, 59, 0, 0.4);
+          .paris-widescreen-arena {
+            padding: 100px 4vw 120px;
+            background: radial-gradient(circle at 50% 20%, #15102A 0%, #06040C 75%);
+            border-top: 2px solid #FF3B00;
+            border-bottom: 2px solid #FF3B00;
             position: relative;
             overflow: hidden;
           }
-          .holo-laser-grid {
+          .paris-arena-grid {
             position: absolute;
             inset: 0;
             background-image: 
@@ -616,21 +607,62 @@
             pointer-events: none;
             z-index: 1;
           }
-          .holovault-container {
-            max-width: 1400px;
+          .paris-floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 1;
+          }
+          .orb-1 {
+            width: 450px; height: 450px;
+            top: 50px; left: -100px;
+            background: rgba(255, 59, 0, 0.2);
+          }
+          .orb-2 {
+            width: 400px; height: 400px;
+            bottom: 50px; right: -100px;
+            background: rgba(0, 242, 254, 0.15);
+          }
+          .paris-arena-container {
+            max-width: 1420px;
             margin: 0 auto;
             position: relative;
-            z-index: 2;
+            z-index: 3;
           }
-          .holovault-top-bar {
+          .paris-version-banner {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 190, 0, 0.15);
+            border: 1px solid #FFBE00;
+            color: #FFBE00;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 800;
+            padding: 10px 22px;
+            border-radius: 100px;
+            letter-spacing: 0.14em;
+            margin-bottom: 36px;
+            box-shadow: 0 0 30px rgba(255, 190, 0, 0.4);
+          }
+          .version-dot {
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            background: #FFBE00;
+            box-shadow: 0 0 12px #FFBE00;
+          }
+          .paris-stage-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-end;
             flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 24px;
+            gap: 28px;
+            margin-bottom: 40px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+            padding-bottom: 28px;
           }
-          .holovault-badge {
+          .paris-badge-pill {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -640,45 +672,29 @@
             font-family: 'Space Mono', monospace;
             font-size: 0.78rem;
             font-weight: 700;
-            padding: 8px 20px;
+            padding: 8px 18px;
             border-radius: 100px;
             letter-spacing: 0.15em;
+            margin-bottom: 14px;
             box-shadow: 0 0 25px rgba(255, 59, 0, 0.4);
           }
-          .holo-pulse-dot {
+          .rec-pulse {
             width: 10px; height: 10px;
             border-radius: 50%;
             background: #FF3B00;
             box-shadow: 0 0 12px #FF3B00;
-            animation: holoPulse 1.2s infinite;
+            animation: parisRecPulse 1.2s infinite;
           }
-          @keyframes holoPulse {
+          @keyframes parisRecPulse {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.3; transform: scale(0.7); }
           }
-          .holovault-subtext {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.78rem;
-            color: #00F2FE;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-          }
-          .holovault-title-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            flex-wrap: wrap;
-            gap: 24px;
-            margin-bottom: 36px;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
-            padding-bottom: 24px;
-          }
-          .holovault-heading {
+          .paris-arena-title {
             font-family: 'Bricolage Grotesque', sans-serif;
-            font-size: clamp(3rem, 6vw, 5.2rem);
+            font-size: clamp(3.2rem, 6.5vw, 5.8rem);
             font-weight: 900;
             color: #FFF;
-            line-height: 0.92;
+            line-height: 0.9;
             margin: 0 0 12px 0;
             text-transform: uppercase;
             letter-spacing: -2px;
@@ -689,107 +705,79 @@
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 0 35px rgba(255, 59, 0, 0.7));
           }
-          .holovault-collab {
+          .paris-collab-text {
             font-family: 'Space Mono', monospace;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #FFBE00;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
           }
-          .holovault-telemetry-box {
-            display: flex;
-            gap: 16px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.8rem;
-            color: #DDD;
-          }
-          .telemetry-item strong {
-            color: #00F58C;
-          }
 
-          /* COCKPIT FRAME */
-          .holovault-cockpit-frame {
-            background: #08060D;
-            border: 2px solid rgba(255, 59, 0, 0.6);
-            border-radius: 36px;
-            overflow: hidden;
-            box-shadow: 
-              0 30px 100px rgba(0, 0, 0, 0.95),
-              0 0 60px rgba(255, 59, 0, 0.25);
-            position: relative;
-            transition: all 0.5s ease;
-          }
-          .holovault-cockpit-frame.stage-strobe-flash {
-            border-color: #FFF;
-            box-shadow: 0 0 100px rgba(255, 255, 255, 0.9), 0 0 150px #FF3B00;
-            filter: brightness(1.4);
-          }
-          .cockpit-hud-header {
-            background: rgba(18, 16, 28, 0.95);
-            padding: 14px 28px;
+          .paris-soundboard-panel {
+            background: rgba(18, 16, 32, 0.9);
+            border: 1px solid rgba(255, 59, 0, 0.5);
+            border-radius: 20px;
+            padding: 16px 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 59, 0, 0.3);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            flex-direction: column;
+            gap: 12px;
           }
-          .cockpit-eq-waves {
+          .soundboard-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: #00F2FE;
+            letter-spacing: 0.18em;
+          }
+          .paris-eq-waves {
             display: flex;
             align-items: center;
             gap: 5px;
-            height: 20px;
+            height: 22px;
           }
-          .cockpit-eq-waves span {
+          .paris-eq-waves span {
             width: 4px;
             background: #00F58C;
             border-radius: 2px;
-            animation: eqCockpitAnim 0.6s infinite alternate ease-in-out;
+            animation: eqParisAnim 0.6s infinite alternate ease-in-out;
           }
-          .cockpit-eq-waves.bass-boosted span {
+          .paris-eq-waves.bass-boosted span {
             background: #FF3B00 !important;
-            animation: eqCockpitAnim 0.2s infinite alternate ease-in-out !important;
+            animation: eqParisAnim 0.2s infinite alternate ease-in-out !important;
           }
-          .cockpit-eq-waves span:nth-child(1) { height: 8px; animation-delay: 0.1s; }
-          .cockpit-eq-waves span:nth-child(2) { height: 16px; animation-delay: 0.3s; }
-          .cockpit-eq-waves span:nth-child(3) { height: 10px; animation-delay: 0.2s; }
-          .cockpit-eq-waves span:nth-child(4) { height: 18px; animation-delay: 0.4s; }
-          .cockpit-eq-waves span:nth-child(5) { height: 12px; animation-delay: 0.1s; }
-          .cockpit-eq-waves span:nth-child(6) { height: 8px; animation-delay: 0.5s; }
-          .cockpit-eq-waves span:nth-child(7) { height: 16px; animation-delay: 0.2s; }
-          .cockpit-eq-waves span:nth-child(8) { height: 10px; animation-delay: 0.3s; }
-          .cockpit-eq-waves span:nth-child(9) { height: 18px; animation-delay: 0.1s; }
-          .cockpit-eq-waves span:nth-child(10) { height: 14px; animation-delay: 0.4s; }
-          .cockpit-eq-waves span:nth-child(11) { height: 8px; animation-delay: 0.2s; }
-          .cockpit-eq-waves span:nth-child(12) { height: 16px; animation-delay: 0.5s; }
-          @keyframes eqCockpitAnim {
+          .paris-eq-waves span:nth-child(1) { height: 8px; animation-delay: 0.1s; }
+          .paris-eq-waves span:nth-child(2) { height: 16px; animation-delay: 0.3s; }
+          .paris-eq-waves span:nth-child(3) { height: 10px; animation-delay: 0.2s; }
+          .paris-eq-waves span:nth-child(4) { height: 20px; animation-delay: 0.4s; }
+          .paris-eq-waves span:nth-child(5) { height: 12px; animation-delay: 0.1s; }
+          .paris-eq-waves span:nth-child(6) { height: 8px; animation-delay: 0.5s; }
+          .paris-eq-waves span:nth-child(7) { height: 18px; animation-delay: 0.2s; }
+          .paris-eq-waves span:nth-child(8) { height: 12px; animation-delay: 0.3s; }
+          .paris-eq-waves span:nth-child(9) { height: 20px; animation-delay: 0.1s; }
+          .paris-eq-waves span:nth-child(10) { height: 14px; animation-delay: 0.4s; }
+          .paris-eq-waves span:nth-child(11) { height: 10px; animation-delay: 0.2s; }
+          .paris-eq-waves span:nth-child(12) { height: 18px; animation-delay: 0.5s; }
+          @keyframes eqParisAnim {
             0% { transform: scaleY(0.3); }
             100% { transform: scaleY(1.4); }
           }
 
-          .cockpit-soundboard-controls {
+          .soundboard-buttons {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
           }
           .sound-btn {
-            background: rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #FFF;
             font-family: 'Space Mono', monospace;
             font-size: 0.75rem;
             font-weight: 700;
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 100px;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
           }
           .sound-btn:hover {
             background: #FF3B00;
@@ -804,137 +792,145 @@
             box-shadow: 0 0 25px rgba(0, 245, 140, 0.6);
           }
 
-          .cockpit-video-viewport {
+          /* WIDESCREEN CINEMA DISPLAY */
+          .paris-cinema-display {
+            position: relative;
+            background: #000;
+            border: 2px solid rgba(255, 59, 0, 0.6);
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 
+              0 30px 100px rgba(0, 0, 0, 0.95),
+              0 0 70px rgba(255, 59, 0, 0.3);
+            margin-bottom: 40px;
+            transition: all 0.5s ease;
+          }
+          .paris-cinema-display.laser-strobe-flash {
+            border-color: #FFF;
+            box-shadow: 0 0 100px rgba(255, 255, 255, 0.95), 0 0 160px #FF3B00;
+            filter: brightness(1.4);
+          }
+          .cinema-video-viewport {
             position: relative;
             width: 100%;
-            background: #000;
           }
-          .cockpit-video-el {
+          .cinema-video-el {
             width: 100%;
-            max-height: 720px;
+            max-height: 680px;
             object-fit: cover;
             display: block;
           }
-
-          /* Floating 3D Architectural Blueprint Overlay */
-          .holo-blueprint-overlay {
+          .video-scanline-bar {
             position: absolute;
-            top: 28px; right: 28px;
-            width: 240px;
-            background: rgba(5, 4, 11, 0.85);
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 59, 0, 0.08) 50%, transparent 100%);
+            background-size: 100% 4px;
+            pointer-events: none;
+          }
+
+          /* Tilted 3D Architectural Blueprint Card Overlay */
+          .cinema-3d-blueprint {
+            position: absolute;
+            top: 32px; right: 32px;
+            width: 250px;
+            background: rgba(5, 4, 11, 0.9);
             border: 2px solid #FFBE00;
-            border-radius: 20px;
-            padding: 12px;
+            border-radius: 24px;
+            padding: 14px;
             cursor: pointer;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(255, 190, 0, 0.4);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 5;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 190, 0, 0.4);
+            transform: perspective(1200px) rotateY(-12deg) rotateX(4deg);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10;
           }
-          .holo-blueprint-overlay:hover {
-            transform: scale(1.08) rotate(-2deg);
+          .cinema-3d-blueprint:hover {
+            transform: perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1.08);
             border-color: #FF3B00;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), 0 0 50px rgba(255, 59, 0, 0.6);
+            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.95), 0 0 60px rgba(255, 59, 0, 0.65);
           }
-          .blueprint-stamp {
+          .blueprint-stamp-header {
             font-family: 'Space Mono', monospace;
-            font-size: 0.68rem;
+            font-size: 0.7rem;
             color: #FFBE00;
             letter-spacing: 0.12em;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             text-align: center;
           }
           .blueprint-flyer-img {
             width: 100%;
             height: auto;
-            border-radius: 12px;
+            border-radius: 14px;
             display: block;
           }
-          .blueprint-hover-tag {
+          .blueprint-explore-tag {
             font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
+            font-size: 0.72rem;
             font-weight: 700;
             color: #FFF;
             background: #FF3B00;
             text-align: center;
-            padding: 6px;
+            padding: 8px;
             border-radius: 100px;
-            margin-top: 10px;
-            letter-spacing: 0.08em;
+            margin-top: 12px;
+            letter-spacing: 0.1em;
           }
 
-          /* Corner Cyber Brackets */
-          .cyber-bracket {
-            position: absolute;
-            width: 24px; height: 24px;
-            border-color: #00F2FE;
-            border-style: solid;
-            pointer-events: none;
-            z-index: 4;
-          }
-          .bracket-tl { top: 16px; left: 16px; border-width: 3px 0 0 3px; }
-          .bracket-tr { top: 16px; left: 48px; border-width: 3px 3px 0 0; }
-          .bracket-bl { bottom: 16px; left: 16px; border-width: 0 0 3px 3px; }
-          .bracket-br { bottom: 16px; right: 16px; border-width: 0 3px 3px 0; }
-
-          .cockpit-footer-bar {
-            background: rgba(18, 16, 28, 0.95);
-            padding: 28px 36px;
+          .paris-arena-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            gap: 28px;
+            margin-bottom: 36px;
           }
-          .cockpit-desc {
-            font-size: 1.15rem;
+          .paris-arena-desc {
+            font-size: 1.18rem;
             color: rgba(255, 255, 255, 0.88);
             line-height: 1.6;
             margin: 0;
-            max-width: 680px;
+            max-width: 720px;
           }
-          .cockpit-cta-btn {
+          .paris-portal-cta {
             display: inline-flex;
             align-items: center;
             gap: 16px;
             background: linear-gradient(135deg, #FF3B00, #FFBE00);
             color: #000 !important;
             font-family: 'Space Mono', monospace;
-            font-size: 0.92rem;
+            font-size: 0.94rem;
             font-weight: 800;
-            padding: 18px 36px;
+            padding: 20px 40px;
             border-radius: 100px;
             text-transform: uppercase;
             letter-spacing: 0.12em;
             text-decoration: none;
-            box-shadow: 0 0 40px rgba(255, 59, 0, 0.6);
+            box-shadow: 0 0 45px rgba(255, 59, 0, 0.7);
             transition: all 0.3s;
           }
-          .cockpit-cta-btn:hover {
+          .paris-portal-cta:hover {
             background: #FFF;
             color: #000 !important;
-            box-shadow: 0 0 60px rgba(255, 255, 255, 0.9);
-            transform: scale(1.05);
+            box-shadow: 0 0 70px rgba(255, 255, 255, 0.95);
+            transform: scale(1.06);
           }
-          .cockpit-arrow {
-            font-size: 1.25rem;
+          .portal-arrow {
+            font-size: 1.3rem;
             transition: transform 0.3s;
           }
-          .cockpit-cta-btn:hover .cockpit-arrow {
+          .paris-portal-cta:hover .portal-arrow {
             transform: translateX(6px);
           }
 
-          .holovault-ticker-wrap {
-            margin-top: 36px;
+          .paris-marquee-strip {
             background: rgba(255, 59, 0, 0.12);
             border: 1px solid rgba(255, 59, 0, 0.35);
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 14px 0;
             overflow: hidden;
             white-space: nowrap;
           }
-          .holovault-ticker-track {
+          .paris-marquee-track {
             display: inline-block;
             animation: holovaultMarquee 25s linear infinite;
             font-family: 'Space Mono', monospace;
@@ -943,73 +939,93 @@
             color: #FFBE00;
             letter-spacing: 0.18em;
           }
-          .holovault-ticker-track span { margin-right: 36px; }
+          .paris-marquee-track span { margin-right: 36px; }
           @keyframes holovaultMarquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
           }
 
           @media (max-width: 768px) {
-            .paris-cinematic-holovault-section { padding: 60px 20px; }
-            .holo-blueprint-overlay { display: none; }
-            .cockpit-footer-bar { flex-direction: column; text-align: center; }
-            .cockpit-cta-btn { width: 100%; justify-content: center; }
+            .paris-widescreen-arena { padding: 60px 20px; }
+            .cinema-3d-blueprint { display: none; }
+            .paris-arena-footer { flex-direction: column; text-align: center; }
+            .paris-portal-cta { width: 100%; justify-content: center; }
           }
         </style>
       </section>
 
 
       <!-- ══════════════════════════════════════════════════════════════════════
-           2. THE 234 × PAU // CAMPUS INNOVATION INCUBATOR
-           (100% SEPARATE SECTION — COMPLETELY DISTINCT DESIGN FROM PARIS!)
+           2. THE 234 × PAU // 3D CYBER-HEXAGON TECH INCUBATOR TERMINAL
+           (100% RADICALLY DIFFERENT DESIGN FROM PARIS — NO VIDEO, 3D HEX CUBE!)
       ══════════════════════════════════════════════════════════════════════ -->
-      <section class="pau-standalone-section" id="pauCampusSection">
-        <div class="pau-standalone-container">
-          <div class="pau-top-tagline">
+      <section class="pau-cyberhex-section" id="pauCampusSection">
+        <div class="pau-hex-background"></div>
+
+        <div class="pau-hex-container">
+          <!-- Standalone Section Tagline -->
+          <div class="pau-hex-tagline">
             <span class="pau-amber-dot"></span>
-            <span>// 02. CAMPUS EXPANSION NODE — LEKKI, NIGERIA</span>
+            <span>// 02. CAMPUS INNOVATION ARCHITECTURE — LEKKI, LAGOS, NIGERIA</span>
           </div>
 
-          <div class="pau-incubator-deck">
-            <div class="pau-incubator-bg-glow"></div>
-
-            <div class="pau-incubator-header">
-              <div class="pau-incubator-badge">
-                <span>[ PARTNERSHIP // NODE 01 — PAN-ATLANTIC UNIVERSITY ]</span>
-              </div>
-              <span class="pau-incubator-year">// ACADEMIC YEAR 2025/2026</span>
-            </div>
-
-            <div class="pau-incubator-body">
-              <div class="pau-incubator-text">
-                <h2 class="pau-incubator-title">
-                  234AFRICA <span class="pau-x-amber">×</span> PAN-ATLANTIC UNIVERSITY
-                </h2>
-                <p class="pau-incubator-desc">
-                  Architecting the future of campus culture, creative innovation, and youth entertainment infrastructure. From freshers' takeovers to year-round student incubators.
-                </p>
-
-                <div class="pau-incubator-stats">
-                  <div class="pau-stat-box">
-                    <span class="pau-stat-val">5,000+</span>
-                    <span class="pau-stat-label">STUDENT CREATIVES</span>
+          <!-- THE 3D HEXAGONAL LAB COMMAND TERMINAL -->
+          <div class="pau-hex-terminal">
+            <div class="pau-terminal-grid">
+              <!-- Left Column: Rotating 3D CSS Node Cube & Academic Telemetry -->
+              <div class="pau-node-cube-col">
+                <div class="pau-3d-cube-stage">
+                  <div class="pau-css-cube">
+                    <div class="cube-face front">234 × PAU</div>
+                    <div class="cube-face back">NODE 01</div>
+                    <div class="cube-face right">LEKKI</div>
+                    <div class="cube-face left">LAGOS</div>
+                    <div class="cube-face top">CAMPUS</div>
+                    <div class="cube-face bottom">INCUBATOR</div>
                   </div>
-                  <div class="pau-stat-box">
-                    <span class="pau-stat-val">NODE 01</span>
-                    <span class="pau-stat-label">EXCLUSIVE CAMPUS</span>
-                  </div>
-                  <div class="pau-stat-box">
-                    <span class="pau-stat-val">100%</span>
-                    <span class="pau-stat-label">CULTURAL IMPACT</span>
-                  </div>
+                </div>
+
+                <div class="pau-cube-label">
+                  <span>[ 3D CAMPUS MATRIX // ACTIVE NODE 01 ]</span>
                 </div>
               </div>
 
-              <div class="pau-incubator-action">
-                <a href="pau.html" class="pau-incubator-cta">
-                  <span>ENTER THE PAU PORTAL</span>
-                  <span class="pau-incubator-arrow">↗</span>
-                </a>
+              <!-- Right Column: Editorial Typography & Tech-Lab Console -->
+              <div class="pau-terminal-editorial">
+                <div class="pau-lab-badge">
+                  <span>● OFFICIAL UNIVERSITY INNOVATION LAB</span>
+                </div>
+
+                <h2 class="pau-terminal-title">
+                  234AFRICA <span class="pau-x-amber">×</span> PAN-ATLANTIC UNIVERSITY
+                </h2>
+
+                <p class="pau-terminal-desc">
+                  Architecting the future of campus culture, creative innovation, and youth entertainment infrastructure. From freshers' takeovers to year-round student incubators.
+                </p>
+
+                <!-- 3D Isometric Telemetry Pillars -->
+                <div class="pau-telemetry-pillars">
+                  <div class="pau-pillar">
+                    <span class="pillar-val">5,000+</span>
+                    <span class="pillar-key">STUDENT CREATIVES</span>
+                  </div>
+                  <div class="pau-pillar">
+                    <span class="pillar-val">NODE 01</span>
+                    <span class="pillar-key">EXCLUSIVE CAMPUS</span>
+                  </div>
+                  <div class="pau-pillar">
+                    <span class="pillar-val">100%</span>
+                    <span class="pillar-key">CULTURAL IMPACT</span>
+                  </div>
+                </div>
+
+                <div class="pau-terminal-action">
+                  <a href="pau.html" class="pau-hex-cta">
+                    <span>ACCESS THE PAU CAMPUS PORTAL</span>
+                    <span class="pau-hex-arrow">➔</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -1017,171 +1033,243 @@
 
         <style>
           /* ════════════════════════════════════════════════════
-             PAU CAMPUS INCUBATOR CSS (COMPLETELY DISTINCT FROM PARIS)
+             PAU 3D CYBER-HEXAGON TECH INCUBATOR CSS
+             (COMPLETELY DISTINCT FROM PARIS IN COLOR, SHAPE, & LAYOUT)
           ════════════════════════════════════════════════════ */
-          .pau-standalone-section {
-            padding: 80px 4vw 120px;
-            background: #07090E;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          .pau-cyberhex-section {
+            padding: 90px 4vw 130px;
+            background: #06080E;
+            border-bottom: 2px solid rgba(244, 162, 24, 0.35);
             position: relative;
+            overflow: hidden;
           }
-          .pau-standalone-container {
-            max-width: 1350px;
+          .pau-hex-background {
+            position: absolute;
+            inset: 0;
+            background-image: 
+              radial-gradient(circle at 80% 50%, rgba(244, 162, 24, 0.12) 0%, transparent 60%),
+              linear-gradient(rgba(244, 162, 24, 0.04) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(244, 162, 24, 0.04) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            pointer-events: none;
+            z-index: 1;
+          }
+          .pau-hex-container {
+            max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
           }
-          .pau-top-tagline {
+          .pau-hex-tagline {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-family: 'Space Mono', monospace;
             font-size: 0.82rem;
             color: #F4A218;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            margin-bottom: 28px;
+            margin-bottom: 36px;
           }
           .pau-amber-dot {
-            width: 8px; height: 8px;
+            width: 9px; height: 9px;
             border-radius: 50%;
             background: #F4A218;
-            box-shadow: 0 0 10px #F4A218;
+            box-shadow: 0 0 12px #F4A218;
           }
-          .pau-incubator-deck {
-            background: linear-gradient(135deg, rgba(16, 19, 28, 0.95), rgba(24, 28, 42, 0.95));
-            border: 1px solid rgba(244, 162, 24, 0.45);
-            border-left: 6px solid #F4A218;
-            border-radius: 28px;
-            padding: 48px 44px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+
+          .pau-hex-terminal {
+            background: linear-gradient(135deg, rgba(14, 17, 26, 0.95) 0%, rgba(22, 27, 40, 0.95) 100%);
+            border: 2px solid rgba(244, 162, 24, 0.45);
+            border-left: 8px solid #F4A218;
+            border-radius: 36px;
+            padding: 56px 48px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.85), 0 0 50px rgba(244, 162, 24, 0.2);
             transition: all 0.4s ease;
           }
-          .pau-incubator-deck:hover {
+          .pau-hex-terminal:hover {
             border-color: #F4A218;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 60px rgba(244, 162, 24, 0.25);
-            transform: translateY(-5px);
+            box-shadow: 0 35px 100px rgba(0, 0, 0, 0.95), 0 0 80px rgba(244, 162, 24, 0.35);
+            transform: translateY(-6px);
           }
-          .pau-incubator-bg-glow {
+          .pau-terminal-grid {
+            display: grid;
+            grid-template-columns: 1fr 2.1fr;
+            gap: 56px;
+            align-items: center;
+          }
+
+          /* 3D ROTATING CSS CUBE FOR PAU */
+          .pau-node-cube-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(244, 162, 24, 0.3);
+            border-radius: 24px;
+            padding: 40px 20px;
+            position: relative;
+          }
+          .pau-3d-cube-stage {
+            width: 140px;
+            height: 140px;
+            perspective: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .pau-css-cube {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: spinCube 12s infinite linear;
+          }
+          .cube-face {
             position: absolute;
-            top: -120px; right: -120px;
-            width: 380px; height: 380px;
-            background: radial-gradient(circle, rgba(244, 162, 24, 0.2) 0%, transparent 70%);
-            pointer-events: none;
-          }
-          .pau-incubator-header {
+            width: 100px;
+            height: 100px;
+            background: rgba(244, 162, 24, 0.15);
+            border: 2px solid #F4A218;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 32px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 20px;
-          }
-          .pau-incubator-badge {
+            justify-content: center;
             font-family: 'Space Mono', monospace;
-            font-size: 0.8rem;
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: #FFF;
+            box-shadow: 0 0 20px rgba(244, 162, 24, 0.4);
+            text-align: center;
+            padding: 4px;
+          }
+          .front  { transform: translateZ(50px); }
+          .back   { transform: rotateY(180deg) translateZ(50px); }
+          .right  { transform: rotateY(90deg) translateZ(50px); }
+          .left   { transform: rotateY(-90deg) translateZ(50px); }
+          .top    { transform: rotateX(90deg) translateZ(50px); }
+          .bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+          @keyframes spinCube {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+          }
+          .pau-cube-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
             color: #F4A218;
-            letter-spacing: 0.15em;
-            font-weight: 700;
-          }
-          .pau-incubator-year {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.8rem;
-            color: #888;
             letter-spacing: 0.12em;
+            text-align: center;
           }
-          .pau-incubator-body {
+
+          .pau-terminal-editorial {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 20px;
+          }
+          .pau-lab-badge {
+            display: inline-flex;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 36px;
+            gap: 8px;
+            background: rgba(0, 245, 140, 0.15);
+            border: 1px solid #00F58C;
+            color: #00F58C;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 6px 18px;
+            border-radius: 100px;
+            letter-spacing: 0.12em;
+            width: fit-content;
           }
-          .pau-incubator-text {
-            max-width: 780px;
-          }
-          .pau-incubator-title {
+          .pau-terminal-title {
             font-family: 'Bricolage Grotesque', sans-serif;
-            font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+            font-size: clamp(2.4rem, 4.8vw, 4.2rem);
             font-weight: 900;
             color: #FFF;
             line-height: 1.05;
-            margin: 0 0 16px 0;
+            margin: 0;
             text-transform: uppercase;
           }
           .pau-x-amber {
             color: #F4A218;
-            text-shadow: 0 0 20px rgba(244, 162, 24, 0.8);
+            text-shadow: 0 0 25px rgba(244, 162, 24, 0.9);
             margin: 0 8px;
           }
-          .pau-incubator-desc {
-            font-size: 1.15rem;
-            color: rgba(255, 255, 255, 0.82);
+          .pau-terminal-desc {
+            font-size: 1.18rem;
+            color: rgba(255, 255, 255, 0.85);
             line-height: 1.6;
-            margin: 0 0 32px 0;
+            margin: 0;
+            max-width: 760px;
           }
-          .pau-incubator-stats {
+          .pau-telemetry-pillars {
             display: flex;
             flex-wrap: wrap;
-            gap: 24px;
+            gap: 20px;
+            margin: 8px 0;
           }
-          .pau-stat-box {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 12px 20px;
-            border-radius: 14px;
+          .pau-pillar {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(244, 162, 24, 0.35);
+            padding: 14px 24px;
+            border-radius: 16px;
             display: flex;
             flex-direction: column;
             gap: 4px;
           }
-          .pau-stat-val {
+          .pillar-val {
             font-family: 'Bricolage Grotesque', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: #F4A218;
           }
-          .pau-stat-label {
+          .pillar-key {
             font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
+            font-size: 0.72rem;
             color: #AAA;
             letter-spacing: 0.1em;
           }
-          .pau-incubator-cta {
+
+          .pau-terminal-action {
+            margin-top: 10px;
+          }
+          .pau-hex-cta {
             display: inline-flex;
             align-items: center;
             gap: 16px;
             background: #F4A218;
             color: #000 !important;
             font-family: 'Space Mono', monospace;
-            font-size: 0.92rem;
+            font-size: 0.94rem;
             font-weight: 800;
-            padding: 20px 36px;
+            padding: 20px 40px;
             border-radius: 100px;
             text-transform: uppercase;
             letter-spacing: 0.12em;
             text-decoration: none;
-            box-shadow: 0 0 35px rgba(244, 162, 24, 0.45);
+            box-shadow: 0 0 40px rgba(244, 162, 24, 0.5);
             transition: all 0.3s;
           }
-          .pau-incubator-cta:hover {
+          .pau-hex-cta:hover {
             background: #FFF;
             color: #000 !important;
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.9);
-            transform: scale(1.05);
+            box-shadow: 0 0 65px rgba(255, 255, 255, 0.95);
+            transform: scale(1.06);
           }
-          .pau-incubator-arrow {
-            font-size: 1.2rem;
+          .pau-hex-arrow {
+            font-size: 1.25rem;
             transition: transform 0.3s;
           }
-          .pau-incubator-cta:hover .pau-incubator-arrow {
-            transform: translate(4px, -4px);
+          .pau-hex-cta:hover .pau-hex-arrow {
+            transform: translateX(6px);
           }
 
-          @media (max-width: 768px) {
-            .pau-incubator-deck { padding: 32px 24px; }
-            .pau-incubator-cta { width: 100%; justify-content: center; }
+          @media (max-width: 900px) {
+            .pau-terminal-grid { grid-template-columns: 1fr; gap: 32px; }
+            .pau-hex-terminal { padding: 36px 24px; }
+            .pau-hex-cta { width: 100%; justify-content: center; }
           }
         </style>
       </section>
