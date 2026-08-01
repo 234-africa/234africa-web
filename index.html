@@ -945,359 +945,421 @@
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     2. THE 234 × PAU // GLASSMORPHIC BENTO BOX INCUBATOR
-     (Modern Tech UI - Replaced Cyber-Hexagon)
+     2. THE 234 × PAU // FLOATING CONSTELLATION INCUBATOR
+     (See-through background, creative floating elements)
 ══════════════════════════════════════════════════════════════════════ -->
-<section class="pau-bento-section" id="pauCampusSection">
-  <!-- Ambient Animated Background -->
-  <div class="pau-ambient-bg">
-    <div class="ambient-orb orb-1"></div>
-    <div class="ambient-orb orb-2"></div>
-    <div class="ambient-orb orb-3"></div>
-  </div>
+<section class="pau-floating-arena" id="pauCampusSection">
+  
+  <!-- Interactive SVG Network Lines -->
+  <svg class="pau-network-lines" preserveAspectRatio="none">
+    <path class="network-path" d="M0,0 L0,0" />
+    <path class="network-path" d="M0,0 L0,0" />
+    <path class="network-path" d="M0,0 L0,0" />
+  </svg>
 
-  <div class="pau-bento-container">
-    <!-- Standalone Section Tagline -->
-    <div class="pau-bento-tagline">
-      <span class="pau-bento-dot"></span>
-      <span>// 02. CAMPUS INNOVATION ARCHITECTURE — LEKKI, LAGOS, NIGERIA</span>
+  <div class="pau-floating-container">
+    
+    <!-- Tagline (Top Left) -->
+    <div class="pau-float-tagline" data-speed="1.2">
+      <span class="pau-pulse-orb"></span>
+      02. CAMPUS INNOVATION ARCHITECTURE — LEKKI, LAGOS
     </div>
 
-    <!-- THE BENTO GRID -->
-    <div class="pau-bento-grid">
+    <!-- Massive Transparent Outline Title (Center Background) -->
+    <h2 class="pau-ghost-title" data-speed="-0.8">
+      234<span class="ghost-amber">×</span>PAU
+    </h2>
+
+    <!-- Free-Floating Content Nodes -->
+    <div class="pau-nodes-wrapper">
       
-      <!-- Box 1: Main Title & Description (Span 2 cols on desktop) -->
-      <div class="bento-box box-main">
-        <div class="bento-badge">
-          <span class="badge-dot"></span> OFFICIAL UNIVERSITY INNOVATION LAB
+      <!-- Node: Main Description (Center Left) -->
+      <div class="pau-node node-desc" data-speed="1.5">
+        <div class="node-badge">OFFICIAL UNIVERSITY LAB</div>
+        <p>Architecting the future of campus culture, creative innovation, and youth entertainment infrastructure. From freshers' takeovers to year-round student incubators.</p>
+      </div>
+
+      <!-- Node: Stat 1 (Top Right) -->
+      <div class="pau-node node-stat stat-1" data-speed="2.5">
+        <div class="stat-hologram">
+          <span class="stat-num">5K+</span>
+          <span class="stat-label">CREATIVES</span>
         </div>
-        <h2 class="bento-title">
-          234AFRICA <br><span class="bento-amber">×</span> PAN-ATLANTIC UNIV.
-        </h2>
-        <p class="bento-desc">
-          Architecting the future of campus culture, creative innovation, and youth entertainment infrastructure. From freshers' takeovers to year-round student incubators.
-        </p>
       </div>
 
-      <!-- Box 2: Telemetry 1 -->
-      <div class="bento-box box-stat box-hover-up">
-        <div class="stat-icon">🎓</div>
-        <div class="stat-val">5,000+</div>
-        <div class="stat-key">STUDENT CREATIVES</div>
-      </div>
-
-      <!-- Box 3: Telemetry 2 -->
-      <div class="bento-box box-stat box-hover-up">
-        <div class="stat-icon">📍</div>
-        <div class="stat-val">NODE 01</div>
-        <div class="stat-key">EXCLUSIVE CAMPUS</div>
-      </div>
-
-      <!-- Box 4: CTA Portal (Span 2 cols on desktop) -->
-      <a href="pau.html" class="bento-box box-cta">
-        <div class="cta-content">
-          <span class="cta-text">ACCESS THE PAU CAMPUS PORTAL</span>
-          <span class="cta-arrow">➔</span>
+      <!-- Node: Stat 2 (Bottom Left) -->
+      <div class="pau-node node-stat stat-2" data-speed="1.8">
+        <div class="stat-hologram">
+          <span class="stat-num">01</span>
+          <span class="stat-label">ACTIVE NODE</span>
         </div>
-        <div class="cta-glow"></div>
+      </div>
+
+      <!-- Node: Stat 3 (Bottom Center) -->
+      <div class="pau-node node-stat stat-3" data-speed="2.2">
+        <div class="stat-hologram">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">IMPACT</span>
+        </div>
+      </div>
+
+      <!-- Node: CTA Pill (Bottom Right) -->
+      <a href="pau.html" class="pau-node node-cta" data-speed="1.1">
+        <div class="glass-pill-cta">
+          <span>ACCESS PORTAL</span>
+          <div class="cta-pulse"></div>
+        </div>
       </a>
-
-      <!-- Box 5: Telemetry 3 -->
-      <div class="bento-box box-stat box-hover-up">
-        <div class="stat-icon">🔥</div>
-        <div class="stat-val">100%</div>
-        <div class="stat-key">CULTURAL IMPACT</div>
-      </div>
 
     </div>
   </div>
 
   <style>
     /* ════════════════════════════════════════════════════
-       PAU GLASSMORPHIC BENTO BOX CSS
+       PAU FLOATING CONSTELLATION CSS
     ════════════════════════════════════════════════════ */
-    .pau-bento-section {
-      padding: 100px 4vw 120px;
-      background: #030407;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    .pau-floating-arena {
       position: relative;
+      width: 100%;
+      min-height: 85vh;
+      background: transparent; /* SEE-THROUGH TO HOMEPAGE BACKGROUND */
       overflow: hidden;
-      min-height: 80vh;
       display: flex;
       align-items: center;
+      justify-content: center;
+      padding: 100px 2vw;
+      /* Optional subtle top/bottom border to demarcate section */
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
-    /* Ambient Background Orbs */
-    .pau-ambient-bg {
+    /* SVG Lines connecting nodes (calculated via JS) */
+    .pau-network-lines {
       position: absolute;
       inset: 0;
-      z-index: 1;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
       pointer-events: none;
-      overflow: hidden;
     }
-    .ambient-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.4;
-      animation: floatOrb 20s ease-in-out infinite alternate;
+    .network-path {
+      fill: none;
+      stroke: rgba(244, 162, 24, 0.15); /* Faint Amber */
+      stroke-width: 1.5;
+      stroke-dasharray: 10 10;
+      animation: dashMove 20s linear infinite;
     }
-    .orb-1 {
-      width: 40vw; height: 40vw;
-      background: #F4A218; /* Amber */
-      top: -10%; left: -10%;
-    }
-    .orb-2 {
-      width: 35vw; height: 35vw;
-      background: #0044FF; /* Deep Blue */
-      bottom: -10%; right: -5%;
-      animation-delay: -5s;
-    }
-    .orb-3 {
-      width: 25vw; height: 25vw;
-      background: #FF3B00; /* Red-Orange */
-      top: 40%; left: 40%;
-      animation-delay: -10s;
-      opacity: 0.2;
-    }
-    @keyframes floatOrb {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(5vw, 5vw) scale(1.1); }
-      100% { transform: translate(-2vw, 8vw) scale(0.9); }
+    @keyframes dashMove {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: 1000; }
     }
 
-    .pau-bento-container {
-      max-width: 1200px;
-      margin: 0 auto;
+    .pau-floating-container {
       position: relative;
-      z-index: 2;
       width: 100%;
+      max-width: 1200px;
+      height: 100%;
+      min-height: 600px;
+      z-index: 1;
     }
 
     /* Tagline */
-    .pau-bento-tagline {
+    .pau-float-tagline {
+      position: absolute;
+      top: 0; left: 5%;
       display: inline-flex;
       align-items: center;
       gap: 12px;
       font-family: 'Space Mono', monospace;
-      font-size: 0.82rem;
-      color: rgba(255, 255, 255, 0.6);
-      letter-spacing: 0.2em;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      margin-bottom: 40px;
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      backdrop-filter: blur(5px);
+      transition: transform 0.2s cubic-bezier(0.1, 1, 0.2, 1);
     }
-    .pau-bento-dot {
+    .pau-pulse-orb {
       width: 8px; height: 8px;
       border-radius: 50%;
       background: #F4A218;
       box-shadow: 0 0 10px #F4A218;
+      animation: pauFloatPulse 2s infinite;
+    }
+    @keyframes pauFloatPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
     }
 
-    /* Bento Grid Layout */
-    .pau-bento-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: auto auto;
-      gap: 24px;
-    }
-
-    /* Universal Glass Box Styling */
-    .bento-box {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-      padding: 40px;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
-    }
-    .bento-box::before {
-      content: '';
+    /* Massive Ghost Title */
+    .pau-ghost-title {
       position: absolute;
-      top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(6rem, 15vw, 15rem);
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.08);
+      white-space: nowrap;
+      margin: 0;
+      line-height: 0.8;
+      z-index: -1; /* Behind other nodes */
+      pointer-events: none;
+      transition: transform 0.2s cubic-bezier(0.1, 1, 0.2, 1);
     }
-    .box-hover-up:hover {
-      transform: translateY(-8px);
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(244, 162, 24, 0.4);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 40px rgba(244, 162, 24, 0.1);
+    .ghost-amber {
+      -webkit-text-stroke: 1px rgba(244, 162, 24, 0.2);
     }
 
-    /* Main Box (Title/Desc) */
-    .box-main {
-      grid-column: span 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background: linear-gradient(135deg, rgba(20,22,28,0.6) 0%, rgba(10,12,18,0.6) 100%);
+    /* Floating Nodes Wrapper */
+    .pau-nodes-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 500px;
+      margin-top: 60px;
     }
-    .bento-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+
+    .pau-node {
+      position: absolute;
+      transition: transform 0.2s cubic-bezier(0.1, 1, 0.2, 1);
+      will-change: transform;
+    }
+
+    /* Main Description Node */
+    .node-desc {
+      top: 25%;
+      left: 0;
+      width: 400px;
+      max-width: 90%;
+      padding: 30px;
+      background: rgba(20, 22, 28, 0.2); /* Very faint glass */
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 20px;
+    }
+    .node-desc .node-badge {
       font-family: 'Space Mono', monospace;
       font-size: 0.7rem;
-      color: rgba(255,255,255,0.7);
-      background: rgba(255,255,255,0.05);
-      padding: 6px 12px;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.1);
-      margin-bottom: 24px;
-      width: fit-content;
-    }
-    .badge-dot {
       color: #00F58C;
-      font-size: 1rem;
-      line-height: 0;
+      letter-spacing: 0.1em;
+      margin-bottom: 15px;
+      text-transform: uppercase;
     }
-    .bento-title {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(2.5rem, 4vw, 4rem);
-      font-weight: 800;
-      color: #FFF;
-      line-height: 1;
-      margin: 0 0 20px 0;
-      letter-spacing: -1px;
-    }
-    .bento-amber {
-      color: #F4A218;
-    }
-    .bento-desc {
+    .node-desc p {
       font-family: 'Outfit', sans-serif;
-      font-size: 1.15rem;
-      color: rgba(255,255,255,0.6);
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
       line-height: 1.6;
-      max-width: 90%;
       margin: 0;
     }
 
-    /* Stat Boxes */
-    .box-stat {
+    /* Holographic Stat Nodes */
+    .node-stat .stat-hologram {
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: center;
-      align-items: flex-start;
-      gap: 12px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 1px dashed rgba(244, 162, 24, 0.4);
+      background: radial-gradient(circle, rgba(244, 162, 24, 0.05) 0%, transparent 70%);
+      backdrop-filter: blur(4px);
+      box-shadow: inset 0 0 20px rgba(244, 162, 24, 0.1);
+      transition: all 0.4s;
     }
-    .stat-icon {
-      font-size: 2rem;
-      margin-bottom: auto;
-      filter: grayscale(100%) brightness(200%);
-      opacity: 0.5;
-      transition: all 0.3s;
-    }
-    .box-hover-up:hover .stat-icon {
-      filter: grayscale(0%) brightness(100%);
-      opacity: 1;
+    .node-stat:hover .stat-hologram {
+      border: 1px solid #F4A218;
+      box-shadow: 0 0 30px rgba(244, 162, 24, 0.3), inset 0 0 30px rgba(244, 162, 24, 0.2);
       transform: scale(1.1);
     }
-    .stat-val {
+    .stat-num {
       font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 2.5rem;
-      font-weight: 700;
+      font-size: 2.2rem;
+      font-weight: 800;
       color: #FFF;
       line-height: 1;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
     }
-    .stat-key {
+    .stat-label {
       font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.5);
+      font-size: 0.65rem;
+      color: #F4A218;
       letter-spacing: 0.1em;
-      text-transform: uppercase;
+      margin-top: 8px;
     }
 
-    /* CTA Box */
-    .box-cta {
-      grid-column: span 2;
+    /* Stat Placements */
+    .stat-1 { top: -5%; right: 10%; }
+    .stat-2 { bottom: 5%; left: 10%; }
+    .stat-3 { bottom: 15%; left: 45%; }
+
+    /* CTA Node */
+    .node-cta {
+      bottom: 0;
+      right: 0;
       text-decoration: none;
-      display: flex;
+    }
+    .glass-pill-cta {
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      padding: 16px 36px;
+      border-radius: 100px;
       background: rgba(244, 162, 24, 0.1);
-      border-color: rgba(244, 162, 24, 0.3);
-      cursor: pointer;
-    }
-    .box-cta:hover {
-      background: rgba(244, 162, 24, 0.2);
-      border-color: rgba(244, 162, 24, 0.6);
-      transform: scale(0.98);
-    }
-    .cta-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      z-index: 2;
-    }
-    .cta-text {
-      font-family: 'Space Mono', monospace;
-      font-size: 1.1rem;
+      border: 1px solid rgba(244, 162, 24, 0.5);
       color: #FFF;
-      letter-spacing: 0.1em;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
     }
-    .cta-arrow {
-      font-size: 1.5rem;
-      color: #F4A218;
-      transition: transform 0.3s;
+    .glass-pill-cta:hover {
+      background: #F4A218;
+      color: #000;
+      box-shadow: 0 0 30px rgba(244, 162, 24, 0.5);
     }
-    .box-cta:hover .cta-arrow {
-      transform: translateX(10px);
-    }
-    .cta-glow {
+    .cta-pulse {
       position: absolute;
       top: 50%; left: 50%;
-      width: 0; height: 0;
-      background: #F4A218;
+      width: 10px; height: 10px;
+      background: #FFF;
       border-radius: 50%;
-      filter: blur(40px);
+      transform: translate(-50%, -50%);
       opacity: 0;
       transition: all 0.5s;
-      z-index: 1;
-      transform: translate(-50%, -50%);
     }
-    .box-cta:hover .cta-glow {
-      width: 300px; height: 300px;
-      opacity: 0.15;
+    .glass-pill-cta:hover .cta-pulse {
+      width: 200px; height: 200px;
+      opacity: 0.2;
     }
 
-    /* Responsive */
-    @media (max-width: 992px) {
-      .pau-bento-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .box-main {
-        grid-column: span 2;
-      }
-      .box-cta {
-        grid-column: span 2;
-      }
-    }
-    @media (max-width: 768px) {
-      .pau-bento-grid {
-        grid-template-columns: 1fr;
-      }
-      .box-main, .box-cta {
-        grid-column: span 1;
-      }
-      .bento-box {
-        padding: 30px;
-      }
-      .bento-title {
-        font-size: 2.2rem;
-      }
-      .cta-content {
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .pau-nodes-wrapper {
+        display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
+        align-items: center;
+        gap: 40px;
+        margin-top: 80px;
       }
+      .pau-node {
+        position: relative !important;
+        top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+        transform: none !important;
+      }
+      .pau-ghost-title {
+        font-size: 5rem;
+        top: 15%;
+      }
+      .pau-float-tagline {
+        position: relative;
+        top: 0; left: 0;
+        margin-bottom: 20px;
+      }
+      .pau-network-lines { display: none; /* Hide lines on mobile */ }
+      .pau-floating-arena { padding: 60px 5vw; }
+      .node-desc { width: 100%; text-align: center; }
     }
   </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const arena = document.getElementById('pauCampusSection');
+      if (!arena) return;
+      
+      const nodes = arena.querySelectorAll('[data-speed]');
+      const paths = arena.querySelectorAll('.network-path');
+
+      // Parallax effect
+      arena.addEventListener('mousemove', (e) => {
+        // Only run parallax on desktop
+        if (window.innerWidth <= 900) return;
+
+        const x = e.clientX;
+        const y = e.clientY;
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+
+        nodes.forEach(node => {
+          const speed = parseFloat(node.getAttribute('data-speed'));
+          const xOffset = (x - centerX) * speed * 0.01;
+          const yOffset = (y - centerY) * speed * 0.01;
+          // Maintain centering for the title
+          if(node.classList.contains('pau-ghost-title')) {
+            node.style.transform = `translate(calc(-50% + ${xOffset}px), calc(-50% + ${yOffset}px))`;
+          } else {
+            node.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+          }
+        });
+
+        drawLines();
+      });
+
+      // SVG Network Line Drawing
+      function drawLines() {
+        if (window.innerWidth <= 900) return;
+
+        const stat1 = arena.querySelector('.stat-1');
+        const stat2 = arena.querySelector('.stat-2');
+        const stat3 = arena.querySelector('.stat-3');
+        const desc = arena.querySelector('.node-desc');
+        const cta = arena.querySelector('.node-cta');
+        
+        if(!stat1 || !stat2 || !stat3 || !desc || !cta) return;
+
+        const arenaRect = arena.getBoundingClientRect();
+        
+        const getCenter = (el) => {
+          const rect = el.getBoundingClientRect();
+          return {
+            x: rect.left + rect.width / 2 - arenaRect.left,
+            y: rect.top + rect.height / 2 - arenaRect.top
+          };
+        };
+
+        const p1 = getCenter(desc);
+        const p2 = getCenter(stat1);
+        const p3 = getCenter(stat3);
+        const p4 = getCenter(stat2);
+        const p5 = getCenter(cta);
+
+        if(paths.length >= 3) {
+          // Connect Desc -> Stat1
+          paths[0].setAttribute('d', `M${p1.x},${p1.y} L${p2.x},${p2.y}`);
+          // Connect Stat1 -> Stat3
+          paths[1].setAttribute('d', `M${p2.x},${p2.y} L${p3.x},${p3.y}`);
+          // Connect Stat2 -> Desc
+          paths[2].setAttribute('d', `M${p4.x},${p4.y} L${p1.x},${p1.y}`);
+        }
+      }
+
+      // Initial draw
+      setTimeout(drawLines, 500);
+      window.addEventListener('resize', () => {
+        // Reset transforms on resize
+        nodes.forEach(node => {
+          if(node.classList.contains('pau-ghost-title')) {
+             node.style.transform = `translate(-50%, -50%)`;
+          } else {
+             node.style.transform = `translate(0px, 0px)`;
+          }
+        });
+        drawLines();
+      });
+    });
+  </script>
 </section>
+
+
 
 
 
