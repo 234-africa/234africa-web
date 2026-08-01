@@ -621,8 +621,8 @@
     .paris-hud-overlay {
       position: absolute;
       inset: 0;
-      /* Dark gradient to ensure text pops */
-      background: linear-gradient(90deg, rgba(5,4,10,0.95) 0%, rgba(5,4,10,0.7) 40%, rgba(5,4,10,0.4) 100%);
+      /* Adjusted gradient to ensure text pops but video is visible */
+      background: linear-gradient(90deg, rgba(5,4,10,0.85) 0%, rgba(5,4,10,0.5) 50%, rgba(5,4,10,0.2) 100%);
     }
     .paris-hud-scanlines {
       position: absolute;
@@ -904,17 +904,39 @@
       .hud-main-content {
         flex-direction: column;
         justify-content: center;
+        text-align: center;
+      }
+      .hud-left-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .hud-meta-box {
+        align-items: center;
+        text-align: center;
+        border-left: none;
+        border-top: 4px solid #FFBE00;
+        width: 100%;
+        max-width: 400px;
+      }
+      .hud-meta-line {
+        flex-direction: column;
+        gap: 4px;
+        align-items: center;
+      }
+      .hud-meta-key {
+        width: auto;
       }
       .hud-right-panel {
         justify-content: center;
-        margin-top: 40px;
+        margin-top: 20px;
       }
       .paris-hud-overlay {
-        background: rgba(5,4,10,0.85); /* Darker on mobile for readability */
+        background: rgba(5,4,10,0.65); /* Adjusted for better visibility */
       }
     }
     @media (max-width: 768px) {
-      .hud-top-bar { flex-direction: column; align-items: flex-start; gap: 15px; }
+      .hud-top-bar { flex-direction: column; align-items: center; text-align: center; gap: 15px; }
       .hud-title { font-size: 3.5rem; }
     }
   </style>
