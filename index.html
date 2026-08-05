@@ -18,19 +18,23 @@
 
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* INFINITE CAROUSEL (Pure CSS) */
+    /* INFINITE CAROUSEL */
     .infinite-carousel {
       width: 100%;
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
       white-space: nowrap;
       padding: 60px 0;
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+    .infinite-carousel::-webkit-scrollbar {
+      display: none;
     }
     .carousel-track {
-      display: inline-block;
-      animation: scrollCarousel 30s linear infinite;
-    }
-    .carousel-track:hover {
-      animation-play-state: paused;
+      display: inline-flex;
+      gap: 24px;
+      padding: 0 24px;
     }
     .carousel-track img {
       height: clamp(300px, 40vw, 500px);
@@ -39,12 +43,7 @@
       object-fit: cover;
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
       border: 1px solid #333;
-      display: inline-block;
-      margin-right: 24px;
-    }
-    @keyframes scrollCarousel {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      flex-shrink: 0;
     }
   </style>
 </head>
@@ -149,9 +148,9 @@
           </div>
         </div>
       </section>
-      <!-- EVENTS CAROUSEL (Pure CSS Infinite Loop) -->
-      <section class="infinite-carousel">
-        <div class="carousel-track">
+      <!-- EVENTS CAROUSEL (JS Driven Infinite Loop + Scrollable) -->
+      <section class="infinite-carousel" id="eventsCarousel">
+        <div class="carousel-track" id="eventsTrack">
           <!-- Set 1 -->
           <img src="assets/events/event-1.jpg" alt="Event Moment">
           <img src="assets/events/event-2.jpg" alt="Event Moment">
@@ -159,7 +158,7 @@
           <img src="assets/events/event-5.jpg" alt="Event Moment">
           <img src="assets/events/event-6.jpg" alt="Event Moment">
           <img src="assets/events/event-9.jpg" alt="Event Moment">
-          <!-- Set 2 (Exact Duplicate for Loop) -->
+          <!-- Set 2 (Duplicate for Loop) -->
           <img src="assets/events/event-1.jpg" alt="Event Moment">
           <img src="assets/events/event-2.jpg" alt="Event Moment">
           <img src="assets/events/event-3.png" alt="Event Moment">
@@ -168,6 +167,43 @@
           <img src="assets/events/event-9.jpg" alt="Event Moment">
         </div>
       </section>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const carousel = document.getElementById('eventsCarousel');
+          const track = document.getElementById('eventsTrack');
+          let autoScrollSpeed = 1;
+          let isInteracting = false;
+          
+          const scroll = () => {
+            if (!isInteracting) {
+              carousel.scrollLeft += autoScrollSpeed;
+              if (carousel.scrollLeft >= track.scrollWidth / 2) {
+                carousel.scrollLeft -= track.scrollWidth / 2;
+              }
+            }
+            requestAnimationFrame(scroll);
+          };
+
+          requestAnimationFrame(scroll);
+
+          const pause = () => isInteracting = true;
+          const resume = () => isInteracting = false;
+
+          carousel.addEventListener('mouseenter', pause);
+          carousel.addEventListener('mouseleave', resume);
+          carousel.addEventListener('touchstart', pause, {passive: true});
+          carousel.addEventListener('touchend', resume);
+          
+          carousel.addEventListener('scroll', () => {
+            if (carousel.scrollLeft >= track.scrollWidth / 2) {
+               carousel.scrollLeft -= track.scrollWidth / 2;
+            } else if (carousel.scrollLeft === 0 && isInteracting) {
+               carousel.scrollLeft = track.scrollWidth / 2;
+            }
+          });
+        });
+      </script>
 
       <!-- CRUISE ROOM CREATIVE BANNER: SPOTLIGHT DARK ROOM -->
       <section class="cruise-darkroom" id="cruise-darkroom">
