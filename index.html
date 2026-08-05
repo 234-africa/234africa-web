@@ -378,6 +378,7 @@
             position: relative;
             overflow: hidden;
             transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
           }
           .www-card::before {
             content: '';
@@ -399,8 +400,9 @@
 
           .www-card-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            gap: 12px;
             margin-bottom: 24px;
           }
           .www-tag {
@@ -1009,7 +1011,7 @@
       <!-- Node: Main Description (Center Left) -->
       <div class="pau-node node-desc" data-speed="1.5">
         <div class="node-badge">OFFICIAL UNIVERSITY LAB</div>
-        <p>Architecting the future of campus culture, creative innovation, and youth entertainment infrastructure. From freshers' takeovers to year-round student incubators.</p>
+        <p>We were officially tapped by Pan-Atlantic University to architect and execute the ultimate Freshers' Party. We don't just show up to campuses—we are trusted by institutions to bring the heat, set the standard, and deliver unforgettable student experiences from the ground up.</p>
       </div>
 
       <!-- Node: Stat 1 (Top Right) -->
@@ -1278,12 +1280,17 @@
 
     /* Responsive adjustments */
     @media (max-width: 900px) {
+      .pau-floating-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
       .pau-nodes-wrapper {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 40px;
-        margin-top: 80px;
+        margin-top: 20px;
       }
       .pau-node {
         position: relative !important;
@@ -1291,8 +1298,12 @@
         transform: none !important;
       }
       .pau-ghost-title {
-        font-size: 5rem;
-        top: 15%;
+        position: relative;
+        top: auto; left: auto;
+        transform: none !important;
+        font-size: clamp(4rem, 15vw, 6rem);
+        text-align: center;
+        margin: 30px 0;
       }
       .pau-float-tagline {
         position: relative;
