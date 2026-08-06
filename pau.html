@@ -8,26 +8,20 @@
   <link rel="shortcut icon" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
   
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@400;500;600;800&display=swap" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- FIXED 3D BACKGROUND -->
-  <div id="canvas-container">
-    <canvas id="webgl-canvas"></canvas>
-  </div>
-
   <!-- FIXED HEADER -->
   <header id="header">
     <div class="header-inner">
       <a href="index.html" class="logo" style="display: flex; align-items: center; z-index: 999;">
-        <img src="assets/234logo-transparent.png" alt="234AFRICA Logo" style="height: 40px; width: auto; object-fit: contain;">
+        <img src="assets/234logo-transparent.png" alt="234AFRICA Logo" style="height: 40px; width: auto; object-fit: contain; filter: invert(1);">
       </a>
       <nav class="nav-links">
         <a href="ecosystem.html">THE ECOSYSTEM</a>
@@ -46,89 +40,66 @@
       <!-- SPACING FOR FIXED HEADER -->
       <div style="height: 120px;"></div>
 
-      <!-- ULTRA-FUTURISTIC VIBRANT PAU CASE STUDY -->
-      <section class="pau-cyber-section">
-        <!-- Glowing Background Orbs -->
-        <div class="pau-glow-orb pau-glow-orb--red"></div>
-        <div class="pau-glow-orb pau-glow-orb--yellow"></div>
-        <div class="pau-glow-orb pau-glow-orb--green"></div>
-
-        <div class="container text-center pau-hero-content">
-          <div class="pau-neon-badge">
-            <span class="pau-badge-pulse"></span>
-            <span>⚡ OFFICIAL PRODUCTION CASE STUDY // 2025-2026 SESSION ⚡</span>
+      <!-- PREMIUM EDITORIAL CASE STUDY -->
+      <section class="pau-editorial-section">
+        <div class="container pau-hero-content">
+          
+          <div class="pau-editorial-badge">
+            OFFICIAL PRODUCTION CASE STUDY // 2025-2026 SESSION
           </div>
 
-          <h1 class="pau-cyber-title">
-            <span class="pau-title-234">234</span>
+          <h1 class="pau-editorial-title">
+            <span>234</span>
             <span class="pau-title-x">×</span>
-            <span class="pau-title-pau">PAU</span>
+            <span>PAU</span>
           </h1>
 
-          <div class="pau-cyber-sub">
+          <div class="pau-editorial-sub">
             THE 2025/2026 FRESHERS' WELCOME EXPERIENCE
           </div>
 
-          <p class="pau-cyber-desc">
+          <p class="pau-editorial-desc">
             When Pan-Atlantic University needed a historic, culture-defining welcome experience for the 2025/2026 academic session, <strong>234AFRICA was contracted to organize the Freshers' Party from the ground up</strong>. We delivered the entire production—from campus hype and artist curation to festival-grade sound engineering, lighting architecture, and live crowd immersion.
           </p>
 
-          <!-- NEON METRICS MODULES -->
-          <div class="pau-modules-grid">
-            <div class="pau-module pau-module--red">
-              <span class="pau-mod-tag">[ SCOPE ]</span>
+          <!-- BENTO METRICS MODULES -->
+          <div class="pau-metrics-grid">
+            <div class="pau-metric-box">
+              <span class="pau-mod-tag">SCOPE</span>
               <span class="pau-mod-value">100% END-TO-END</span>
               <span class="pau-mod-label">Full Event Production & Curation</span>
             </div>
-            <div class="pau-module pau-module--yellow">
-              <span class="pau-mod-tag">[ VENUE ]</span>
+            <div class="pau-metric-box">
+              <span class="pau-mod-tag">VENUE</span>
               <span class="pau-mod-value">ABUJA HALL</span>
               <span class="pau-mod-label">Pan-Atlantic University Campus</span>
             </div>
-            <div class="pau-module pau-module--green">
-              <span class="pau-mod-tag">[ STAGE & FX ]</span>
+            <div class="pau-metric-box">
+              <span class="pau-mod-tag">STAGE & FX</span>
               <span class="pau-mod-value">360° RED ZONE</span>
               <span class="pau-mod-label">Custom Lighting & Sound Engineering</span>
             </div>
-            <div class="pau-module pau-module--red">
-              <span class="pau-mod-tag">[ HEADLINER ]</span>
+            <div class="pau-metric-box">
+              <span class="pau-mod-tag">HEADLINER</span>
               <span class="pau-mod-value">DJ PHIL + GUESTS</span>
               <span class="pau-mod-label">Unrivalled Student Energy</span>
             </div>
           </div>
         </div>
 
-        <!-- INFINITE NEON TICKER STRIP -->
-        <div class="pau-ticker-wrap">
-          <div class="pau-ticker-track">
-            <span>✦ SOUND ENGINEERING</span>
-            <span>✦ ARTIST CURATION</span>
-            <span>✦ CAMPUS TAKEOVER</span>
-            <span>✦ CROWD CONTROL</span>
-            <span>✦ RED ZONE LIGHTING</span>
-            <span>✦ LIVE ENTERTAINMENT</span>
-            <span>✦ SOUND ENGINEERING</span>
-            <span>✦ ARTIST CURATION</span>
-            <span>✦ CAMPUS TAKEOVER</span>
-            <span>✦ CROWD CONTROL</span>
-            <span>✦ RED ZONE LIGHTING</span>
-            <span>✦ LIVE ENTERTAINMENT</span>
-          </div>
-        </div>
-
         <!-- SECTION 2: HOW WE DELIVERED THE EXPERIENCE -->
         <div class="container pau-exec-container">
-          <div class="pau-section-badge">[ FULL-STACK PRODUCTION ]</div>
+          <div class="pau-section-badge">FULL-STACK PRODUCTION</div>
           <h2 class="pau-section-heading">
-            HOW WE DELIVERED <span class="pau-grad-text">THE EXPERIENCE.</span>
+            HOW WE DELIVERED THE EXPERIENCE.
           </h2>
 
           <div class="pau-exec-cards">
             <!-- Pillar 1 -->
-            <div class="pau-cyber-card pau-cyber-card--red">
+            <div class="pau-editorial-card">
               <div class="pau-card-hud">
                 <span class="pau-hud-num">01</span>
-                <span class="pau-hud-tag">[ CAMPUS TAKEOVER ]</span>
+                <span class="pau-hud-tag">CAMPUS TAKEOVER</span>
               </div>
               <h3 class="pau-card-title">Ground-Level Student Engagement</h3>
               <p class="pau-card-desc">
@@ -137,10 +108,10 @@
             </div>
 
             <!-- Pillar 2 -->
-            <div class="pau-cyber-card pau-cyber-card--yellow">
+            <div class="pau-editorial-card">
               <div class="pau-card-hud">
                 <span class="pau-hud-num">02</span>
-                <span class="pau-hud-tag">[ TECHNICAL INFRASTRUCTURE ]</span>
+                <span class="pau-hud-tag">TECHNICAL INFRASTRUCTURE</span>
               </div>
               <h3 class="pau-card-title">Arena-Grade Audio & Visuals</h3>
               <p class="pau-card-desc">
@@ -149,10 +120,10 @@
             </div>
 
             <!-- Pillar 3 -->
-            <div class="pau-cyber-card pau-cyber-card--green">
+            <div class="pau-editorial-card">
               <div class="pau-card-hud">
                 <span class="pau-hud-num">03</span>
-                <span class="pau-hud-tag">[ CULTURE & TALENT ]</span>
+                <span class="pau-hud-tag">CULTURE & TALENT</span>
               </div>
               <h3 class="pau-card-title">Live Curation & Crowd Control</h3>
               <p class="pau-card-desc">
@@ -162,42 +133,42 @@
           </div>
         </div>
 
-        <!-- SECTION 3: NEON LOOKBOOK GALLERY (CLEAN IMAGES - NO TEXT ON IMAGES!) -->
+        <!-- SECTION 3: LOOKBOOK GALLERY -->
         <div class="container pau-gallery-container">
           <div class="text-center">
-            <div class="pau-section-badge">[ VISUAL ARCHIVE ]</div>
+            <div class="pau-section-badge">VISUAL ARCHIVE</div>
             <h2 class="pau-section-heading">
-              LIVE IN PAU // <span class="pau-grad-text">THE LOOKBOOK.</span>
+              LIVE IN PAU // THE LOOKBOOK.
             </h2>
             <p class="pau-gallery-sub">
               Unfiltered visual telemetry from the 2025/2026 Freshers' Welcome Party at Pan-Atlantic University.
             </p>
           </div>
 
-          <!-- MASONRY / BENTO GRID WITHOUT ANY TEXT OVERLAYS -->
+          <!-- MASONRY GRID -->
           <div class="pau-clean-grid">
-            <div class="pau-clean-frame pau-span-2 pau-frame--red">
+            <div class="pau-clean-frame pau-span-2">
               <img src="assets/pau/pau-1.jpg" alt="PAU Students at TY Danjuma Complex" loading="lazy" />
             </div>
-            <div class="pau-clean-frame pau-frame--yellow">
+            <div class="pau-clean-frame">
               <img src="assets/pau/pau-2.jpg" alt="Live in PAU Official Event Poster" loading="lazy" />
             </div>
-            <div class="pau-clean-frame pau-frame--green">
+            <div class="pau-clean-frame">
               <img src="assets/pau/pau-3.jpg" alt="DJ Phil at the command deck" loading="lazy" />
             </div>
-            <div class="pau-clean-frame pau-frame--red">
+            <div class="pau-clean-frame">
               <img src="assets/pau/pau-4.jpg" alt="Crowd POV phone screen" loading="lazy" />
             </div>
-            <div class="pau-clean-frame pau-span-2 pau-frame--yellow">
+            <div class="pau-clean-frame pau-span-2">
               <img src="assets/pau/pau-5.jpg" alt="Stage performance with PAU backdrop" loading="lazy" />
             </div>
-            <div class="pau-clean-frame pau-frame--green">
+            <div class="pau-clean-frame">
               <img src="assets/pau/pau-6.jpg" alt="Packed crowd in Abuja Hall" loading="lazy" />
             </div>
-            <div class="pau-clean-frame pau-frame--red">
+            <div class="pau-clean-frame">
               <img src="assets/pau/pau-7.jpg" alt="Crowd in red lighting" loading="lazy" />
             </div>
-            <div class="pau-clean-frame pau-span-2 pau-frame--green">
+            <div class="pau-clean-frame pau-span-2">
               <img src="assets/pau/pau-8.jpg" alt="Students dancing in PAU" loading="lazy" />
             </div>
           </div>
@@ -209,365 +180,256 @@
         </div>
       </section>
 
+      <!-- FOOTER -->
+      <footer class="editorial-footer">
+        <div class="container text-center">
+          <h2 class="footer-title">234.HQ</h2>
+          <div class="footer-links">
+            <a href="https://instagram.com/234.hq" target="_blank">INSTAGRAM</a>
+            <a href="mailto:234groupinfo@gmail.com">EMAIL</a>
+            <a href="tel:+2348103236094">TELEPHONE</a>
+          </div>
+          <p class="footer-copy">© 2025 234AFRICA // ALL RIGHTS RESERVED</p>
+        </div>
+      </footer>
+
       <style>
         /* ========================================================
-           ULTRA-FUTURISTIC, COLORFUL PAU CASE STUDY CSS
+           EDITORIAL PAU CASE STUDY CSS
         ======================================================== */
-        .pau-cyber-section {
+        body {
+          background: #F4F1E9;
+          color: #000;
+        }
+        
+        #header .nav-links a {
+          color: #000;
+        }
+
+        .pau-editorial-section {
           position: relative;
-          background: #06080E;
-          color: #FFF;
+          background: #F4F1E9;
           padding: 60px 0 100px;
           overflow: hidden;
           font-family: 'Outfit', sans-serif;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Glowing Orbs */
-        .pau-glow-orb {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(140px);
-          opacity: 0.35;
-          pointer-events: none;
-          z-index: 0;
-        }
-        .pau-glow-orb--red {
-          width: 500px; height: 500px;
-          background: #E84128;
-          top: -100px; left: -100px;
-        }
-        .pau-glow-orb--yellow {
-          width: 450px; height: 450px;
-          background: #F4A218;
-          top: 30%; right: -150px;
-        }
-        .pau-glow-orb--green {
-          width: 550px; height: 550px;
-          background: #108C5A;
-          bottom: 5%; left: 20%;
         }
 
         .pau-hero-content {
-          position: relative;
-          z-index: 2;
           max-width: 1050px;
           margin: 0 auto;
+          text-align: center;
         }
 
-        /* Neon Badge */
-        .pau-neon-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(244, 162, 24, 0.6);
-          box-shadow: 0 0 20px rgba(244, 162, 24, 0.25);
-          color: #F4A218;
+        /* Editorial Badge */
+        .pau-editorial-badge {
+          display: inline-block;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.85rem;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          color: #E84128;
+          border: 1px solid #E84128;
           padding: 8px 24px;
           border-radius: 100px;
-          font-family: 'Space Mono', monospace;
-          font-size: 0.78rem;
-          font-weight: 700;
-          letter-spacing: 0.15em;
-          margin-bottom: 28px;
-        }
-        .pau-badge-pulse {
-          width: 8px; height: 8px;
-          border-radius: 50%;
-          background: #F4A218;
-          box-shadow: 0 0 10px #F4A218;
-          animation: pauPulse 1.5s infinite;
-        }
-        @keyframes pauPulse {
-          0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.5); opacity: 0.4; }
+          margin-bottom: 30px;
         }
 
-        /* Cyber Title */
-        .pau-cyber-title {
+        /* Editorial Title */
+        .pau-editorial-title {
           font-family: 'Bricolage Grotesque', sans-serif;
-          font-size: clamp(3.5rem, 8.5vw, 7.5rem);
+          font-size: clamp(4rem, 10vw, 8.5rem);
           font-weight: 900;
           line-height: 1;
-          letter-spacing: -3px;
-          margin-bottom: 12px;
+          letter-spacing: -4px;
+          margin-bottom: 20px;
           display: flex;
-          flex-wrap: wrap;
           justify-content: center;
           align-items: center;
           gap: 20px;
-        }
-        .pau-title-234 {
-          color: #FFF;
-          text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+          color: #000;
         }
         .pau-title-x {
           color: #E84128;
-          text-shadow: 0 0 25px rgba(232, 65, 40, 0.8);
-        }
-        .pau-title-pau {
-          background: linear-gradient(90deg, #F4A218, #108C5A);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          filter: drop-shadow(0 0 25px rgba(16, 140, 90, 0.6));
+          font-weight: 400;
         }
 
-        .pau-cyber-sub {
-          font-family: 'Space Mono', monospace;
-          font-size: clamp(1.05rem, 2.5vw, 1.45rem);
+        .pau-editorial-sub {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: clamp(1.1rem, 2.5vw, 1.5rem);
           font-weight: 700;
-          color: #E84128;
-          letter-spacing: 0.12em;
-          margin-bottom: 34px;
+          color: #000;
+          letter-spacing: 0.05em;
+          margin-bottom: 40px;
         }
 
-        .pau-cyber-desc {
+        .pau-editorial-desc {
           max-width: 860px;
-          margin: 0 auto 50px;
+          margin: 0 auto 60px;
           font-family: 'Outfit', sans-serif;
-          font-size: clamp(1.15rem, 2.2vw, 1.35rem);
-          color: rgba(255, 255, 255, 0.85);
-          line-height: 1.7;
+          font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+          color: #333;
+          line-height: 1.6;
         }
-        .pau-cyber-desc strong {
-          color: #F4A218;
+        .pau-editorial-desc strong {
+          color: #000;
           font-weight: 800;
         }
 
-        /* Metrics Modules Grid */
-        .pau-modules-grid {
+        /* Bento Metrics Grid */
+        .pau-metrics-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
           gap: 20px;
-          margin-bottom: 70px;
+          margin-bottom: 100px;
         }
-        .pau-module {
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.12);
+        .pau-metric-box {
+          background: #fff;
+          border: 1px solid rgba(0, 0, 0, 0.08);
           border-radius: 20px;
-          padding: 26px 20px;
+          padding: 30px 20px;
           display: flex;
           flex-direction: column;
           align-items: center;
           transition: all 0.3s ease;
-          position: relative;
-          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
-        .pau-module::before {
-          content: '';
-          position: absolute;
-          top: 0; left: 0; right: 0;
-          height: 3px;
-        }
-        .pau-module--red::before { background: #E84128; }
-        .pau-module--yellow::before { background: #F4A218; }
-        .pau-module--green::before { background: #108C5A; }
-
-        .pau-module:hover {
+        .pau-metric-box:hover {
           transform: translateY(-6px);
-          background: rgba(255, 255, 255, 0.08);
-          border-color: rgba(255, 255, 255, 0.3);
+          box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+          border-color: rgba(0,0,0,0.15);
         }
-        .pau-module--red:hover { box-shadow: 0 15px 35px rgba(232, 65, 40, 0.25); }
-        .pau-module--yellow:hover { box-shadow: 0 15px 35px rgba(244, 162, 24, 0.25); }
-        .pau-module--green:hover { box-shadow: 0 15px 35px rgba(16, 140, 90, 0.25); }
 
         .pau-mod-tag {
-          font-family: 'Space Mono', monospace;
-          font-size: 0.72rem;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.8rem;
           font-weight: 700;
-          letter-spacing: 0.14em;
-          margin-bottom: 8px;
+          letter-spacing: 0.1em;
+          color: #E84128;
+          margin-bottom: 12px;
         }
-        .pau-module--red .pau-mod-tag { color: #E84128; }
-        .pau-module--yellow .pau-mod-tag { color: #F4A218; }
-        .pau-module--green .pau-mod-tag { color: #108C5A; }
 
         .pau-mod-value {
           font-family: 'Bricolage Grotesque', sans-serif;
-          font-size: 1.4rem;
-          font-weight: 900;
-          color: #FFF;
-          margin-bottom: 6px;
+          font-size: 1.6rem;
+          font-weight: 800;
+          color: #000;
+          margin-bottom: 8px;
         }
         .pau-mod-label {
-          font-size: 0.85rem;
-          color: rgba(255, 255, 255, 0.65);
+          font-size: 0.9rem;
+          color: #555;
           font-weight: 500;
-        }
-
-        /* Neon Ticker Wrap */
-        .pau-ticker-wrap {
-          background: linear-gradient(90deg, #E84128, #F4A218, #108C5A);
-          color: #000;
-          font-family: 'Space Mono', monospace;
-          font-weight: 800;
-          font-size: 0.88rem;
-          padding: 14px 0;
-          overflow: hidden;
-          white-space: nowrap;
-          position: relative;
-          z-index: 2;
-          transform: rotate(-1deg);
-          margin: 30px 0 80px;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        }
-        .pau-ticker-track {
-          display: inline-flex;
-          gap: 40px;
-          animation: pauTicker 20s linear infinite;
-        }
-        @keyframes pauTicker {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
         }
 
         /* Execution Section */
         .pau-exec-container {
-          position: relative;
-          z-index: 2;
-          margin-bottom: 90px;
+          margin-bottom: 100px;
         }
         .pau-section-badge {
           display: inline-block;
-          font-family: 'Space Mono', monospace;
-          font-size: 0.78rem;
-          color: #108C5A;
-          background: rgba(16, 140, 90, 0.15);
-          border: 1px solid #108C5A;
-          padding: 6px 18px;
-          border-radius: 100px;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.85rem;
+          color: #000;
+          border-bottom: 2px solid #E84128;
+          padding-bottom: 4px;
           font-weight: 700;
-          letter-spacing: 0.15em;
-          margin-bottom: 16px;
+          letter-spacing: 0.1em;
+          margin-bottom: 20px;
         }
         .pau-section-heading {
           font-family: 'Bricolage Grotesque', sans-serif;
-          font-size: clamp(2.4rem, 5vw, 4rem);
+          font-size: clamp(2.5rem, 5vw, 4rem);
           font-weight: 900;
           line-height: 1.1;
           letter-spacing: -1.5px;
-          margin-bottom: 50px;
-          text-align: center;
-        }
-        .pau-grad-text {
-          background: linear-gradient(90deg, #F4A218, #E84128);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
+          margin-bottom: 60px;
+          color: #000;
         }
 
         .pau-exec-cards {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 28px;
+          gap: 30px;
         }
-        .pau-cyber-card {
-          background: rgba(16, 22, 36, 0.85);
-          border: 1px solid rgba(255, 255, 255, 0.12);
+        .pau-editorial-card {
+          background: #fff;
+          border: 1px solid rgba(0, 0, 0, 0.08);
           border-radius: 24px;
-          padding: 38px 32px;
+          padding: 40px 32px;
           transition: all 0.35s ease;
-          position: relative;
-          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
-        .pau-cyber-card:hover {
+        .pau-editorial-card:hover {
           transform: translateY(-8px);
-          border-color: rgba(255, 255, 255, 0.35);
+          box-shadow: 0 20px 50px rgba(0,0,0,0.1);
         }
-        .pau-cyber-card--red:hover { box-shadow: 0 20px 50px rgba(232, 65, 40, 0.25); }
-        .pau-cyber-card--yellow:hover { box-shadow: 0 20px 50px rgba(244, 162, 24, 0.25); }
-        .pau-cyber-card--green:hover { box-shadow: 0 20px 50px rgba(16, 140, 90, 0.25); }
 
         .pau-card-hud {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 22px;
+          margin-bottom: 24px;
         }
         .pau-hud-num {
           font-family: 'Bricolage Grotesque', sans-serif;
-          font-size: 1.8rem;
+          font-size: 2rem;
           font-weight: 900;
-          line-height: 1;
+          color: #E84128;
         }
-        .pau-cyber-card--red .pau-hud-num { color: #E84128; }
-        .pau-cyber-card--yellow .pau-hud-num { color: #F4A218; }
-        .pau-cyber-card--green .pau-hud-num { color: #108C5A; }
-
         .pau-hud-tag {
-          font-family: 'Space Mono', monospace;
-          font-size: 0.75rem;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.8rem;
           font-weight: 700;
-          color: rgba(255, 255, 255, 0.55);
-          letter-spacing: 0.12em;
+          color: #888;
+          letter-spacing: 0.1em;
         }
         .pau-card-title {
           font-family: 'Bricolage Grotesque', sans-serif;
-          font-size: 1.6rem;
+          font-size: 1.8rem;
           font-weight: 800;
-          color: #FFF;
-          margin-bottom: 14px;
+          color: #000;
+          margin-bottom: 16px;
         }
         .pau-card-desc {
           font-family: 'Outfit', sans-serif;
-          font-size: 1.05rem;
-          color: rgba(255, 255, 255, 0.75);
-          line-height: 1.65;
+          font-size: 1.1rem;
+          color: #555;
+          line-height: 1.6;
           margin: 0;
         }
 
         /* Gallery Container */
         .pau-gallery-container {
-          position: relative;
-          z-index: 2;
+          margin-bottom: 50px;
         }
         .pau-gallery-sub {
           font-family: 'Outfit', sans-serif;
-          font-size: 1.15rem;
-          color: rgba(255, 255, 255, 0.7);
+          font-size: 1.2rem;
+          color: #555;
           max-width: 650px;
-          margin: 12px auto 0;
+          margin: 16px auto 0;
         }
 
-        /* CLEAN GRID WITH NO TEXT OVERLAYS ON IMAGES */
+        /* CLEAN GRID */
         .pau-clean-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 24px;
-          margin-top: 50px;
+          margin-top: 60px;
         }
         .pau-clean-frame {
-          border-radius: 22px;
+          border-radius: 20px;
           overflow: hidden;
-          background: #000;
+          background: #e0e0e0;
           position: relative;
           aspect-ratio: 4 / 3;
           transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-          border: 2px solid rgba(255, 255, 255, 0.15);
         }
-        .pau-frame--red { border-color: rgba(232, 65, 40, 0.5); }
-        .pau-frame--yellow { border-color: rgba(244, 162, 24, 0.5); }
-        .pau-frame--green { border-color: rgba(16, 140, 90, 0.5); }
-
         .pau-clean-frame:hover {
           transform: translateY(-8px) scale(1.02);
           z-index: 5;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
-        .pau-frame--red:hover {
-          border-color: #E84128;
-          box-shadow: 0 20px 50px rgba(232, 65, 40, 0.45);
-        }
-        .pau-frame--yellow:hover {
-          border-color: #F4A218;
-          box-shadow: 0 20px 50px rgba(244, 162, 24, 0.45);
-        }
-        .pau-frame--green:hover {
-          border-color: #108C5A;
-          box-shadow: 0 20px 50px rgba(16, 140, 90, 0.45);
-        }
-
         .pau-span-2 {
           grid-column: span 2;
         }
@@ -576,34 +438,69 @@
           height: 100%;
           object-fit: cover;
           display: block;
-          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+          filter: grayscale(80%) contrast(1.1);
         }
         .pau-clean-frame:hover img {
           transform: scale(1.05);
+          filter: grayscale(0%) contrast(1);
         }
 
         /* Back button */
         .pau-back-btn {
           display: inline-flex;
           align-items: center;
-          gap: 12px;
-          background: transparent;
+          background: #000;
           color: #FFF;
-          border: 2px solid #FFF;
-          padding: 14px 36px;
+          padding: 16px 40px;
           border-radius: 100px;
           font-family: 'Space Grotesk', sans-serif;
           font-weight: 700;
-          font-size: 0.95rem;
-          letter-spacing: 0.08em;
+          font-size: 1rem;
+          letter-spacing: 0.1em;
           text-decoration: none;
           transition: all 0.3s ease;
         }
         .pau-back-btn:hover {
-          background: #FFF;
-          color: #000;
-          box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+          background: #E84128;
           transform: translateY(-3px);
+          box-shadow: 0 10px 30px rgba(232, 65, 40, 0.3);
+        }
+
+        /* FOOTER */
+        .editorial-footer {
+          background: #F4F1E9;
+          border-top: 1px solid rgba(0,0,0,0.1);
+          padding: 80px 20px 40px;
+        }
+        .footer-title {
+          font-family: 'Bricolage Grotesque', sans-serif;
+          font-size: 3rem;
+          font-weight: 900;
+          color: #000;
+          margin-bottom: 30px;
+        }
+        .footer-links {
+          display: flex;
+          justify-content: center;
+          gap: 30px;
+          margin-bottom: 40px;
+        }
+        .footer-links a {
+          color: #000;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.9rem;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-decoration: none;
+        }
+        .footer-links a:hover {
+          color: #E84128;
+        }
+        .footer-copy {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.8rem;
+          color: #888;
         }
 
         @media (max-width: 992px) {
@@ -613,255 +510,10 @@
         @media (max-width: 600px) {
           .pau-clean-grid { grid-template-columns: 1fr; }
           .pau-span-2 { grid-column: span 1; }
+          .pau-editorial-title { flex-direction: column; gap: 0; }
+          .footer-links { flex-direction: column; gap: 15px; }
         }
       </style>
-
-      <!-- ULTRA-FUTURISTIC CYBER-DECK COMMAND FOOTER -->
-      <footer class="cyber-deck-footer">
-        <div class="cd-laser-scanner"></div>
-        <div class="cd-grid-bg"></div>
-
-        <div class="cd-container">
-          <!-- Top HUD Status Bar -->
-          <div class="cd-hud-top">
-            <div class="cd-hud-left">
-              <span class="cd-pulse-dot"></span>
-              <span class="cd-status-text">SYSTEM COMM-LINK // HIGH-BANDWIDTH</span>
-            </div>
-            <div class="cd-hud-center">
-              <span id="cf-lagos-clock" class="cd-clock">00:00:00 WAT // LAGOS, NG</span>
-            </div>
-            <div class="cd-hud-right">
-              <span class="cd-tag">[ CORE: ONLINE ]</span>
-            </div>
-          </div>
-
-          <!-- Dramatic Center Command Title -->
-          <div class="cd-center-title">
-            <div class="cd-sub">[ DIRECT COMMUNICATION PORTAL ]</div>
-            <h2 class="cd-main-title">
-              234<span class="c-red">.</span>HQ
-              <span class="cd-glow-text">CONNECT</span>
-            </h2>
-          </div>
-
-          <!-- Futuristic Small Cyber-Pill Dock (SMALL GLASS PILLS) -->
-          <div class="cd-pills-dock">
-            <!-- Instagram -->
-            <a href="https://instagram.com/234.hq" target="_blank" class="cd-pill cd-pill--ig">
-              <span class="cd-pill-tag">[ IG ]</span>
-              <span class="cd-pill-value">@234.hq</span>
-              <span class="cd-pill-arrow">↗</span>
-            </a>
-
-            <!-- Email -->
-            <a href="mailto:234groupinfo@gmail.com" class="cd-pill cd-pill--mail">
-              <span class="cd-pill-tag">[ MAIL ]</span>
-              <span class="cd-pill-value">234groupinfo@gmail.com</span>
-              <span class="cd-pill-arrow">↗</span>
-            </a>
-
-            <!-- Phone / WhatsApp -->
-            <a href="tel:+2348103236094" class="cd-pill cd-pill--tel">
-              <span class="cd-pill-tag">[ TEL ]</span>
-              <span class="cd-pill-value">+234 810 323 6094</span>
-              <span class="cd-pill-arrow">↗</span>
-            </a>
-          </div>
-
-          <!-- Bottom Telemetry Bar -->
-          <div class="cd-bottom-bar">
-            <span>© 2025 234AFRICA // ALL RIGHTS RESERVED</span>
-            <span class="cd-sys-code">SYS_VER: 234.3.0_CYBER // LAGOS PORTAL</span>
-          </div>
-        </div>
-      </footer>
-
-      <style>
-        .cyber-deck-footer {
-          position: relative;
-          background: #020306;
-          border-top: 1px solid rgba(255, 255, 255, 0.15);
-          padding: 60px 4vw 28px;
-          overflow: hidden;
-          font-family: 'Outfit', sans-serif;
-          color: #fff;
-        }
-        .cd-grid-bg {
-          position: absolute;
-          inset: 0;
-          background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-          background-size: 32px 32px;
-          pointer-events: none;
-        }
-        .cd-laser-scanner {
-          position: absolute;
-          top: 0; left: 0;
-          width: 30%;
-          height: 2px;
-          background: linear-gradient(90deg, transparent, #E84128, #F4A218, #108C5A, transparent);
-          box-shadow: 0 0 15px rgba(244,162,24,0.8), 0 0 30px rgba(232,65,40,0.5);
-          animation: laserScan 4s ease-in-out infinite alternate;
-        }
-        @keyframes laserScan {
-          0% { left: -10%; }
-          100% { left: 80%; }
-        }
-        .cd-container {
-          position: relative;
-          max-width: 1150px;
-          margin: 0 auto;
-          z-index: 2;
-        }
-        .cd-hud-top {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          padding-bottom: 16px;
-          margin-bottom: 44px;
-          font-family: 'Space Mono', monospace, 'Outfit', sans-serif;
-          font-size: 0.72rem;
-          color: rgba(255, 255, 255, 0.55);
-          letter-spacing: 0.12em;
-        }
-        .cd-hud-left {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          color: #108C5A;
-          font-weight: 700;
-        }
-        .cd-pulse-dot {
-          width: 8px; height: 8px;
-          background: #108C5A;
-          border-radius: 50%;
-          box-shadow: 0 0 10px #108C5A;
-          animation: cdPulse 1.5s infinite;
-        }
-        @keyframes cdPulse {
-          0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.4); opacity: 0.4; }
-        }
-        .cd-clock {
-          color: #F4A218;
-          font-weight: 700;
-        }
-        .cd-tag {
-          color: rgba(255, 255, 255, 0.4);
-        }
-        .cd-center-title {
-          text-align: center;
-          margin-bottom: 48px;
-        }
-        .cd-sub {
-          font-family: 'Space Mono', monospace;
-          font-size: 0.7rem;
-          color: #F4A218;
-          letter-spacing: 0.25em;
-          margin-bottom: 10px;
-          text-transform: uppercase;
-        }
-        .cd-main-title {
-          font-family: 'Bricolage Grotesque', sans-serif;
-          font-size: clamp(2.8rem, 7vw, 5.2rem);
-          font-weight: 900;
-          line-height: 1;
-          text-transform: uppercase;
-          letter-spacing: -2px;
-          margin: 0;
-        }
-        .cd-glow-text {
-          background: linear-gradient(90deg, #E84128, #F4A218, #108C5A);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          filter: drop-shadow(0 0 12px rgba(232, 65, 40, 0.35));
-        }
-        .cd-pills-dock {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 20px;
-          margin-bottom: 60px;
-        }
-        .cd-pill {
-          display: inline-flex;
-          align-items: center;
-          gap: 14px;
-          padding: 14px 28px;
-          background: rgba(255, 255, 255, 0.035);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          border-radius: 100px;
-          text-decoration: none;
-          color: #fff;
-          font-family: 'Outfit', sans-serif;
-          font-size: 0.95rem;
-          font-weight: 600;
-          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-          backdrop-filter: blur(10px);
-          position: relative;
-          overflow: hidden;
-        }
-        .cd-pill-tag {
-          font-family: 'Space Mono', monospace;
-          font-size: 0.68rem;
-          font-weight: 700;
-          color: #F4A218;
-          letter-spacing: 0.1em;
-          opacity: 0.9;
-        }
-        .cd-pill-value {
-          font-size: 0.95rem;
-          letter-spacing: 0.02em;
-        }
-        .cd-pill-arrow {
-          font-size: 1.1rem;
-          opacity: 0.5;
-          transition: transform 0.2s ease, opacity 0.2s ease;
-        }
-        .cd-pill:hover {
-          transform: translateY(-4px) scale(1.04);
-          background: rgba(255, 255, 255, 0.07);
-        }
-        .cd-pill--ig:hover {
-          border-color: #FF2E93;
-          box-shadow: 0 0 25px rgba(255, 46, 147, 0.45), inset 0 0 15px rgba(255, 46, 147, 0.15);
-        }
-        .cd-pill--mail:hover {
-          border-color: #108C5A;
-          box-shadow: 0 0 25px rgba(16, 140, 90, 0.45), inset 0 0 15px rgba(16, 140, 90, 0.15);
-        }
-        .cd-pill--tel:hover {
-          border-color: #F4A218;
-          box-shadow: 0 0 25px rgba(244, 162, 24, 0.45), inset 0 0 15px rgba(244, 162, 24, 0.15);
-        }
-        .cd-pill:hover .cd-pill-arrow {
-          opacity: 1;
-          transform: translate(3px, -3px);
-        }
-        .cd-bottom-bar {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
-          padding-top: 24px;
-          font-family: 'Space Mono', monospace;
-          font-size: 0.68rem;
-          color: rgba(255, 255, 255, 0.4);
-          letter-spacing: 0.08em;
-        }
-        @media (max-width: 768px) {
-          .cyber-deck-footer { padding: 40px 20px 24px; }
-          .cd-hud-top { flex-direction: column; align-items: flex-start; gap: 8px; }
-          .cd-pills-dock { flex-direction: column; width: 100%; gap: 12px; }
-          .cd-pill { width: 100%; justify-content: space-between; padding: 16px 22px; }
-          .cd-bottom-bar { flex-direction: column; gap: 8px; text-align: center; }
-        }
-      </style>
-
     </div>
   </div>
 
