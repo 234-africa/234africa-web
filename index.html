@@ -517,7 +517,7 @@
         <div class="hud-meta-box">
           <div class="hud-meta-line">
             <span class="hud-meta-key">COLLAB:</span>
-            <span class="hud-meta-val">PIANO AFTER DARK (PVW) × DIVINE</span>
+            <span class="hud-meta-val">234 AFRICA x PIANO AFTER DARK (PVW) × DIVINE</span>
           </div>
           <div class="hud-meta-line">
             <span class="hud-meta-key">ATTENDANCE:</span>
@@ -1005,45 +1005,42 @@
       234<span class="ghost-amber">×</span>PAU
     </h2>
 
-    <!-- Free-Floating Content Nodes -->
-    <div class="pau-nodes-wrapper">
+    <!-- Bento Grid Content Nodes -->
+    <div class="pau-bento-grid">
       
-      <!-- Node: Main Description (Center Left) -->
-      <div class="pau-node node-desc" data-speed="1.5">
+      <!-- Node: Main Description -->
+      <div class="bento-box bento-desc">
         <div class="node-badge">OFFICIAL UNIVERSITY LAB</div>
-        <p>We were officially tapped by Pan-Atlantic University to architect and execute the ultimate Freshers' Party. We didn't just show up to campus, we were trusted to bring the heat, set the standard, and deliver an unforgettable student experience from the ground up.</p>
+        <p>We were officially tapped by Pan-Atlantic University to architect and execute the ultimate Freshers' Party. We didn't just show up to the campus, we were trusted to bring the heat, set the standard, and deliver an unforgettable student experience from the ground up.</p>
       </div>
 
-      <!-- Node: Stat 1 (Top Right) -->
-      <div class="pau-node node-stat stat-1" data-speed="2.5">
-        <div class="stat-hologram">
-          <span class="stat-num">2.2K+</span>
-          <span class="stat-label">CREATIVES</span>
-        </div>
+      <!-- Node: Image -->
+      <div class="bento-box bento-img">
+        <img src="assets/pau/pau-2.jpg" alt="PAU Freshers Party" />
       </div>
 
-      <!-- Node: Stat 2 (Bottom Left) -->
-      <div class="pau-node node-stat stat-2" data-speed="1.8">
-        <div class="stat-hologram">
-          <span class="stat-num">01</span>
-          <span class="stat-label">ACTIVE NODE</span>
-        </div>
+      <!-- Node: Stat 1 -->
+      <div class="bento-box bento-stat stat-1-bento">
+        <span class="stat-num">2.2K+</span>
+        <span class="stat-label">CREATIVES</span>
       </div>
 
-      <!-- Node: Stat 3 (Bottom Center) -->
-      <div class="pau-node node-stat stat-3" data-speed="2.2">
-        <div class="stat-hologram">
-          <span class="stat-num">100%</span>
-          <span class="stat-label">IMPACT</span>
-        </div>
+      <!-- Node: Stat 2 -->
+      <div class="bento-box bento-stat stat-2-bento">
+        <span class="stat-num">01</span>
+        <span class="stat-label">ACTIVE NODE</span>
       </div>
 
-      <!-- Node: CTA Pill (Bottom Right) -->
-      <a href="pau.html" class="pau-node node-cta" data-speed="1.1">
-        <div class="glass-pill-cta">
-          <span>ACCESS PORTAL</span>
-          <div class="cta-pulse"></div>
-        </div>
+      <!-- Node: Stat 3 -->
+      <div class="bento-box bento-stat stat-3-bento">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">IMPACT</span>
+      </div>
+
+      <!-- Node: CTA Pill -->
+      <a href="pau.html" class="bento-box bento-cta">
+        <span>ACCESS PORTAL</span>
+        <div class="cta-pulse"></div>
       </a>
 
     </div>
@@ -1149,119 +1146,134 @@
       -webkit-text-stroke: 2px rgba(244, 162, 24, 0.6);
     }
 
-    /* Floating Nodes Wrapper */
-    .pau-nodes-wrapper {
+    /* Bento Grid Wrapper */
+    .pau-bento-grid {
+      display: grid;
+      grid-template-areas:
+        "desc desc img"
+        "stat1 stat2 img"
+        "stat3 cta cta";
+      grid-template-columns: 1fr 1fr 1.2fr;
+      gap: 20px;
       position: relative;
       width: 100%;
-      height: 100%;
-      min-height: 500px;
-      margin-top: 60px;
-      z-index: 2; /* Ensure it stays above the ghost title */
+      max-width: 1100px;
+      margin: 60px auto 0;
+      z-index: 2; /* Sit above the ghost title */
     }
-
-    .pau-node {
-      position: absolute;
-      transition: transform 0.2s cubic-bezier(0.1, 1, 0.2, 1);
-      will-change: transform;
-    }
-
-    /* Main Description Node */
-    .node-desc {
-      bottom: 0;
-      left: 0;
-      width: 360px;
-      max-width: 90%;
-      padding: 30px;
-      background: rgba(0, 0, 0, 0.03); /* Very faint dark glass */
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,0.05);
+    
+    .bento-box {
+      background: rgba(0, 0, 0, 0.03);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 0, 0, 0.05);
       border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: all 0.4s cubic-bezier(0.1, 1, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      padding: 30px;
     }
-    .node-desc .node-badge {
+    .bento-box:hover {
+      transform: translateY(-5px);
+      border-color: rgba(244, 162, 24, 0.2);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+    }
+    
+    /* Box 1: Description */
+    .bento-desc {
+      grid-area: desc;
+      border-left: 3px solid #00F58C;
+    }
+    .bento-desc .node-badge {
       font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: #00F58C; /* Kept neon green for pop */
+      font-size: 0.75rem;
+      color: #00F58C;
       letter-spacing: 0.1em;
       margin-bottom: 15px;
       text-transform: uppercase;
     }
-    .node-desc p {
+    .bento-desc p {
       font-family: 'Outfit', sans-serif;
       font-size: 1.1rem;
-      color: rgba(0,0,0,0.75);
+      color: rgba(0,0,0,0.8);
       line-height: 1.6;
       margin: 0;
     }
 
-    /* Holographic Stat Nodes */
-    .node-stat .stat-hologram {
-      display: flex;
-      flex-direction: column;
+    /* Box 2: Image */
+    .bento-img {
+      grid-area: img;
+      padding: 0; /* No padding so image goes edge-to-edge */
+      background: #000;
+      border: none;
+    }
+    .bento-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: all 0.5s ease;
+    }
+    .bento-img:hover img {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    
+    /* Boxes 3-5: Stats */
+    .bento-stat {
       align-items: center;
-      justify-content: center;
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      border: 1px dashed rgba(244, 162, 24, 0.6);
-      background: radial-gradient(circle, rgba(244, 162, 24, 0.08) 0%, transparent 70%);
-      backdrop-filter: blur(4px);
-      box-shadow: inset 0 0 20px rgba(244, 162, 24, 0.1);
-      transition: all 0.4s;
+      text-align: center;
+      padding: 20px;
     }
-    .node-stat:hover .stat-hologram {
-      border: 1px solid #F4A218;
-      box-shadow: 0 0 30px rgba(244, 162, 24, 0.3), inset 0 0 30px rgba(244, 162, 24, 0.2);
-      transform: scale(1.1);
+    .stat-1-bento { grid-area: stat1; }
+    .stat-2-bento { grid-area: stat2; }
+    .stat-3-bento { grid-area: stat3; }
+
+    .bento-stat:hover {
+      border-color: rgba(244, 162, 24, 0.5);
+      background: rgba(244, 162, 24, 0.02);
     }
-    .stat-num {
+    .bento-stat .stat-num {
       font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 2.2rem;
+      font-size: 2.8rem;
       font-weight: 800;
       color: #000;
       line-height: 1;
-      text-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    .stat-label {
+    .bento-stat .stat-label {
       font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       color: #F4A218;
       letter-spacing: 0.1em;
-      margin-top: 8px;
-    }
-
-    /* Stat Placements */
-    .stat-1 { top: -5%; right: 10%; }
-    .stat-2 { top: 12%; left: 2%; }
-    .stat-3 { bottom: 15%; left: 45%; }
-
-    /* CTA Node */
-    .node-cta {
-      bottom: 0;
-      right: 0;
-      text-decoration: none;
-    }
-    .glass-pill-cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px 36px;
-      border-radius: 100px;
-      background: rgba(244, 162, 24, 0.1);
-      border: 1px solid rgba(0,0,0,0.2);
-      color: #000;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.9rem;
-      letter-spacing: 0.15em;
+      margin-top: 10px;
       text-transform: uppercase;
-      backdrop-filter: blur(10px);
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s;
     }
-    .glass-pill-cta:hover {
-      background: #F4A218;
+    
+    /* Box 6: CTA */
+    .bento-cta {
+      grid-area: cta;
+      align-items: center;
+      background: rgba(244, 162, 24, 0.08);
+      border: 1px dashed rgba(244, 162, 24, 0.3);
+      text-decoration: none;
+      padding: 25px;
+      cursor: pointer;
+    }
+    .bento-cta span {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.1rem;
       color: #000;
-      box-shadow: 0 0 30px rgba(244, 162, 24, 0.3);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      position: relative;
+      z-index: 2;
+    }
+    .bento-cta:hover {
+      background: rgba(244, 162, 24, 0.15);
+      border-style: solid;
     }
     .cta-pulse {
       position: absolute;
@@ -1273,29 +1285,27 @@
       opacity: 0;
       transition: all 0.5s;
     }
-    .glass-pill-cta:hover .cta-pulse {
-      width: 200px; height: 200px;
-      opacity: 0.1;
+    .bento-cta:hover .cta-pulse {
+      width: 300px; height: 300px;
+      opacity: 0.05;
     }
 
     /* Responsive adjustments */
     @media (max-width: 900px) {
+      .pau-bento-grid {
+        grid-template-areas:
+          "img img"
+          "desc desc"
+          "stat1 stat2"
+          "stat3 cta";
+        grid-template-columns: 1fr 1fr;
+      }
+      .bento-img { min-height: 250px; }
+
       .pau-floating-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-      }
-      .pau-nodes-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 40px;
-        margin-top: 20px;
-      }
-      .pau-node {
-        position: relative !important;
-        top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
-        transform: none !important;
       }
       .pau-ghost-title {
         position: relative;
@@ -1312,7 +1322,19 @@
       }
       .pau-network-lines { display: none; /* Hide lines on mobile */ }
       .pau-floating-arena { padding: 60px 5vw; }
-      .node-desc { width: 100%; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .pau-bento-grid {
+        grid-template-areas:
+          "img"
+          "desc"
+          "stat1"
+          "stat2"
+          "stat3"
+          "cta";
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 
@@ -1321,7 +1343,7 @@
       const arena = document.getElementById('pauCampusSection');
       if (!arena) return;
       
-      const nodes = arena.querySelectorAll('[data-speed]');
+      const nodes = arena.querySelectorAll('.bento-box');
       const paths = arena.querySelectorAll('.network-path');
 
       // Parallax effect
